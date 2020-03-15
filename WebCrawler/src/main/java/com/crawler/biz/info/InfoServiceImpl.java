@@ -17,6 +17,10 @@ public class InfoServiceImpl implements InfoService{
 		infoDAO.insertInfo(vo);
 	}
 	@Override
+	public InfoVO getInfo(InfoVO vo) {
+		return infoDAO.getInfo(vo);
+	}
+	@Override
 	public List<InfoVO> getInfoList(InfoVO vo) {
 		return infoDAO.getInfoList(vo);
 	}
