@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<!-- HandlerMapping 등록 -->
-	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<props>
-				<prop key="/getInfoList.do">getInfoList</prop>
-				<prop key="/getInfo.do">getInfo</prop>
-				<prop key="/crawlerConfirm.do">crawlerConfirm</prop>
-				<prop key="/crawlerAdd_proc.do">crawlerAdd</prop>
-			</props>
-		</property>
-	</bean>
-	
-	<!-- Controller 등록 -->
-	<bean id="getInfoList" class="com.crawler.view.info.GetInfoListController"></bean>
-	<bean id="getInfo" class="com.crawler.view.info.GetInfoController"></bean>
-	<bean id="crawlerConfirm" class="com.crawler.view.info.CrawlerConfirmController"></bean>
-	<bean id="crawlerAdd" class="com.crawler.view.info.CrawlerAddController"></bean>
-
-	<!-- ViewResolver 등록 -->
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/WCrawl/"></property>
-		<property name="suffix" value=".jsp"></property>
-	</bean>
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<context:component-scan base-package="com.crawler.view"/>
 </beans>
