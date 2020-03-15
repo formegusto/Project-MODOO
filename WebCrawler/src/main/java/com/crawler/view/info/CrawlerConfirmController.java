@@ -4,18 +4,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
 import com.crawler.biz.common.WCrawl;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.info.InfoVO;
-import com.crawler.view.controller.Controller;
 
 public class CrawlerConfirmController implements Controller {
 
 	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("[MVC Framework] 크롤러 확인 페이지 처리");
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("[Spring MVC Framework] 크롤러 확인 페이지 처리");
 		// 1. 사용자 입력 정보 추출
 		String title = request.getParameter("title");
 		String link = request.getParameter("link");
@@ -30,10 +31,11 @@ public class CrawlerConfirmController implements Controller {
 		List<DataVO> dataList = WCrawl.getData(vo);
 		
 		// 3.session에 객체 저장
-		HttpSession session = request.getSession();
-		session.setAttribute("info", vo);
-		session.setAttribute("dataList", dataList);
-		return "crawlerConfirm";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("info",vo);
+		mav.addObject("dataList", dataList);
+		mav.setViewName("crawlerConfirm");
+		return mav;
 	}
 
 }

@@ -6,17 +6,19 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataDAO;
 import com.crawler.biz.info.InfoVO;
 import com.crawler.biz.info.impl.InfoDAO;
-import com.crawler.view.controller.Controller;
 
 public class CrawlerAddController implements Controller {
 
 	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("[MVC Framework] 크롤러 및 데이터 등록 처리");
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("[Spring MVC Framework] 크롤러 및 데이터 등록 처리");
 		// 1. 사용자 입력 정보 추출
 		String title = request.getParameter("title");
 		String link = request.getParameter("link");
@@ -43,7 +45,9 @@ public class CrawlerAddController implements Controller {
 		dataDAO.insertData(dataList);
 		
 		// 4. 화면 네비게이션
-		return "getInfoList.do";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:getInfoList.do");
+		return mav;
 	}
 
 }
