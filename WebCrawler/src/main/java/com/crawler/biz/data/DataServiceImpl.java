@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.crawler.biz.data.impl.DataDAO;
+import com.crawler.biz.data.impl.DataDAOMybatis;
 import com.crawler.biz.data.impl.DataService;
 
 @Service("dataService")
 public class DataServiceImpl implements DataService {
 	@Autowired
-	DataDAO dataDAO;
+	DataDAOMybatis dataDAO;
 	
 	@Override
 	public void insertData(DataVO vo) {

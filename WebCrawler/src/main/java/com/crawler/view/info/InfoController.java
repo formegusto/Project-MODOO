@@ -32,7 +32,7 @@ public class InfoController {
 	}
 	
 	// 크롤러 리스트 보기
-	@RequestMapping("/getInfoList.do")
+	@RequestMapping(value="/getInfoList.do")
 	public String getInfoList(InfoVO vo, Model model) {
 		System.out.println("[Spring Service MVC Framework] 크롤러 목록 검색 처리");
 		// 1. 사용자 입력 정보 추출

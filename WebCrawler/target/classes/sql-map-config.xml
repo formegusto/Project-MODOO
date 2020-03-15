@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- Alias 설정 -->
+	<typeAliases>
+		<typeAlias type="com.crawler.biz.info.InfoVO" alias="info"></typeAlias>
+		<typeAlias type="com.crawler.biz.data.DataVO" alias="data"></typeAlias>
+	</typeAliases>
+	
+	<!-- Sql Mapper 설정 -->
+	<mappers>
+		<mapper resource="mappings/info-mapping.xml" />
+		<mapper resource="mappings/data-mapping.xml" />
+	</mappers>
+</configuration>

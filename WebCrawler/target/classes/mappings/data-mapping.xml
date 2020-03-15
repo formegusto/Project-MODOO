@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DataDAO">
+	<insert id="insertData">
+		insert into data(inum,data)
+		values((SELECT ifnull(max(seq), 0) + 0 FROM info a),#{data });
+	</insert>
+	<select id="getData" resultType="data">
+		<![CDATA[
+			SELECT *
+			FROM DATA
+			WHERE INUM=#{inum}
+		]]>
+	</select>
+	<select id="getDataList" resultType="data">
+		<![CDATA[
+			SELECT *
+			FROM INFO
+			ORDER BY INUM DESC
+		]]>
+	</select>
+</mapper>

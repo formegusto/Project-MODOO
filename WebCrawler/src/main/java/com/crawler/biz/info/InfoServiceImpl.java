@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.crawler.biz.info.impl.InfoDAO;
+import com.crawler.biz.info.impl.InfoDAOMybatis;
 import com.crawler.biz.info.impl.InfoService;
 
 @Service("infoService")
 public class InfoServiceImpl implements InfoService{
 	@Autowired
-	private InfoDAO infoDAO;
+	private InfoDAOMybatis infoDAO;
 	@Override
 	public void insertInfo(InfoVO vo) {
 		infoDAO.insertInfo(vo);
