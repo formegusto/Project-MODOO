@@ -20,6 +20,7 @@
 </div>
 <center>
 	<h1>Crawler Add Page</h1>
+	<h2>By ${user.name }</h2>
 	<hr/>
 	<form method="post" action="crawlerConfirm.do">
 	<table id=fieldForm border="1">

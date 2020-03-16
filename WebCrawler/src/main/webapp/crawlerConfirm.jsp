@@ -24,9 +24,10 @@
 	<img id="loading-image" src="images/viewLoading.gif" alt="Loading..."/>
 </div>
 <center>
-	<h1>Crawler Confirm Page</h1>
-	<hr/>
+	
 <form method="post" action="crawlerAdd_proc.do">
+	<h1>Crawler Confirm Page</h1>
+	<h2>By ${user.name }</h2>
 	<hr/>
 	<h1>${info.title }<input type="hidden" name="title" value="${info.title }"/></h1>
 	<h2>${info.link }<input type="hidden" name="link" value="${info.link }"/></h2><br/>

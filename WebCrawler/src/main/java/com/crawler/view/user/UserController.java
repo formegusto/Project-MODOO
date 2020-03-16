@@ -1,5 +1,7 @@
 package com.crawler.view.user;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +17,14 @@ public class UserController {
 	
 	//유저 조회(로그인)
 	@RequestMapping(value="/login.do")
-	public String login(UserVO vo, Model model) {
+	public String login(UserVO vo, HttpSession session) {
 		System.out.println("[Spring Service MVC Framework] 로그인 페이지 처리");
 		UserVO user = userService.getUser(vo);
 		if(user == null) {
 			System.out.println("로그인실패");
 			return "login.jsp";
 		} else {
-			model.addAttribute("user", user);
+			session.setAttribute("user", user);
 			return "getInfoList.do";
 		}
 	}

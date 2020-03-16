@@ -3,6 +3,8 @@ package com.crawler.view.crawler;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
 import com.crawler.biz.info.InfoVO;
 import com.crawler.biz.info.impl.InfoService;
+import com.crawler.biz.user.UserVO;
 
 @Controller
 public class CrawlerController {
@@ -36,10 +39,11 @@ public class CrawlerController {
 	
 	// 크롤러 정보 등록
 	@RequestMapping(value="/crawlerAdd_proc.do")
-	public String crawlAdd(@RequestParam(value="data", required=true) List<String> datas ,InfoVO ivo) {
+	public String crawlAdd(@RequestParam(value="data", required=true) List<String> datas ,InfoVO ivo, HttpSession session) {
 		System.out.println("[Spring Service request param MVC Framework] 크롤러 및 데이터 등록 처리");
 		// 1. 사용자 입력 정보 추출
 		// 2. DB 연동 처리 (info)
+		ivo.setId(((UserVO)session.getAttribute("user")).getId());
 		infoService.insertInfo(ivo);
 		
 		// 3. DB 연동 처리 (data)
@@ -52,6 +56,6 @@ public class CrawlerController {
 		dataService.insertData(dataList);
 		
 		// 4. 화면 네비게이션
-		return "redirect:getInfoList.do";
+		return "getInfoList.do";
 	}
 }
