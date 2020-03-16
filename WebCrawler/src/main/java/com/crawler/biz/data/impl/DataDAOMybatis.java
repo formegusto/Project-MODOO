@@ -13,25 +13,26 @@ public class DataDAOMybatis {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
+	//DATA ë“±ë¡
 	public void insertData(DataVO vo) {
-		System.out.println("===> Mybatis·Î insertData() ±â´É Ã³¸®");
+		System.out.println("===> Mybatisï¿½ï¿½ insertData() ë“±ë¡ ê¸°ëŠ¥ ì²˜ë¦¬");
 		mybatis.insert("DataDAO.insertData", vo);
 	}
 	
-	//DATA(List) µî·Ï
+	//DATA(List) ë“±ë¡
 	public void insertData(List<DataVO> dataList) {
-		System.out.println("===> Mybatis·Î insertData(List) ±â´É Ã³¸®");
+		System.out.println("===> Mybatisï¿½ï¿½ insertData(List) ë“±ë¡ ê¸°ëŠ¥ ì²˜ë¦¬");
 		for(DataVO vo : dataList)
 			insertData(vo);
 	}
 	
 	public List<DataVO> getData(DataVO vo) {
-		System.out.println("===> Mybatis·Î getData() ±â´É Ã³¸®");
+		System.out.println("===> Mybatisï¿½ï¿½ getData() ì¡°íšŒ ê¸°ëŠ¥ ì²˜ë¦¬");
 		return mybatis.selectList("DataDAO.getData", vo);
 	}
 	
 	public List<DataVO> getDataList(DataVO vo) {
-		System.out.println("===> Mybatis·Î getDataList() ±â´É Ã³¸®");
+		System.out.println("===> Mybatisï¿½ï¿½ getDataList() ì¡°íšŒ ê¸°ëŠ¥ ì²˜ë¦¬");
 		return mybatis.selectList("DataDAO.getDataList", vo);
 	}
 }

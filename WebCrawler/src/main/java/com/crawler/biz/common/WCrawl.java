@@ -13,7 +13,7 @@ import com.crawler.biz.info.InfoVO;
 
 public class WCrawl {
 	public static ArrayList<DataVO> getData(InfoVO vo){
-		System.out.println("===> WCrawl getData(vo) ±â´É Ã³¸®");
+		System.out.println("===> WCrawl getData(vo) í¬ë¡¤ë§ ê¸°ëŠ¥ ì²˜ë¦¬");
 		Document doc;
 		try {
 			doc = Jsoup.connect(vo.getLink()).get();

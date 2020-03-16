@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.crawler.biz.user.UserVO;
@@ -15,13 +14,13 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	//À¯Àú Á¶È¸(·Î±×ÀÎ)
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸(ï¿½Î±ï¿½ï¿½ï¿½)
 	@RequestMapping(value="/login.do")
 	public String login(UserVO vo, HttpSession session) {
-		System.out.println("[Spring Service MVC Framework] ·Î±×ÀÎ ÆäÀÌÁö Ã³¸®");
+		System.out.println("[Spring Service MVC Framework] ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½");
 		UserVO user = userService.getUser(vo);
 		if(user == null) {
-			System.out.println("·Î±×ÀÎ½ÇÆÐ");
+			System.out.println("ï¿½Î±ï¿½ï¿½Î½ï¿½ï¿½ï¿½");
 			return "login.jsp";
 		} else {
 			session.setAttribute("user", user);
@@ -29,12 +28,12 @@ public class UserController {
 		}
 	}
 	
-	//À¯Àúµî·Ï
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/register.do")
-	public String register(UserVO vo, Model model) {
-		System.out.println("[Spring Service MVC Framework] ·Î±×ÀÎ ÆäÀÌÁö Ã³¸®");
+	public String register(UserVO vo, HttpSession session) {
+		System.out.println("[Spring Service MVC Framework] ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½");
 		userService.insertUser(vo);
-		model.addAttribute("user",vo);
+		session.setAttribute("user", vo);
 		return "getInfoList.do";
 	}
 }

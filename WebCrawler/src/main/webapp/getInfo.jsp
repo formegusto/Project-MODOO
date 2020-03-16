@@ -1,6 +1,4 @@
-<%@page import="java.util.List"%>
-<%@page import="com.crawler.biz.data.DataVO"%>
-<%@page import="com.crawler.biz.info.InfoVO"%>
+<%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
