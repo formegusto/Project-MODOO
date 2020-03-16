@@ -1,5 +1,4 @@
 <%@page import="java.util.List"%>
-<%@page import="com.crawler.biz.info.impl.InfoDAO"%>
 <%@page import="com.crawler.biz.info.InfoVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -13,7 +12,7 @@
 <body>
 <center>
 	<h1>Crawler List</h1>
-	<h3>테스트님 환영합니다.</h3>
+	<h3>${user.name }님 환영합니다.</h3>
 	
 	<!--  검색 시작 -->
 	<form action="getInfoList.jsp" method="post">

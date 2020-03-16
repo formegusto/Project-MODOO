@@ -1,4 +1,4 @@
-package com.crawler.view.info;
+package com.crawler.view.crawler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class CrawlerController {
 		System.out.println("[Spring Service MVC Framework] 크롤러 확인 페이지 처리");
 		// 1. 사용자 입력 정보 추출
 		// 2. 크롤러 데이터 정보 추출
-		// 3.session에 객체 저장
+		// 3. session에 객체 저장
 		model.addAttribute("info",vo);
 		model.addAttribute("dataList", WCrawl.getData(vo));
 		return "crawlerConfirm.jsp";

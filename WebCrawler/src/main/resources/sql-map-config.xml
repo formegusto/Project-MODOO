@@ -7,11 +7,13 @@
 	<typeAliases>
 		<typeAlias type="com.crawler.biz.info.InfoVO" alias="info"></typeAlias>
 		<typeAlias type="com.crawler.biz.data.DataVO" alias="data"></typeAlias>
+		<typeAlias type="com.crawler.biz.user.UserVO" alias="user"></typeAlias>
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
 	<mappers>
 		<mapper resource="mappings/info-mapping.xml" />
 		<mapper resource="mappings/data-mapping.xml" />
+		<mapper resource="mappings/users-mapping.xml" />
 	</mappers>
 </configuration>

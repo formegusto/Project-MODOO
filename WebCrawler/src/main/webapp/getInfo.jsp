@@ -1,7 +1,5 @@
 <%@page import="java.util.List"%>
 <%@page import="com.crawler.biz.data.DataVO"%>
-<%@page import="com.crawler.biz.data.impl.DataDAO"%>
-<%@page import="com.crawler.biz.info.impl.InfoDAO"%>
 <%@page import="com.crawler.biz.info.InfoVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>

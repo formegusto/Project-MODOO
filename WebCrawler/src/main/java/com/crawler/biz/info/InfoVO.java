@@ -10,6 +10,7 @@ public class InfoVO {
 	String field;
 	String cssQuery;
 	Date regDate;
+	String id;
 	
 	public int getSeq() {
 		return seq;
@@ -53,9 +54,16 @@ public class InfoVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	@Override
 	public String toString() {
 		return "InfoVO [seq=" + seq + ", title=" + title + ", link=" + link + ", content=" + content + ", field="
-				+ field + ", cssQuery=" + cssQuery + ", regDate=" + regDate + "]";
+				+ field + ", cssQuery=" + cssQuery + ", regDate=" + regDate + ", id=" + id + "]";
 	}
 }
