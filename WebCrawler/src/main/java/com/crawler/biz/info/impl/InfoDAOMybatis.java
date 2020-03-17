@@ -14,17 +14,18 @@ public class InfoDAOMybatis {
 	private SqlSessionTemplate mybatis;
 	
 	public void insertInfo(InfoVO vo) {
-		System.out.println("===> Mybatis�� insertInfo() 등록 기능 처리");
+		System.out.println("===> Mybatis로 insertInfo() 등록 기능 처리");
 		mybatis.insert("InfoDAO.insertInfo", vo);
 	}
 	
 	public InfoVO getInfo(InfoVO vo) {
-		System.out.println("===> Mybatis�� getInfo() 조회 기능 처리");
+		System.out.println("===> Mybatis로 getInfo() 조회 기능 처리");
 		return mybatis.selectOne("InfoDAO.getInfo", vo);
 	}
 	
 	public List<InfoVO> getInfoList(InfoVO vo) {
-		System.out.println("===> Mybatis�� getInfoList() 조회 기능 처리");
+		System.out.println("===> Mybatis로 getInfoList() 조회 기능 처리");
 		return mybatis.selectList("InfoDAO.getInfoList", vo);
 	}
+	
 }

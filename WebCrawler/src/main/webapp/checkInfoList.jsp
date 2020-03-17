@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Crawler List</title>
+<title>Board Check List</title>
 </head>
 <body>
 <center>
-	<h1>Crawler List</h1>
+	<h1>Board Check List</h1>
 	<h3>${user.name }님 환영합니다.</h3>
 	<table border="1" cellspadding="0" cellspacing="0"  width="700">
 			<tr>
@@ -38,12 +38,14 @@
 	
 	<table border="1" cellspadding="0" cellspacing="0"  width="700">
 		<tr>
-			<th bgcolor="orange" width="100">번호</th>
-			<th bgcolor="orange" width="200">제목</th>
+			<th bgcolor="orange"></th>
+			<th bgcolor="orange">번호</th>
+			<th bgcolor="orange">제목</th>
 			<th bgcolor="orange" width="150">등록일</th>
 		</tr>
 		<c:forEach items="${infoList }" var="info">
 		<tr>
+			<td><input type="checkbox" name="seqList" value="${info.seq }">
 			<td>${info.seq }</td>
 			<td align="left"><a href="getInfo.do?seq=${info.seq }">
 			${info.title }
@@ -54,7 +56,7 @@
 	</table>
 	<br>
 	<input type="submit" value="New Crawler" onclick="javascript: form.action='crawlerAdd.jsp'"/>
-	<input type="submit" value="New Board" onclick="javascript: form.action='checkInfoList.do'"/>
+	<input type="submit" value="New Board" onclick="javascript: form.action='boardConfirm.do'"/>
 	</form>
 </center>
 </body>
