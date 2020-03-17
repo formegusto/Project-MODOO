@@ -20,27 +20,31 @@ public class InfoController {
 	@Autowired
 	DataService dataService;
 	
-	// Å©·Ñ·¯ »ó¼¼º¸±â
+	// í¬ë¡¤ëŸ¬ ì •ë³´ ìƒì„¸ ë³´ê¸°
 	@RequestMapping(value="/getInfo.do")
-	public String getInfo(InfoVO ivo, DataVO dvo, Model model) {
-		System.out.println("[Spring Service MVC Framework] Å©·Ñ·¯ »ó¼¼ º¸±â ±â´É Ã³¸®");
-		// 1. °Ë»öÇÒ Å©·Ñ·¯ µ¥ÀÌÅÍ ¹øÈ£ ÃßÃâ
-		// 2. DB ¿¬µ¿ Ã³¸®(info)
-		// 3. DB ¿¬µ¿ Ã³¸®(Data)
-		// 4. °Ë»ö °á°ú¸¦ ¼¼¼Ç¿¡ ÀúÀåÇÏ°í »ó¼¼ È­¸éÀ¸·Î ÀÌµ¿ÇÑ´Ù.
+	public String getInfo(InfoVO ivo, DataVO dvo, Model model, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] ì •ë³´ ìƒì„¸ ë³´ê¸° ê¸°ëŠ¥ ì²˜ë¦¬");
+		// 1. ì‚¬ìš©ì ì…ë ¥ì •ë³´ ì¶”ì¶œ
+		// 2. DB ì—°ë™ ì²˜ë¦¬(info)
+		// 3. DB ì—°ë™ ì²˜ë¦¬(Data)
+		// 4. ì„¸ì…˜ì— ê°’ ì €ì¥
 		dvo.setInum(ivo.getSeq());
 		model.addAttribute("info", infoService.getInfo(ivo));
 		model.addAttribute("dataList", dataService.getData(dvo));
 		return "getInfo.jsp";
 	}
 	
-	// Å©·Ñ·¯ ¸®½ºÆ® º¸±â
+	// í¬ë¡¤ëŸ¬ ë¦¬ìŠ¤íŠ¸ ë³´ê¸°
 	@RequestMapping(value="/getInfoList.do")
 	public String getInfoList(InfoVO vo, Model model, HttpSession session) {
-		System.out.println("[Spring Service MVC Framework] Å©·Ñ·¯ ¸ñ·Ï °Ë»ö Ã³¸®");
-		// 1. »ç¿ëÀÚ ÀÔ·Â Á¤º¸ ÃßÃâ
-		// 2. DB ¿¬µ¿ Ã³¸®
-		// 3. °Ë»ö °á°ú¸¦ ¼¼¼Ç¿¡ ÀúÀåÇÏ°í ¸ñ·ÏÈ­¸éÀ¸·Î ÀÌµ¿ÇÑ´Ù.
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] ì •ë³´ ë¦¬ìŠ¤íŠ¸ ë³´ê¸° ê¸°ëŠ¥ ì²˜ë¦¬");
+		// 1. ì‚¬ìš©ì ì…ë ¥ì •ë³´ ì¶”ì¶œ
+		// 2. DB ì—°ë™ ì²˜ë¦¬
+		// 3. ì„¸ì…˜ì— ê°’ ì €ì¥
 		vo.setId(((UserVO)session.getAttribute("user")).getId());
 		model.addAttribute("infoList", infoService.getInfoList(vo));
 		return "getInfoList.jsp";

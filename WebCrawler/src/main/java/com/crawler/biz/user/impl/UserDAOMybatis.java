@@ -11,16 +11,16 @@ public class UserDAOMybatis {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	//CRUD ±â´ÉÀÇ ¸Þ¼Òµå ±¸Çö
-	//À¯Àú µî·Ï
+	//CRUD ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public void insertUser(UserVO vo) {
-		System.out.println("===> Mybatis·Î insertUser() ±â´É Ã³¸®");
+		System.out.println("===> Mybatisï¿½ï¿½ insertUser() ë“±ë¡ ê¸°ëŠ¥ ì²˜ë¦¬");
 		mybatis.insert("UserDAO.insertUser", vo);
 	}
 	
-	//À¯Àú Á¶È¸
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public UserVO getUser(UserVO vo) {
-		System.out.println("===> Mybatis·Î getUser() ±â´É Ã³¸®");
+		System.out.println("===> Mybatisï¿½ï¿½ getUser() ì¡°íšŒ ê¸°ëŠ¥ ì²˜ë¦¬");
 		return mybatis.selectOne("UserDAO.getUser", vo);
 	}
 }

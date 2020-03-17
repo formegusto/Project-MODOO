@@ -25,28 +25,33 @@ public class CrawlerController {
 	@Autowired
 	DataService dataService;
 	
-	// ÀÔ·ÂÇÑ Å©·Ñ·¯ Á¤º¸ ¹× Å©·Ñ¸µ µ¥ÀÌÅÍ ¹Ì¸®º¸±â
+	// í¬ë¡¤ëŸ¬ë¡œ ë°ì´í„° ì¡°íšŒ
 	@RequestMapping(value="/crawlerConfirm.do")
-	public String crawlerConfirm(InfoVO vo, Model model) {
-		System.out.println("[Spring Service MVC Framework] Å©·Ñ·¯ È®ÀÎ ÆäÀÌÁö Ã³¸®");
-		// 1. »ç¿ëÀÚ ÀÔ·Â Á¤º¸ ÃßÃâ
-		// 2. Å©·Ñ·¯ µ¥ÀÌÅÍ Á¤º¸ ÃßÃâ
-		// 3. session¿¡ °´Ã¼ ÀúÀå
+	public String crawlerConfirm(InfoVO vo, Model model, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] í¬ë¡¤ë§ ê¸°ëŠ¥ ì²˜ë¦¬");
+		// 1. ì‚¬ìš©ì ì…ë ¥ì •ë³´ ì¶”ì¶œ
+		// 2. DB ì—°ë™ ì²˜ë¦¬
+		// 3. sessionì— ê°ì²´ ì €ì¥
 		model.addAttribute("info",vo);
 		model.addAttribute("dataList", WCrawl.getData(vo));
 		return "crawlerConfirm.jsp";
 	}
 	
-	// Å©·Ñ·¯ Á¤º¸ µî·Ï
+	// í¬ë¡¤ëŸ¬ ì •ë³´ ë° ë°ì´í„° ì €ì¥
 	@RequestMapping(value="/crawlerAdd_proc.do")
-	public String crawlAdd(@RequestParam(value="data", required=true) List<String> datas ,InfoVO ivo, HttpSession session) {
-		System.out.println("[Spring Service request param MVC Framework] Å©·Ñ·¯ ¹× µ¥ÀÌÅÍ µî·Ï Ã³¸®");
-		// 1. »ç¿ëÀÚ ÀÔ·Â Á¤º¸ ÃßÃâ
-		// 2. DB ¿¬µ¿ Ã³¸® (info)
+	public String crawlAdd(@RequestParam(value="data", required=true) List<String> datas ,
+			InfoVO ivo, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service request param MVC Framework] í¬ë¡¤ë§ ì •ë³´ ë°ì´í„° ì €ì¥ ê¸°ëŠ¥ ì²˜ë¦¬");
+		// 1. ì‚¬ìš©ì ì…ë ¥ì •ë³´ ì¶”ì¶œ
+		// 2. DB ì—°ë™ ì²˜ë¦¬(info)
 		ivo.setId(((UserVO)session.getAttribute("user")).getId());
 		infoService.insertInfo(ivo);
 		
-		// 3. DB ¿¬µ¿ Ã³¸® (data)
+		// 3. DB ì—°ë™ ì²˜ë¦¬ (data)
 		List<DataVO> dataList = new ArrayList<DataVO>();
 		for(String data : datas){
 			DataVO dvo = new DataVO();
@@ -55,7 +60,7 @@ public class CrawlerController {
 		}
 		dataService.insertData(dataList);
 		
-		// 4. È­¸é ³×ºñ°ÔÀÌ¼Ç
+		// 4. í™”ë©´ ë„¤ë¹„ê²Œì´ì…˜
 		return "getInfoList.do";
 	}
 }

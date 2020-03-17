@@ -14,13 +14,18 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	//���� ��ȸ(�α���)
+	// 로그인 기능
 	@RequestMapping(value="/login.do")
 	public String login(UserVO vo, HttpSession session) {
-		System.out.println("[Spring Service MVC Framework] �α��� ������ ó��");
+		if(session.getAttribute("user") != null) {
+			System.out.println("들어왔으면 반응좀");
+			return "topHead.jsp";
+		}
+		
+		System.out.println("[Spring Service MVC Framework] 로그인 기능 처리");
 		UserVO user = userService.getUser(vo);
 		if(user == null) {
-			System.out.println("�α��ν���");
+			System.out.println("로그인 실패");
 			return "login.jsp";
 		} else {
 			session.setAttribute("user", user);
@@ -28,10 +33,13 @@ public class UserController {
 		}
 	}
 	
-	//�������
+	// 가입 기능
 	@RequestMapping(value="/register.do")
 	public String register(UserVO vo, HttpSession session) {
-		System.out.println("[Spring Service MVC Framework] �α��� ������ ó��");
+		if(session.getAttribute("user") != null)
+			return "topHead.jsp";
+		
+		System.out.println("[Spring Service MVC Framework] 가입 기능 처리");
 		userService.insertUser(vo);
 		session.setAttribute("user", vo);
 		return "getInfoList.do";

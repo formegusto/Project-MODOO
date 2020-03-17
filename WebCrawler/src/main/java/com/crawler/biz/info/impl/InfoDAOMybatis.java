@@ -14,17 +14,17 @@ public class InfoDAOMybatis {
 	private SqlSessionTemplate mybatis;
 	
 	public void insertInfo(InfoVO vo) {
-		System.out.println("===> Mybatis·Î insertInfo() ±â´É Ã³¸®");
+		System.out.println("===> Mybatisï¿½ï¿½ insertInfo() ë“±ë¡ ê¸°ëŠ¥ ì²˜ë¦¬");
 		mybatis.insert("InfoDAO.insertInfo", vo);
 	}
 	
 	public InfoVO getInfo(InfoVO vo) {
-		System.out.println("===> Mybatis·Î getInfo() ±â´É Ã³¸®");
+		System.out.println("===> Mybatisï¿½ï¿½ getInfo() ì¡°íšŒ ê¸°ëŠ¥ ì²˜ë¦¬");
 		return mybatis.selectOne("InfoDAO.getInfo", vo);
 	}
 	
 	public List<InfoVO> getInfoList(InfoVO vo) {
-		System.out.println("===> Mybatis·Î getInfoList() ±â´É Ã³¸®");
+		System.out.println("===> Mybatisï¿½ï¿½ getInfoList() ì¡°íšŒ ê¸°ëŠ¥ ì²˜ë¦¬");
 		return mybatis.selectList("InfoDAO.getInfoList", vo);
 	}
 }
