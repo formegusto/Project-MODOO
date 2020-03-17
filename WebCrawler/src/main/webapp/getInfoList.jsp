@@ -11,7 +11,14 @@
 <center>
 	<h1>Crawler List</h1>
 	<h3>${user.name }님 환영합니다.</h3>
-	
+	<table border="1" cellspadding="0" cellspacing="0"  width="700">
+			<tr>
+				<td>
+					<button type="button" onclick="location.href='getInfoList.do'">Crawler</button>
+					<button type="button" onclick="location.href='getBoardList.do'">Share</button>
+				</td>
+			</tr>
+	</table>
 	<!--  검색 시작 -->
 	<form action="getInfoList.jsp" method="post">
 		<table border="1" cellspadding="0" cellspacing="0"  width="700">

@@ -7,6 +7,10 @@
 		insert into data(inum,data)
 		values((SELECT ifnull(max(seq), 0) + 0 FROM info a),#{data });
 	</insert>
+	<delete id="deleteData">
+		DELETE FROM data
+		WHERE INUM=#{inum}
+	</delete>
 	<select id="getData" resultType="data">
 		<![CDATA[
 			SELECT *

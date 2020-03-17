@@ -30,4 +30,8 @@ public class DataServiceImpl implements DataService {
 	public List<DataVO> getDataList(DataVO vo) {
 		return dataDAO.getDataList(vo);
 	}
+	@Override
+	public void deleteData(DataVO vo) {
+		dataDAO.deleteData(vo);
+	}
 }

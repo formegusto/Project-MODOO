@@ -5,13 +5,15 @@ import java.util.List;
 import com.crawler.biz.data.DataVO;
 
 public interface DataService {
-	//CRUD ±â´ÉÀÇ ¸Þ¼Òµå ±¸Çö
-	//DATA µî·Ï
+	//CRUD ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½
+	//DATA ï¿½ï¿½ï¿½
 	public void insertData(DataVO vo);
-	//DATA(List) µî·Ï
+	//DATA(List) ï¿½ï¿½ï¿½
 	public void insertData(List<DataVO> dataList);
-	//Æ¯Á¤ Å©·Ñ·¯ÀÇ DATA Á¶È¸
+	//Æ¯ï¿½ï¿½ Å©ï¿½Ñ·ï¿½ï¿½ï¿½ DATA ï¿½ï¿½È¸
 	public List<DataVO> getData(DataVO vo);
-	//ÀüÃ¼ DATA Á¶È¸
+	//ï¿½ï¿½Ã¼ DATA ï¿½ï¿½È¸
 	public List<DataVO> getDataList(DataVO vo);
+	// DATA ì „ì²´ ì‚­ì œ
+	public void deleteData(DataVO vo);
 }

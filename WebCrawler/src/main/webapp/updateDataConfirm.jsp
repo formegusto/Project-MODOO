@@ -6,11 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Crawler SELECT Page</title>
+<title>Crawler Data Update Page</title>
 </head>
 <body>
 <center>
-	<h1>Crawler SELECT Page</h1>
+	<h1>Crawler Data Update Page</h1>
 	<hr/>
 	<form method="post" name="form">
 	<table border="1" cellpadding="0" cellspacing="0">
@@ -40,20 +40,20 @@
 			<td bgcolor="orange">내용</td>
 			<td align="left">
 				${info.content }
-				<input type="hidden" name="content" value="${info.content }"/>
-				<input type="hidden" name="field" value="${info.field }"/>
 			</td>
 		</tr>
 		<c:forEach items="${dataList }" var="dat">
 		<tr>
 			<td align="left">${info.field }</td>
-			<td>${dat.data }</td>
+			<td>${dat.data }
+			<input type="hidden" name="data" value="${dat.data }"/>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>
 	<hr>
-	<input type="submit" value="글목록" onclick="javascript: form.action='getInfoList.do'"/>
-	<input type="submit" value="데이터업데이트" onclick="javascript: form.action='updateDataConfirm.do'"/>
+	<input type="submit" value="취소" onclick="javascript: form.action='getInfo.do'"/>
+	<input type="submit" value="검토 및 적용" onclick="javascript: form.action='updateData.do'"/>
 	</form>
 </center>
 </body>
