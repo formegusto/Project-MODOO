@@ -16,7 +16,8 @@ public class WCrawl {
 		System.out.println("===> WCrawl getData(vo) 크롤링 기능 처리");
 		Document doc;
 		try {
-			doc = Jsoup.connect(vo.getLink()).get();
+			doc = Jsoup.connect(vo.getLink()).header("userAgent","Mozilla").get();
+			System.out.println(doc);
 			Elements es = doc.select(vo.getCssQuery());
 			ArrayList<DataVO> retData = new ArrayList<DataVO>();
 			for(Element e : es) {

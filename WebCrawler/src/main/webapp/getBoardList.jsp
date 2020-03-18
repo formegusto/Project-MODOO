@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Crawler List</title>
+<title>Board Check List</title>
 </head>
 <body>
 <center>
-	<h1>Crawler List</h1>
+	<h1>Board List</h1>
 	<h3>${user.name }님 환영합니다.</h3>
 	<table border="1" cellspadding="0" cellspacing="0"  width="700">
 			<tr>
@@ -41,23 +41,22 @@
 	
 	<table border="1" cellspadding="0" cellspacing="0"  width="700">
 		<tr>
-			<th bgcolor="orange" width="100">번호</th>
-			<th bgcolor="orange" width="200">제목</th>
+			<th bgcolor="orange">번호</th>
+			<th bgcolor="orange">제목</th>
+			<th bgcolor="orange">작성자</th>
 			<th bgcolor="orange" width="150">등록일</th>
 		</tr>
-		<c:forEach items="${infoList }" var="info">
+		<c:forEach items="${boardList }" var="board">
 		<tr>
-			<td>${info.seq }</td>
-			<td align="left"><a href="getInfo.do?seq=${info.seq }">
-			${info.title }
-			</a></td>
-			<td>${info.regDate }</td>
+			<td>${board.bseq }</td>
+			<td align="left">
+			<a href="getBoard.do?seq=${board.bseq }">${board.title }</a>
+			</td>
+			<td>${board.id }</td>
+			<td>${board.regDate }</td>
 		</tr>
 		</c:forEach>
 	</table>
-	<br>
-	<input type="submit" value="New Crawler" onclick="javascript: form.action='crawlerAdd.jsp'"/>
-	<input type="submit" value="New Board" onclick="javascript: form.action='checkInfoList.do'"/>
 	</form>
 </center>
 </body>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardDAO">
+	<insert id="insertBoard">
+		insert into board(bseq, title, content, id)
+		values ((SELECT ifnull(max(bseq), 0) + 1 FROM board a),#{title },#{content },#{id })
+	</insert>
+	<insert id="insertBHI">
+		insert into board_have_info(bseq,inum)
+		values ((SELECT ifnull(max(bseq), 0) + 0 FROM board a), #{inum})
+	</insert>
+	<select id="getBoardList" resultType="board">
+		SELECT * 
+		FROM BOARD
+		ORDER BY bseq DESC
+	</select>
+</mapper>

@@ -17,6 +17,9 @@
 					<button type="button" onclick="location.href='getInfoList.do'">Crawler</button>
 					<button type="button" onclick="location.href='getBoardList.do'">Share</button>
 				</td>
+				<td>
+					<button type="button" onclick="location.href='logout.do'">logout</button>
+				</td>
 			</tr>
 	</table>
 	<!--  검색 시작 -->
@@ -45,7 +48,7 @@
 		</tr>
 		<c:forEach items="${infoList }" var="info">
 		<tr>
-			<td><input type="checkbox" name="seqList" value="${info.seq }">
+			<td><input type="checkbox" name="seqList" value="${info.seq }"></td>
 			<td>${info.seq }</td>
 			<td align="left"><a href="getInfo.do?seq=${info.seq }">
 			${info.title }
@@ -55,8 +58,8 @@
 		</c:forEach>
 	</table>
 	<br>
-	<input type="submit" value="New Crawler" onclick="javascript: form.action='crawlerAdd.jsp'"/>
-	<input type="submit" value="New Board" onclick="javascript: form.action='boardConfirm.do'"/>
+	<input type="submit" value="Cancle" onclick="javascript: form.action='getInfoList.do'"/>
+	<input type="submit" value="Confirm" onclick="javascript: form.action='boardConfirm.do'"/>
 	</form>
 </center>
 </body>

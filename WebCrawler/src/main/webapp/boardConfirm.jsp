@@ -13,7 +13,25 @@
 	<h1>Board Confirm Page</h1>
 	<hr/>
 	<form method="post" name="form">
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<td bgcolor="orange" width="70">제목</td>
+			<td align="left"><input name="title" type="text"/></td>
+		</tr>
+		<tr>
+			<td bgcolor="orange">작성자</td>
+			<td align="left"><input type="text" name="id" size="10" value="${user.id }"/></td>
+		</tr>
+		<tr>
+			<td bgcolor="orange">내용</td>
+			<td align="left">
+				<textarea name="content" cols="40" rows="10"></textarea>
+			</td>
+		</tr>
+	</table>
+	<hr/>
 	<c:forEach items="${infoList }" var="info">
+		<input type="hidden" name="inumList" value="${info.seq }"/>
 		<table border="1" cellpadding="0" cellspacing="0">
 			<tr>
 				<td bgcolor="orange" width="70">제목</td>
@@ -42,8 +60,8 @@
 		</table>
 	<hr/>
 	</c:forEach>
-	<input type="submit" value="글목록" onclick="javascript: form.action='getInfoList.do'"/>
-	<input type="submit" value="데이터업데이트" onclick="javascript: form.action='updateDataConfirm.do'"/>
+	<input type="submit" value="취소" onclick="javascript: form.action='getInfoList.do'"/>
+	<input type="submit" value="등록" onclick="javascript: form.action='boardAdd_proc.do'"/>
 	</form>
 </center>
 </body>

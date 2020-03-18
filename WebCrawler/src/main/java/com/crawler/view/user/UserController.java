@@ -17,10 +17,8 @@ public class UserController {
 	// 로그인 기능
 	@RequestMapping(value="/login.do")
 	public String login(UserVO vo, HttpSession session) {
-		if(session.getAttribute("user") != null) {
-			System.out.println("들어왔으면 반응좀");
+		if(session.getAttribute("user") != null)
 			return "topHead.jsp";
-		}
 		
 		System.out.println("[Spring Service MVC Framework] 로그인 기능 처리");
 		UserVO user = userService.getUser(vo);
@@ -43,5 +41,15 @@ public class UserController {
 		userService.insertUser(vo);
 		session.setAttribute("user", vo);
 		return "getInfoList.do";
+	}
+	
+	// 로그아웃 기능
+	@RequestMapping(value="/logout.do")
+	public String logout(HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		
+		session.removeAttribute("user");
+		return "login.jsp";
 	}
 }
