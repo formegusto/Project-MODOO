@@ -50,7 +50,7 @@
 		<tr>
 			<td>${board.bseq }</td>
 			<td align="left">
-			<a href="getBoard.do?seq=${board.bseq }">${board.title }</a>
+			<a href="getBoard.do?bseq=${board.bseq }">${board.title }</a>
 			</td>
 			<td>${board.id }</td>
 			<td>${board.regDate }</td>

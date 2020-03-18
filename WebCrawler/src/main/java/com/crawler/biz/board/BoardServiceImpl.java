@@ -22,6 +22,16 @@ public class BoardServiceImpl implements BoardService {
 	public void insertBHI(BoardHaveInfoVO vo) {
 		boardDAO.insertBHI(vo);
 	}
+	
+	@Override
+	public List<BoardHaveInfoVO> getBHIList(BoardVO vo) {
+		return boardDAO.getBHIList(vo);
+	}
+
+	@Override
+	public BoardVO getBoard(BoardVO vo) {
+		return boardDAO.getBoard(vo);
+	}
 
 	@Override
 	public List<BoardVO> getBoardList(BoardVO vo) {

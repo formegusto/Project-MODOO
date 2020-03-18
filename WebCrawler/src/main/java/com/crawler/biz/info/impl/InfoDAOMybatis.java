@@ -27,5 +27,4 @@ public class InfoDAOMybatis {
 		System.out.println("===> Mybatis로 getInfoList() 조회 기능 처리");
 		return mybatis.selectList("InfoDAO.getInfoList", vo);
 	}
-	
 }

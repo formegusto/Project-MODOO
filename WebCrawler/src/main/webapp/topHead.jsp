@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<c:if test="${user == null and pageContext.request.requestURI != '/WCrawl/login.jsp'}">
+<c:if test="${user == null and (pageContext.request.requestURI != '/WCrawl/login.jsp' and pageContext.request.requestURI != '/WCrawl/register.jsp')}">
 	<script>
 		alert("로그인 후 이용해주세요.");
 		location.href="/WCrawl/login.jsp";

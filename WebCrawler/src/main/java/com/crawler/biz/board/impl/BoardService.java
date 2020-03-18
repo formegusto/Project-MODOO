@@ -8,5 +8,7 @@ import com.crawler.biz.board.BoardVO;
 public interface BoardService {
 	public void insertBoard(BoardVO vo);
 	public void insertBHI(BoardHaveInfoVO vo);
+	public List<BoardHaveInfoVO> getBHIList(BoardVO vo);
+	public BoardVO getBoard(BoardVO vo);
 	public List<BoardVO> getBoardList(BoardVO vo);
 }

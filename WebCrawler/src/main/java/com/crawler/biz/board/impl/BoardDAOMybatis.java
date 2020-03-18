@@ -22,6 +22,14 @@ public class BoardDAOMybatis {
 		System.out.println("===> Mybatis로 insertBHI() 등록 기능 처리");
 		mybatis.insert("BoardDAO.insertBHI", vo);
 	}
+	public List<BoardHaveInfoVO> getBHIList(BoardVO vo){
+		System.out.println("===> Mybatis로 getBHIList() 조회 기능 처리");
+		return mybatis.selectList("BoardDAO.getBHIList", vo);
+	}
+	public BoardVO getBoard(BoardVO vo) {
+		System.out.println("===> Mybatis로 getBHIList() 조회 기능 처리");
+		return mybatis.selectOne("BoardDAO.getBoard", vo);
+	}
 	public List<BoardVO> getBoardList(BoardVO vo){
 		System.out.println("===> Mybatis로 getBoardList() 조회 기능 처리");
 		return mybatis.selectList("BoardDAO.getBoardList", vo);
