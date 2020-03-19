@@ -57,6 +57,14 @@
 					${info.content }
 				</td>
 			</tr>
+			<c:set var="key">${info.seq }</c:set>
+			<c:set var="dataList">${dataMap[key] }</c:set>
+			<c:forEach items="${dataList }" var="data">
+				<tr>
+					<td align="left">${info.field }</td>
+					<td>${data }</td>
+				</tr>
+			</c:forEach>
 		</table>
 	<hr/>
 	</c:forEach>

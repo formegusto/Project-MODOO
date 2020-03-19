@@ -25,6 +25,11 @@ public class DataServiceImpl implements DataService {
 	public List<DataVO> getData(DataVO vo) {
 		return dataDAO.getData(vo);
 	}
+	
+	@Override
+	public List<String> getDataStr(DataVO vo){
+		return dataDAO.getDataStr(vo);
+	}
 
 	@Override
 	public List<DataVO> getDataList(DataVO vo) {

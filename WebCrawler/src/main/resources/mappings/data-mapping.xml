@@ -21,7 +21,15 @@
 	<select id="getDataList" resultType="data">
 		<![CDATA[
 			SELECT *
-			FROM INFO
+			FROM DATA
+			ORDER BY INUM DESC
+		]]>
+	</select>
+	<select id="getDataStr" resultType="string">
+		<![CDATA[
+			SELECT data
+			FROM DATA
+			WHERE INUM=#{inum}
 			ORDER BY INUM DESC
 		]]>
 	</select>

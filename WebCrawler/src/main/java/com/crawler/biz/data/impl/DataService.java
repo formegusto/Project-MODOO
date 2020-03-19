@@ -12,6 +12,8 @@ public interface DataService {
 	public void insertData(List<DataVO> dataList);
 	//Ư�� ũ�ѷ��� DATA ��ȸ
 	public List<DataVO> getData(DataVO vo);
+	// DATA 상세 조회 return List<String>
+	public List<String> getDataStr(DataVO vo);
 	//��ü DATA ��ȸ
 	public List<DataVO> getDataList(DataVO vo);
 	// DATA 전체 삭제

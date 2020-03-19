@@ -61,23 +61,5 @@ public class InfoController {
 		return null;
 	}
 	
-	@RequestMapping(value="/boardConfirm.do")
-	public String boardConfirm(@RequestParam(value="seqList", required=true) List<String> seqList,
-			Model model , HttpSession session) {
-		if(session.getAttribute("user") == null)
-			return "topHead.jsp";
-		System.out.println("[Spring Service MVC Framework] 정보 리스트 여러개 보기 기능 처리");
-		// 1. infoList 구축
-		List<InfoVO> infoList = new ArrayList<InfoVO>();
-		for(String seq : seqList) {
-			InfoVO vo = new InfoVO();
-			vo.setSeq(Integer.parseInt(seq));
-			infoList.add(infoService.getInfo(vo));
-		}
-		// 2. dataList 구축
-		
-		// 3. session에 값 저장
-		model.addAttribute("infoList", infoList);
-		return "boardConfirm.jsp";
-	}
+	
 }

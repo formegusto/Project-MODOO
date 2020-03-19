@@ -32,6 +32,12 @@ public class DataDAOMybatis {
 		return mybatis.selectList("DataDAO.getData", vo);
 	}
 	
+	// DATA 상세 조회 return List<String>
+	public List<String> getDataStr(DataVO vo) {
+			System.out.println("===> Mybatis�� String getData() 조회 기능 처리");
+			return mybatis.selectList("DataDAO.getDataStr", vo);
+	}
+	
 	// DATA 전체 조회
 	public List<DataVO> getDataList(DataVO vo) {
 		System.out.println("===> Mybatis�� getDataList() 조회 기능 처리");
