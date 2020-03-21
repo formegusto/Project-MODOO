@@ -26,6 +26,7 @@
   		<param-name>contextConfigLocation</param-name>
   		<param-value>/WEB-INF/config/presentation-layer.xml</param-value>
   	</init-param>
+  	<async-supported>true</async-supported>
   </servlet>
   <servlet-mapping>
     <servlet-name>action</servlet-name>
