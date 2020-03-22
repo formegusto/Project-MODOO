@@ -6,14 +6,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint(value="/chat.do")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.web.socket.server.standard.SpringConfigurator;
+
+import com.crawler.biz.chat.ChatVO;
+import com.crawler.biz.chat.impl.ChatService;
+
+@ServerEndpoint(value="/chat.do", configurator=SpringConfigurator.class)
 public class WebSocketChat {
+	@Autowired
+	ChatService chatService;
 	private static Map<String, List<Session>> clientMap = new HashMap<String, List<Session>>();
 	
 	public WebSocketChat() {
@@ -23,9 +33,19 @@ public class WebSocketChat {
 	@OnMessage
 	public void onMessage(String message, Session session) throws IOException{
 		System.out.println(message);
+		System.out.println(chatService);
+		ChatVO vo = new ChatVO();
+		String sender = message.split("\\|")[0];
+		String msg = message.split("\\|")[1];
 		String uri = session.getRequestURI().toString();
 		String roomNum = uri.substring(uri.lastIndexOf("?")+1,uri.lastIndexOf("?")+2);
 		System.out.println("roomNum is " + roomNum);
+		System.out.println("chat Id " + sender);
+		System.out.println("msg is " + msg); 
+		vo.setRnum(Integer.parseInt(roomNum));
+		vo.setId(sender);
+		vo.setData(msg);
+		chatService.insertChat(vo);
 		List<Session> clients = clientMap.get(roomNum);
 		for(Session client : clients)
 			if(!client.equals(session))
