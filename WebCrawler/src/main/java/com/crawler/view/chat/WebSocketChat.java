@@ -25,6 +25,7 @@ public class WebSocketChat {
 	@Autowired
 	ChatService chatService;
 	private static Map<String, List<Session>> clientMap = new HashMap<String, List<Session>>();
+	private static List<String> userList = new ArrayList<String>();
 	
 	public WebSocketChat() {
 		System.out.println("웹소켓(서버) 객체 생성");
@@ -62,6 +63,7 @@ public class WebSocketChat {
 		System.out.println("chatId is " + chatId);
 		System.out.println(session);
 		String message = "Notice|[" + chatId + "] 님이 입장하셨습니다.";
+		userList.add(chatId);
 		if(clientMap.get(roomNum) == null) {
 			System.out.println("New Room is " + roomNum);
 			clients = new ArrayList<Session>();
@@ -71,9 +73,11 @@ public class WebSocketChat {
 			clients = clientMap.get(roomNum);
 			clients.add(session);
 		}
-		for(Session client : clients)
+		for(Session client : clients){
 			if(!client.equals(session))
 				client.getBasicRemote().sendText(message);
+			client.getBasicRemote().sendText("userList|" + userList);
+		}
 	}
 	
 	@OnClose
@@ -86,9 +90,13 @@ public class WebSocketChat {
 		System.out.println("chatId is " + chatId);
 		String message = "Notice|[" + chatId + "] 님이 퇴장하셨습니다.";
 		List<Session> clients = clientMap.get(roomNum);
-		for(Session client : clients)
-			if(!client.equals(session))
+		userList.remove(chatId);
+		for(Session client : clients) {
+			if(!client.equals(session)) {
 				client.getBasicRemote().sendText(message);
+				client.getBasicRemote().sendText("userList|" + userList);
+			}
+		}
 		clients.remove(session);
 		System.out.println(roomNum + " size is " + clients.size());
 		if(clients.size() == 0) {

@@ -13,10 +13,13 @@
 	<h3>${user.name }님 환영합니다.</h3>
 	<table border="1" cellspadding="0" cellspacing="0"  width="700">
 			<tr>
-				<td>
+				<td width="30%">
 					<button type="button" onclick="location.href='getInfoList.do'">Crawler</button>
 					<button type="button" onclick="location.href='getBoardList.do'">Share</button>
 					<button type="button" onclick="location.href='getRoomList.do'">ChatRoom</button>
+				</td>
+				<td width="50%">
+					<div id="roomOpen"></div>
 				</td>
 				<td>
 					<button type="button" onclick="location.href='logout.do'">logout</button>
@@ -60,5 +63,34 @@
 	</table>
 	</form>
 </center>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+    var textarea = document.getElementById("messageWindow");
+    var webSocket = new WebSocket('ws://192.168.24.36:8080/WCrawl/alarm.do');
+    var inputMessage = document.getElementById("inputMessage");
+    webSocket.onerror = function(event) {
+        onError(event)
+    };
+    webSocket.onopen = function(event) {
+        onOpen(event)
+    };
+    webSocket.onmessage = function(event) {
+        onMessage(event)
+    };
+    function onMessage(event) {
+    	$("#roomOpen").html(event.data + "&nbsp;<button onclick='javascript:ok() '>X</button>");
+    }
+    function onOpen(event) {
+    	$("#roomOpen").html("알람 기능 정상 작동중");
+    }
+    function ok(){
+    	var form = document.form;
+    	form.action="getRoomList.do";
+        form.submit();
+    }
+    function onError(event) {
+        alert(event.data);
+    }
+</script>
 </body>
 </html>

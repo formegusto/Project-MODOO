@@ -83,8 +83,12 @@
         if (content == "") {
             
         } else {
-            $("#messageWindow").html($("#messageWindow").html() 
-            		+ "<p class='chat_content'>" + sender + " : " + content + "</p>");
+        	if(sender == "userList"){
+        		$("#userList").html("<p class='chat_content'>" + content + "</p>");
+        	} else {
+	            $("#messageWindow").html($("#messageWindow").html() 
+	            		+ "<p class='chat_content'>" + sender + " : " + content + "</p>");
+        	}
        }
     }
     function onOpen(event) {

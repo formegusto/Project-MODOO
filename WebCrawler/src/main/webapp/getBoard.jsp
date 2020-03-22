@@ -34,7 +34,7 @@
 				<input type="text" name="rtitle"/>
 			</td>
 			<td>
-				<input type="submit" value="New Chat" onclick="javascript: form.action='roomAdd_proc.do'"/>
+				<input type="button" value="New Chat" onclick="javascript: send()"/>
 			</td>
 		</tr>
 		</c:if>
@@ -79,7 +79,31 @@
 	<hr/>
 	</c:forEach>
 	<input type="submit" value="글목록" onclick="javascript: form.action='getBoardList.do'"/>
+	<input type="hidden" value='${user.id }' id='alarm_id' />
 	</form>
 </center>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+    var textarea = document.getElementById("messageWindow");
+    var webSocket = new WebSocket('ws://192.168.24.36:8080/WCrawl/alarm.do');
+    webSocket.onerror = function(event) {
+        onError(event)
+    };
+    webSocket.onopen = function(event) {
+        onOpen(event)
+    };
+    webSocket.onmessage = function(event) {
+        onMessage(event)
+    };
+    function send() {
+    	var form = document.form;
+    	form.action="roomAdd_proc.do";
+        webSocket.send($("#alarm_id").val() + " 님이 새로운 채팅방을 오픈했습니다.");
+        form.submit();
+    }
+    function onError(event) {
+        alert(event.data);
+    }
+</script>
 </body>
 </html>
