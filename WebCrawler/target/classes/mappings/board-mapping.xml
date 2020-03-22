@@ -15,7 +15,7 @@
 		SELECT *
 		FROM BOARD_HAVE_INFO
 		WHERE BSEQ=${bseq}
-		ORDER BY inum DESC;
+		ORDER BY inum DESC
 	</select>
 	<select id="getBoard" resultType="board">
 		SELECT *

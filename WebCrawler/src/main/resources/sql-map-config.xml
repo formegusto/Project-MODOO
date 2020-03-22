@@ -10,6 +10,7 @@
 		<typeAlias type="com.crawler.biz.user.UserVO" alias="user"></typeAlias>
 		<typeAlias type="com.crawler.biz.board.BoardVO" alias="board"></typeAlias>
 		<typeAlias type="com.crawler.biz.board.BoardHaveInfoVO" alias="bhi"></typeAlias>
+		<typeAlias type="com.crawler.biz.room.RoomVO" alias="room"></typeAlias>
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
@@ -18,5 +19,6 @@
 		<mapper resource="mappings/data-mapping.xml" />
 		<mapper resource="mappings/users-mapping.xml" />
 		<mapper resource="mappings/board-mapping.xml" />
+		<mapper resource="mappings/room-mapping.xml"/>
 	</mappers>
 </configuration>

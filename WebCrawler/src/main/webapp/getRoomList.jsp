@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Board List</title>
+<title>Chat Room List</title>
 </head>
 <body>
 <center>
-	<h1>Board List</h1>
+	<h1>Chat Room List</h1>
 	<h3>${user.name }님 환영합니다.</h3>
 	<table border="1" cellspadding="0" cellspacing="0"  width="700">
 			<tr>
@@ -47,14 +47,14 @@
 			<th bgcolor="orange">작성자</th>
 			<th bgcolor="orange" width="150">등록일</th>
 		</tr>
-		<c:forEach items="${boardList }" var="board">
+		<c:forEach items="${roomList }" var="room">
 		<tr>
-			<td>${board.bseq }</td>
+			<td>${room.rnum }</td>
 			<td align="left">
-			<a href="getBoard.do?bseq=${board.bseq }">${board.title }</a>
+			<a href="getRoom.do?rnum=${room.rnum }">${room.rtitle }</a>
 			</td>
-			<td>${board.id }</td>
-			<td>${board.regDate }</td>
+			<td>${room.id }</td>
+			<td>${room.regDate }</td>
 		</tr>
 		</c:forEach>
 	</table>

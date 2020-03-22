@@ -26,6 +26,18 @@
 			<td bgcolor="orange">³»¿ë</td>
 			<td align="left">${board.content }</td>
 		</tr>
+		<c:if test="${board.id eq user.id }">
+		<tr>
+			<td>
+				<input type="hidden" name="id" value="${board.id }"/>
+				<input type="hidden" name="bnum" value="${board.bseq }"/>
+				<input type="text" name="rtitle"/>
+			</td>
+			<td>
+				<input type="submit" value="New Chat" onclick="javascript: form.action='roomAdd_proc.do'"/>
+			</td>
+		</tr>
+		</c:if>
 	</table>
 	<hr/>
 	<c:forEach items="${infoList }" var="info">

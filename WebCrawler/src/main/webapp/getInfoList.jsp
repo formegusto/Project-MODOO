@@ -16,6 +16,7 @@
 				<td>
 					<button type="button" onclick="location.href='getInfoList.do'">Crawler</button>
 					<button type="button" onclick="location.href='getBoardList.do'">Share</button>
+					<button type="button" onclick="location.href='getRoomList.do'">ChatRoom</button>
 				</td>
 				<td>
 					<button type="button" onclick="location.href='logout.do'">logout</button>

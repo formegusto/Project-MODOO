@@ -1,19 +1,48 @@
-<%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="topHead.jsp" %>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page session="true"%>
+<!DOCTYPE html PUBLIC "-//W3c//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Room IN Page</title>
+<!-- ·Î±×ÀÎÇÑ »óÅÂÀÏ °æ¿ì¿Í ºñ·Î±×ÀÎ »óÅÂÀÏ °æ¿ìÀÇ chat_id¼³Á¤ -->
+<c:if test="${(user.id ne '') and !(empty user.id)}">
+	<input type="hidden" value='${user.id }' id='chat_id' />
+</c:if>
+<c:if test="${(user.id eq '') or (empty user.id)}">
+	<input type="hidden" value='<%=session.getId().substring(0, 6)%>' id='chat_id' />
+</c:if>
+
+</head>
 <body>
-    <!-- ë¡œê·¸ì¸í•œ ìƒíƒœì¼ ê²½ìš°ì™€ ë¹„ë¡œê·¸ì¸ ìƒíƒœì¼ ê²½ìš°ì˜ chat_idì„¤ì • -->
-    <c:if test="${(user.id ne '') and !(empty user.id)}">
-        <input type="hidden" value='${user.id }' id='chat_id' />
-    </c:if>
-    <c:if test="${(user.id eq '') or (empty user.id)}">
-        <input type="hidden" value='<%=session.getId().substring(0, 6)%>'
-            id='chat_id' />
-    </c:if>
-    <!--     ì±„íŒ…ì°½ -->
+<center>
+	<h1>${room.rtitle }</h1>
+	<hr/>
+	<form method="post" name="form">
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<td bgcolor="orange" width="70">Á¦¸ñ</td>
+			<td align="left">${board.title }</td>
+		</tr>
+		<tr>
+			<td bgcolor="orange">ÀÛ¼ºÀÚ</td>
+			<td align="left">${board.id }</td>
+		</tr>
+		<tr>
+			<td bgcolor="orange">³»¿ë</td>
+			<td align="left">${board.content }</td>
+		</tr>
+	</table>
+	<hr/>
+	<input type="submit" value="±Û¸ñ·Ï" onclick="javascript: form.action='getBoardList.do'"/>
+	</form>
+	<hr/>
+	<!--     Ã¤ÆÃÃ¢ -->
     <div id="_chatbox">
         <fieldset>
             <div id="messageWindow"></div>
@@ -21,11 +50,12 @@
             <input type="submit" value="send" onclick="send()" />
         </fieldset>
     </div>
-</body>
+</center>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");
-    var webSocket = new WebSocket('ws://192.168.24.36:8080/WCrawl/chat.do?' + ${param.rnum});
+    var rnum = ${room.rnum};
+    var webSocket = new WebSocket('ws://192.168.24.36:8080/WCrawl/chat.do?' + rnum + '&' + $("#chat_id").val());
     var inputMessage = document.getElementById("inputMessage");
     webSocket.onerror = function(event) {
         onError(event)
@@ -45,11 +75,11 @@
         } else {
             if (content.match("/")) {
                 if (content.match(("/" + $("#chat_id").val()))) {
-                    var temp = content.replace("/" + $("#chat_id").val(), "(ê·“ì†ë§) :").split(":");
+                    var temp = content.replace("/" + $("#chat_id").val(), "(±Ó¼Ó¸») :").split(":");
                     if (temp[1].trim() == "") {
                     } else {
                         $("#messageWindow").html($("#messageWindow").html() + "<p class='whisper'>"
-                            + sender + content.replace("/" + $("#chat_id").val(), "(ê·“ì†ë§) :") + "</p>");
+                            + sender + content.replace("/" + $("#chat_id").val(), "(±Ó¼Ó¸») :") + "</p>");
                     }
                 } else {
                 }
@@ -65,8 +95,7 @@
         }
     }
     function onOpen(event) {
-    	var num = ${param.num};
-        $("#messageWindow").html("<p class='chat_content'>" + [num] + "ì±„íŒ…ì— ì°¸ì—¬í•˜ì˜€ìŠµë‹ˆë‹¤.</p>");
+        $("#messageWindow").html("<p class='chat_content'>[" + [rnum] + "] Ã¤ÆÃ¿¡ Âü¿©ÇÏ¿´½À´Ï´Ù.</p>");
     }
     function onError(event) {
         alert(event.data);
@@ -75,22 +104,22 @@
         if (inputMessage.value == "") {
         } else {
             $("#messageWindow").html($("#messageWindow").html()
-                + "<p class='chat_content'>ë‚˜ : " + inputMessage.value + "</p>");
+                + "<p class='chat_content'>³ª : " + inputMessage.value + "</p>");
         }
         webSocket.send($("#chat_id").val() + "|" + inputMessage.value);
         inputMessage.value = "";
     }
-    //     ì—”í„°í‚¤ë¥¼ í†µí•´ sendí•¨
+    //     ¿£ÅÍÅ°¸¦ ÅëÇØ sendÇÔ
     function enterkey() {
         if (window.event.keyCode == 13) {
             send();
         }
     }
-    //     ì±„íŒ…ì´ ë§ì•„ì ¸ ìŠ¤í¬ë¡¤ë°”ê°€ ë„˜ì–´ê°€ë”ë¼ë„ ìë™ì ìœ¼ë¡œ ìŠ¤í¬ë¡¤ë°”ê°€ ë‚´ë ¤ê°€ê²Œí•¨
+    //     Ã¤ÆÃÀÌ ¸¹¾ÆÁ® ½ºÅ©·Ñ¹Ù°¡ ³Ñ¾î°¡´õ¶óµµ ÀÚµ¿ÀûÀ¸·Î ½ºÅ©·Ñ¹Ù°¡ ³»·Á°¡°ÔÇÔ
     window.setInterval(function() {
         var elem = document.getElementById('messageWindow');
         elem.scrollTop = elem.scrollHeight;
     }, 0);
 </script>
-
-
+</body>
+</html>
