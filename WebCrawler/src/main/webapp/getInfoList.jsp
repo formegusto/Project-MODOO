@@ -1,65 +1,73 @@
 <%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3c//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Crawler List</title>
+<!-- Bootstrap core CSS -->
+<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<title>Info List</title>
 </head>
 <body>
-<center>
-	<h1>Crawler List</h1>
-	<h3>${user.name }님 환영합니다.</h3>
-	<table border="1" cellspadding="0" cellspacing="0"  width="700">
-			<tr>
-				<td>
-					<button type="button" onclick="location.href='getInfoList.do'">Crawler</button>
-					<button type="button" onclick="location.href='getBoardList.do'">Share</button>
-					<button type="button" onclick="location.href='getRoomList.do'">ChatRoom</button>
-				</td>
-				<td>
-					<button type="button" onclick="location.href='logout.do'">logout</button>
-				</td>
-			</tr>
-	</table>
-	<!--  검색 시작 -->
-	<form method="post" name="form">
-		<table border="1" cellspadding="0" cellspacing="0"  width="700">
-			<tr>
-				<td align="right">
-					<select name="searchCondition">
-						<option value="TITLE">제목
-						<option value="CONTENT">내용
-					</select>
-					<input name="searchKeyword" type="text"/>
-					<input type="submit" value="검색" onclick="javascript: form.action='getInfoList.do'"/>
-				</td>
-			</tr>
-		</table>
+<!-- Navbar : Login, 알람 정보 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">WCrawl</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Welcome! ${user.name }<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="logout.do">logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Navs : 보드 메뉴 -->
+<nav class="nav nav-pills nav-justified">
+  <a class="nav-item nav-link active" href="getInfoList.do">Info</a>
+  <a class="nav-item nav-link" href="getBoardList.do">Crawler</a>
+  <a class="nav-item nav-link" href="getRoomList.do">ChatRoom</a>
+</nav>
+
+<!-- infoList Card -->
+<form method="post" name="form">
+<div class="container" style="margin-top: 15px;">
+<div class="row">
 	
-	<!-- 검색 종료 -->
-	
-	<table border="1" cellspadding="0" cellspacing="0"  width="700">
-		<tr>
-			<th bgcolor="orange" width="100">번호</th>
-			<th bgcolor="orange" width="200">제목</th>
-			<th bgcolor="orange" width="150">등록일</th>
-		</tr>
-		<c:forEach items="${infoList }" var="info">
-		<tr>
-			<td>${info.seq }</td>
-			<td align="left"><a href="getInfo.do?seq=${info.seq }">
-			${info.title }
-			</a></td>
-			<td>${info.regDate }</td>
-		</tr>
-		</c:forEach>
-	</table>
-	<br>
-	<input type="submit" value="New Crawler" onclick="javascript: form.action='crawlerAdd.jsp'"/>
-	<input type="submit" value="New Board" onclick="javascript: form.action='checkInfoList.do'"/>
-	</form>
-</center>
+	<div class="card-deck">
+	<c:forEach items="${infoList }" var="info">
+		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+		  <div class="card-header">${info.seq } : ${info.regDate } <button type="button" class="btn btn-outline-light" style="float: right">X</button>
+		  </div>
+		  <div class="card-body">
+		    <h5 class="card-title"><a href="getInfo.do?seq=${info.seq }" style="color:white; font-weight: bold;">${info.title }</a></h5>
+		    <p class="card-text">${info.content }</p>
+		  </div>
+		</div>
+	</c:forEach>
+	</div>
+</div>
+</div>
+
+<div class="container" style="margin-top: 15px;">
+<div class="row">
+	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
+	  	<div class="btn-group mr-2" role="group" aria-label="First group">
+	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='crawlerAdd.jsp'; form.submit()">New Crawler</button>
+	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='checkInfoList.do'; form.submit()">New Board</button>
+	  	</div>
+  	</div>
+</div>
+</div>
+</form>
+
 </body>
 </html>
