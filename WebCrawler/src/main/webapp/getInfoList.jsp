@@ -41,7 +41,6 @@
 <form method="post" name="form">
 <div class="container" style="margin-top: 15px;">
 <div class="row">
-	
 	<div class="card-deck">
 	<c:forEach items="${infoList }" var="info">
 		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">

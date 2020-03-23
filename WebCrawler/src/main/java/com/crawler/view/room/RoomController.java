@@ -30,6 +30,7 @@ public class RoomController {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 채팅방 등록 기능 처리");
+		System.out.println(vo);
 		roomService.insertRoom(vo);
 		return "getBoardList.do";
 	}
