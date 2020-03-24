@@ -1,51 +1,57 @@
 <%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3c//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<!-- Bootstrap core CSS -->
+<link href="resources/css/login.css" rel="stylesheet"></link>
+<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <title>RegisterPage</title>
 </head>
 <body>
-<center>
-	<h1>Register Page</h1>
-	<hr>
-	<form action="register.do" method="post">
-	<table border="1" cellpadding="0" cellspacing="0">
-		<tr>
-			<td bgcolor="orange">ID</td>
-			<td><input type="text" name="id"/></td>
-		</tr>
-		<tr>
-			<td bgcolor="orange">password</td>
-			<td><input type="password" name="password"/></td>
-		</tr>
-		<tr>
-			<td bgcolor="orange">NAME</td>
-			<td><input type="text" name="name"/></td>
-		</tr>
-		<tr>
-			<td bgcolor="orange">PHONE</td>
-			<td><input type="text" name="phone"/></td>
-		</tr>
-		<tr>
-			<td bgcolor="orange">EMAIL</td>
-			<td><input type="text" name="email"/></td>
-		</tr>
-		<tr>
-			<td bgcolor="orange">COMPANY</td>
-			<td><input type="text" name="company"/></td>
-		</tr>
-		<tr>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="submit" value="register"/>
-			</td>
-		</tr>
-	</table>
-	</form>
-</center>
+	<div class="sidenav">
+         <div class="login-main-text">
+            <h2>WCrawl<br> Register Page</h2>
+            <p>Login or register from here to access.</p>
+         </div>
+      </div>
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="register-form">
+               <form id="form" method="post">
+                  <div class="form-group">
+                     <label>ID</label>
+                     <input type="text" name="id" class="form-control" placeholder="Input ID">
+                  </div>
+                  <div class="form-group">
+                     <label>Password</label>
+                     <input type="password" name="password" class="form-control" placeholder="Input Password">
+                  </div>
+                  <div class="form-group">
+                     <label>Name</label>
+                     <input type="text" name="name" class="form-control" placeholder="Input Name">
+                  </div>
+                  <div class="form-group">
+                     <label>phone</label>
+                     <input type="text" name="phone" class="form-control" placeholder="Input Phone">
+                  </div>
+                  <div class="form-group">
+                     <label>Email</label>
+                     <input type="text" name="email" class="form-control" placeholder="Input Email">
+                  </div>
+                  <div class="form-group">
+                     <label>Company</label>
+                     <input type="text" name="company" class="form-control" placeholder="Input Company">
+                  </div>
+                  <button type="submit" class="btn btn-secondary" onclick="javascript: form.action='register.do'">Register</button>
+                  <button type="submit" class="btn btn-black" onclick="javascript: form.action='login.jsp'" style="color: white;">Cancel</button>
+               </form>
+            </div>
+         </div>
+      </div>
 </body>
 </html>
