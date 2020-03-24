@@ -41,10 +41,7 @@
         <div class="col-md-3 float-left col-1 pl-0 pr-0 collapse width " id="sidebar">
                 <div class="list-group border-0 card text-center text-md-left">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-	  				<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-	  				<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
-	  				<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-	  				<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+	  				<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#nav-${info.seq }" role="tab" aria-controls="v-pills-home" aria-selected="true">${info.field }</a>
 				</div>
             	</div>
         </div>
@@ -52,7 +49,9 @@
         <main class="col-md-9 col px-5 pl-md-2 pt-2 main mx-auto">
             <a href="#" data-target="#sidebar" data-toggle="collapse" aria-expanded="false" style="margin-left: 15px;"><i class="fas fa-align-justify fa-w-14 fa-2x"></i></a>
             <div class="tab-content" id="v-pills-tabContent">
-			  <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">home</div>
+			  <div class="tab-pane fade" id="nav-${info.seq }" role="tabpanel" aria-labelledby="v-pills-home-tab">
+			  
+			  </div>
 			  <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">profile</div>
 			  <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">message</div>
 			  <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">setting</div>

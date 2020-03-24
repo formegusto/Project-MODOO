@@ -27,11 +27,11 @@
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">WCrawl</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#">Welcome! ${user.name }<span class="sr-only">(current)</span></a>
       </li>
@@ -39,14 +39,15 @@
         <a class="nav-link" href="logout.do">logout</a>
       </li>
     </ul>
+    <div id="roomOpen"></div>
   </div>
 </nav>
 
 <!-- crawlerAddDesign -->
+<form method="post" action="crawlerConfirm.do">
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 <div style="margin:auto;">
-<form method="post" action="crawlerConfirm.do">
   <div class="form-group">
 	<label for="inputTitle">Title</label>
 	<input type="text" name="title" class="form-control" id="inputTitle" placeholder="Input Crawler Title">
@@ -69,10 +70,47 @@
       <input type="text" name="cssQuery" class="form-control" id="inputCssQuery" placeholder="Input CssQuery">
     </div>
   </div>
-  <button type="submit" id="crawling" class="btn btn-primary" style="float: right;">Crawler Confirm</button>
+</div>
+</div>
+</div>
+
+<!-- Button -->
+<div class="container" style="margin-top: 15px;">
+<div class="row">
+	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
+	  	<div class="btn-group mr-2" role="group" aria-label="First group">
+	  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">Cancel</button>
+	  	<button type="button" id="urlCancel" class="btn btn-secondary">URL Confirm(CLEAR)</button>
+	  	<button type="button" id="urlLoad" class="btn btn-secondary">URL Confirm(TEST)</button>
+	  	<button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='crawlerConfirm.do'; form.submit()">Crawler Confirm</button>
+	  	</div>
+  	</div>
+</div>
+</div>
 </form>
-</div>
-</div>
+<div id="targetUrl" style="margin-top: 15px;">
 </div>
 </body>
+<script type="text/javascript">
+$("#urlCancel").click(function(){
+	$("#targetUrl").html("");
+})
+$("#urlLoad").click(function(){
+	$("#targetUrl").load($("#inputLink").val());
+})
+$("#targetUrl").click(function(event){
+	event.preventDefault();
+	if(event.target.className!=""){
+		$("#inputCssQuery").val(event.target.nodeName + "." + event.target.className);
+	} else if (event.target.id!=""){
+		$("#inputCssQuery").val(event.target.nodeName + "#" + event.target.id);
+	} else {
+		$("#inputCssQuery").val(event.target.nodeName);
+	}
+	$('html').scrollTop(0);
+})
+</script>
 </html>
+
+
+

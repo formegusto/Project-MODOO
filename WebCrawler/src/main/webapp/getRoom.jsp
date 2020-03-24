@@ -11,8 +11,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <!-- Bootstrap core CSS -->
 <link href="resources/css/chat.css" rel="stylesheet"></link>
+<link href="resources/css/sideData.css" rel="stylesheet"></link>
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
-<script src="https://use.fontawesome.com/63a7f56cba.js"></script>
+<link href="resources/fontawesome/css/all.css" rel="stylesheet">
+<script defer src="resources/fontawesome/js/all.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <title>${room.rtitle }</title>
@@ -44,28 +46,89 @@
   </div>
 </nav>
 
+<!-- side var -->
+<div class="container-fluid">
+    <div class="row d-flex d-md-block flex-nowrap wrapper">
+        <div class="col-md-3 float-left col-1 pl-0 pr-0 collapse width " id="sidebar">
+                <div class="list-group border-0 card text-center text-md-left">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <c:forEach items="${infoList }" var="info">
+	  				<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#nav-${info.seq }" role="tab" aria-controls="v-pills-home" aria-selected="true">${info.field }</a>
+				</c:forEach>
+				</div>
+            	</div>
+        </div>
+<!-- Main -->
+        <main class="col-md-9 col px-5 pl-md-2 pt-2 main mx-auto">
+            <a href="#" data-target="#sidebar" data-toggle="collapse" aria-expanded="false" style="margin-left: 15px;"><i class="fas fa-align-justify fa-w-14 fa-2x"></i></a>
+            <div class="row">
+            <div class="tab-content" id="v-pills-tabContent" style="margin-left: 15px;">
+            <c:forEach items="${infoList }" var="info">
+			<c:set var="key">${info.seq }</c:set>
+			<c:set var="dataList">${dataMap[key] }</c:set>
+			  <div class="tab-pane fade" id="nav-${info.seq }" role="tabpanel" aria-labelledby="v-pills-home-tab">
+			  	<table class="table" >
+				  <tbody>
+			  		<c:forEach items="${dataList }" var="data">
+						<tr>
+							<td>${data }</td>
+						</tr>
+				    </c:forEach>
+			  	</tbody>
+				</table>
+			  </div>
+			</c:forEach>
+			</div>
+			<!-- 채팅창 -->
+			<div class="container" style="margin-top: 15px;">
+			<div class="messaging">
+			      <div class="inbox_msg">
+			        <div class="inbox_people">
+			          <div class="headind_srch">
+			            <div class="recent_heading">
+			              <h4>접속자리스트</h4>
+			            </div>
+			          </div>
+			          <div id="inbox_chat" class="inbox_chat"></div>
+			        </div>
+			        <div id="mesgs" class="mesgs">
+			          <div id="msg_history" class="msg_history">
+			          <c:forEach items="${chatList }" var="chat">
+				            	<c:if test="${chat.id eq user.id }">
+					            	<div class="outgoing_msg">
+						              <div class="sent_msg">
+						                <p>${chat.data }</p>
+						                <span class="time_date">나</span> 
+						              </div>
+						            </div>
+				            	</c:if>
+				            	<c:if test="${chat.id ne user.id }">
+				            		<div class="incoming_msg">
+						              <div class="received_msg">
+						                <div class="received_withd_msg">
+						                  <p>${chat.data }</p>
+						                  <span class="time_date">${chat.id }</span>
+						                </div>
+						              </div>
+						            </div>
+				            	</c:if>
+			          </c:forEach>
+			          </div>
+			          <div class="type_msg">
+			            <div class="input_msg_write">
+			              <input type="text" id="inputMessage" class="write_msg" placeholder="Type a message" onkeyup="enterkey()"/>
+			              <button class="msg_send_btn" type="button" onclick="send()"><i class="far fa-envelope" aria-hidden="true"></i></button>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			</div>
+			</div>
+			</div>
+        </main>
+    </div>
+</div>
 <form method="post" name="form">
-<div class="container" style="margin-top: 15px;">
-<div class="row">
-	<table class="table">
-	  <tbody>
-	    <tr>
-	      <th scope="row">제목</th>
-	      <td>${board.title }</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">작성자</th>
-	      <td>${board.id }</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">내용</th>
-	      <td>${board.content }</td>
-	    </tr>
-	    </tbody>
-	</table>
-</div>
-</div>
-
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
@@ -75,54 +138,9 @@
   	</div>
 </div>
 </div>
-
 </form>
-
-<!-- 채팅창 -->
-<div class="container" style="margin-top: 15px;">
-<div class="messaging">
-      <div class="inbox_msg">
-        <div class="inbox_people">
-          <div class="headind_srch">
-            <div class="recent_heading">
-              <h4>접속자리스트</h4>
-            </div>
-          </div>
-          <div id="inbox_chat" class="inbox_chat"></div>
-        </div>
-        <div id="mesgs" class="mesgs">
-          <div id="msg_history" class="msg_history">
-          <c:forEach items="${chatList }" var="chat">
-	            	<c:if test="${chat.id eq user.id }">
-		            	<div class="outgoing_msg">
-			              <div class="sent_msg">
-			                <p>${chat.data }</p>
-			                <span class="time_date">나</span> 
-			              </div>
-			            </div>
-	            	</c:if>
-	            	<c:if test="${chat.id ne user.id }">
-	            		<div class="incoming_msg">
-			              <div class="received_msg">
-			                <div class="received_withd_msg">
-			                  <p>${chat.data }</p>
-			                  <span class="time_date">${chat.id }</span>
-			                </div>
-			              </div>
-			            </div>
-	            	</c:if>
-          </c:forEach>
-          </div>
-          <div class="type_msg">
-            <div class="input_msg_write">
-              <input type="text" id="inputMessage" class="write_msg" placeholder="Type a message" onkeyup="enterkey()"/>
-              <button class="msg_send_btn" type="button" onclick="send()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-</div>
-</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");

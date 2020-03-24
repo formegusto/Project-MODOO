@@ -31,4 +31,19 @@ public class WCrawl {
 			return null;
 		}
 	}
+	
+	public static String getDoc(InfoVO vo){
+		System.out.println("===> WCrawl getDoc(vo) 크롤링 기능 처리");
+		Document doc;
+		String doc_str;
+		try {
+			doc = Jsoup.connect(vo.getLink()).header("userAgent","Mozilla").get();
+			doc_str = doc.toString();
+
+			return doc_str;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

@@ -1,6 +1,9 @@
 package com.crawler.view.room;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,10 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.crawler.biz.board.BoardHaveInfoVO;
 import com.crawler.biz.board.BoardVO;
 import com.crawler.biz.board.impl.BoardService;
 import com.crawler.biz.chat.ChatVO;
 import com.crawler.biz.chat.impl.ChatService;
+import com.crawler.biz.data.DataVO;
+import com.crawler.biz.data.impl.DataService;
+import com.crawler.biz.info.InfoVO;
+import com.crawler.biz.info.impl.InfoService;
 import com.crawler.biz.room.RoomVO;
 import com.crawler.biz.room.impl.RoomService;
 
@@ -24,6 +32,10 @@ public class RoomController {
 	BoardService boardService;
 	@Autowired
 	ChatService chatService;
+	@Autowired
+	InfoService	infoService;
+	@Autowired
+	DataService dataService;
 	
 	@RequestMapping(value="/roomAdd_proc.do")
 	public String roomAdd(RoomVO vo, HttpSession session) {
@@ -45,11 +57,30 @@ public class RoomController {
 		
 		BoardVO bvo = new BoardVO();
 		bvo.setBseq(room.getBnum());
-		
 		ChatVO cvo = new ChatVO();
 		cvo.setRnum(vo.getRnum());
 		List<ChatVO> chatList = chatService.getChatList(cvo);
 		
+		// infoList Make
+		List<BoardHaveInfoVO> bhiList = boardService.getBHIList(bvo);
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(BoardHaveInfoVO bhi : bhiList) {
+			InfoVO ivo = new InfoVO();
+			ivo.setSeq(bhi.getInum());
+			infoList.add(infoService.getInfo(ivo));
+		}
+		
+		// dataMap Make
+		Map<String, List<String>> dataMap = new HashMap<String, List<String>>();
+		for(BoardHaveInfoVO bhi : bhiList) {
+				DataVO dvo = new DataVO();
+				dvo.setInum(bhi.getInum());
+				List<String> dataList = dataService.getDataStr(dvo);
+				dataMap.put( bhi.getInum()+"" , dataList);
+		}
+		
+		model.addAttribute("dataMap", dataMap);
+		model.addAttribute("infoList", infoList);
 		model.addAttribute("board", boardService.getBoard(bvo));
 		model.addAttribute("room", room);
 		model.addAttribute("chatList", chatList);
