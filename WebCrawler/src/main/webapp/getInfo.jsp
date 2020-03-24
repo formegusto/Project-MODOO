@@ -7,12 +7,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="resources/css/loading.css">
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).on("click","#crawling",function(){
+		$('#loading').show();
+		$('#loading-image').show();
+	});
+</script>
 <title>Crawler SELECT Page</title>
 </head>
 <body>
+<!-- Loading -->
+<div id="loading">
+	<img id="loading-image" src="images/viewLoading.gif" alt="Loading..."/>
+</div>
 
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -39,8 +50,8 @@
 <div class="col-md-12">
 	<nav>
 		<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Project Tab 1</a>
-			<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Project Tab 2</a>
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">InfoList</a>
+			<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">DataList</a>
 		</div>
 	</nav>
 	<div class="tab-content" id="nav-tabContent">
@@ -109,7 +120,7 @@
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">InfoList</button>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='updateDataConfirm.do'; form.submit()">UpdateData</button>
+	    <button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='updateDataConfirm.do'; form.submit()">UpdateData</button>
 	  	</div>
   	</div>
 </div>

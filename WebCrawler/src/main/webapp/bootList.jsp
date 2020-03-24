@@ -5,7 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <!-- Bootstrap core CSS -->
+<link href="resources/css/chat.css" rel="stylesheet"></link>
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+<script src="https://use.fontawesome.com/63a7f56cba.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <title>Top Test</title>
@@ -377,6 +379,141 @@
 <hr/>
 
 <!-- getRoomDesign -->
+<div class="container">
+<div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <h4>접속자리스트</h4>
+            </div>
+          </div>
+          <div class="inbox_chat">
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_ib">
+                  <h5>Sunil Rajput</h5>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_ib">
+                  <h5>Sunil Rajput</h5>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_ib">
+                  <h5>Sunil Rajput</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mesgs">
+          <div class="msg_history">
+            <div class="incoming_msg">
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>Test which is a new approach to have all
+                    solutions</p>
+                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
+              </div>
+            </div>
+            <div class="outgoing_msg">
+              <div class="sent_msg">
+                <p>Test which is a new approach to have all
+                  solutions</p>
+                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+            </div>
+            <div class="incoming_msg">
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>Test, which is a new approach to have</p>
+                  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
+              </div>
+            </div>
+            <div class="outgoing_msg">
+              <div class="sent_msg">
+                <p>Apollo University, Delhi, India Test</p>
+                <span class="time_date"> 11:01 AM    |    Today</span> </div>
+            </div>
+            <div class="incoming_msg">
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>We work directly with our designers and suppliers,
+                    and sell direct to you, which means quality, exclusive
+                    products, at a price anyone can afford.</p>
+                  <span class="time_date"> 11:01 AM    |    Today</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="type_msg">
+            <div class="input_msg_write">
+              <input type="text" class="write_msg" placeholder="Type a message" />
+              <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
 
+
+<!-- crawlerAddDesign -->
+<div class="container" style="margin-top: 15px;">
+<div class="row">
+<div style="margin:auto;">
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">State</label>
+      <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+</div>
+</div>
+</div>
 </body>
 </html>

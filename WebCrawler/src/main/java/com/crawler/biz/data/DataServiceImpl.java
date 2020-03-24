@@ -22,6 +22,14 @@ public class DataServiceImpl implements DataService {
 		dataDAO.insertData(dataList);
 	}
 	@Override
+	public void insertDataInum(DataVO vo) {
+		dataDAO.insertDataInum(vo);
+	}
+	@Override
+	public void insertDataInum(List<DataVO> dataList) {
+		dataDAO.insertDataInum(dataList);
+	}
+	@Override
 	public List<DataVO> getData(DataVO vo) {
 		return dataDAO.getData(vo);
 	}

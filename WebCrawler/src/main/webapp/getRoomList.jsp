@@ -27,17 +27,14 @@
         <a class="nav-link" href="logout.do">logout</a>
       </li>
     </ul>
-    <div id="roomOpen">
-    
-    </div>
-   
+    <div id="roomOpen"></div>
   </div>
 </nav>
 
 <!-- Navs : 보드 메뉴 -->
 <nav class="nav nav-pills nav-justified">
   <a class="nav-item nav-link" href="getInfoList.do">Info</a>
-  <a class="nav-item nav-link" href="getBoardList.do">Crawler</a>
+  <a class="nav-item nav-link" href="getBoardList.do">Board</a>
   <a class="nav-item nav-link active" href="getRoomList.do">ChatRoom</a>
 </nav>
 	

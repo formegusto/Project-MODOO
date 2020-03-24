@@ -95,10 +95,12 @@ public class CrawlerController {
 		List<DataVO> dataList = new ArrayList<DataVO>();
 		for(String data : datas){
 			DataVO dvo = new DataVO();
+			dvo.setInum(ivo.getSeq());
 			dvo.setData(data);
+			System.out.println(dvo);
 			dataList.add(dvo);
 		}
-		dataService.insertData(dataList);
+		dataService.insertDataInum(dataList);
 		
 		// 3. session에 객체 저장
 		model.addAttribute("info",ivo);

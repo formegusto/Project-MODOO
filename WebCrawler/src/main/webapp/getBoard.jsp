@@ -15,11 +15,11 @@
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">WCrawl</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#">Welcome! ${user.name }<span class="sr-only">(current)</span></a>
       </li>
@@ -27,6 +27,7 @@
         <a class="nav-link" href="logout.do">logout</a>
       </li>
     </ul>
+    <div id="roomOpen"></div>
   </div>
 </nav>
 
@@ -54,7 +55,7 @@
 				<div class="input-group mb-3">
 				  <input type="hidden" name="id" value="${board.id }"/>
 				  <input type="hidden" name="bnum" value="${board.bseq }"/>
-				  <input type="text" class="form-control" name="rtitle" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+				  <input type="text" class="form-control" name="rtitle" placeholder="Chat Room Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
 				  <div class="input-group-append">
 				    <button class="btn btn-outline-secondary" type="button" onclick="javascript: send()">New Chat</button>
 				  </div>
@@ -112,6 +113,7 @@
 </div>
 <input type="hidden" value='${user.id }' id='alarm_id' />
 </form>
+<c:if test="${board.id eq user.id }">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");
@@ -125,6 +127,9 @@
     webSocket.onmessage = function(event) {
         onMessage(event)
     };
+    function onOpen(event){
+    	$("#roomOpen").html("<p style='color:white; '><strong>채팅방 생성 알람 작동중</strong></p>");
+    };
     function send() {
     	var form = document.form;
     	form.action="roomAdd_proc.do";
@@ -135,5 +140,6 @@
         alert(event.data);
     }
 </script>
+</c:if>
 </body>
 </html>
