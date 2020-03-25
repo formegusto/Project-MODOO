@@ -77,6 +77,17 @@ public class BoardController {
 		return "getInfoList.do";
 	}
 	
+	@RequestMapping(value="/deleteBoard.do")
+	public String deleteBoard(BoardVO vo, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 게시판 삭제 기능 처리");
+		
+		boardService.deleteBoard(vo);
+		
+		return "getBoardList.do";
+	}
+	
 	@RequestMapping(value="/getBoardList.do")
 	public String getBoardList(BoardVO vo, HttpSession session,
 			Model model) {
@@ -105,11 +116,12 @@ public class BoardController {
 		}
 		
 		// dataMap Make
-		Map<String, List<String>> dataMap = new HashMap<String, List<String>>();
+		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
 		for(BoardHaveInfoVO bhi : bhiList) {
 			DataVO dvo = new DataVO();
 			dvo.setInum(bhi.getInum());
-			List<String> dataList = dataService.getDataStr(dvo);
+			List<DataVO> dataList = dataService.getData(dvo);
+			System.out.println(dataList);
 			dataMap.put( bhi.getInum()+"" , dataList);
 		}
 		

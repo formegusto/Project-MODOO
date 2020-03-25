@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -5,6 +7,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page session="true"%>
+<%
+	ArrayList<InfoVO> infoList = (ArrayList) request.getAttribute("infoList");
+	HashMap<String,List<DataVO>> dataMap = (HashMap) request.getAttribute("dataMap");    
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +52,7 @@
   </div>
 </nav>
 <form method="post" name="form">
+<input type="hidden" name="rnum" value="${room.rnum }"/>
 <!-- side var -->
 <div class="container-fluid">
     <div class="row d-flex d-md-block flex-nowrap wrapper">
@@ -65,21 +72,22 @@
             </a>
             <div class="row">
             <div class="tab-content" id="v-pills-tabContent" style="margin-left: 15px;">
-            <c:forEach items="${infoList }" var="info">
-			<c:set var="key">${info.seq }</c:set>
-			<c:set var="dataList">${dataMap[key] }</c:set>
-			  <div class="col tab-pane fade" id="nav-${info.seq }" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <%
+            for(InfoVO info : infoList){
+            	List<DataVO> dataList = dataMap.get(info.getSeq()+"");	
+           	%>
+			  <div class="col tab-pane fade" id="nav-<%=info.getSeq() %>" role="tabpanel" aria-labelledby="v-pills-home-tab">
 			  	<table class="table" >
 				  <tbody>
-			  		<c:forEach items="${dataList }" var="data">
+				  <%for(DataVO data : dataList){ %>
 						<tr>
-							<td>${data }</td>
+							<td><%=data.getData() %></td>
 						</tr>
-				    </c:forEach>
+				  <%} %>
 			  	</tbody>
 				</table>
 			  </div>
-			</c:forEach>
+			<%} %>
 			</div>
 			
 			<div class="col">
@@ -99,7 +107,10 @@
 				            	<c:if test="${chat.id eq user.id }">
 					            	<div class="outgoing_msg">
 						              <div class="sent_msg">
-						                <p>${chat.data }</p>
+						                <p>
+						                ${chat.data }
+						                <span class="fas fa-bomb"></span>
+						                </p>
 						                <span class="time_date">나</span> 
 						              </div>
 						            </div>
@@ -118,7 +129,7 @@
 			          </div>
 			          <div class="type_msg">
 			            <div class="input_msg_write">
-			              <input type="text" id="inputMessage" class="write_msg" placeholder="Type a message" onkeyup="enterkey()"/>
+			              <input type="text" id="inputMessage" class="write_msg" placeholder="Type a message" onkeyup="javascript:enterkey()"/>
 			              <button class="msg_send_btn" type="button" onclick="send()"><i class="far fa-envelope" aria-hidden="true"></i></button>
 			            </div>
 			          </div>
@@ -131,6 +142,9 @@
 						<div class="row">
 							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 							  	<div class="btn-group mr-2" role="group" aria-label="First group">
+							  	<c:if test="${room.id eq user.id }">
+							  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='deleteRoom.do'; form.submit()">DeleteRoom</button>
+							    </c:if>
 							    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getRoomList.do'; form.submit()">RoomList</button>
 							  	</div>
 						  	</div>
@@ -221,7 +235,7 @@
     }
     //     엔터키를 통해 send함
     function enterkey() {
-        if (window.event.keyCode == 13) {
+        if (event.keyCode == 13) {
             send();
         }
     }

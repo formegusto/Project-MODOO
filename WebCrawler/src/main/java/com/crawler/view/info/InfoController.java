@@ -61,5 +61,17 @@ public class InfoController {
 		return null;
 	}
 	
-	
+	// 크롤러 정보 상세 보기
+	@RequestMapping(value="/deleteInfo.do")
+	public String getInfo(InfoVO vo, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 정보 삭제 기능 처리");
+		// 1. 사용자 입력정보 추출
+		// 2. DB 연동 처리(info)
+		// 3. DB 연동 처리(Data)
+		// 4. 세션에 값 저장
+		infoService.deleteInfo(vo);
+		return "getInfoList.do";
+	}	
 }

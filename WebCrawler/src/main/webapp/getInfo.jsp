@@ -98,14 +98,16 @@
 			<table class="table">
 	  			<thead class="thead-dark">
 				    <tr>
-				      <th scope="col" colspan="2">DataList</th>
+				      <th scope="col" colspan="2">${info.field }</th>
 				    </tr>
 	  			</thead>
 	  			<tbody>
 		  			<c:forEach items="${dataList }" var="dat">
 					<tr>
-						<th scope="row">${info.field }</th>
-						<td>${dat.data }</td>
+						<td>
+						${dat.data }
+						<button type="button" class="btn btn-outline-dark" style="float: right" onclick="location.href='deleteDataSeq.do?seq=${info.seq }&dseq=${dat.dseq}'">X</button>
+						</td>
 					</tr>
 					</c:forEach>
 	  			</tbody>

@@ -57,6 +57,12 @@ public class DataDAOMybatis {
 		return mybatis.selectList("DataDAO.getDataList", vo);
 	}
 	
+	// DATA 특정 데이터 삭제
+	public void deleteDataSeq(DataVO vo) {
+		System.out.println("===> Mybatis로 deleteDataSeq() 삭제 기능 처리");
+		mybatis.delete("DataDAO.deleteDataSeq", vo);
+	}
+	
 	// DATA 전체 삭제
 	public void deleteData(DataVO vo) {
 		System.out.println("===> Mybatis로 deleteData() 삭제 기능 처리");

@@ -7,6 +7,10 @@
 		insert into room(rnum,bnum,rtitle,id)
 		values((SELECT ifnull(max(rnum), 0) + 1 FROM room a),#{bnum},#{rtitle},#{id})
 	</insert>
+	<delete id="deleteRoom">
+		DELETE FROM ROOM
+		WHERE RNUM=${rnum }
+	</delete>
 	<select id="getRoom" resultType="room">
 		SELECT *
 		FROM room

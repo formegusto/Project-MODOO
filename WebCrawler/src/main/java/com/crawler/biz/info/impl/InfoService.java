@@ -6,11 +6,12 @@ import com.crawler.biz.info.InfoVO;
 
 public interface InfoService {
 	
-	//CRUD ±â´ÉÀÇ ¸Þ¼Òµå ±¸Çö
-	//Å©·Ñ¸µ Á¤º¸ µî·Ï
+	//CRUD ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½
+	//Å©ï¿½Ñ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public void insertInfo(InfoVO vo);
-	//Å©·Ñ·¯ »ó¼¼ Á¤º¸ º¸±â
+	//Å©ï¿½Ñ·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public InfoVO getInfo(InfoVO vo);
-	//Å©·Ñ¸µ Á¤º¸ ¸®½ºÆ® º¸±â
+	//Å©ï¿½Ñ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	public List<InfoVO> getInfoList(InfoVO vo);
+	public void deleteInfo(InfoVO vo);
 }

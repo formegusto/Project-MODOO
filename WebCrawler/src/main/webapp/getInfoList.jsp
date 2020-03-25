@@ -1,6 +1,10 @@
+<%@page import="java.util.ArrayList"%>
 <%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%
+	ArrayList<InfoVO> infoList = (ArrayList) request.getAttribute("infoList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,18 +45,27 @@
 <form method="post" name="form">
 <div class="container" style="margin-top: 15px;">
 <div class="row">
+	
 	<div class="card-deck">
-	<c:forEach items="${infoList }" var="info">
+	<%
+	for(int i=0;i<infoList.size();i++){
+		InfoVO info = infoList.get(i);
+	%>
 		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-		  <div class="card-header">${info.seq } : ${info.regDate } <button type="button" class="btn btn-outline-light" style="float: right">X</button>
+		  <div class="card-header"><%=info.getSeq() %> : <%=info.getRegDate() %> 
+		  <button type="button" class="btn btn-outline-light" style="float: right" onclick="location.href='deleteInfo.do?seq=<%=info.getSeq()%>'">X</button>
 		  </div>
 		  <div class="card-body">
-		    <h5 class="card-title"><a href="getInfo.do?seq=${info.seq }" style="color:white; font-weight: bold;">${info.title }</a></h5>
-		    <p class="card-text">${info.content }</p>
+		    <h5 class="card-title"><a href="getInfo.do?seq=<%=info.getSeq() %>" style="color:white; font-weight: bold;"><%=info.getTitle() %></a></h5>
+		    <p class="card-text"><%=info.getContent() %></p>
 		  </div>
 		</div>
-	</c:forEach>
+	<%if(((i+1)%4)==0){%>
+			</div>
+			<div class="card-deck">
+	<%	}} %>
 	</div>
+	
 </div>
 </div>
 

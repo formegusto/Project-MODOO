@@ -20,6 +20,8 @@ public interface DataService {
 	public List<String> getDataStr(DataVO vo);
 	//��ü DATA ��ȸ
 	public List<DataVO> getDataList(DataVO vo);
+	// DATA 특정 데이터 삭제
+	public void deleteDataSeq(DataVO vo);
 	// DATA 전체 삭제
 	public void deleteData(DataVO vo);
 }

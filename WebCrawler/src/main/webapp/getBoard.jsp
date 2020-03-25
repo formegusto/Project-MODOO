@@ -1,6 +1,12 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.HashMap"%>
 <%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%
+	ArrayList<InfoVO> infoList = (ArrayList) request.getAttribute("infoList");
+	HashMap<String,List<DataVO>> dataMap = (HashMap) request.getAttribute("dataMap");    
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +60,7 @@
 			<td colspan="2"> 
 				<div class="input-group mb-3">
 				  <input type="hidden" name="id" value="${board.id }"/>
+				  <input type="hidden" name="bseq" value="${board.bseq }"/>
 				  <input type="hidden" name="bnum" value="${board.bseq }"/>
 				  <input type="text" class="form-control" name="rtitle" placeholder="Chat Room Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
 				  <div class="input-group-append">
@@ -77,23 +84,28 @@
 		<tr>
 			<td colspan="2">
 			<div class="tab-content" id="nav-tabContent">
-			<c:forEach items="${infoList }" var="info">
-			<c:set var="key">${info.seq }</c:set>
-			<c:set var="dataList">${dataMap[key] }</c:set>
+			<%
+				for(InfoVO info : infoList){
+					List<DataVO> dataList = dataMap.get(info.getSeq()+"");
+			%>
 			<!-- InfoÁ¤º¸ -->
-			<div class="tab-pane fade" id="nav-${info.seq }" role="tabpanel" aria-labelledby="nav-home-tab">
+			<div class="tab-pane fade" id="nav-<%=info.getSeq() %>" role="tabpanel" aria-labelledby="nav-home-tab">
 			     <table class="table">
 				  <tbody>
-			  			   <c:forEach items="${dataList }" var="data">
+				  			<%for(DataVO data : dataList){ %>
 						   <tr>
-							   	<th scope="row">${info.field }</th>
-							   	<td>${data }</td>
+							   	<th scope="row"><%=info.getField() %></th>
+							   	<td>
+							   		<%=data.getData() %>
+							   	</td>
 						   </tr>
-						   </c:forEach>
-			  			</tbody>
+						    <%} %>
+			  	 </tbody>
 				</table>
 			</div>
-		    </c:forEach>
+		    <%
+		    }
+		    %>
 		    </div>
 			</td>
 	    </tr>
@@ -106,6 +118,9 @@
 <div class="row">
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
+	  	<c:if test="${board.id eq user.id }">
+	  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='deleteBoard.do'; form.submit()">DeleteBoard</button>
+	    </c:if>
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getBoardList.do'; form.submit()">BoardList</button>
 	  	</div>
   	</div>

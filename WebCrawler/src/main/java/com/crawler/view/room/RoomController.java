@@ -44,7 +44,16 @@ public class RoomController {
 		System.out.println("[Spring Service MVC Framework] 채팅방 등록 기능 처리");
 		System.out.println(vo);
 		roomService.insertRoom(vo);
-		return "getBoardList.do";
+		return "getRoomList.do";
+	}
+	
+	@RequestMapping(value="/deleteRoom.do")
+	public String deleteRoom(RoomVO vo, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 채팅방 삭제 기능 처리");
+		roomService.deleteRoom(vo);
+		return "getRoomList.do";
 	}
 	
 	@RequestMapping(value="/getRoom.do")
@@ -71,11 +80,11 @@ public class RoomController {
 		}
 		
 		// dataMap Make
-		Map<String, List<String>> dataMap = new HashMap<String, List<String>>();
+		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
 		for(BoardHaveInfoVO bhi : bhiList) {
 				DataVO dvo = new DataVO();
 				dvo.setInum(bhi.getInum());
-				List<String> dataList = dataService.getDataStr(dvo);
+				List<DataVO> dataList = dataService.getData(dvo);
 				dataMap.put( bhi.getInum()+"" , dataList);
 		}
 		

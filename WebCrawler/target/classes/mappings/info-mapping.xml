@@ -4,8 +4,10 @@
 
 <mapper namespace="InfoDAO">
 	<insert id="insertInfo">
+	<![CDATA[
 		insert into info(seq,title,link,content,field,cssquery,id)
 		values((SELECT ifnull(max(seq), 0) + 1 FROM info a),#{title},#{link},#{content},#{field},#{cssQuery},#{id})
+	]]>
 	</insert>
 	<select id="getInfo" resultType="info">
 		<![CDATA[
@@ -22,4 +24,10 @@
 			ORDER BY SEQ DESC
 		]]>
 	</select>
+	<delete id="deleteInfo">
+	<![CDATA[
+		DELETE FROM INFO
+		WHERE SEQ=#{seq}
+	]]>
+	</delete>
 </mapper>

@@ -17,6 +17,12 @@ public class RoomServiceImpl implements RoomService {
 	public void insertRoom(RoomVO vo) {
 		roomDAO.insertRoom(vo);
 	}
+	
+	@Override
+	public void deleteRoom(RoomVO vo) {
+		roomDAO.deleteRoom(vo);	
+	}
+
 
 	@Override
 	public RoomVO getRoom(RoomVO vo) {

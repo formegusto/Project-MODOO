@@ -24,6 +24,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public void deleteBoard(BoardVO vo) {
+		boardDAO.deleteBoard(vo);
+	}
+
+	@Override
 	public List<BoardHaveInfoVO> getBHIList(BoardVO vo) {
 		return boardDAO.getBHIList(vo);
 	}

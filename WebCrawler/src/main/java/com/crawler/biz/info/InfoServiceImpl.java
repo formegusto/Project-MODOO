@@ -24,5 +24,8 @@ public class InfoServiceImpl implements InfoService{
 	public List<InfoVO> getInfoList(InfoVO vo) {
 		return infoDAO.getInfoList(vo);
 	}
-	
+	@Override
+	public void deleteInfo(InfoVO vo) {
+		infoDAO.deleteInfo(vo);
+	}
 }

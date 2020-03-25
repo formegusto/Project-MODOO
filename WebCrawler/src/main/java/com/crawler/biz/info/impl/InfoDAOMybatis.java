@@ -27,4 +27,9 @@ public class InfoDAOMybatis {
 		System.out.println("===> Mybatis로 getInfoList() 조회 기능 처리");
 		return mybatis.selectList("InfoDAO.getInfoList", vo);
 	}
+	
+	public void deleteInfo(InfoVO vo) {
+		System.out.println("===> Mybatis로 deleteInfo() 삭제 기능 처리");
+		mybatis.delete("InfoDAO.deleteInfo", vo);
+	}
 }

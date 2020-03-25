@@ -11,6 +11,10 @@
 		insert into board_have_info(bseq,inum)
 		values ((SELECT ifnull(max(bseq), 0) + 0 FROM board a), #{inum})
 	</insert>
+	<delete id="deleteBoard">
+		DELETE FROM BOARD
+		WHERE BSEQ=${bseq}
+	</delete>
 	<select id="getBHIList" resultType="bhi">
 		SELECT *
 		FROM BOARD_HAVE_INFO

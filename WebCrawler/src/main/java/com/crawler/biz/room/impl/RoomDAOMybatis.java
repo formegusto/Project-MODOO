@@ -17,6 +17,10 @@ public class RoomDAOMybatis {
 		System.out.println("===> Mybatis로 insertRoom() 등록 기능 처리");
 		mybatis.insert("RoomDAO.insertRoom", vo);
 	}
+	public void deleteRoom(RoomVO vo) {
+		System.out.println("===> Mybatis로 deleteRoom() 삭제 기능 처리");
+		mybatis.delete("RoomDAO.deleteRoom", vo);
+	}
 	public RoomVO getRoom(RoomVO vo) {
 		System.out.println("===> Mybatis로 getRoom() 조회 기능 처리");
 		return mybatis.selectOne("RoomDAO.getRoom", vo);

@@ -4,16 +4,20 @@
 
 <mapper namespace="DataDAO">
 	<insert id="insertData">
-		insert into data(inum,data)
-		values((SELECT ifnull(max(seq), 0) + 0 FROM info a),#{data });
+		insert into data(dseq,inum,data)
+		values((SELECT ifnull(max(dseq), 0) + 1 FROM data b),(SELECT ifnull(max(seq), 0) + 0 FROM info a),#{data });
 	</insert>
 	<insert id="insertDataInum">
-		insert into data(inum,data)
-		values(#{inum },#{data });
+		insert into data(dseq,inum,data)
+		values((SELECT ifnull(max(dseq), 0) + 1 FROM data b),#{inum },#{data });
 	</insert>
 	<delete id="deleteData">
 		DELETE FROM data
 		WHERE INUM=#{inum}
+	</delete>
+	<delete id="deleteDataSeq">
+		DELETE FROM data
+		WHERE DSEQ=#{dseq}
 	</delete>
 	<select id="getData" resultType="data">
 		<![CDATA[
@@ -26,7 +30,7 @@
 		<![CDATA[
 			SELECT *
 			FROM DATA
-			ORDER BY INUM DESC
+			ORDER BY dseq DESC
 		]]>
 	</select>
 	<select id="getDataStr" resultType="string">
@@ -34,7 +38,7 @@
 			SELECT data
 			FROM DATA
 			WHERE INUM=#{inum}
-			ORDER BY INUM DESC
+			ORDER BY dseq DESC
 		]]>
 	</select>
 </mapper>
