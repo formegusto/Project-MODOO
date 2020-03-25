@@ -45,7 +45,7 @@
     <div id="roomOpen"></div>
   </div>
 </nav>
-
+<form method="post" name="form">
 <!-- side var -->
 <div class="container-fluid">
     <div class="row d-flex d-md-block flex-nowrap wrapper">
@@ -58,15 +58,17 @@
 				</div>
             	</div>
         </div>
-<!-- Main -->
-        <main class="col-md-9 col px-5 pl-md-2 pt-2 main mx-auto">
-            <a href="#" data-target="#sidebar" data-toggle="collapse" aria-expanded="false" style="margin-left: 15px;"><i class="fas fa-align-justify fa-w-14 fa-2x"></i></a>
+		<!-- Main -->
+        	<main class="col-md-9 col px-5 pl-md-2 pt-2 main mx-auto">
+            <a href="#" data-target="#sidebar" data-toggle="collapse" aria-expanded="false" style="margin-left: 15px;">
+            <i class="fas fa-align-justify fa-w-14 fa-2x"></i>
+            </a>
             <div class="row">
             <div class="tab-content" id="v-pills-tabContent" style="margin-left: 15px;">
             <c:forEach items="${infoList }" var="info">
 			<c:set var="key">${info.seq }</c:set>
 			<c:set var="dataList">${dataMap[key] }</c:set>
-			  <div class="tab-pane fade" id="nav-${info.seq }" role="tabpanel" aria-labelledby="v-pills-home-tab">
+			  <div class="col tab-pane fade" id="nav-${info.seq }" role="tabpanel" aria-labelledby="v-pills-home-tab">
 			  	<table class="table" >
 				  <tbody>
 			  		<c:forEach items="${dataList }" var="data">
@@ -79,8 +81,8 @@
 			  </div>
 			</c:forEach>
 			</div>
-			<!-- 채팅창 -->
-			<div class="container" style="margin-top: 15px;">
+			
+			<div class="col">
 			<div class="messaging">
 			      <div class="inbox_msg">
 			        <div class="inbox_people">
@@ -120,24 +122,29 @@
 			              <button class="msg_send_btn" type="button" onclick="send()"><i class="far fa-envelope" aria-hidden="true"></i></button>
 			            </div>
 			          </div>
+			          
+			          
 			        </div>
+			        
 			      </div>
+			      <div class="container" style="margin-top: 15px;">
+						<div class="row">
+							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
+							  	<div class="btn-group mr-2" role="group" aria-label="First group">
+							    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getRoomList.do'; form.submit()">RoomList</button>
+							  	</div>
+						  	</div>
+						</div>
+				  </div>
 			</div>
 			</div>
 			</div>
+			<!-- 채팅창 -->
         </main>
     </div>
 </div>
-<form method="post" name="form">
-<div class="container" style="margin-top: 15px;">
-<div class="row">
-	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
-	  	<div class="btn-group mr-2" role="group" aria-label="First group">
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getRoomList.do'; form.submit()">RoomList</button>
-	  	</div>
-  	</div>
-</div>
-</div>
+
+
 </form>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
