@@ -1,6 +1,8 @@
 <%@page import="java.util.List"%>
 <%@page import="com.crawler.biz.info.InfoVO"%>
 <%@page import="com.crawler.biz.data.DataVO"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.crawler.biz.common.WCrawl"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"

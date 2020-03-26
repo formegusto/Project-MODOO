@@ -1,5 +1,3 @@
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.ArrayList"%>
 <%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -109,7 +107,7 @@
 						              <div class="sent_msg">
 						                <p>
 						                ${chat.data }
-						                <span class="fas fa-bomb"></span>
+						                <a href="#" style="float: right;"><span class="fas fa-bomb"></span></a>
 						                </p>
 						                <span class="time_date">나</span> 
 						              </div>
@@ -129,7 +127,7 @@
 			          </div>
 			          <div class="type_msg">
 			            <div class="input_msg_write">
-			              <input type="text" id="inputMessage" class="write_msg" placeholder="Type a message" onkeyup="javascript:enterkey()"/>
+			              <input type="text" id="inputMessage" class="write_msg" placeholder="Type a message" onkeydown="javascript:enterkey(this)"/>
 			              <button class="msg_send_btn" type="button" onclick="send()"><i class="far fa-envelope" aria-hidden="true"></i></button>
 			            </div>
 			          </div>
@@ -235,9 +233,10 @@
     }
     //     엔터키를 통해 send함
     function enterkey() {
-        if (event.keyCode == 13) {
-            send();
-        }
+    	if(event.keyCode == 13){
+    		event.preventDefault();
+    		send();
+    	}
     }
 </script>
 </body>
