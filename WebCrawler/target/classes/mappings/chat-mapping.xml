@@ -4,13 +4,17 @@
 
 <mapper namespace="ChatDAO">
 	<insert id="insertChat">
+	<![CDATA[
 		INSERT INTO chat(cseq,rnum,data,id)
 		values((SELECT ifnull(max(cseq), 0) + 1 FROM chat a),#{rnum},#{data},#{id})
+	]]>
 	</insert>
 	<select id="getChatList" resultType="chat">
+	<![CDATA[
 		SELECT *
 		FROM chat
 		WHERE RNUM=${rnum}
 		ORDER BY cseq ASC;
+	]]>
 	</select>
 </mapper>

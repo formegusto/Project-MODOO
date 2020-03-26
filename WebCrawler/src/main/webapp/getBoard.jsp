@@ -75,6 +75,7 @@
 			<c:forEach items="${infoList }" var="info">
 			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.seq }" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
 			</c:forEach>
+			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-table" role="tab" aria-controls="nav-test" aria-selected="false">All</a>
 			</div>
 			</nav>
 			</td>
@@ -92,7 +93,6 @@
 				  <tbody>
 				  			<%for(DataVO data : dataList){ %>
 						   <tr>
-							   	<th scope="row"><%=info.getField() %></th>
 							   	<td>
 							   		<%=data.getData() %>
 							   	</td>
@@ -101,9 +101,41 @@
 			  	 </tbody>
 				</table>
 			</div>
-		    <%
-		    }
-		    %>
+		    <% } %>
+		    <div class="tab-pane fade" id="nav-table" role="tabpanel" aria-labelledby="nav-home-tab">
+		    	<table class="table">
+		    	<thead>
+		    	<tr>
+		    	<%
+		    	for(InfoVO info : infoList){
+		    	%>
+		    				<th scope="col"><%=info.getField() %></th>
+		    	<% } %>
+		    	</tr>
+		    	</thead>
+		    	<tbody>
+		    	<tr>
+		    	<% for(InfoVO info : infoList){ 
+		    		List<DataVO> dataList = dataMap.get(info.getSeq()+"");
+		    	%>
+		    		<td>
+		    		<table class="table">
+		    		<tbody>
+				  			<%for(DataVO data : dataList){ %>
+						   <tr>
+							   	<td>
+							   		<%=data.getData() %>
+							   	</td>
+						   </tr>
+						    <%} %>
+			  		 </tbody>
+		    		</table>	
+		    		</td>
+		    	<%} %>
+		    	</tr>
+		    	</tbody>
+		    	</table>
+		    </div>
 		    </div>
 			</td>
 	    </tr>
@@ -130,7 +162,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");
-    var webSocket = new WebSocket('ws://192.168.24.36:8080/WCrawl/alarm.do');
+    var webSocket = new WebSocket('ws://172.30.1.35:8080/WCrawl/alarm.do');
     webSocket.onerror = function(event) {
         onError(event)
     };

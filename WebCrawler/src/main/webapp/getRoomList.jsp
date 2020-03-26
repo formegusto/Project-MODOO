@@ -87,7 +87,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");
-    var webSocket = new WebSocket('ws://192.168.24.36:8080/WCrawl/alarm.do');
+    var webSocket = new WebSocket('ws://172.30.1.35:8080/WCrawl/alarm.do');
     var inputMessage = document.getElementById("inputMessage");
     webSocket.onerror = function(event) {
         onError(event)
