@@ -1,6 +1,10 @@
 <%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%
+	ArrayList<InfoVO> infoList = (ArrayList) request.getAttribute("infoList");
+	HashMap<String,List<DataVO>> dataMap = (HashMap) request.getAttribute("dataMap");    
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +18,7 @@
 <body>
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">WCrawl</a>
+  <a class="navbar-brand" href="#">MODOO</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -69,6 +73,7 @@
 	    	<td>
 	    	<nav>
 			<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+			<!-- infoList -->
 			<c:forEach items="${infoList }" var="info">
 			<input type="hidden" name="inumList" value="${info.seq }"/>
 			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.seq }" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
@@ -78,25 +83,26 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="2">
 			<div class="tab-content" id="nav-tabContent">
-			<c:forEach items="${infoList }" var="info">
-			<c:set var="key">${info.seq }</c:set>
-			<c:set var="dataList">${dataMap[key] }</c:set>
-			<!-- Info정보 -->
-			<div class="tab-pane fade" id="nav-${info.seq }" role="tabpanel" aria-labelledby="nav-home-tab">
+			<%
+				for(InfoVO info : infoList){
+					List<DataVO> dataList = dataMap.get(info.getSeq()+"");
+			%>
+			<div class="tab-pane fade" id="nav-<%=info.getSeq() %>" role="tabpanel" aria-labelledby="nav-home-tab">
 			     <table class="table">
 				  <tbody>
-			  			   <c:forEach items="${dataList }" var="data">
+				  <%for(DataVO data : dataList){ %>
 						   <tr>
-							   	<th scope="row">${info.field }</th>
-							   	<td>${data }</td>
+							   	<td>
+							   		<%=data.getData() %>
+							   	</td>
 						   </tr>
-						   </c:forEach>
-			  			</tbody>
+				 <%} %>
+			  	 </tbody>
 				</table>
 			</div>
-		    </c:forEach>
+		    <% } %>
 		    </div>
 			</td>
 	    </tr>

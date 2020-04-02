@@ -18,7 +18,7 @@
 <body>
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">WCrawl</a>
+   <a class="navbar-brand" href="#">MODOO</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -71,6 +71,7 @@
 	    <tr>
 	    	<td colspan="2">
 	    	<nav>
+	    	<!-- Info정보 -->
 			<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 			<c:forEach items="${infoList }" var="info">
 			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.seq }" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
@@ -81,13 +82,13 @@
 			</td>
 		</tr>
 		<tr>
+			<!-- Data정보 -->
 			<td colspan="2">
 			<div class="tab-content" id="nav-tabContent">
 			<%
 				for(InfoVO info : infoList){
 					List<DataVO> dataList = dataMap.get(info.getSeq()+"");
 			%>
-			<!-- Info정보 -->
 			<div class="tab-pane fade" id="nav-<%=info.getSeq() %>" role="tabpanel" aria-labelledby="nav-home-tab">
 			     <table class="table">
 				  <tbody>
@@ -162,7 +163,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");
-    var webSocket = new WebSocket('ws://172.30.1.35:8080/WCrawl/alarm.do');
+    var webSocket = new WebSocket('ws://192.168.24.7:8080/WCrawl/alarm.do');
     webSocket.onerror = function(event) {
         onError(event)
     };

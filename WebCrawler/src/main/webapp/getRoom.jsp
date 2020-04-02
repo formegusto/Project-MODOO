@@ -33,7 +33,7 @@
 <body>
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">WCrawl</a>
+   <a class="navbar-brand" href="#">MODOO</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -164,7 +164,7 @@
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");
     var rnum = ${room.rnum};
-    var webSocket = new WebSocket('ws://172.30.1.35:8080/WCrawl/chat.do?' + rnum + '&' + $("#chat_id").val());
+    var webSocket = new WebSocket('ws://192.168.24.7:8080/WCrawl/chat.do?' + rnum + '&' + $("#chat_id").val());
     var inputMessage = document.getElementById("inputMessage");
     webSocket.onerror = function(event) {
         onError(event)

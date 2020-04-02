@@ -46,11 +46,11 @@ public class BoardController {
 		}
 		
 		// 2. dataMap 구축
-		Map<String, List<String>> dataMap = new HashMap<String, List<String>>();
+		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
 		for(String seq : seqList) {
 			DataVO dvo = new DataVO();
 			dvo.setInum(Integer.parseInt(seq));
-			List<String> dataList = dataService.getDataStr(dvo);
+			List<DataVO> dataList = dataService.getData(dvo);
 			dataMap.put(seq, dataList);
 		}
 		
@@ -129,5 +129,232 @@ public class BoardController {
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("dataMap", dataMap);
 		return "getBoard.jsp";
+	}
+	
+	@RequestMapping(value="/chartConfirm.do")
+	public String chartConfirm(@RequestParam(value="seqList", required=true) List<String> seqList,
+			Model model , HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 차트 컨펌 보기 기능 처리");
+		
+		// 1. infoList 구축
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(String seq : seqList) {
+			InfoVO vo = new InfoVO();
+			vo.setSeq(Integer.parseInt(seq));
+			infoList.add(infoService.getInfo(vo));
+		}
+		
+		// 2. dataMap 구축
+				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+				for(String seq : seqList) {
+					DataVO dvo = new DataVO();
+					dvo.setInum(Integer.parseInt(seq));
+					List<DataVO> dataList = dataService.getData(dvo);
+					dataMap.put(seq, dataList);
+				}
+		
+		// 2. 숫자 데이터 구축
+		List<Integer> numList = new ArrayList<Integer>();
+		DataVO dvo = new DataVO();
+		dvo.setInum(Integer.parseInt(seqList.get(0)));
+		List<DataVO> dataList = dataService.getData(dvo);
+		for(DataVO data : dataList) {
+			numList.add(Integer.parseInt(data.getData()));
+		}
+		
+		// 3. 문자열 데이터 구축
+		List<String> stringList = new ArrayList<String>();
+		dvo.setInum(Integer.parseInt(seqList.get(1)));
+		dataList = dataService.getData(dvo);
+		// 4. 랜덤 RGBList 구축
+		List<String> bgList = new ArrayList<String>();
+		List<String> boList = new ArrayList<String>();
+		for(DataVO data : dataList) {
+			stringList.add("\'" + data.getData() + "\'");
+			bgList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ "0.2)\'");
+			boList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ "0.2)\'");
+		}
+		
+		model.addAttribute("numList", numList);
+		model.addAttribute("stringList", stringList);
+		model.addAttribute("bgList", bgList);
+		model.addAttribute("boList", boList);
+		
+		return "chartConfirm.jsp";
+	}
+	
+	@RequestMapping(value="/lineConfirm.do")
+	public String lineConfirm(@RequestParam(value="seqList", required=true) List<String> seqList,
+			Model model , HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 차트 컨펌 보기 기능 처리");
+		
+		// 1. infoList 구축
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(String seq : seqList) {
+			InfoVO vo = new InfoVO();
+			vo.setSeq(Integer.parseInt(seq));
+			infoList.add(infoService.getInfo(vo));
+		}
+		
+		// 2. dataMap 구축
+				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+				for(String seq : seqList) {
+					DataVO dvo = new DataVO();
+					dvo.setInum(Integer.parseInt(seq));
+					List<DataVO> dataList = dataService.getData(dvo);
+					dataMap.put(seq, dataList);
+				}
+		
+		// 2. 숫자 데이터 구축
+		List<Integer> numList = new ArrayList<Integer>();
+		DataVO dvo = new DataVO();
+		dvo.setInum(Integer.parseInt(seqList.get(0)));
+		List<DataVO> dataList = dataService.getData(dvo);
+		for(DataVO data : dataList) {
+			numList.add(Integer.parseInt(data.getData()));
+		}
+		
+		// 3. 문자열 데이터 구축
+		List<String> stringList = new ArrayList<String>();
+		dvo.setInum(Integer.parseInt(seqList.get(1)));
+		dataList = dataService.getData(dvo);
+		for(DataVO data : dataList) {
+			stringList.add("\'" + data.getData() + "\'");
+		}
+
+		model.addAttribute("numList", numList);
+		model.addAttribute("stringList", stringList);
+		
+		return "lineConfirm.jsp";
+	}
+	
+	@RequestMapping(value="/polarAreaConfirm.do")
+	public String polarAreaConfirm(@RequestParam(value="seqList", required=true) List<String> seqList,
+			Model model , HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 차트 컨펌 보기 기능 처리");
+		
+		// 1. infoList 구축
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(String seq : seqList) {
+			InfoVO vo = new InfoVO();
+			vo.setSeq(Integer.parseInt(seq));
+			infoList.add(infoService.getInfo(vo));
+		}
+		
+		// 2. dataMap 구축
+				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+				for(String seq : seqList) {
+					DataVO dvo = new DataVO();
+					dvo.setInum(Integer.parseInt(seq));
+					List<DataVO> dataList = dataService.getData(dvo);
+					dataMap.put(seq, dataList);
+				}
+		
+		// 2. 숫자 데이터 구축
+		List<Integer> numList = new ArrayList<Integer>();
+		DataVO dvo = new DataVO();
+		dvo.setInum(Integer.parseInt(seqList.get(0)));
+		List<DataVO> dataList = dataService.getData(dvo);
+		for(DataVO data : dataList) {
+			numList.add(Integer.parseInt(data.getData()));
+		}
+		
+		// 3. 문자열 데이터 구축
+		List<String> stringList = new ArrayList<String>();
+		dvo.setInum(Integer.parseInt(seqList.get(1)));
+		dataList = dataService.getData(dvo);
+		// 4. 랜덤 RGBList 구축
+		List<String> bgList = new ArrayList<String>();
+		List<String> boList = new ArrayList<String>();
+		for(DataVO data : dataList) {
+			stringList.add("\'" + data.getData() + "\'");
+			bgList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ "0.2)\'");
+			boList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ "0.2)\'");
+		}
+				
+		model.addAttribute("numList", numList);
+		model.addAttribute("stringList", stringList);
+		model.addAttribute("bgList", bgList);
+		model.addAttribute("boList", boList);
+		
+		return "polarAreaConfirm.jsp";
+	}
+	
+	@RequestMapping(value="/doughnutConfirm.do")
+	public String doughnutConfirm(@RequestParam(value="seqList", required=true) List<String> seqList,
+			Model model , HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 차트 컨펌 보기 기능 처리");
+		
+		// 1. infoList 구축
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(String seq : seqList) {
+			InfoVO vo = new InfoVO();
+			vo.setSeq(Integer.parseInt(seq));
+			infoList.add(infoService.getInfo(vo));
+		}
+		
+		// 2. dataMap 구축
+				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+				for(String seq : seqList) {
+					DataVO dvo = new DataVO();
+					dvo.setInum(Integer.parseInt(seq));
+					List<DataVO> dataList = dataService.getData(dvo);
+					dataMap.put(seq, dataList);
+				}
+		
+		// 2. 숫자 데이터 구축
+		List<Integer> numList = new ArrayList<Integer>();
+		DataVO dvo = new DataVO();
+		dvo.setInum(Integer.parseInt(seqList.get(0)));
+		List<DataVO> dataList = dataService.getData(dvo);
+		for(DataVO data : dataList) {
+			numList.add(Integer.parseInt(data.getData()));
+		}
+		
+		// 3. 문자열 데이터 구축
+		List<String> stringList = new ArrayList<String>();
+		dvo.setInum(Integer.parseInt(seqList.get(1)));
+		dataList = dataService.getData(dvo);
+		// 4. 랜덤 RGBList 구축
+		List<String> bgList = new ArrayList<String>();
+		List<String> boList = new ArrayList<String>();
+		for(DataVO data : dataList) {
+			stringList.add("\'" + data.getData() + "\'");
+			bgList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ "0.2)\'");
+			boList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ ((int)(Math.random() * 256) + 1) + "," 
+					+ "0.2)\'");
+		}
+				
+		model.addAttribute("numList", numList);
+		model.addAttribute("stringList", stringList);
+		model.addAttribute("bgList", bgList);
+		model.addAttribute("boList", boList);
+		
+		return "doughnutConfirm.jsp";
 	}
 }

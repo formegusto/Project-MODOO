@@ -15,8 +15,8 @@
 <body>
 	<div class="sidenav">
          <div class="login-main-text">
-            <h2>WCrawl<br> Login Page</h2>
-            <p>Login or register from here to access.</p>
+            <h2>MODOO<br> Login Page</h2>
+            <p>Management Of Data,Our,Ours</p>
          </div>
       </div>
       <div class="main">

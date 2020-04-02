@@ -24,7 +24,7 @@
 </div>
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">WCrawl</a>
+   <a class="navbar-brand" href="#">MODOO</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -52,6 +52,7 @@
 		</div>
 	</nav>
 	<div class="tab-content" id="nav-tabContent">
+	
 		<!-- Info정보 -->
 		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 		     <table class="table">
@@ -90,6 +91,7 @@
 			</tbody>
 			</table>
 		</div>
+		
 		<!-- Data정보 -->
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 			<table class="table">
