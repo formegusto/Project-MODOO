@@ -122,7 +122,9 @@
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">InfoList</button>
+	    <c:if test="${info.cssQuery ne 'csv' }">
 	    <button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='updateDataConfirm.do'; form.submit()">UpdateData</button>
+	  	</c:if>
 	  	</div>
   	</div>
 </div>
