@@ -7,9 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +24,6 @@ import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
 import com.crawler.biz.info.InfoVO;
 import com.crawler.biz.info.impl.InfoService;
-import com.crawler.biz.room.RoomVO;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
@@ -138,7 +139,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/convertCSV.do")
 	public String convertCSV(BoardVO vo, HttpSession session,
-			@RequestParam String ctitle) {
+			Model model, @RequestParam String ctitle) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] Table Convert To CSV 처리 기능 처리");
@@ -154,7 +155,7 @@ public class BoardController {
 			infoList.add(infoService.getInfo(ivo));
 		}
 				
-				// dataMap Make
+		// dataMap Make
 		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
 		for(BoardHaveInfoVO bhi : bhiList) {
 			DataVO dvo = new DataVO();
@@ -207,10 +208,12 @@ public class BoardController {
 			csvList.add(dataList);
 		}
 		
-		CSVWriter writer = null;
 		// Convert CSV
+		CSVWriter writer = null;
+		String realPath = session.getServletContext().getRealPath("/download");
+		System.out.println(realPath);
 		try {
-			writer = new CSVWriter(new FileWriter("C:/test/"+ctitle));
+			writer = new CSVWriter(new FileWriter(realPath+"/"+ctitle));
 			for(String[] csvStr : csvList)
 				writer.writeNext(csvStr);
 			writer.close();
@@ -218,8 +221,10 @@ public class BoardController {
 			e.printStackTrace();
 		} 
 		
+		model.addAttribute("ctitle",ctitle);
+		model.addAttribute("bseq",vo.getBseq());
 		
-		return "getRoomList.do";
+		return "csvDownload.jsp";
 	}
 	
 	
