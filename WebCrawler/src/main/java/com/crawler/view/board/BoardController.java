@@ -37,15 +37,17 @@ public class BoardController {
 	DataService	dataService;
 	
 	@RequestMapping(value="/boardConfirm.do")
-	public String boardConfirm(@RequestParam(value="seqList", required=true) List<String> seqList,
+	public String boardConfirm(@RequestParam String seqList,
 			Model model , HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 정보 리스트 여러개 보기 기능 처리");
 		
 		// 1. infoList 구축
+		System.out.println(seqList);
+		String[] seqList_ = seqList.split(",");
 		List<InfoVO> infoList = new ArrayList<InfoVO>();
-		for(String seq : seqList) {
+		for(String seq : seqList_) {
 			InfoVO vo = new InfoVO();
 			vo.setSeq(Integer.parseInt(seq));
 			infoList.add(infoService.getInfo(vo));
@@ -53,7 +55,7 @@ public class BoardController {
 		
 		// 2. dataMap 구축
 		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
-		for(String seq : seqList) {
+		for(String seq : seqList_) {
 			DataVO dvo = new DataVO();
 			dvo.setInum(Integer.parseInt(seq));
 			List<DataVO> dataList = dataService.getData(dvo);

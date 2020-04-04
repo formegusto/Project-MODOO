@@ -12,6 +12,37 @@
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<script>
+function listCheck(seq){
+	var seqList_ = $("input[name=seqList]").val();
+	$("input[name=seq]:checked").each(function() {
+		if($(this).val() == seq){
+			if($("input[name=seqList]").val() == ""){
+				$("input[name=seqList]").val(seq);
+			} else {
+				$("input[name=seqList]").val($("input[name=seqList]").val()+","+seq);
+			}
+		} // 이번에 체크 된거
+	});
+	if(seqList_ == $("input[name=seqList]").val()){
+		alert(seq + " uncheck");
+		$("input[name=seqList]").val($("input[name=seqList]").val().replace(seq,""));
+		if($("input[name=seqList]").val().indexOf(",,")!=-1){ // 중간값
+			$("input[name=seqList]").val($("input[name=seqList]").val().replace(",,",","));
+		} else if($("input[name=seqList]").val().indexOf(",")==0){ // 첫번째값
+			$("input[name=seqList]").val(
+					$("input[name=seqList]").val().substring(1,($("input[name=seqList]").val().length))
+					);
+		} else if($("input[name=seqList]").val().lastIndexOf(",") == ($("input[name=seqList]").val().length - 1)){ // 마지막값
+			$("input[name=seqList]").val(
+					$("input[name=seqList]").val().substring(0,($("input[name=seqList]").val().length - 1))
+					);
+		}
+
+	} // uncheck 한 거임 지워줘야함.
+	var seqList = $("input[name=seqList]").val();
+}
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Board Check List</title>
 </head>
@@ -46,6 +77,7 @@
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 	<div class="card-deck">
+	<input type="hidden" name="seqList" value=""/>
 	<%
 	for(int i=0;i<infoList.size();i++){
 		InfoVO info = infoList.get(i);
@@ -53,7 +85,8 @@
 		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
 		  <div class="card-header"><%=info.getSeq() %> : <%=info.getRegDate() %> 
 		      <div class="custom-control custom-checkbox my-1 mr-sm-2" style="display: inline; float: right;">
-    			<input type="checkbox" class="custom-control-input" name="seqList" id="<%=info.getSeq()%>" value="<%=info.getSeq()%>">
+		      	
+    			<input type="checkbox" class="custom-control-input" name="seq" class="seqList" id="<%=info.getSeq()%>" value="<%=info.getSeq()%>" onchange="listCheck(<%=info.getSeq() %>)">
     			<label class="custom-control-label" for="<%=info.getSeq()%>"></label>
   			  </div>
 		  </div>
