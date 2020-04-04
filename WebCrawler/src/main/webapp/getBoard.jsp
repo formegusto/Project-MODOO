@@ -53,17 +53,28 @@
 	      <th scope="row">³»¿ë</th>
 	      <td>${board.content }</td>
 	    </tr>
+	    <tr>
+	    <td colspan="2">
+	    <div class="input-group mb-3">
+	    	<input type="hidden" name="bseq" value="${board.bseq }"/>
+	    	<input type="text" class="form-control" name="ctitle" placeholder="CSV Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
+			<div class="input-group-append">
+	    		<button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='convertCSV.do'; form.submit()">Convert CSV</button>
+	    	</div>
+	    </div>
+	    <td>
+	    </tr>
 	    <c:if test="${board.id eq user.id }">
 		<tr>
 			<td colspan="2"> 
 				<div class="input-group mb-3">
 				  <input type="hidden" name="id" value="${board.id }"/>
-				  <input type="hidden" name="bseq" value="${board.bseq }"/>
 				  <input type="hidden" name="bnum" value="${board.bseq }"/>
 				  <input type="text" class="form-control" name="rtitle" placeholder="Chat Room Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
 				  <div class="input-group-append">
 				    <button class="btn btn-outline-secondary" type="button" onclick="javascript: send()">New Chat</button>
 				  </div>
+				  	
 				</div>
 			</td>
 		</tr>

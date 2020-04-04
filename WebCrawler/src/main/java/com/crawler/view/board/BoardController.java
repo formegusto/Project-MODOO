@@ -1,5 +1,7 @@
 package com.crawler.view.board;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,9 @@ import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
 import com.crawler.biz.info.InfoVO;
 import com.crawler.biz.info.impl.InfoService;
+import com.crawler.biz.room.RoomVO;
+
+import au.com.bytecode.opencsv.CSVWriter;
 
 @Controller
 public class BoardController {
@@ -131,6 +136,94 @@ public class BoardController {
 		return "getBoard.jsp";
 	}
 	
+	@RequestMapping(value="/convertCSV.do")
+	public String convertCSV(BoardVO vo, HttpSession session,
+			@RequestParam String ctitle) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] Table Convert To CSV 처리 기능 처리");
+		
+		ctitle += ".csv";
+		
+		// infoList Make
+		List<BoardHaveInfoVO> bhiList = boardService.getBHIList(vo);
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(BoardHaveInfoVO bhi : bhiList) {
+			InfoVO ivo = new InfoVO();
+			ivo.setSeq(bhi.getInum());
+			infoList.add(infoService.getInfo(ivo));
+		}
+				
+				// dataMap Make
+		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+		for(BoardHaveInfoVO bhi : bhiList) {
+			DataVO dvo = new DataVO();
+			dvo.setInum(bhi.getInum());
+			List<DataVO> dataList = dataService.getData(dvo);
+			System.out.println(dataList);
+			dataMap.put( bhi.getInum()+"" , dataList);
+		}
+		
+		System.out.println(ctitle);
+		System.out.println(infoList);
+		System.out.println(dataMap);
+		
+		// Convert List<String[]>
+		List<String[]> csvList = new ArrayList<String[]>();
+		String fieldList_ = "";
+		for(int i=0;i<infoList.size();i++) {
+			InfoVO info = infoList.get(i);
+			if((i+1) == infoList.size()) fieldList_ += (info.getField());
+			else fieldList_ += (info.getField() + ",");
+		}
+		String[] fieldList = fieldList_.split(",");
+		csvList.add(fieldList);
+		
+		List<String> dataList_ = new ArrayList<String>();
+		for(int i=0;i<infoList.size();i++) {
+			InfoVO info = infoList.get(i);
+			List<DataVO> dataVOList = dataMap.get(info.getSeq()+"");
+			if(i==0) {
+				for(int j=0;j<dataVOList.size();j++) {
+					DataVO dataVO = dataVOList.get(j);
+					String data_ = dataVO.getData()+"#";
+					dataList_.add(data_);
+				}
+			} else if((i+1) == infoList.size()) {
+				for(int j=0;j<dataVOList.size();j++) {
+					DataVO dataVO = dataVOList.get(j);
+					dataList_.set(j, dataList_.get(j)+dataVO.getData());
+				}
+			} else {
+				for(int j=0;j<dataVOList.size();j++) {
+					DataVO dataVO = dataVOList.get(j);
+					dataList_.set(j, dataList_.get(j)+dataVO.getData()+"#");
+				}
+			}
+		}
+		
+		for(String data : dataList_) {
+			String[] dataList = data.split("#");
+			csvList.add(dataList);
+		}
+		
+		CSVWriter writer = null;
+		// Convert CSV
+		try {
+			writer = new CSVWriter(new FileWriter("C:/test/"+ctitle));
+			for(String[] csvStr : csvList)
+				writer.writeNext(csvStr);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		
+		
+		return "getRoomList.do";
+	}
+	
+	
+	// Visualiztion Test Source
 	@RequestMapping(value="/chartConfirm.do")
 	public String chartConfirm(@RequestParam(value="seqList", required=true) List<String> seqList,
 			Model model , HttpSession session) {
