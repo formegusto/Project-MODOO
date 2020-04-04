@@ -9,12 +9,43 @@
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="resources/css/loading.css">
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+<link href="resources/css/fileUpload.css" rel="stylesheet"></link>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).on("click","#csving",function(){
 		$('#loading').show();
 		$('#loading-image').show();
+	});
+	function readURL(input) {
+		  if (input.files && input.files[0]) {
+
+		    var reader = new FileReader();
+
+		    reader.onload = function(e) {
+		      $('.drag-text').hide();
+		      $('.drag-text_2').show();
+		      $('.image-title').html(input.files[0].name);
+		    };
+
+		    reader.readAsDataURL(input.files[0]);
+
+		  } else {
+		    removeUpload();
+		  }
+	}
+	
+	function removeUpload() {
+		  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+		  $('.image-upload-wrap').show();
+	}
+	
+	$('.image-upload-wrap').bind('dragover', function () {
+		$('.image-upload-wrap').addClass('image-dropping');
+	});
+	$('.image-upload-wrap').bind('dragleave', function () {
+		$('.image-upload-wrap').removeClass('image-dropping');
 	});
 </script>
 </head>
@@ -47,11 +78,17 @@
 <form method="post" enctype="multipart/form-data">
 <div class="container" style="margin-top: 15px;">
 <div class="row">
-<div style="margin:auto;">
-  <div class="form-group">
-	<label for="inputTitle">File</label>
-	<input type="file" name="csv" class="form-control" id="inputFile" placeholder="Input Crawler Title">
-  </div>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<div class="file-upload">
+	  <div class="image-upload-wrap">
+	    <input class="file-upload-input" name="csv" type='file' onchange="readURL(this);"/>
+	    <div class="drag-text">
+	      <h3>Drag and drop or Click here.</h3>
+	    </div>
+	    <div class="drag-text_2">
+	      <h3><span class="image-title"></span></h3>
+	    </div>
+	  </div>
 </div>
 </div>
 </div>
