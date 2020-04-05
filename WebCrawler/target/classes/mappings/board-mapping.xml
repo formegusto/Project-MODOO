@@ -31,4 +31,8 @@
 		FROM BOARD
 		ORDER BY bseq DESC
 	</select>
+	<select id="boardCnt" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BOARD
+	</select>
 </mapper>

@@ -33,7 +33,7 @@
 <!-- Navs : 보드 메뉴 -->
 <nav class="nav nav-pills nav-justified">
   <a class="nav-item nav-link" href="getInfoList.do">Info</a>
-  <a class="nav-item nav-link active" href="getBoardList.do">Board</a>
+  <a class="nav-item nav-link active" href="getBoardList.do?pageNum=1">Board</a>
   <a class="nav-item nav-link" href="getRoomList.do">ChatRoom</a>
 </nav>
 
@@ -55,7 +55,7 @@
 		<tr>
 			<th scope="row">${board.bseq }</th>
 			<td>
-			<a href="getBoard.do?bseq=${board.bseq }">${board.title }</a>
+			<a href="getBoard.do?bseq=${board.bseq }&startPage=${startPage}&pageNum=${pageNum }">${board.title }</a>
 			</td>
 			<td>${board.id }</td>
 			<td>${board.regDate }</td>
@@ -65,21 +65,22 @@
 	</table>
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"
 		style="margin:auto;">
-	  	<div class="btn-group mr-2" role="group" aria-label="First group">
-	    <button type="button" class="btn btn-secondary">1</button>
-	    <button type="button" class="btn btn-secondary">2</button>
-	    <button type="button" class="btn btn-secondary">3</button>
-	    <button type="button" class="btn btn-secondary">4</button>
+		<c:if test="${startPage ne 0 }">
+		<div class="btn-group mr-2" role="group" aria-label="First group">
+	    <button type="button" class="btn btn-secondary" onclick="location.href='getBoardList.do?pageNum=${startPage-4}&startPage=${startPage - 5}'">Previous</button>
+	    </div>
+	    </c:if>
+	  	<div class="btn-group mr-2" role="group" aria-label="second group">
+	  	<c:forEach var="i" begin="${startPage + 1}" end="${endPage }" step="1">
+	    <button type="button" class="btn btn-secondary" onclick="location.href='getBoardList.do?pageNum=${i}&startPage=${startPage }'">${i }</button>
+	    </c:forEach>
 	  	</div>
-	  	<div class="btn-group mr-2" role="group" aria-label="Second group">
-	    <button type="button" class="btn btn-secondary">5</button>
-	    <button type="button" class="btn btn-secondary">6</button>
-	    <button type="button" class="btn btn-secondary">7</button>
-	  	</div>
-	  	<div class="btn-group" role="group" aria-label="Third group">
-	    <button type="button" class="btn btn-secondary">8</button>
-  	</div>
-</div>
+	  	<c:if test="${endPage ne finalPage }">
+	  	<div class="btn-group mr-2" role="group" aria-label="Third group">
+	    <button type="button" class="btn btn-secondary" onclick="location.href='getBoardList.do?pageNum=${endPage+1}&startPage=${endPage}'">Next</button>
+	    </div>
+		</c:if>
+	</div>
 </div>
 </div>
 </form>

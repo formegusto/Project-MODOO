@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,30 +87,74 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/deleteBoard.do")
-	public String deleteBoard(BoardVO vo, HttpSession session) {
+	public String deleteBoard(BoardVO vo, HttpSession session, Model model,
+			@RequestParam String pageNum,
+			@RequestParam String startPage) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 게시판 삭제 기능 처리");
 		
 		boardService.deleteBoard(vo);
 		
+		model.addAttribute("startPage",startPage);
+		model.addAttribute("pageNum",pageNum);		
 		return "getBoardList.do";
 	}
 	
 	@RequestMapping(value="/getBoardList.do")
 	public String getBoardList(BoardVO vo, HttpSession session,
-			Model model) {
+			Model model,
+			@RequestParam String pageNum,
+			HttpServletRequest request) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 게시판 조회 기능 처리");
 		
-		model.addAttribute("boardList", boardService.getBoardList(vo));
+		final int MAX_CNT = 10;
+		final int MAX_PAGE_LIST = 5;
+		
+		// paging
+		String startPage_ = request.getParameter("startPage");
+		int boardCnt = boardService.boardCnt(vo);
+		int startPage;
+		if(startPage_==null || startPage_=="") {
+			startPage=0;
+		} else {
+			startPage = Integer.parseInt(startPage_);
+		}
+		int finalPage = (boardCnt/10);
+		if((boardCnt%10)!=0)
+			finalPage += 1;
+		int endPage = startPage + MAX_PAGE_LIST;
+		if(endPage>=finalPage)
+			endPage = finalPage;
+		
+		int pageNum_ = Integer.parseInt(pageNum);
+		if(pageNum_>=finalPage)
+			pageNum_ = finalPage;
+		List<BoardVO> boardList_ = boardService.getBoardList(vo);
+		List<BoardVO> boardList = null;
+		
+		if(boardCnt!=0) {
+			try {
+				boardList = boardList_.subList(MAX_CNT*(pageNum_-1), (MAX_CNT*pageNum_));
+			} catch(IndexOutOfBoundsException e) {
+				boardList = boardList_.subList(MAX_CNT*(pageNum_-1), boardCnt);
+			}
+		}
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("startPage",startPage+"");
+		model.addAttribute("endPage", endPage+"");
+		model.addAttribute("finalPage",finalPage+"");
+		model.addAttribute("boardList", boardList);
 		return "getBoardList.jsp";
 	}
 	
 	@RequestMapping(value="/getBoard.do")
 	public String getBoard(BoardVO vo, HttpSession session,
-			Model model) {
+			Model model,
+			@RequestParam String pageNum,
+			@RequestParam String startPage) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 게시판 상세 조회 기능 처리");
@@ -133,6 +178,8 @@ public class BoardController {
 			dataMap.put( bhi.getInum()+"" , dataList);
 		}
 		
+		model.addAttribute("startPage",startPage);
+		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("board", boardService.getBoard(vo));
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("dataMap", dataMap);
@@ -182,31 +229,32 @@ public class BoardController {
 		String[] fieldList = fieldList_.split(",");
 		csvList.add(fieldList);
 		
-		List<String> dataList_ = new ArrayList<String>();
+		List<List<String>> dataList_ = new ArrayList<List<String>>();
 		for(int i=0;i<infoList.size();i++) {
 			InfoVO info = infoList.get(i);
 			List<DataVO> dataVOList = dataMap.get(info.getSeq()+"");
 			if(i==0) {
 				for(int j=0;j<dataVOList.size();j++) {
 					DataVO dataVO = dataVOList.get(j);
-					String data_ = dataVO.getData()+"#";
+					List<String> data_ = new ArrayList<String>();
+					data_.add(dataVO.getData());
 					dataList_.add(data_);
 				}
 			} else if((i+1) == infoList.size()) {
 				for(int j=0;j<dataVOList.size();j++) {
 					DataVO dataVO = dataVOList.get(j);
-					dataList_.set(j, dataList_.get(j)+dataVO.getData());
+					dataList_.get(j).add(dataVO.getData());
 				}
 			} else {
 				for(int j=0;j<dataVOList.size();j++) {
 					DataVO dataVO = dataVOList.get(j);
-					dataList_.set(j, dataList_.get(j)+dataVO.getData()+"#");
+					dataList_.get(j).add(dataVO.getData());
 				}
 			}
 		}
 		
-		for(String data : dataList_) {
-			String[] dataList = data.split("#");
+		for(List<String> data : dataList_) {
+			String[] dataList = data.toArray(new String[data.size()]);
 			csvList.add(dataList);
 		}
 		

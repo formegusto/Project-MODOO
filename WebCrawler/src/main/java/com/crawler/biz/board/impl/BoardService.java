@@ -12,4 +12,5 @@ public interface BoardService {
 	public List<BoardHaveInfoVO> getBHIList(BoardVO vo);
 	public BoardVO getBoard(BoardVO vo);
 	public List<BoardVO> getBoardList(BoardVO vo);
+	public int boardCnt(BoardVO vo);
 }

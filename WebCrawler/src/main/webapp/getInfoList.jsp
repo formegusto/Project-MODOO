@@ -37,7 +37,7 @@
 <!-- Navs : 보드 메뉴 -->
 <nav class="nav nav-pills nav-justified">
   <a class="nav-item nav-link active" href="getInfoList.do">Info</a>
-  <a class="nav-item nav-link" href="getBoardList.do">Board</a>
+  <a class="nav-item nav-link" href="getBoardList.do?pageNum=1">Board</a>
   <a class="nav-item nav-link" href="getRoomList.do">ChatRoom</a>
 </nav>
 

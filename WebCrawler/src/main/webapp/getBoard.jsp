@@ -57,6 +57,8 @@
 	    <td colspan="2">
 	    <div class="input-group mb-3">
 	    	<input type="hidden" name="bseq" value="${board.bseq }"/>
+	    	<input type="hidden" name="pageNum" value="${pageNum }"/>
+	    	<input type="hidden" name="startPage" value="${startPage }"/>
 	    	<input type="text" class="form-control" name="ctitle" placeholder="CSV Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
 			<div class="input-group-append">
 	    		<button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='convertCSV.do'; form.submit()">Convert CSV</button>
@@ -175,7 +177,7 @@
 	  	<c:if test="${board.id eq user.id }">
 	  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='deleteBoard.do'; form.submit()">DeleteBoard</button>
 	    </c:if>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getBoardList.do'; form.submit()">BoardList</button>
+	    <button type="button" class="btn btn-secondary" onclick="location.href='getBoardList.do?startPage=${startPage}&pageNum=${pageNum }'">BoardList</button>
 	  	</div>
   	</div>
 </div>

@@ -25,7 +25,6 @@ function listCheck(seq){
 		} // 이번에 체크 된거
 	});
 	if(seqList_ == $("input[name=seqList]").val()){
-		alert(seq + " uncheck");
 		$("input[name=seqList]").val($("input[name=seqList]").val().replace(seq,""));
 		if($("input[name=seqList]").val().indexOf(",,")!=-1){ // 중간값
 			$("input[name=seqList]").val($("input[name=seqList]").val().replace(",,",","));
@@ -68,7 +67,7 @@ function listCheck(seq){
 <!-- Navs : 보드 메뉴 -->
 <nav class="nav nav-pills nav-justified">
   <a class="nav-item nav-link active" href="getInfoList.do">Info</a>
-  <a class="nav-item nav-link" href="getBoardList.do">Board</a>
+  <a class="nav-item nav-link" href="getBoardList.do?pageNum=1">Board</a>
   <a class="nav-item nav-link" href="getRoomList.do">ChatRoom</a>
 </nav>
 
@@ -107,7 +106,7 @@ function listCheck(seq){
 <div class="row">
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">InfoList</button>
+	    <button type="button" class="btn btn-secondary" onclick="location.href='getInfoList.do'">InfoList</button>
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='boardConfirm.do'; form.submit()">BoardConfirm</button>
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='chartConfirm.do'; form.submit()">ChartConfirm</button>
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='lineConfirm.do'; form.submit()">LineConfirm</button>
