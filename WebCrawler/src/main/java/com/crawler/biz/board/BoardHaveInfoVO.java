@@ -1,9 +1,17 @@
 package com.crawler.biz.board;
 
 public class BoardHaveInfoVO {
+	private int bhiseq;
 	private int bseq;
 	private int inum;
 	
+	
+	public int getBhiseq() {
+		return bhiseq;
+	}
+	public void setBhiseq(int bhiseq) {
+		this.bhiseq = bhiseq;
+	}
 	public int getBseq() {
 		return bseq;
 	}
@@ -19,6 +27,6 @@ public class BoardHaveInfoVO {
 	
 	@Override
 	public String toString() {
-		return "BoardHaveInfoVO [bseq=" + bseq + ", inum=" + inum + "]";
+		return "BoardHaveInfoVO [bhiseq=" + bhiseq + ",bseq=" + bseq + ", inum=" + inum + "]";
 	}
 }

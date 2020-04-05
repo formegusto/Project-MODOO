@@ -105,9 +105,15 @@
 				  <tbody>
 				  			<%for(DataVO data : dataList){ %>
 						   <tr>
+							<%if((data.getData()).equals("")){ %>
+						   		<td>
+							   		!!blank!!
+							   	</td>
+						   <%}else{ %>
 							   	<td>
 							   		<%=data.getData() %>
 							   	</td>
+							<%} %>
 						   </tr>
 						    <%} %>
 			  	 </tbody>
@@ -135,9 +141,15 @@
 		    		<tbody>
 				  			<%for(DataVO data : dataList){ %>
 						   <tr>
+						   <%if((data.getData()).equals("")){ %>
+						   		<td>
+							   		!!blank!!
+							   	</td>
+						   <%}else{ %>
 							   	<td>
 							   		<%=data.getData() %>
 							   	</td>
+							<%} %>
 						   </tr>
 						    <%} %>
 			  		 </tbody>
