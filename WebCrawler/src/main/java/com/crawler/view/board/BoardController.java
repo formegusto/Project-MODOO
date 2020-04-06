@@ -188,7 +188,9 @@ public class BoardController {
 	
 	@RequestMapping(value="/convertCSV.do")
 	public String convertCSV(BoardVO vo, HttpSession session,
-			Model model, @RequestParam String ctitle) {
+			Model model, @RequestParam String ctitle,
+			@RequestParam String pageNum,
+			@RequestParam String startPage) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] Table Convert To CSV 처리 기능 처리");
@@ -230,25 +232,50 @@ public class BoardController {
 		csvList.add(fieldList);
 		
 		List<List<String>> dataList_ = new ArrayList<List<String>>();
+		InfoVO info_ = infoList.get(0);
+		int listSize = dataMap.get(info_.getSeq()+"").size(); // 첫 필드의 총 사이즈
 		for(int i=0;i<infoList.size();i++) {
 			InfoVO info = infoList.get(i);
 			List<DataVO> dataVOList = dataMap.get(info.getSeq()+"");
 			if(i==0) {
-				for(int j=0;j<dataVOList.size();j++) {
+				for(int j=0;j<listSize;j++) {
 					DataVO dataVO = dataVOList.get(j);
 					List<String> data_ = new ArrayList<String>();
 					data_.add(dataVO.getData());
 					dataList_.add(data_);
 				}
-			} else if((i+1) == infoList.size()) {
+			} 
+			/*
+			 문제점 (1) 중간 필드와 마지막 필드에서 발생한다. 첫번째 필드에서 모든것의 개수가 맞추어 지기때문에 
+			  개수가 넘어갈 경우에 IndexOutBoundException을 터뜨린다.
+			  문제점 (2) 중간 필드와 마지막 필드에서 발생한다. 만약에 띄엄띄엄 일 경우 중간에 채워주지를 못한다.  
+			  모두 하나의 테이블로서 빈칸을 채워주는 역할을 하면 될 것 같다.
+			 */
+			else {
+				if(listSize < dataVOList.size()) {
+					for(int j=0;j<i;j++) {
+						if(j==0) {
+							for(int k=listSize;k<dataVOList.size();k++) {
+								List<String> data_ = new ArrayList<String>();
+								data_.add("");
+								dataList_.add(data_);
+							}
+						} else {
+							for(int k=listSize;k<dataVOList.size();k++) {
+								dataList_.get(k).add("");
+							}
+						}
+					}
+					listSize = dataVOList.size();
+				}
 				for(int j=0;j<dataVOList.size();j++) {
 					DataVO dataVO = dataVOList.get(j);
 					dataList_.get(j).add(dataVO.getData());
 				}
-			} else {
-				for(int j=0;j<dataVOList.size();j++) {
-					DataVO dataVO = dataVOList.get(j);
-					dataList_.get(j).add(dataVO.getData());
+				if(listSize > dataVOList.size()) {
+					for(int j=dataVOList.size();j<listSize;j++) {
+						dataList_.get(j).add("");
+					}
 				}
 			}
 		}
@@ -271,6 +298,8 @@ public class BoardController {
 			e.printStackTrace();
 		} 
 		
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("startPage",startPage+"");
 		model.addAttribute("ctitle",ctitle);
 		model.addAttribute("bseq",vo.getBseq());
 		

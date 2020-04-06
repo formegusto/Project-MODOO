@@ -40,7 +40,7 @@
 </nav>
 
 <!-- csvAddDesign -->
-<form method="post" enctype="multipart/form-data">
+
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -49,7 +49,6 @@
 	    <div class="drag-text">
 	      <h3>${ctitle }</h3>
 	      <a class="downTag" href="download/${ctitle }" download></a>
-	      <input type="hidden" name="bseq" value="${bseq }"/>
 	    </div>
 	  </div>
 </div>
@@ -61,12 +60,11 @@
 <div class="row">
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
-	  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='getBoard.do'; form.submit()">Cancel</button>
+	  	<button type="button" class="btn btn-secondary" onclick="location.href='getBoard.do?bseq=${bseq }&startPage=${startPage}&pageNum=${pageNum }'">Return</button>
 	  	</div>
   	</div>
 </div>
 </div>
-</form>
 
 </body>
 </html>
