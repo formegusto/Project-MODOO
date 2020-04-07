@@ -25,7 +25,12 @@ public class DataDAOMybatis {
 		for(DataVO vo : dataList)
 			insertData(vo);
 	}
-	
+	// DATAAll 등록
+	public void insertDataAll(DataVO vo) {
+		System.out.println("===> Mybatis�� insertDataAll() 등록 기능 처리");
+		mybatis.insert("DataDAO.insertDataAll", vo);
+	}
+		
 	// DATAInum 등록
 	public void insertDataInum(DataVO vo) {
 		System.out.println("===> Mybatis�� insertDataInum() 등록 기능 처리");
@@ -37,6 +42,11 @@ public class DataDAOMybatis {
 		System.out.println("===> Mybatis�� insertDataInum(List) 등록 기능 처리");
 		for(DataVO vo : dataList)
 			insertDataInum(vo);
+	}
+	// DATA 상세 조회
+	public DataVO getDataDseq(DataVO vo) {
+		System.out.println("===> Mybatis�� getDataDseq() 조회 기능 처리");
+		return mybatis.selectOne("DataDAO.getDataDseq", vo);
 	}
 	
 	// DATA 상세 조회

@@ -10,10 +10,14 @@ public interface DataService {
 	public void insertData(DataVO vo);
 	//DATA(List) ���
 	public void insertData(List<DataVO> dataList);
+	// DATAAll 등록
+	public void insertDataAll(DataVO vo);
 	// DATAInum 등록
 	public void insertDataInum(DataVO vo);
 	// DATA(List) 등록
 	public void insertDataInum(List<DataVO> dataList);
+	// DATA 상세 조회
+	public DataVO getDataDseq(DataVO vo);
 	//Ư�� ũ�ѷ��� DATA ��ȸ
 	public List<DataVO> getData(DataVO vo);
 	// DATA 상세 조회 return List<String>

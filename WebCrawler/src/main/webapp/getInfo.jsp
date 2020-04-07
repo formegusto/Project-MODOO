@@ -11,11 +11,47 @@
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<link href="resources/fontawesome/css/all.css" rel="stylesheet">
+<script defer src="resources/fontawesome/js/all.js"></script>
 <script type="text/javascript">
 	$(document).on("click","#crawling",function(){
 		$('#loading').show();
 		$('#loading-image').show();
 	});
+	function checkChange(dseq){
+		$("#changeBox_" + dseq).html("<button type='button' class='btn btn-outline-dark' style='float: right' onclick='uncheckChange("
+			+ dseq + ")'>"
+			+ "<i class='fas fa-check'></i></button>");
+		if($("input[name=dseqChangeList]").val() == ""){
+			$("input[name=dseqChangeList]").val(dseq);
+		} else { // 이미 값이 있다는 거
+			$("input[name=dseqChangeList]").val($("input[name=dseqChangeList]").val()+","+dseq);
+			var go = confirm("DataChange : " + $("input[name=dseqChangeList]").val().split(",")[0]+" and "
+					+$("input[name=dseqChangeList]").val().split(",")[1] + " ?");
+			if(go == true){
+				location.href="changeData.do?seq="
+					+ ${info.seq } + "&dseqChangeList=" 
+					+ $("input[name=dseqChangeList]").val();
+			}
+			else {
+				$("#changeBox_" + $("input[name=dseqChangeList]").val().split(",")[0]).html("<button type='button' class='btn btn-outline-dark' style='float: right' onclick='checkChange("
+						+ $("input[name=dseqChangeList]").val().split(",")[0] + ")'>"
+						+ "<i class='fas fa-exchange-alt'></i></button>");
+				$("#changeBox_" + $("input[name=dseqChangeList]").val().split(",")[1]).html("<button type='button' class='btn btn-outline-dark' style='float: right' onclick='checkChange("
+						+ $("input[name=dseqChangeList]").val().split(",")[1] + ")'>"
+						+ "<i class='fas fa-exchange-alt'></i></button>");
+				$("input[name=dseqChangeList]").val("");
+			}
+			
+		}
+	}
+	function uncheckChange(dseq){
+		$("#changeBox_" + dseq).html("<button type='button' class='btn btn-outline-dark' style='float: right' onclick='checkChange("
+				+ dseq + ")'>"
+				+ "<i class='fas fa-exchange-alt'></i></button>");
+		$("input[name=dseqChangeList]").val($("input[name=dseqChangeList]").val().replace(dseq,""));
+		$("input[name=dseqChangeList]").val($("input[name=dseqChangeList]").val().replace(",",""));
+	}
 </script>
 <title>Crawler SELECT Page</title>
 </head>
@@ -44,7 +80,8 @@
 </nav>
 
 <!-- getInfoDesign -->
-<form method="post" name="form">
+<form method="post" name="form" id="form">
+<input type="hidden" value="" name="dseqChangeList"/>
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 <div class="col-md-12">
@@ -106,7 +143,10 @@
 					<tr>
 						<td>
 						${dat.data }
-						<button type="button" class="btn btn-outline-dark" style="float: right" onclick="location.href='deleteDataSeq.do?seq=${info.seq }&dseq=${dat.dseq}'">X</button>
+						<div id="changeBox_${dat.dseq }">
+						<button type="button" class="btn btn-outline-dark" style="float: right" onclick="checkChange(${dat.dseq })"><i class="fas fa-exchange-alt"></i></button>
+						</div>
+						<button type="button" class="btn btn-outline-dark" style="float: right" onclick="location.href='deleteDataSeq.do?seq=${info.seq }&dseq=${dat.dseq}'"><i class="far fa-trash-alt"></i></button>
 						</td>
 					</tr>
 					</c:forEach>

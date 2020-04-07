@@ -9,6 +9,12 @@
 			values((SELECT ifnull(max(dseq), 0) + 1 FROM data b),(SELECT ifnull(max(seq), 0) + 0 FROM info a),#{data });
 		]]>
 	</insert>
+	<insert id="insertDataAll">
+		<![CDATA[
+			insert into data(dseq,inum,data)
+			values(#{dseq },#{inum },#{data });
+		]]>
+	</insert>
 	<insert id="insertDataInum">
 		<![CDATA[
 			insert into data(dseq,inum,data)
@@ -32,6 +38,13 @@
 			SELECT *
 			FROM DATA
 			WHERE INUM=#{inum}
+		]]>
+	</select>
+	<select id="getDataDseq" resultType="data">
+		<![CDATA[
+			SELECT *
+			FROM DATA
+			WHERE DSEQ=#{dseq}
 		]]>
 	</select>
 	<select id="getDataList" resultType="data">
