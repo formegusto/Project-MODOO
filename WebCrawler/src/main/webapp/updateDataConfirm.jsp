@@ -48,47 +48,34 @@
 <div class="col-md-12">
 	<nav>
 		<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">InfoList</a>
-			<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">DataList</a>
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">DataList</a>
+			<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">New_DataList</a>
 		</div>
 	</nav>
 	<div class="tab-content" id="nav-tabContent">
 		<!-- Info정보 -->
+		<input type="hidden" name="seq" value="${info.seq }"/>
+		<input type="hidden" name="title" value="${info.title }"/>
+		<input type="hidden" name="link" value="${info.link }"/>
+		<input type="hidden" name="cssQuery" value="${info.cssQuery }"/>
+		<input type="hidden" name="content" value="${info.content }"/>
+				  <input type="hidden" name="field" value="${info.field }"/>
 		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 		     <table class="table">
-			 <thead class="thead-dark">
-			    <tr>
-			      <th scope="col" colspan="2">InfoList Information.</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">제목</th>
-			      <td>${info.title }
-			      <input type="hidden" name="seq" value="${info.seq }"/>
-				  <input type="hidden" name="title" value="${info.title }"/>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">주소</th>
-			      <td>${info.link }
-			      <input type="hidden" name="link" value="${info.link }"/>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">CssQuery</th>
-			      <td>${info.cssQuery }
-				  <input type="hidden" name="cssQuery" value="${info.cssQuery }"/>
-				  </td>
-			    </tr>
-			    <tr>
-				  <td scope="row">내용</td>
-				  <td>${info.content }
-				  <input type="hidden" name="content" value="${info.content }"/>
-				  <input type="hidden" name="field" value="${info.field }"/>
-				  </td>
-				</tr>
-			</tbody>
+	  			<thead class="thead-dark">
+				    <tr>
+				      <th scope="col">${info.field }</th>
+				    </tr>
+	  			</thead>
+	  			<tbody>
+		  			<c:forEach items="${ur_dataList }" var="dat">
+					<tr>
+						<td>${dat.data }
+						<input type="hidden" name="data" value="${dat.data }"/>
+						</td>
+					</tr>
+					</c:forEach>
+	  			</tbody>
 			</table>
 		</div>
 		<!-- Data정보 -->
@@ -96,13 +83,12 @@
 			<table class="table">
 	  			<thead class="thead-dark">
 				    <tr>
-				      <th scope="col" colspan="2">DataList</th>
+				      <th scope="col">${info.field }</th>
 				    </tr>
 	  			</thead>
 	  			<tbody>
-		  			<c:forEach items="${dataList }" var="dat">
+		  			<c:forEach items="${new_dataList }" var="dat">
 					<tr>
-						<th scope="row">${info.field }</th>
 						<td>${dat.data }
 						<input type="hidden" name="data" value="${dat.data }"/>
 						</td>
@@ -121,6 +107,7 @@
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfo.do'; form.submit()">Cancel</button>
+	    <button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='appendData.do'; form.submit()">Append</button>
 	    <button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='updateData.do'; form.submit()">Update</button>
 	  	</div>
   	</div>

@@ -73,8 +73,11 @@ public class CrawlerController {
 		// 1. 사용자 입력정보 추출
 		// 2. DB 연동 처리
 		// 3. session에 객체 저장
+		DataVO dvo = new DataVO();
+		dvo.setInum(vo.getSeq());
+		model.addAttribute("ur_dataList", dataService.getData(dvo));
 		model.addAttribute("info",vo);
-		model.addAttribute("dataList", WCrawl.getData(vo));
+		model.addAttribute("new_dataList", WCrawl.getData(vo));
 		return "updateDataConfirm.jsp";
 	}
 	
@@ -90,6 +93,31 @@ public class CrawlerController {
 		DataVO delete_dvo = new DataVO();
 		delete_dvo.setInum(ivo.getSeq());
 		dataService.deleteData(delete_dvo);
+		
+		// 2. DB 연동 처리 ( insert ) 
+		List<DataVO> dataList = new ArrayList<DataVO>();
+		for(String data : datas){
+			DataVO dvo = new DataVO();
+			dvo.setInum(ivo.getSeq());
+			dvo.setData(data);
+			System.out.println(dvo);
+			dataList.add(dvo);
+		}
+		dataService.insertDataInum(dataList);
+		
+		// 3. session에 객체 저장
+		model.addAttribute("info",ivo);
+		return "getInfo.do";
+	}
+	
+	// 데이터 추가 적용
+	@RequestMapping(value="/appendData.do")
+	public String appendData(@RequestParam(value="data", required=true) List<String> datas,
+			InfoVO ivo, Model model, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 크롤링 데이터 업데이트 기능 처리");
+		// 1. 사용자 입력정보 추출
 		
 		// 2. DB 연동 처리 ( insert ) 
 		List<DataVO> dataList = new ArrayList<DataVO>();
