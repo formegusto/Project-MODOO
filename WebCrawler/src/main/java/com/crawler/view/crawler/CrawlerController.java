@@ -1,5 +1,7 @@
 package com.crawler.view.crawler;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,22 +28,41 @@ public class CrawlerController {
 	DataService dataService;
 	
 	// 크롤러로 데이터 조회
-	@RequestMapping(value="/crawlerConfirm.do")
-	public String crawlerConfirm(InfoVO vo, Model model, HttpSession session) {
+	@RequestMapping(value="/crawlerLinkConfirm.do")
+	public String crawlerLinkConfirm(InfoVO vo, Model model, HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 크롤링 기능 처리");
 		// 1. 사용자 입력정보 추출
 		// 2. DB 연동 처리
 		// 3. session에 객체 저장
+		
+		
+		vo.setItype("css:link");
 		model.addAttribute("info",vo);
-		model.addAttribute("dataList", WCrawl.getData(vo));
-		return "crawlerConfirm.jsp";
+		model.addAttribute("dataList", WCrawl.getLinkData(vo));
+		
+		return "crawlerLinkConfirm.jsp";
 	}
 	
-	// 크롤러 정보 및 데이터 저장
-	@RequestMapping(value="/crawlerAdd_proc.do")
-	public String crawlAdd(@RequestParam(value="data", required=true) List<String> datas ,
+	// 크롤러로 데이터 조회
+	@RequestMapping(value="/crawlerTextConfirm.do")
+	public String crawlerTextConfirm(InfoVO vo, Model model, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 크롤링 기능 처리");
+		// 1. 사용자 입력정보 추출
+		// 2. DB 연동 처리
+		// 3. session에 객체 저장
+		vo.setItype("css:text");
+		model.addAttribute("info",vo);
+		model.addAttribute("dataList", WCrawl.getData(vo));
+		return "crawlerTextConfirm.jsp";
+	}
+	
+	// 크롤러 정보 및 데이터 저장 (Text)
+	@RequestMapping(value="/crawlerTextAdd_proc.do")
+	public String crawlTextAdd(@RequestParam(value="data", required=true) List<String> datas ,
 			InfoVO ivo, HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";

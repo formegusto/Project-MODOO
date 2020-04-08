@@ -82,7 +82,7 @@
 	  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">Cancel</button>
 	  	<button type="button" id="urlCancel" class="btn btn-secondary">URL Confirm(CLEAR)</button>
 	  	<button type="button" id="urlLoad" class="btn btn-secondary">URL Confirm(TEST)</button>
-	  	<button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='crawlerConfirm.do'; form.submit()">Crawler Confirm</button>
+	  	<button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='crawlerTextConfirm.do'; form.submit()">Crawler Confirm</button>
 	  	</div>
   	</div>
 </div>

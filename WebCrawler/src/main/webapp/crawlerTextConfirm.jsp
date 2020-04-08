@@ -1,7 +1,6 @@
 <%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,56 +10,18 @@
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
-<link href="resources/fontawesome/css/all.css" rel="stylesheet">
-<script defer src="resources/fontawesome/js/all.js"></script>
 <script type="text/javascript">
 	$(document).on("click","#crawling",function(){
 		$('#loading').show();
 		$('#loading-image').show();
 	});
-	function checkChange(dseq){
-		$("#changeBox_" + dseq).html("<button type='button' class='btn btn-outline-dark' style='float: right' onclick='uncheckChange("
-			+ dseq + ")'>"
-			+ "<i class='fas fa-check'></i></button>");
-		if($("input[name=dseqChangeList]").val() == ""){
-			$("input[name=dseqChangeList]").val(dseq);
-		} else { // 이미 값이 있다는 거
-			$("input[name=dseqChangeList]").val($("input[name=dseqChangeList]").val()+","+dseq);
-			var go = confirm("DataChange : " + $("input[name=dseqChangeList]").val().split(",")[0]+" and "
-					+$("input[name=dseqChangeList]").val().split(",")[1] + " ?");
-			if(go == true){
-				location.href="changeData.do?seq="
-					+ ${info.seq } + "&dseqChangeList=" 
-					+ $("input[name=dseqChangeList]").val();
-			}
-			else {
-				$("#changeBox_" + $("input[name=dseqChangeList]").val().split(",")[0]).html("<button type='button' class='btn btn-outline-dark' style='float: right' onclick='checkChange("
-						+ $("input[name=dseqChangeList]").val().split(",")[0] + ")'>"
-						+ "<i class='fas fa-exchange-alt'></i></button>");
-				$("#changeBox_" + $("input[name=dseqChangeList]").val().split(",")[1]).html("<button type='button' class='btn btn-outline-dark' style='float: right' onclick='checkChange("
-						+ $("input[name=dseqChangeList]").val().split(",")[1] + ")'>"
-						+ "<i class='fas fa-exchange-alt'></i></button>");
-				$("input[name=dseqChangeList]").val("");
-			}
-			
-		}
-	}
-	function uncheckChange(dseq){
-		$("#changeBox_" + dseq).html("<button type='button' class='btn btn-outline-dark' style='float: right' onclick='checkChange("
-				+ dseq + ")'>"
-				+ "<i class='fas fa-exchange-alt'></i></button>");
-		$("input[name=dseqChangeList]").val($("input[name=dseqChangeList]").val().replace(dseq,""));
-		$("input[name=dseqChangeList]").val($("input[name=dseqChangeList]").val().replace(",",""));
-	}
 </script>
-<title>Crawler SELECT Page</title>
+<title>Crawler Confirm Page</title>
 </head>
 <body>
-<!-- Loading -->
 <div id="loading">
 	<img id="loading-image" src="images/viewLoading.gif" alt="Loading..."/>
 </div>
-
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
    <a class="navbar-brand" href="#">MODOO</a>
@@ -80,8 +41,7 @@
 </nav>
 
 <!-- getInfoDesign -->
-<form method="post" name="form" id="form">
-<input type="hidden" value="" name="dseqChangeList"/>
+<form method="post" name="form">
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 <div class="col-md-12">
@@ -92,6 +52,7 @@
 		</div>
 	</nav>
 	<div class="tab-content" id="nav-tabContent">
+	
 		<!-- Info정보 -->
 		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 		     <table class="table">
@@ -136,23 +97,21 @@
 			</tbody>
 			</table>
 		</div>
+		
 		<!-- Data정보 -->
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 			<table class="table">
 	  			<thead class="thead-dark">
 				    <tr>
-				      <th scope="col" colspan="2">${info.field }</th>
+				      <th scope="col" colspan="2">DataList</th>
 				    </tr>
 	  			</thead>
 	  			<tbody>
 		  			<c:forEach items="${dataList }" var="dat">
 					<tr>
-						<td>
-						${dat.data }
-						<div id="changeBox_${dat.dseq }">
-						<button type="button" class="btn btn-outline-dark" style="float: right" onclick="checkChange(${dat.dseq })"><i class="fas fa-exchange-alt"></i></button>
-						</div>
-						<button type="button" class="btn btn-outline-dark" style="float: right" onclick="location.href='deleteDataSeq.do?seq=${info.seq }&dseq=${dat.dseq}'"><i class="far fa-trash-alt"></i></button>
+						<th scope="row">${info.field }</th>
+						<td>${dat.data }
+						<input type="hidden" name="data" value="${dat.data }"/>
 						</td>
 					</tr>
 					</c:forEach>
@@ -163,14 +122,13 @@
 </div>
 </div>
 </div>
+
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">InfoList</button>
-	    <c:if test="${info.cssQuery ne 'csv' }">
-	    <button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='updateDataConfirm.do'; form.submit()">UpdateData</button>
-	  	</c:if>
+	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">Cancel</button>
+	    <button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='crawlerTextAdd_proc.do'; form.submit()">Register</button>
 	  	</div>
   	</div>
 </div>

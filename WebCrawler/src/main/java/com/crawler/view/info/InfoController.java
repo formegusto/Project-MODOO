@@ -173,6 +173,7 @@ public class InfoController {
 			info.setField(fieldList.get(i));
 			info.setCssQuery(cssList.get(i));
 			info.setId(((UserVO)session.getAttribute("user")).getId());
+			info.setItype("csv:text");
 			infoService.insertInfo(info);
 			
 			// 데이터 삽입

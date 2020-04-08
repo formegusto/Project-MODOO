@@ -12,7 +12,7 @@
 <!-- Bootstrap core CSS -->
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="resources/bootstrap/js/bootstrap.bundle.min.js"></script>
 <title>Info List</title>
 </head>
 <body>
@@ -74,7 +74,15 @@
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='csvAdd.jsp'; form.submit()">New CSV</button>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='crawlerAdd.jsp'; form.submit()">New Crawler</button>
+	    <div class="dropdown">
+		  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Crawler
+		  </button>
+		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		    <a class="dropdown-item" href="crawlerTextAdd.jsp">Text</a>
+		    <a class="dropdown-item" href="crawlerLinkAdd.jsp">Link</a>
+		  </div>
+		</div>
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='checkInfoList.do'; form.submit()">New Board</button>
 	  	</div>
   	</div>

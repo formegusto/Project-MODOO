@@ -1,6 +1,7 @@
 package com.crawler.biz.common;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
@@ -17,12 +18,36 @@ public class WCrawl {
 		Document doc;
 		try {
 			doc = Jsoup.connect(vo.getLink()).header("userAgent","Mozilla").get();
-			System.out.println(doc);
 			Elements es = doc.select(vo.getCssQuery());
 			ArrayList<DataVO> retData = new ArrayList<DataVO>();
 			for(Element e : es) {
 				DataVO data = new DataVO();
-				data.setData(e.text());;
+				data.setData(e.text());
+				
+				retData.add(data);
+			}
+			return retData;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static ArrayList<DataVO> getLinkData(InfoVO vo){
+		System.out.println("===> WCrawl getData(vo) 크롤링 기능 처리");
+		Document doc;
+		try {
+			doc = Jsoup.connect(vo.getLink()).header("userAgent","Mozilla").get();
+			Elements es = doc.select(vo.getCssQuery());
+			ArrayList<DataVO> retData = new ArrayList<DataVO>();
+			for(Element e : es) {
+				DataVO data = new DataVO();
+				data.setData(e.attr("href"));
+				if(!(data.getData().contains("http://"))) {
+					System.out.println("들어옴");
+					URL url = new URL(vo.getLink());
+					data.setData("http://" + url.getHost() + e.attr("href"));
+				}
 				retData.add(data);
 			}
 			return retData;

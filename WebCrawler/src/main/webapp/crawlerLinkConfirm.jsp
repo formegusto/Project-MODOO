@@ -82,10 +82,16 @@
 				  </td>
 			    </tr>
 			    <tr>
-				  <td scope="row">내용</td>
+				  <th scope="row">내용</td>
 				  <td>${info.content }
 				  <input type="hidden" name="content" value="${info.content }"/>
 				  <input type="hidden" name="field" value="${info.field }"/>
+				  </td>
+				</tr>
+				<tr>
+				  <th scope="row">타입</td>
+				  <td>${info.itype }
+				  <input type="hidden" name="itype" value="${info.itype }"/>
 				  </td>
 				</tr>
 			</tbody>
@@ -122,7 +128,7 @@
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">Cancel</button>
-	    <button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='crawlerAdd_proc.do'; form.submit()">Register</button>
+	    <button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='crawlerTextAdd_proc.do'; form.submit()">Register</button>
 	  	</div>
   	</div>
 </div>

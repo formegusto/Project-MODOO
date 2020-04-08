@@ -11,6 +11,7 @@ public class InfoVO {
 	String cssQuery;
 	Date regDate;
 	String id;
+	String itype;
 	
 	public int getSeq() {
 		return seq;
@@ -60,10 +61,16 @@ public class InfoVO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getItype() {
+		return itype;
+	}
+	public void setItype(String itype) {
+		this.itype = itype;
+	}
 	
 	@Override
 	public String toString() {
 		return "InfoVO [seq=" + seq + ", title=" + title + ", link=" + link + ", content=" + content + ", field="
-				+ field + ", cssQuery=" + cssQuery + ", regDate=" + regDate + ", id=" + id + "]";
+				+ field + ", cssQuery=" + cssQuery + ", regDate=" + regDate + ", id=" + id + ", itype=" + itype + "]";
 	}
 }
