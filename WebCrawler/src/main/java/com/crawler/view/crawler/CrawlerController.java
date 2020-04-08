@@ -61,8 +61,8 @@ public class CrawlerController {
 	}
 	
 	// 크롤러 정보 및 데이터 저장 (Text)
-	@RequestMapping(value="/crawlerTextAdd_proc.do")
-	public String crawlTextAdd(@RequestParam(value="data", required=true) List<String> datas ,
+	@RequestMapping(value="/crawlerAdd_proc.do")
+	public String crawlAdd(@RequestParam(value="data", required=true) List<String> datas ,
 			InfoVO ivo, HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
@@ -84,6 +84,33 @@ public class CrawlerController {
 		// 4. 화면 네비게이션
 		return "getInfoList.do";
 	}
+	
+	// 크롤러 정보 및 데이터 저장 (Text)
+	@RequestMapping(value="/crawlerLLConfirm.do")
+	public String crawlLLConfirm(@RequestParam List<String> urlList,InfoVO ivo, 
+			Model model,HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service request param MVC Framework] 크롤링 정보 데이터 저장 기능 처리");
+		// 1. 사용자 입력정보 추출
+		// 2. DB 연동 처리(info)
+		System.out.println(urlList);
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(String url : urlList) {
+			InfoVO info = new InfoVO();
+			info.setLink(url);
+			info.setCssQuery(ivo.getCssQuery());
+			infoList.add(info);
+		}
+		ivo.setItype("css:linklist");
+		
+		model.addAttribute("info", ivo);
+		model.addAttribute("dataList", WCrawl.getData(infoList));
+		
+		// 4. 화면 네비게이션
+		return "crawlerLLConfirm.jsp";
+	}
+		
 	
 	// 데이터 업데이트 컨펌
 	@RequestMapping(value="/updateDataConfirm.do")

@@ -50,7 +50,7 @@ public class InfoController {
 	}
 	
 	// 크롤러 리스트 보기
-	@RequestMapping(value= { "/getInfoList.do" , "/checkInfoList.do" })
+	@RequestMapping(value= { "/getInfoList.do" , "/checkInfoList.do" , "crawlerLList.do"})
 	public String getInfoList(InfoVO vo, Model model, 
 			HttpSession session , HttpServletRequest request) {
 		if(session.getAttribute("user") == null)
@@ -66,6 +66,9 @@ public class InfoController {
 			return "getInfoList.jsp";
 		else if(uri.equals("/checkInfoList.do"))
 			return "checkInfoList.jsp";
+		else if(uri.equals("/crawlerLList.do")) 
+			return "crawlerLList.jsp";
+		
 		return null;
 	}
 	
@@ -187,5 +190,24 @@ public class InfoController {
 		}
 		
 		return "getInfoList.do";
+	}
+	
+	// 크롤러 정보 상세 보기
+	@RequestMapping(value="/crawlerLLAdd.do")
+	public String crawlerLLAdd(InfoVO ivo, Model model, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 정보 상세 보기 기능 처리");
+		// 1. 사용자 입력정보 추출
+		// 2. DB 연동 처리(info)
+		// 3. DB 연동 처리(Data)
+		// 4. 세션에 값 저장
+		DataVO dvo = new DataVO();
+		dvo.setInum(Integer.parseInt(ivo.getLink()));
+		
+		model.addAttribute("urlList",dataService.getData(dvo));
+		model.addAttribute("info", ivo);
+
+		return "crawlerLLAdd.jsp";
 	}
 }
