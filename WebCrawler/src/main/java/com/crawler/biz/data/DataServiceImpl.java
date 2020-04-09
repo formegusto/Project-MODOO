@@ -33,7 +33,10 @@ public class DataServiceImpl implements DataService {
 	public void insertDataInum(List<DataVO> dataList) {
 		dataDAO.insertDataInum(dataList);
 	}
-	
+	@Override
+	public void updateData(DataVO vo) {
+		dataDAO.updateData(vo);
+	}
 	@Override
 	public DataVO getDataDseq(DataVO vo) {
 		return dataDAO.getDataDseq(vo);

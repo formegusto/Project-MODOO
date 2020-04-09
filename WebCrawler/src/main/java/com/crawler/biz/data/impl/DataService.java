@@ -16,6 +16,8 @@ public interface DataService {
 	public void insertDataInum(DataVO vo);
 	// DATA(List) 등록
 	public void insertDataInum(List<DataVO> dataList);
+	// DATAUpdate 
+	public void updateData(DataVO vo);
 	// DATA 상세 조회
 	public DataVO getDataDseq(DataVO vo);
 	//Ư�� ũ�ѷ��� DATA ��ȸ

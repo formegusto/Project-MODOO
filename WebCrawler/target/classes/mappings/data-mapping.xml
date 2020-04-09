@@ -21,6 +21,13 @@
 			values((SELECT ifnull(max(dseq), 0) + 1 FROM data b),#{inum },#{data });
 		]]>
 	</insert>
+	<update id="updateData">
+	<![CDATA[
+			UPDATE data
+			SET DATA=#{data }
+			WHERE DSEQ=#{dseq }
+	]]>
+	</update>
 	<delete id="deleteData">
 		<![CDATA[
 			DELETE FROM data
@@ -38,6 +45,7 @@
 			SELECT *
 			FROM DATA
 			WHERE INUM=#{inum}
+			ORDER BY DSEQ ASC
 		]]>
 	</select>
 	<select id="getDataDseq" resultType="data">

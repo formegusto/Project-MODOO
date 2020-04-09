@@ -59,7 +59,7 @@
 		<input type="hidden" name="link" value="${info.link }"/>
 		<input type="hidden" name="cssQuery" value="${info.cssQuery }"/>
 		<input type="hidden" name="content" value="${info.content }"/>
-				  <input type="hidden" name="field" value="${info.field }"/>
+		<input type="hidden" name="field" value="${info.field }"/>
 		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 		     <table class="table">
 	  			<thead class="thead-dark">
@@ -71,7 +71,6 @@
 		  			<c:forEach items="${ur_dataList }" var="dat">
 					<tr>
 						<td>${dat.data }
-						<input type="hidden" name="data" value="${dat.data }"/>
 						</td>
 					</tr>
 					</c:forEach>

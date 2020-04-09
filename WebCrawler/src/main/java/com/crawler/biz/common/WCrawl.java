@@ -67,7 +67,6 @@ public class WCrawl {
 				DataVO data = new DataVO();
 				data.setData(e.attr("href"));
 				if(!(data.getData().contains("http://"))) {
-					System.out.println("들어옴");
 					URL url = new URL(vo.getLink());
 					data.setData("http://" + url.getHost() + e.attr("href"));
 				}

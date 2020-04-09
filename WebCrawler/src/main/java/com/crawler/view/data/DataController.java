@@ -65,4 +65,38 @@ public class DataController {
 
 		return "getInfo.do";
 	}
+	
+	// 데이터 업데이트 적용
+	@RequestMapping(value="/updateDataContent.do")
+	public String updateDataContent(@RequestParam(value="data", required=true) List<String> datas,
+			@RequestParam String updateDseqList,
+			InfoVO ivo, Model model, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 크롤링 데이터 내용 업데이트 기능 처리");
+
+		System.out.println(ivo);
+		// 1. Data 객체 얻기
+		DataVO vo = new DataVO();
+		vo.setInum(ivo.getSeq());
+		List<DataVO> dataList = dataService.getData(vo);
+		
+		// 2. update 해야 하는 데이터 인덱스 찾고 업데이트
+		String[] updateDseqList_ = updateDseqList.split(",");
+		for(int i=0;i<dataList.size();i++) {
+			for(String dseq : updateDseqList_) {
+				if(dataList.get(i).getDseq() == Integer.parseInt(dseq)) {
+					DataVO data = new DataVO();
+					data.setDseq(Integer.parseInt(dseq));
+					data.setData(datas.get(i));
+					dataService.updateData(data);
+					break;
+				}
+			}
+		}
+		
+		// 3. session에 객체 저장
+		model.addAttribute("info",ivo);
+		return "getInfo.do";
+	}
 }

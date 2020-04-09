@@ -33,30 +33,29 @@ public class InfoController {
 	@Autowired
 	DataService dataService;
 	
-	// 크롤러 정보 상세 보기
+	// 행위객체 정보 상세 보기
 	@RequestMapping(value="/getInfo.do")
 	public String getInfo(InfoVO ivo, DataVO dvo, Model model, HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 정보 상세 보기 기능 처리");
-		// 1. 사용자 입력정보 추출
-		// 2. DB 연동 처리(info)
-		// 3. DB 연동 처리(Data)
-		// 4. 세션에 값 저장
+		// 1. DB 연동 처리(info)
+		// 2. DB 연동 처리(Data)
+		// 3. 세션에 값 저장
 		dvo.setInum(ivo.getSeq());
 		model.addAttribute("info", infoService.getInfo(ivo));
 		model.addAttribute("dataList", dataService.getData(dvo));
 		return "getInfo.jsp";
 	}
 	
-	// 크롤러 리스트 보기
+	// 리스트 보기
 	@RequestMapping(value= { "/getInfoList.do" , "/checkInfoList.do" , "crawlerLList.do"})
 	public String getInfoList(InfoVO vo, Model model, 
 			HttpSession session , HttpServletRequest request) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 정보 리스트 보기 기능 처리");
-		// 1. 사용자 입력정보 추출
+		// 1. 다중 uri 입력으로 입력 한 uri 출력
 		String uri = request.getServletPath();
 		// 2. DB 연동 처리
 		// 3. 세션에 값 저장

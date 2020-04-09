@@ -52,6 +52,35 @@
 		$("input[name=dseqChangeList]").val($("input[name=dseqChangeList]").val().replace(dseq,""));
 		$("input[name=dseqChangeList]").val($("input[name=dseqChangeList]").val().replace(",",""));
 	}
+	
+	function onUpdateMode(){
+		$("#inputFrame").show();
+		$("#textFrame").hide();
+		$("#updateBtnBox").html("${info.field }<button type='button' class='btn btn-outline-light' style='float: right' onclick='offUpdateMode()'>"
+				+ "<i class='fas fa-check'></i></button>");
+	}
+	function offUpdateMode(){
+		if($("input[name=updateDseqList]").val() == ""){
+			$("#inputFrame").hide();
+			$("#textFrame").show();
+			$("#updateBtnBox").html("${info.field }<button type='button' class='btn btn-outline-light' style='float: right' onclick='onUpdateMode()'>"
+					+ "<i class='fas fa-pen'></i></button>");
+			alert("수정한 데이터가 없습니다.");
+		} else {
+			alert("수정한 데이터 리스트 ==> " + $("input[name=updateDseqList]").val())
+			document.form.action = "updateDataContent.do";
+			document.form.submit(); // 이게 id 값으로 불러오면 안되고 자바스크립트 네임으로 이용해야 함.
+		}
+	}
+	function updateInput(dseq){
+		if($("input[name=updateDseqList]").val() == ""){
+			$("input[name=updateDseqList]").val(dseq);
+		} else {
+			if($("input[name=updateDseqList]").val().indexOf(dseq)==-1){
+				$("input[name=updateDseqList]").val($("input[name=updateDseqList]").val()+","+dseq);
+			}
+		}
+	}
 </script>
 <title>Crawler SELECT Page</title>
 </head>
@@ -63,7 +92,7 @@
 
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-   <a class="navbar-brand" href="#">MODOO</a>
+  <a class="navbar-brand" href="#">MODOO</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -80,8 +109,9 @@
 </nav>
 
 <!-- getInfoDesign -->
-<form method="post" name="form" id="form">
+<form method="post" name="form">
 <input type="hidden" value="" name="dseqChangeList"/>
+<input type="hidden" value="" name="updateDseqList"/>
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 <div class="col-md-12">
@@ -141,10 +171,27 @@
 			<table class="table">
 	  			<thead class="thead-dark">
 				    <tr>
-				      <th scope="col" colspan="2">${info.field }</th>
+				      <th scope="col" colspan="2">
+				      <div id="updateBtnBox">
+				      ${info.field }
+				      <button type="button" class="btn btn-outline-light" style="float: right" onclick="onUpdateMode()"><i class="fas fa-pen"></i></button>
+				      </div>
+				      </th> 
 				    </tr>
+				    
 	  			</thead>
-	  			<tbody>
+	  			<tbody id="inputFrame" style="display:none">
+	  				<c:forEach items="${dataList }" var="dat">
+	  				<tr>
+	  					<td>
+	  						  <div class="form-group">
+							    <input type="text" class="form-control" name="data" id="inputAddress" value="${dat.data }" onkeydown="updateInput(${dat.dseq})">
+							  </div>
+	  					</td>
+	  				</tr>
+	  				</c:forEach>
+	  			</tbody>
+	  			<tbody id="textFrame">
 		  			<c:forEach items="${dataList }" var="dat">
 					<tr>
 						<td>

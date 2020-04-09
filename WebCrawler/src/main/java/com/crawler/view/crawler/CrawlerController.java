@@ -27,7 +27,7 @@ public class CrawlerController {
 	@Autowired
 	DataService dataService;
 	
-	// 크롤러로 데이터 조회
+	// 크롤러 링크 데이터 조회
 	@RequestMapping(value="/crawlerLinkConfirm.do")
 	public String crawlerLinkConfirm(InfoVO vo, Model model, HttpSession session) {
 		if(session.getAttribute("user") == null)
@@ -36,8 +36,6 @@ public class CrawlerController {
 		// 1. 사용자 입력정보 추출
 		// 2. DB 연동 처리
 		// 3. session에 객체 저장
-		
-		
 		vo.setItype("css:link");
 		model.addAttribute("info",vo);
 		model.addAttribute("dataList", WCrawl.getLinkData(vo));
@@ -60,7 +58,7 @@ public class CrawlerController {
 		return "crawlerTextConfirm.jsp";
 	}
 	
-	// 크롤러 정보 및 데이터 저장 (Text)
+	// 크롤러 및 데이터 저장
 	@RequestMapping(value="/crawlerAdd_proc.do")
 	public String crawlAdd(@RequestParam(value="data", required=true) List<String> datas ,
 			InfoVO ivo, HttpSession session) {
@@ -85,7 +83,7 @@ public class CrawlerController {
 		return "getInfoList.do";
 	}
 	
-	// 크롤러 정보 및 데이터 저장 (Text)
+	// 크롤러로 링크리스트 데이터 조회
 	@RequestMapping(value="/crawlerLLConfirm.do")
 	public String crawlLLConfirm(@RequestParam List<String> urlList,InfoVO ivo, 
 			Model model,HttpSession session) {

@@ -216,9 +216,11 @@ public class BoardController {
 			dataMap.put( bhi.getInum()+"" , dataList);
 		}
 		
+		/* Check
 		System.out.println(ctitle);
 		System.out.println(infoList);
 		System.out.println(dataMap);
+		*/
 		
 		// Convert List<String[]>
 		List<String[]> csvList = new ArrayList<String[]>();
@@ -309,15 +311,16 @@ public class BoardController {
 	
 	// Visualiztion Test Source
 	@RequestMapping(value="/chartConfirm.do")
-	public String chartConfirm(@RequestParam(value="seqList", required=true) List<String> seqList,
+	public String chartConfirm(@RequestParam String seqList,
 			Model model , HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 차트 컨펌 보기 기능 처리");
-		
+		String[] seqList__ = seqList.split(",");
+ 		
 		// 1. infoList 구축
 		List<InfoVO> infoList = new ArrayList<InfoVO>();
-		for(String seq : seqList) {
+		for(String seq : seqList__) {
 			InfoVO vo = new InfoVO();
 			vo.setSeq(Integer.parseInt(seq));
 			infoList.add(infoService.getInfo(vo));
@@ -325,7 +328,7 @@ public class BoardController {
 		
 		// 2. dataMap 구축
 				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
-				for(String seq : seqList) {
+				for(String seq : seqList__) {
 					DataVO dvo = new DataVO();
 					dvo.setInum(Integer.parseInt(seq));
 					List<DataVO> dataList = dataService.getData(dvo);
@@ -335,7 +338,7 @@ public class BoardController {
 		// 2. 숫자 데이터 구축
 		List<Integer> numList = new ArrayList<Integer>();
 		DataVO dvo = new DataVO();
-		dvo.setInum(Integer.parseInt(seqList.get(0)));
+		dvo.setInum(Integer.parseInt(seqList__[0]));
 		List<DataVO> dataList = dataService.getData(dvo);
 		for(DataVO data : dataList) {
 			numList.add(Integer.parseInt(data.getData()));
@@ -343,7 +346,7 @@ public class BoardController {
 		
 		// 3. 문자열 데이터 구축
 		List<String> stringList = new ArrayList<String>();
-		dvo.setInum(Integer.parseInt(seqList.get(1)));
+		dvo.setInum(Integer.parseInt(seqList__[1]));
 		dataList = dataService.getData(dvo);
 		// 4. 랜덤 RGBList 구축
 		List<String> bgList = new ArrayList<String>();
@@ -416,15 +419,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/polarAreaConfirm.do")
-	public String polarAreaConfirm(@RequestParam(value="seqList", required=true) List<String> seqList,
+	public String polarAreaConfirm(@RequestParam String seqList,
 			Model model , HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 차트 컨펌 보기 기능 처리");
 		
+		// 1. seqList 구축
+		String[] seqList__ = seqList.split(",");
+		
 		// 1. infoList 구축
 		List<InfoVO> infoList = new ArrayList<InfoVO>();
-		for(String seq : seqList) {
+		for(String seq : seqList__) {
 			InfoVO vo = new InfoVO();
 			vo.setSeq(Integer.parseInt(seq));
 			infoList.add(infoService.getInfo(vo));
@@ -432,7 +438,7 @@ public class BoardController {
 		
 		// 2. dataMap 구축
 				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
-				for(String seq : seqList) {
+				for(String seq : seqList__) {
 					DataVO dvo = new DataVO();
 					dvo.setInum(Integer.parseInt(seq));
 					List<DataVO> dataList = dataService.getData(dvo);
@@ -442,7 +448,7 @@ public class BoardController {
 		// 2. 숫자 데이터 구축
 		List<Integer> numList = new ArrayList<Integer>();
 		DataVO dvo = new DataVO();
-		dvo.setInum(Integer.parseInt(seqList.get(0)));
+		dvo.setInum(Integer.parseInt(seqList__[0]));
 		List<DataVO> dataList = dataService.getData(dvo);
 		for(DataVO data : dataList) {
 			numList.add(Integer.parseInt(data.getData()));
@@ -450,7 +456,7 @@ public class BoardController {
 		
 		// 3. 문자열 데이터 구축
 		List<String> stringList = new ArrayList<String>();
-		dvo.setInum(Integer.parseInt(seqList.get(1)));
+		dvo.setInum(Integer.parseInt(seqList__[1]));
 		dataList = dataService.getData(dvo);
 		// 4. 랜덤 RGBList 구축
 		List<String> bgList = new ArrayList<String>();

@@ -30,13 +30,16 @@ public class DataDAOMybatis {
 		System.out.println("===> Mybatis�� insertDataAll() 등록 기능 처리");
 		mybatis.insert("DataDAO.insertDataAll", vo);
 	}
-		
+	// DATAUpdate 
+	public void updateData(DataVO vo) {
+		System.out.println("===> Mybatis�� updateData() 수정 기능 처리");
+		mybatis.update("DataDAO.updateData", vo);
+	}
 	// DATAInum 등록
 	public void insertDataInum(DataVO vo) {
 		System.out.println("===> Mybatis�� insertDataInum() 등록 기능 처리");
 		mybatis.insert("DataDAO.insertDataInum", vo);
 	}
-	
 	// DATA(List) 등록
 	public void insertDataInum(List<DataVO> dataList) {
 		System.out.println("===> Mybatis�� insertDataInum(List) 등록 기능 처리");
