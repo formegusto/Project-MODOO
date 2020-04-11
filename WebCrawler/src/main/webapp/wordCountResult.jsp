@@ -48,7 +48,7 @@
 			<input type="hidden" name="ogField" value="${info.field }"/>
 			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.field }" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
 			</c:forEach>
-			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-view" role="tab" aria-controls="nav-test" aria-selected="false">WordCloud</a>
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-view" role="tab" aria-controls="nav-test" aria-selected="false">WordCloud</a>
 			</div>
 			</nav>
 			</td>

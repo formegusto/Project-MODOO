@@ -49,7 +49,7 @@
 			<input type="hidden" name="ogField" value="${info.field }"/>
 			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.field }" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
 			</c:forEach>
-			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-image" role="tab" aria-controls="nav-test" aria-selected="false">Image</a>
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-image" role="tab" aria-controls="nav-test" aria-selected="false">Image</a>
 			</div>
 			</nav>
 			</td>
