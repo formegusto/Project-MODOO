@@ -81,6 +81,20 @@
 			}
 		}
 	}
+	function onReplaceMode(){
+		if($("#replaceFrame").css("display") == "none"){
+		    $("#replaceFrame").show();
+		} else {
+		    $("#replaceFrame").hide();
+		}
+	}
+	function onCutMode(){
+		if($("#cutFrame").css("display") == "none"){
+		    $("#cutFrame").show();
+		} else {
+		    $("#cutFrame").hide();
+		}
+	}
 </script>
 <title>Crawler SELECT Page</title>
 </head>
@@ -118,6 +132,9 @@
 	<nav>
 		<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">InfoList</a>
+			<c:if test="${info.itype eq 'css:linklist' }">
+			<a class="nav-item nav-link" id="nav-link-tab" data-toggle="tab" href="#nav-link" role="tab" aria-controls="nav-link" aria-selected="false">LinkList</a>
+			</c:if>
 			<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">DataList</a>
 		</div>
 	</nav>
@@ -166,6 +183,30 @@
 			</tbody>
 			</table>
 		</div>
+		
+		<!-- URL 정보 (LinkList 전용) -->
+		<c:if test="${info.itype eq 'css:linklist' }">
+			<div class="tab-pane fade" id="nav-link" role="tabpanel" aria-labelledby="nav-link-tab">
+			     <table class="table">
+				 <thead class="thead-dark">
+				    <tr>
+				      <th scope="col" colspan="2">LinkList</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tbody id="textFrame">
+		  			<c:forEach items="${linkList }" var="link">
+					<tr>
+						<td>
+						${link.data }
+						</td>
+					</tr>
+					</c:forEach>
+	  				</tbody>
+				</table>
+			</div>
+		</c:if>
+		
 		<!-- Data정보 -->
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 			<table class="table">
@@ -174,17 +215,30 @@
 				      <th scope="col" colspan="2">
 				      <div id="updateBtnBox">
 				      ${info.field }
+				      <button type="button" class="btn btn-outline-light" style="float: right" onclick="onCutMode()"><i class="fas fa-cut"></i></button>
+				      <button type="button" class="btn btn-outline-light" style="float: right" onclick="onReplaceMode()"><i class="far fa-comments"></i></button>
 				      <button type="button" class="btn btn-outline-light" style="float: right" onclick="onUpdateMode()"><i class="fas fa-pen"></i></button>
 				      </div>
 				      </th> 
 				    </tr>
-				    <tr id="subFrame">
+				    <tr id="replaceFrame" style="display:none">
 				    	<td>
 				    	<div class="input-group mb-3">
-						  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-						  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+						  <input type="text" class="form-control" name="word" placeholder="word" aria-label="word" aria-describedby="basic-addon2">
+						  <input type="text" class="form-control" name="rword" placeholder="replace word" aria-label="replace word" aria-describedby="basic-addon2">
 						  <div class="input-group-append">
-						    <button class="btn btn-outline-secondary" type="button">Button</button>
+						    <button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='replaceData.do'; form.submit()">Replace</button>
+						  </div>
+						</div>
+						</td>
+				    </tr>
+				    <tr id="cutFrame" style="display:none">
+				    	<td>
+				    	<div class="input-group mb-3">
+						  <input type="text" class="form-control" name="sindex" placeholder="start index" aria-label="start index" aria-describedby="basic-addon2">
+						  <input type="text" class="form-control" name="eindex" placeholder="end index" aria-label="end index" aria-describedby="basic-addon2">
+						  <div class="input-group-append">
+						    <button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='cutData.do'; form.submit()">DataCut</button>
 						  </div>
 						</div>
 						</td>

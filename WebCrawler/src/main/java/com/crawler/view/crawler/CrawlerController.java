@@ -1,7 +1,5 @@
 package com.crawler.view.crawler;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +121,23 @@ public class CrawlerController {
 		dvo.setInum(vo.getSeq());
 		model.addAttribute("ur_dataList", dataService.getData(dvo));
 		model.addAttribute("info",vo);
-		model.addAttribute("new_dataList", WCrawl.getData(vo));
+		if(vo.getItype().equals("css:linklist")) {
+			DataVO linkList = new DataVO();
+			linkList.setInum(Integer.parseInt(vo.getLink()));
+			List<DataVO> linkList_ = dataService.getData(linkList);
+			
+			List<InfoVO> infoList = new ArrayList<InfoVO>();
+			for(DataVO link : linkList_) {
+				InfoVO info = new InfoVO();
+				info.setLink(link.getData());
+				info.setCssQuery(vo.getCssQuery());
+				infoList.add(info);
+			}
+			model.addAttribute("new_dataList",WCrawl.getData(infoList));
+		} else {
+			model.addAttribute("new_dataList", WCrawl.getData(vo));
+		}
+		
 		return "updateDataConfirm.jsp";
 	}
 	

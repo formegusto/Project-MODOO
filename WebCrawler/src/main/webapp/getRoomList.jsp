@@ -36,6 +36,8 @@
   <a class="nav-item nav-link" href="getInfoList.do">Info</a>
   <a class="nav-item nav-link" href="getBoardList.do?pageNum=1">Board</a>
   <a class="nav-item nav-link active" href="getRoomList.do">ChatRoom</a>
+  <a class="nav-item nav-link" href="getInfoList.do">TM</a>
+  <a class="nav-item nav-link" href="getInfoList.do">Visual</a>
 </nav>
 	
 <!-- getRoomList Design -->

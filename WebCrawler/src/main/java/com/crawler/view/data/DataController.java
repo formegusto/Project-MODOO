@@ -99,4 +99,78 @@ public class DataController {
 		model.addAttribute("info",ivo);
 		return "getInfo.do";
 	}
+	
+	@RequestMapping(value="/replaceData.do")
+	public String replaceData(@RequestParam String word, @RequestParam String rword,
+			InfoVO ivo, Model model, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 크롤링 데이터 내용 업데이트 기능 처리");
+
+		System.out.println(ivo);
+		// 1. Data 객체 얻기
+		DataVO vo = new DataVO();
+		vo.setInum(ivo.getSeq());
+		List<DataVO> dataList = dataService.getData(vo);
+		
+		if(rword == null) {
+			rword = "";
+		}
+		// 2. update 해야 하는 데이터 인덱스 찾고 업데이트
+		for(DataVO data : dataList) {
+				data.setData(data.getData().replaceAll(word, rword));
+				dataService.updateData(data);
+		}
+		
+		// 3. session에 객체 저장
+		model.addAttribute("info",ivo);
+		return "getInfo.do";
+	}
+	
+	@RequestMapping(value="/cutData.do")
+	public String cutData(@RequestParam String sindex, @RequestParam String eindex,
+			InfoVO ivo, Model model, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 크롤링 데이터 내용 업데이트 기능 처리");
+
+		System.out.println(ivo);
+		// 1. Data 객체 얻기
+		DataVO vo = new DataVO();
+		vo.setInum(ivo.getSeq());
+		List<DataVO> dataList = dataService.getData(vo);
+		
+		int sindex_, eindex_;
+		if(sindex == null || sindex == "") {
+			sindex_ = 0;
+		} else {
+			sindex_ = Integer.parseInt(sindex);
+		}
+		if(eindex == null || eindex == "") {
+			eindex_ = -1;
+		} else {
+			eindex_ = Integer.parseInt(eindex);
+		}
+		
+		// 2. update 해야 하는 데이터 인덱스 찾고 업데이트
+		for(DataVO data : dataList) {
+			if(sindex_ >= (data.getData().length())) {
+				data.setData(data.getData().substring(0, data.getData().length()));
+			} else {
+				if(eindex_  == -1) {
+					data.setData(data.getData().substring(sindex_, data.getData().length()));
+				} else if(eindex_ >= (data.getData().length()+1)) {
+					data.setData(data.getData().substring(sindex_, data.getData().length()));
+				} else {
+					data.setData(data.getData().substring(sindex_, eindex_));
+				}
+			}
+			
+			dataService.updateData(data);
+		}
+		
+		// 3. session에 객체 저장
+		model.addAttribute("info",ivo);
+		return "getInfo.do";
+	}
 }

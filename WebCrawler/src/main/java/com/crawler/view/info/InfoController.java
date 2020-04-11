@@ -42,9 +42,19 @@ public class InfoController {
 		// 1. DB 연동 처리(info)
 		// 2. DB 연동 처리(Data)
 		// 3. 세션에 값 저장
+		InfoVO info = new InfoVO();
 		dvo.setInum(ivo.getSeq());
-		model.addAttribute("info", infoService.getInfo(ivo));
+		info = infoService.getInfo(ivo);
+		model.addAttribute("info", info);
 		model.addAttribute("dataList", dataService.getData(dvo));
+		
+		if(info.getItype().equals("css:linklist")) {
+			DataVO dvo_2 = new DataVO();
+			dvo_2.setInum(Integer.parseInt(info.getLink()));
+			
+			model.addAttribute("linkList",dataService.getData(dvo_2));
+		}
+		
 		return "getInfo.jsp";
 	}
 	
