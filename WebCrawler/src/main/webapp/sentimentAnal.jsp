@@ -4,6 +4,7 @@
 <%
 	ArrayList<InfoVO> infoList = (ArrayList) request.getAttribute("infoList");
 	HashMap<String,List<DataVO>> dataMap = (HashMap) request.getAttribute("dataMap");    
+	request.setAttribute("dataMap", dataMap);
 %>
 <!DOCTYPE html>
 <html>
@@ -48,7 +49,7 @@
 			<input type="hidden" name="ogField" value="${info.field }"/>
 			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.field }" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
 			</c:forEach>
-			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-view" role="tab" aria-controls="nav-test" aria-selected="false">WordCloud</a>
+			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-image" role="tab" aria-controls="nav-test" aria-selected="false">Image</a>
 			</div>
 			</nav>
 			</td>
@@ -69,7 +70,7 @@
 				  </div>
 				  <div class="form-group">
 				    <label for="inputLink">Link</label>
-				    <input type="text" name="link" value="tm:wordcount" class="form-control" id="inputLink" readOnly>
+				    <input type="text" name="link" value="tm:sentimentAnal" class="form-control" id="inputLink" readOnly>
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-md-6">
@@ -78,16 +79,16 @@
 				    </div>
 				    <div class="form-group col-md-6">
 				      <label for="inputCssQuery">CssQuery</label>
-				      <input type="text" name="cssQuery" value="tm:wordcount" class="form-control" id="inputCssQuery" readOnly>
+				      <input type="text" name="cssQuery" value="tm:sentimentAnal" class="form-control" id="inputCssQuery" readOnly>
 				    </div>
 				  </div>
 				</div>
 			</div>
 		    </c:forEach>
-		    <div class="tab-pane active" id="nav-view" role="tabpanel" aria-labelledby="nav-home-tab">
-			     <div style="margin:auto;">
-			     <jsp:include page="/rview/test.html"/> <!-- 에러는 뜨지만 잘 작동한다 하하 -->
-				 </div>
+		    <div class="tab-pane active" id="nav-image" role="tabpanel" aria-labelledby="nav-home-tab">
+			     <div style="margin:auto; text-align: center;">
+				  <img src="download/test.png">
+				</div>
 			</div>
 		    </div>
 		    
@@ -109,9 +110,6 @@
 	    	<nav>
 			<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 			<!-- infoList -->
-			<c:forEach items="${infoList }" var="info">
-			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.field }0" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
-			</c:forEach>
 			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-table" role="tab" aria-controls="nav-test" aria-selected="false">All</a>
 			</div>
 			</nav>
@@ -120,25 +118,6 @@
 		<tr>
 			<td colspan="2">
 			<div class="tab-content" id="nav-tabContent">
-			<%
-				for(InfoVO info : infoList){
-					List<DataVO> dataList = dataMap.get(info.getField());
-			%>
-			<div class="tab-pane fade" id="nav-<%=info.getField() %>0" role="tabpanel" aria-labelledby="nav-home-tab">
-			     <table class="table">
-				  <tbody>
-				  <%for(DataVO data : dataList){ %>
-						   <tr>
-							   	<td>
-							   		<input type="hidden" name="<%=info.getField() %>" value="<%=data.getData() %>"/>
-							   		<%=data.getData() %>
-							   	</td>
-						   </tr>
-				 <%} %>
-			  	 </tbody>
-				</table>
-			</div>
-		    <% } %>
 		    <div class="tab-pane fade" id="nav-table" role="tabpanel" aria-labelledby="nav-home-tab">
 		    	<table class="table">
 		    	<thead>
@@ -167,6 +146,7 @@
 						   <%}else{ %>
 							   	<td>
 							   		<%=data.getData() %>
+							   		<input type="hidden" name="<%=info.getField() %>" value="<%=data.getData() %>"/>
 							   	</td>
 							<%} %>
 						   </tr>

@@ -14,12 +14,19 @@
 <link href="resources/fontawesome/css/all.css" rel="stylesheet">
 <script defer src="resources/fontawesome/js/all.js"></script>
 <script type="text/javascript">
+function goR(url){
+	$("#loading").show();
+	$('#loading-image').show();
+	document.form.action = url;
+	document.form.submit(); // 이게 id 값으로 불러오면 안되고 자바스크립트 네임으로 이용해야 함.
+}
+
 </script>
 <title>TMInfo</title>
 </head>
 <body>
 <!-- Loading -->
-<div id="loading">
+<div id="loading" style="display:none ">
 	<img id="loading-image" src="images/viewLoading.gif" alt="Loading..."/>
 </div>
 
@@ -75,10 +82,18 @@
 			  <tbody>
 			    <tr>
 			    	<td>
-			    	<button type="button" class="btn btn-outline-dark" onclick="javascript: form.action='wordCount.do'; form.submit()">WordCount</button>
+			    	<button type="button" class="btn btn-outline-dark" onclick="goR('wordCount.do')">WordCount</button>
 			    	</td>
 			    	<td>
 			    	글자 빈도수 프레임을 생성 해줍니다.
+			    	</td>
+			    </tr>
+			    <tr>
+			    	<td>
+			    	<button type="button" class="btn btn-outline-dark" onclick="goR('sentimentAnal.do')">SentimentAnalysis</button>
+			    	</td>
+			    	<td>
+			    	감성분석 결과를 보여줍니다.
 			    	</td>
 			    </tr>
 			  </tbody>

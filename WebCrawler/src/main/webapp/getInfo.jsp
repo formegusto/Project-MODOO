@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -278,7 +279,7 @@
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">InfoList</button>
-	    <c:if test="${info.cssQuery ne 'csv' }">
+	    <c:if test="${fn:contains(info.cssQuery,'csv') ne true and fn:contains(info.cssQuery,'tm') ne true}">
 	    <button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='updateDataConfirm.do'; form.submit()">UpdateData</button>
 	  	</c:if>
 	  	</div>

@@ -51,6 +51,9 @@
 	<%
 	for(int i=0;i<infoList.size();i++){
 		InfoVO info = infoList.get(i);
+		if(info.getItype().equals("css:link")){
+			continue;
+		}
 	%>
 		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
 		  <div class="card-header"><%=info.getSeq() %> : <%=info.getRegDate() %> 

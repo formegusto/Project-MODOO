@@ -60,7 +60,6 @@
 		  </div>
 		  <div class="card-body">
 		    <h5 class="card-title"><a href="getInfo.do?seq=<%=info.getSeq()%>" style="color:white; font-weight: bold;"><%=info.getTitle() %></a></h5>
-		    <p class="card-text"><%=info.getContent() %></p>
 		  </div>
 		</div>
 	<%}if(((i+1)%4)==0){%>
