@@ -61,7 +61,7 @@
 			     <div style="margin:auto;">
 				  <div class="form-group">
 					<label for="inputTitle">Title</label>
-					<input type="text" name="title" value="${info.title }" class="form-control" id="inputTitle" placeholder="Input Crawler Title">
+					<input type="text" name="title" class="form-control" id="inputTitle" placeholder="Input Crawler Title">
 				  </div>
 				  <div class="form-group">
 				    <label for="contentTextarea">Content</label>
@@ -69,7 +69,7 @@
 				  </div>
 				  <div class="form-group">
 				    <label for="inputLink">Link</label>
-				    <input type="text" name="link" value="csv" class="form-control" id="inputLink" readOnly>
+				    <input type="text" name="link" value="tm:wordcount" class="form-control" id="inputLink" readOnly>
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-md-6">
@@ -78,7 +78,7 @@
 				    </div>
 				    <div class="form-group col-md-6">
 				      <label for="inputCssQuery">CssQuery</label>
-				      <input type="text" name="cssQuery" value="csv" class="form-control" id="inputCssQuery" readOnly>
+				      <input type="text" name="cssQuery" value="tm:wordcount" class="form-control" id="inputCssQuery" readOnly>
 				    </div>
 				  </div>
 				</div>
@@ -91,8 +91,8 @@
 			<div class="row">
 				<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 				  	<div class="btn-group mr-2" role="group" aria-label="First group">
-				  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit()">Cancel</button>
-				  	<button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='multiAdd_proc.do'; form.submit()">CSV Add</button>
+				  	<button type="button" class="btn btn-secondary" onclick="location.href='getTmInfo.do?seq=${rtnseq }'">Cancel</button>
+				  	<button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='multiAdd_proc.do'; form.submit()">Result Add</button>
 				  	</div>
 			  	</div>
 			</div>
@@ -107,6 +107,7 @@
 			<c:forEach items="${infoList }" var="info">
 			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.field }0" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
 			</c:forEach>
+			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-table" role="tab" aria-controls="nav-test" aria-selected="false">All</a>
 			</div>
 			</nav>
 			</td>
@@ -133,6 +134,46 @@
 				</table>
 			</div>
 		    <% } %>
+		    <div class="tab-pane fade" id="nav-table" role="tabpanel" aria-labelledby="nav-home-tab">
+		    	<table class="table">
+		    	<thead>
+		    	<tr>
+		    	<%
+		    	for(InfoVO info : infoList){
+		    	%>
+		    				<th scope="col"><%=info.getField() %></th>
+		    	<% } %>
+		    	</tr>
+		    	</thead>
+		    	<tbody>
+		    	<tr>
+		    	<% for(InfoVO info : infoList){ 
+		    		List<DataVO> dataList = dataMap.get(info.getField());
+		    	%>
+		    		<td>
+		    		<table class="table">
+		    		<tbody>
+				  			<%for(DataVO data : dataList){ %>
+						   <tr>
+						   <%if((data.getData()).equals("")){ %>
+						   		<td>
+							   		!!blank!!
+							   	</td>
+						   <%}else{ %>
+							   	<td>
+							   		<%=data.getData() %>
+							   	</td>
+							<%} %>
+						   </tr>
+						    <%} %>
+			  		 </tbody>
+		    		</table>	
+		    		</td>
+		    	<%} %>
+		    	</tr>
+		    	</tbody>
+		    	</table>
+		    </div>
 		    </div>
 			</td>
 	    </tr>

@@ -168,14 +168,14 @@
 				  </td>
 			    </tr>
 			    <tr>
-				  <th scope="row">내용</td>
+				  <th scope="row">내용</th>
 				  <td>${info.content }
 				  <input type="hidden" name="content" value="${info.content }"/>
 				  <input type="hidden" name="field" value="${info.field }"/>
 				  </td>
 				</tr>
 				<tr>
-				  <th scope="row">타입</td>
+				  <th scope="row">타입</th>
 				  <td>${info.itype }
 				  <input type="hidden" name="itype" value="${info.itype }"/>
 				  </td>
@@ -193,7 +193,6 @@
 				      <th scope="col" colspan="2">LinkList</th>
 				    </tr>
 				  </thead>
-				  <tbody>
 				    <tbody id="textFrame">
 		  			<c:forEach items="${linkList }" var="link">
 					<tr>

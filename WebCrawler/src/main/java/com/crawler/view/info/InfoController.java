@@ -34,6 +34,31 @@ public class InfoController {
 	DataService dataService;
 	
 	// 행위객체 정보 상세 보기
+	@RequestMapping(value="/getTmInfo.do")
+	public String getTmInfo(InfoVO ivo, DataVO dvo, Model model, HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 정보 상세 보기 기능 처리");
+		// 1. DB 연동 처리(info)
+		// 2. DB 연동 처리(Data)
+		// 3. 세션에 값 저장
+		InfoVO info = new InfoVO();
+		dvo.setInum(ivo.getSeq());
+		info = infoService.getInfo(ivo);
+		model.addAttribute("info", info);
+		model.addAttribute("dataList", dataService.getData(dvo));
+		
+		if(info.getItype().equals("css:linklist")) {
+			DataVO dvo_2 = new DataVO();
+			dvo_2.setInum(Integer.parseInt(info.getLink()));
+			
+			model.addAttribute("linkList",dataService.getData(dvo_2));
+		}
+		
+		return "getTmInfo.jsp";
+	}
+	
+	// 행위객체 정보 상세 보기
 	@RequestMapping(value="/getInfo.do")
 	public String getInfo(InfoVO ivo, DataVO dvo, Model model, HttpSession session) {
 		if(session.getAttribute("user") == null)
@@ -59,7 +84,7 @@ public class InfoController {
 	}
 	
 	// 리스트 보기
-	@RequestMapping(value= { "/getInfoList.do" , "/checkInfoList.do" , "crawlerLList.do"})
+	@RequestMapping(value= { "/getInfoList.do" , "/checkInfoList.do" , "crawlerLList.do" , "/tmObjectConfirm.do"})
 	public String getInfoList(InfoVO vo, Model model, 
 			HttpSession session , HttpServletRequest request) {
 		if(session.getAttribute("user") == null)
@@ -77,6 +102,8 @@ public class InfoController {
 			return "checkInfoList.jsp";
 		else if(uri.equals("/crawlerLList.do")) 
 			return "crawlerLList.jsp";
+		else if(uri.equals("/tmObjectConfirm.do"))
+			return "tmObjectConfirm.jsp";
 		
 		return null;
 	}
@@ -163,8 +190,8 @@ public class InfoController {
 	}
 	
 	// csv 정보 넣기
-	@RequestMapping(value="/csvAdd_proc.do")
-	public String csvAdd(HttpSession session,Model model,
+	@RequestMapping(value="/multiAdd_proc.do")
+	public String multiAdd(HttpSession session,Model model,
 			HttpServletRequest request,
 			@RequestParam(value="ogField", required=true) List<String> ogFieldList,
 			@RequestParam(value="title", required=true) List<String> titleList,
