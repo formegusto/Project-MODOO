@@ -9,22 +9,23 @@
 	</insert>
 	<insert id="insertVHI">
 		insert into visual_have_info(vhiseq,vnum,inum,dtype)
-		values ((SELECT ifnull(max(vhiseq), 0) + 1 FROM visual_have_info a),(SELECT ifnull(max(vnum), 0) + 0 FROM visual b), #{inum},#{dtype})
+		values ((SELECT ifnull(max(vhiseq), 0) + 1 FROM visual_have_info a),(SELECT ifnull(max(vseq), 0) + 0 FROM visual b), #{inum},#{dtype})
 	</insert>
 	<select id="getVHIList" resultType="vhi">
 		SELECT *
 		FROM VISUAL_HAVE_INFO
-		WHERE VNUM=${VNUM}
+		WHERE VNUM=#{vseq}
 		ORDER BY VHISEQ ASC
 	</select>
 	<select id="getVisual" resultType="visual">
 		SELECT *
 		FROM VISUAL
-		WHERE VSEQ=${vseq}
+		WHERE VSEQ=#{vseq}
 	</select>
 	<select id="getVisualList" resultType="visual">
 		SELECT * 
 		FROM VISUAL
+		WHERE ID=#{id}
 		ORDER BY vseq DESC
 	</select>
 </mapper>

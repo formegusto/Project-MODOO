@@ -64,7 +64,7 @@
 	    		<button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='convertCSV.do'; form.submit()">Convert CSV</button>
 	    	</div>
 	    </div>
-	    <td>
+	    </td>
 	    </tr>
 	    <c:if test="${board.id eq user.id }">
 		<tr>

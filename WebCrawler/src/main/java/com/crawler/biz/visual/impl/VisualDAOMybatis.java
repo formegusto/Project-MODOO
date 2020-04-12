@@ -22,7 +22,7 @@ public class VisualDAOMybatis {
 		System.out.println("===> Mybatis로 insertVHI() 등록 기능 처리");
 		mybatis.insert("VisualDAO.insertVHI", vo);
 	}
-	public List<VisualHaveInfoVO> getVHIList(VisualHaveInfoVO vo){
+	public List<VisualHaveInfoVO> getVHIList(VisualVO vo){
 		System.out.println("===> Mybatis로 getVHIList() 등록 기능 처리");
 		return mybatis.selectList("VisualDAO.getVHIList",vo);
 	}

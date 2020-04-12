@@ -41,7 +41,7 @@
 			<td>
 	    	<nav>
 			<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-visual" role="tab" aria-controls="nav-test" aria-selected="false">Visual Register Form</a>
+			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-visual" role="tab" aria-controls="nav-test" aria-selected="false">Visual Info</a>
 			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-view" role="tab" aria-controls="nav-test" aria-selected="false">View</a>
 			</div>
 			</nav>
@@ -51,30 +51,22 @@
 		<td colspan="2">
 			<div class="tab-content" id="nav-tabContent">
 			<div class="tab-pane" id="nav-visual" role="tabpanel" aria-labelledby="nav-home-tab">
-				<div style="margin:auto;">
-				  <div class="form-group">
-					<label for="inputTitle">Title</label>
-					<input type="text" name="title" class="form-control" id="inputTitle" placeholder="Input Crawler Title">
-				  </div>
-				  <div class="form-group">
-				    <label for="contentTextarea">Content</label>
-				    <textarea class="form-control" name="content" id="contentTextarea" rows="3" placeholder="Input Crawling Contents"></textarea>
-				    <input type="hidden" name="vtype" value="${visual.vtype }"/>
-				    <input type="hidden" name="numSet" value="${numSet }"/>
-				    <input type="hidden" name="strSet" value="${strSet }"/>
-				    <input type="hidden" name="id" value="${user.id }"/>
-				  </div>
-				</div>
-				<div class="container" style="margin-top: 15px;">
-				<div class="row">
-					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
-					  	<div class="btn-group mr-2" role="group" aria-label="First group">
-					  	<button type="button" class="btn btn-secondary" onclick="location.href='getVisualList.jsp'">Cancel</button>
-					  	<button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='visualAdd_proc.do'; form.submit()">Register</button>
-					  	</div>
-				  	</div>
-				</div>
-				</div>
+				<table class="table">
+				  <tbody>
+				    <tr>
+				      <th scope="row">제목</th>
+				      <td>${visual.title }</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">작성자</th>
+				      <td>${visual.id }</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">내용</th>
+				      <td>${visual.content }</td>
+				    </tr>
+				 </tbody>
+				</table>
 			</div>
 			<div class="tab-pane active" id="nav-view" role="tabpanel" aria-labelledby="nav-home-tab">
 				     <div style="margin:auto;">

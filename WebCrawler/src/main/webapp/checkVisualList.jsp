@@ -15,20 +15,30 @@
 <!-- 나중에 vtype을 체크하고 여기서 데이터셋이 얼마나 필요한지 적용 시키기 -->
 <script>
 function listCheck(seq){
-	$("input[name=seq]:checked").each(function() {
-		if($(this).val() == seq){
+	if($("#" + seq).is(":checked") == true){
+		if($("#" + seq).val() == seq){
 			if($("input[name=numSet]").val() == ""){
-				alert("숫자 데이터 입력");
+				alert("숫자 데이터셋 선택완료");
 				$("input[name=numSet]").val(seq);
 			} else if ($("input[name=strSet]").val() == ""){
-				alert("문자열 데이터 입력");
+				alert("문자열 데이터셋 선택완료");
 				$("input[name=strSet]").val(seq);
 			} else {
 				alert("이미 필요한 데이터셋이 모두 체크 되었습니다.");
 				$("#" + seq).prop("checked", false);
 			}
 		} // 이번에 체크 된거
-	});
+	} else {
+		if($("#" + seq).val() == seq){
+			if($("input[name=numSet]").val() == seq){
+				alert("숫자 데이터셋 삭제");
+				$("input[name=numSet]").val("");
+			} else if ($("input[name=strSet]").val() == seq){
+				alert("문자열 데이터셋 삭제");
+				$("input[name=strSet]").val("");
+			} 
+		}
+	} // 체크 해제 된거
 }
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">

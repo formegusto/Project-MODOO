@@ -24,7 +24,7 @@ public class VisualServiceImpl implements VisualService {
 	}
 
 	@Override
-	public List<VisualHaveInfoVO> getVHIList(VisualHaveInfoVO vo) {
+	public List<VisualHaveInfoVO> getVHIList(VisualVO vo) {
 		return visualDAO.getVHIList(vo);
 	}
 

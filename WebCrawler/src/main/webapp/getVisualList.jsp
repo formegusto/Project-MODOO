@@ -53,7 +53,7 @@ function visualSel(vtype){
   <a class="nav-item nav-link" href="getBoardList.do?pageNum=1">Board</a>
   <a class="nav-item nav-link" href="getRoomList.do">ChatRoom</a>
   <a class="nav-item nav-link" href="tmObjectConfirm.do">TM</a>
-  <a class="nav-item nav-link active" href="getVisualList.jsp">Visual</a>
+  <a class="nav-item nav-link active" href="getVisualList.do">Visual</a>
 </nav>
 
 <!-- getInfoDesign -->
@@ -123,7 +123,28 @@ function visualSel(vtype){
 		
 		<!-- Making정보 -->
         <div class="tab-pane fade" id="nav-making" role="tabpanel" aria-labelledby="nav-profile-tab">
-			
+			<table class="table">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">번호</th>
+			      <th scope="col">제목</th>
+			      <th scope="col">작성자</th>
+			      <th scope="col">등록일</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+				<c:forEach items="${visualList }" var="visual">
+				<tr>
+					<th scope="row">${visual.vseq }</th>
+					<td>
+					<a href="getVisual.do?vseq=${visual.vseq }">${visual.title }</a>
+					</td>
+					<td>${visual.id }</td>
+					<td>${visual.regdate }</td>
+				</tr>
+				</c:forEach>
+			  </tbody>
+			</table>
         </div>
 	</div>
 </div>
