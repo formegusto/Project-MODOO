@@ -110,10 +110,6 @@ function listCheck(seq){
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	    <button type="button" class="btn btn-secondary" onclick="location.href='getInfoList.do'">InfoList</button>
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='boardConfirm.do'; form.submit()">BoardConfirm</button>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='chartConfirm.do'; form.submit()">ChartConfirm</button>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='lineConfirm.do'; form.submit()">LineConfirm</button>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='polarAreaConfirm.do'; form.submit()">PolarAreaConfirm</button>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='doughnutConfirm.do'; form.submit()">DoughnutConfirm</button>
 	  	</div>
   	</div>
 </div>

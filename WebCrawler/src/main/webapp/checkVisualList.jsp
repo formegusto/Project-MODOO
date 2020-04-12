@@ -12,6 +12,7 @@
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<!-- 나중에 vtype을 체크하고 여기서 데이터셋이 얼마나 필요한지 적용 시키기 -->
 <script>
 function listCheck(seq){
 	$("input[name=seq]:checked").each(function() {
@@ -57,6 +58,7 @@ function listCheck(seq){
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 	<div class="card-deck">
+	<input type="hidden" name="vtype" value="${vtype }"/>
 	<input type="hidden" name="numSet" value=""/>
 	<input type="hidden" name="strSet" value=""/>
 	<%
@@ -89,7 +91,7 @@ function listCheck(seq){
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	    <button type="button" class="btn btn-secondary" onclick="location.href='getVisualList.jsp'">Cancle</button>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='boardConfirm.do'; form.submit()">Confirm</button>
+	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='visualConfirm.do'; form.submit()">Confirm</button>
 	  	</div>
   	</div>
 </div>

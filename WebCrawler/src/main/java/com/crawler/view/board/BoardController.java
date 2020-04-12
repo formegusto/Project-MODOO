@@ -327,13 +327,13 @@ public class BoardController {
 		}
 		
 		// 2. dataMap 구축
-				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
-				for(String seq : seqList__) {
-					DataVO dvo = new DataVO();
-					dvo.setInum(Integer.parseInt(seq));
-					List<DataVO> dataList = dataService.getData(dvo);
-					dataMap.put(seq, dataList);
-				}
+		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+		for(String seq : seqList__) {
+			DataVO dvo = new DataVO();
+			dvo.setInum(Integer.parseInt(seq));
+			List<DataVO> dataList = dataService.getData(dvo);
+			dataMap.put(seq, dataList);
+		}
 		
 		// 2. 숫자 데이터 구축
 		List<Integer> numList = new ArrayList<Integer>();

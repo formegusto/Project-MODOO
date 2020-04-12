@@ -12,6 +12,8 @@
 		<typeAlias type="com.crawler.biz.board.BoardHaveInfoVO" alias="bhi"></typeAlias>
 		<typeAlias type="com.crawler.biz.room.RoomVO" alias="room"></typeAlias>
 		<typeAlias type="com.crawler.biz.chat.ChatVO" alias="chat"></typeAlias>
+		<typeAlias type="com.crawler.biz.visual.VisualVO" alias="visual"></typeAlias>
+		<typeAlias type="com.crawler.biz.visual.VisualHaveInfoVO" alias="vhi"></typeAlias>
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
@@ -22,5 +24,6 @@
 		<mapper resource="mappings/board-mapping.xml" />
 		<mapper resource="mappings/room-mapping.xml"/>
 		<mapper resource="mappings/chat-mapping.xml"/>
+		<mapper resource="mappings/visual-mapping.xml"/>
 	</mappers>
 </configuration>

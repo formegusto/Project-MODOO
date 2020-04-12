@@ -114,7 +114,7 @@ function visualSel(vtype){
 			    </div>
 			    <div class="card-footer text-right">
 			      <small class="text-muted">
-					<a href="#" class="btn btn-primary" onclick="visualSel('chart:polararea')">Select</a>
+					<a href="#" class="btn btn-primary" onclick="visualSel('chart:polarArea')">Select</a>
 				  </small>
 			    </div>
 			  </div>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="VisualDAO">
+	<insert id="insertVisual">
+		insert into visual(vseq, title, content, id, vtype)
+		values ((SELECT ifnull(max(vseq), 0) + 1 FROM visual a),#{title },#{content },#{id }, #{vtype })
+	</insert>
+	<insert id="insertVHI">
+		insert into visual_have_info(vhiseq,vnum,inum,dtype)
+		values ((SELECT ifnull(max(vhiseq), 0) + 1 FROM visual_have_info a),(SELECT ifnull(max(vnum), 0) + 0 FROM visual b), #{inum},#{dtype})
+	</insert>
+	<select id="getVHIList" resultType="vhi">
+		SELECT *
+		FROM VISUAL_HAVE_INFO
+		WHERE VNUM=${VNUM}
+		ORDER BY VHISEQ ASC
+	</select>
+	<select id="getVisual" resultType="visual">
+		SELECT *
+		FROM VISUAL
+		WHERE VSEQ=${vseq}
+	</select>
+	<select id="getVisualList" resultType="visual">
+		SELECT * 
+		FROM VISUAL
+		ORDER BY vseq DESC
+	</select>
+</mapper>
