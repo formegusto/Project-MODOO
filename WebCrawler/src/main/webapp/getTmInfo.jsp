@@ -53,7 +53,7 @@ function goR(url){
   <a class="nav-item nav-link" href="getBoardList.do?pageNum=1">Board</a>
   <a class="nav-item nav-link" href="getRoomList.do">ChatRoom</a>
   <a class="nav-item nav-link active" href="tmObjectConfirm.do">TM</a>
-  <a class="nav-item nav-link" href="getInfoList.do">Visual</a>
+  <a class="nav-item nav-link" href="getVisualList.do">Visual</a>
 </nav>
 
 <!-- getInfoDesign -->
@@ -86,6 +86,14 @@ function goR(url){
 			    	</td>
 			    	<td>
 			    	글자 빈도수 프레임을 생성 해줍니다.
+			    	</td>
+			    </tr>
+			    <tr>
+			    <td>
+			    	<button type="button" class="btn btn-outline-dark" onclick="goR('sna.do')">SocialNeworkAnalysis</button>
+			    	</td>
+			    	<td>
+			    	글자 빈도수를 통해서 같은 행에 어떤 단어들과 연관이 되는 지 보여줍니다.
 			    	</td>
 			    </tr>
 			    <tr>

@@ -70,7 +70,7 @@ function listCheck(seq){
   <a class="nav-item nav-link" href="getBoardList.do?pageNum=1">Board</a>
   <a class="nav-item nav-link" href="getRoomList.do">ChatRoom</a>
   <a class="nav-item nav-link" href="tmObjectConfirm.do">TM</a>
-  <a class="nav-item nav-link" href="getInfoList.do">Visual</a>
+  <a class="nav-item nav-link" href="getVisualList.do">Visual</a>
 </nav>
 
 <!-- infoList Card -->

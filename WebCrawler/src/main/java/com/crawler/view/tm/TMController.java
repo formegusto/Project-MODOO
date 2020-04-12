@@ -37,6 +37,90 @@ public class TMController {
 	DataService dataService;
 	
 	@SuppressWarnings("resource")
+	@RequestMapping(value="/sna.do")
+	public String sna(InfoVO vo,Model model,HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 정보 상세 보기 기능 처리");
+		
+		DataVO dvo = new DataVO();
+		dvo.setInum(vo.getSeq());
+		List<DataVO> dataList_ = dataService.getData(dvo);
+		List<String> dataList = new ArrayList<String>();
+		for(DataVO data : dataList_) {
+			dataList.add(data.getData());
+		}
+		String[] dataStrList = dataList.toArray(new String[dataList.size()]);
+		RConnection r = null;
+		
+		try {
+			r = new RConnection();
+			System.out.println("연결 성공");
+			r.setStringEncoding("utf8");
+			r.eval("setwd(\"c:\\\\Download\")");
+			r.eval("library(rJava)");
+			r.eval("library(KoNLP)");
+			r.eval("library(reshape2)");
+			r.eval("library(tidyverse)");
+			
+			//사회 연결망 만들기
+			r.assign("text", dataStrList);
+			r.eval("text_sp <- SimplePos09(text)");
+			r.eval("text_df <- text_sp %>% melt %>% as_tibble");
+			r.eval("text_df <- text_df[,c(3,1)]");
+			r.eval("text_noun <- text_df %>% mutate(noun=str_match(value,\'([가-힣]+)/N\')[,2]) %>% na.omit");
+			r.eval("text_wordcnt <- text_noun %>% filter(str_length(noun)>=2) %>% count(noun,sort=TRUE)");
+			r.eval("text_df2 <- text_noun %>% select(3,1)");
+			r.eval("text_cnt <- text_wordcnt %>% head(15)");
+			r.eval("text_df3 <- text_df2 %>% filter(noun %in% text_cnt$noun)");
+			r.eval("library(igraph)");
+			r.eval("library(tidygraph)");
+			r.eval("library(ggraph)");
+			r.eval("text_graph <- graph_from_data_frame(text_df3)");
+			r.eval("V(text_graph)$type <- bipartite_mapping(text_graph)$type");
+			r.eval("text_matrix <- as_incidence_matrix(text_graph) %*% t(as_incidence_matrix(text_graph))");
+			r.eval("diag(text_matrix) <- 0");
+			r.eval("text_graph <- graph_from_adjacency_matrix(text_matrix)");
+			r.eval("png(\'snaTest.png\')");
+			r.eval("plot(text_graph %>% as_tbl_graph() %>% "
+					 + "ggraph() + "
+					 + "geom_edge_link(aes(start_cap = label_rect(node1.name), end_cap = label_rect(node2.name))) + "
+					 + "geom_node_text(aes(label=name)))");
+			r.eval("dev.off()");
+
+			String realPath = session.getServletContext().getRealPath("/download");
+			System.out.println(realPath);
+			
+			FileInputStream fis = null;
+			FileOutputStream fos = null;
+			fis = new FileInputStream("c:\\Download\\snaTest.png"); 
+			fos = new FileOutputStream(realPath+"/test.png");   
+			   
+			byte[] buffer = new byte[1024];
+			int readcount = 0;
+			  
+			while((readcount=fis.read(buffer)) != -1) 
+				fos.write(buffer, 0, readcount);    // 파일 복사 
+			
+			model.addAttribute("rtnseq",vo.getSeq());
+		} catch (RserveException e) {
+			e.printStackTrace();
+		} catch (REngineException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			r.close();
+		}
+		
+		return "snaResult.jsp";
+	}
+	
+	@SuppressWarnings("resource")
 	@RequestMapping(value="/sentimentAnal.do")
 	public String sentimentAnal(InfoVO vo,Model model,HttpSession session) {
 		if(session.getAttribute("user") == null)
@@ -175,6 +259,7 @@ public class TMController {
 		
 		return "sentimentAnal.jsp";
 	}
+	
 	@SuppressWarnings("resource")
 	@RequestMapping(value="/wordCount.do")
 	public String wordCount(InfoVO vo,Model model,HttpSession session) {
