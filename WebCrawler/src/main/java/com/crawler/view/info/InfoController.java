@@ -3,6 +3,7 @@ package com.crawler.view.info;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,9 +85,9 @@ public class InfoController {
 	}
 	
 	// 리스트 보기
-	@RequestMapping(value= { "/getInfoList.do" , "/checkInfoList.do" , "crawlerLList.do" , "/tmObjectConfirm.do"})
+	@RequestMapping(value= { "/getInfoList.do" , "/checkInfoList.do" , "/crawlerLList.do" , "/tmObjectConfirm.do" , "/checkVisualList.do"})
 	public String getInfoList(InfoVO vo, Model model, 
-			HttpSession session , HttpServletRequest request) {
+			HttpSession session , HttpServletRequest request ) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 정보 리스트 보기 기능 처리");
@@ -104,6 +105,10 @@ public class InfoController {
 			return "crawlerLList.jsp";
 		else if(uri.equals("/tmObjectConfirm.do"))
 			return "tmObjectConfirm.jsp";
+		else if(uri.equals("/checkVisualList.do")) {
+			model.addAttribute("vtype", request.getParameter("vtype"));
+			return "checkVisualList.jsp";
+		}
 		
 		return null;
 	}

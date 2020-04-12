@@ -116,10 +116,14 @@ public class DataController {
 		if(rword == null) {
 			rword = "";
 		}
+		if(word.equals("|") || word.equals("*") || word.equals("+") || word.equals("$") ){
+			word = "[" + word + "]";
+		}
+		
 		// 2. update 해야 하는 데이터 인덱스 찾고 업데이트
 		for(DataVO data : dataList) {
-				data.setData(data.getData().replaceAll(word, rword));
-				dataService.updateData(data);
+			data.setData(data.getData().replaceAll(word, rword));
+			dataService.updateData(data);
 		}
 		
 		// 3. session에 객체 저장

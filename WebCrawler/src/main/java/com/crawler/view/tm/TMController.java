@@ -63,7 +63,6 @@ public class TMController {
 			r.eval("library(tidyverse)");
 			
 			r.assign("text", dataStrList);
-			r.eval("text_sp <- SimplePos09(text)");
 			r.eval("positive <- read_lines(\'positive.txt\')");
 			r.eval("positive = positive[-1]");
 			r.eval("negative <- read_lines(\'negative.txt\')");
