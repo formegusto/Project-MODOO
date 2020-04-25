@@ -1,9 +1,11 @@
+<%@page import="com.crawler.biz.info.FrameVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ include file="topHead.jsp" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%
 	ArrayList<InfoVO> infoList = (ArrayList) request.getAttribute("infoList");
+	ArrayList<FrameVO> frameList = (ArrayList) request.getAttribute("frameList");
 %>
 <!DOCTYPE html>
 <html>
@@ -44,30 +46,65 @@
 </nav>
 
 <!-- infoList Card -->
+<!-- getInfoDesign -->
 <form method="post" name="form">
 <div class="container" style="margin-top: 15px;">
 <div class="row">
-	
-	<div class="card-deck">
-	<%
-	for(int i=0;i<infoList.size();i++){
-		InfoVO info = infoList.get(i);
-	%>
-		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-		  <div class="card-header"><%=info.getSeq() %> : <%=info.getRegDate() %> 
-		  <button type="button" class="btn btn-outline-light" style="float: right" onclick="location.href='deleteInfo.do?seq=<%=info.getSeq()%>'">X</button>
-		  </div>
-		  <div class="card-body">
-		    <h5 class="card-title"><a href="getInfo.do?seq=<%=info.getSeq() %>" style="color:white; font-weight: bold;"><%=info.getTitle() %></a></h5>
-		    <p class="card-text"><%=info.getContent() %></p>
-		  </div>
+<div class="col-md-12">
+	<nav>
+		<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">Set</a>
+			<a class="nav-item nav-link" id="nav-frame-tab" data-toggle="tab" href="#nav-frame" role="tab" aria-controls="nav-frame" aria-selected="false">Frame</a>
 		</div>
-	<%if(((i+1)%4)==0){%>
+	</nav>
+	<div class="tab-content" id="nav-tabContent">
+		<!-- Model정보 -->
+		<div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+		    <div class="card-deck">
+			<%
+			for(int i=0;i<infoList.size();i++){
+				InfoVO info = infoList.get(i);
+			%>
+				<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+				  <div class="card-header"><%=info.getSeq() %> : <%=info.getRegDate() %> 
+				  <button type="button" class="btn btn-outline-light" style="float: right" onclick="location.href='deleteInfo.do?seq=<%=info.getSeq()%>'">X</button>
+				  </div>
+				  <div class="card-body">
+				    <h5 class="card-title"><a href="getInfo.do?seq=<%=info.getSeq() %>" style="color:white; font-weight: bold;"><%=info.getTitle() %></a></h5>
+				    <p class="card-text"><%=info.getContent() %></p>
+				  </div>
+				</div>
+			<%if(((i+1)%4)==0){%>
+					</div>
+					<div class="card-deck">
+			<%	}} %>
 			</div>
+		</div>
+		
+		<!-- Making정보 -->
+        <div class="tab-pane fade" id="nav-frame" role="tabpanel" aria-labelledby="nav-frame-tab">
 			<div class="card-deck">
-	<%	}} %>
+			<%
+			for(int i=0;i<frameList.size();i++){
+				FrameVO frame = frameList.get(i);
+			%>
+				<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+				  <div class="card-header"><%=frame.getFseq() %> : <%=frame.getRegdate() %> 
+				  <button type="button" class="btn btn-outline-light" style="float: right" onclick="location.href='deleteFrame.do?fseq=<%=frame.getFseq()%>'">X</button>
+				  </div>
+				  <div class="card-body">
+				    <h5 class="card-title"><a href="getFrame.do?fseq=<%=frame.getFseq() %>" style="color:white; font-weight: bold;"><%=frame.getTitle() %></a></h5>
+				    <p class="card-text"><%=frame.getContent() %></p>
+				  </div>
+				</div>
+			<%if(((i+1)%4)==0){%>
+					</div>
+					<div class="card-deck">
+			<%	}} %>
+			</div>
+        </div>
 	</div>
-	
+</div>
 </div>
 </div>
 
@@ -87,12 +124,11 @@
 		    <a class="dropdown-item" href="crawlerLList.do">LinkList</a>
 		  </div>
 		</div>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='checkInfoList.do'; form.submit()">New Board</button>
+	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='checkInfoList.do'; form.submit()">New Frame</button>
 	  	</div>
   	</div>
 </div>
 </div>
 </form>
-
 </body>
 </html>

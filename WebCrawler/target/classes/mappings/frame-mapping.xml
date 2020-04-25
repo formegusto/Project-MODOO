@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FrameDAO">
+	<insert id="insertFrame">
+		insert into frame(fseq, title, content, id)
+		values ((SELECT ifnull(max(fseq), 0) + 1 FROM frame a),#{title },#{content },#{id })
+	</insert>
+	<insert id="insertFHI">
+		insert into frame_have_info(fhiseq,fseq,inum)
+		values ((SELECT ifnull(max(fhiseq), 0) + 1 FROM frame_have_info a),(SELECT ifnull(max(fseq), 0) + 0 FROM frame b), #{inum})
+	</insert>
+	<delete id="deleteFrame">
+		DELETE FROM FRAME
+		WHERE FSEQ=${fseq}
+	</delete>
+	<select id="getFHIList" resultType="fhi">
+		SELECT *
+		FROM FRAME_HAVE_INFO
+		WHERE FSEQ=${fseq}
+		ORDER BY FHISEQ ASC
+	</select>
+	<select id="getFrame" resultType="frame">
+		SELECT *
+		FROM FRAME
+		WHERE FSEQ=${fseq}
+	</select>
+	<select id="getFrameList" resultType="frame">
+		SELECT * 
+		FROM FRAME
+		WHERE ID=#{id}
+		ORDER BY fseq DESC
+	</select>
+</mapper>

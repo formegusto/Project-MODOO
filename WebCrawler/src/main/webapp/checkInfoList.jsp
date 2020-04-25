@@ -109,7 +109,7 @@ function listCheck(seq){
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	    <button type="button" class="btn btn-secondary" onclick="location.href='getInfoList.do'">InfoList</button>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='boardConfirm.do'; form.submit()">BoardConfirm</button>
+	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='frameConfirm.do'; form.submit()">FrameConfirm</button>
 	  	</div>
   	</div>
 </div>

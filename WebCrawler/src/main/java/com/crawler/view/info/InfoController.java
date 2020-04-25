@@ -19,9 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.crawler.biz.board.BoardHaveInfoVO;
+import com.crawler.biz.board.BoardVO;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
+import com.crawler.biz.info.FrameHaveInfoVO;
+import com.crawler.biz.info.FrameVO;
 import com.crawler.biz.info.InfoVO;
+import com.crawler.biz.info.impl.FrameService;
 import com.crawler.biz.info.impl.InfoService;
 import com.crawler.biz.user.UserVO;
 
@@ -33,6 +38,8 @@ public class InfoController {
 	InfoService infoService;
 	@Autowired
 	DataService dataService;
+	@Autowired
+	FrameService frameService;
 	
 	// 클립보드 처리
 	@RequestMapping(value="/clipboardConfirm.do")
@@ -154,8 +161,12 @@ public class InfoController {
 		// 3. 세션에 값 저장
 		vo.setId(((UserVO)session.getAttribute("user")).getId());
 		model.addAttribute("infoList", infoService.getInfoList(vo));
-		if(uri.equals("/getInfoList.do")) 
+		if(uri.equals("/getInfoList.do")) {
+			FrameVO fvo = new FrameVO();
+			fvo.setId(((UserVO)session.getAttribute("user")).getId());
+			model.addAttribute("frameList", frameService.getFrameList(fvo));
 			return "getInfoList.jsp";
+		}
 		else if(uri.equals("/checkInfoList.do"))
 			return "checkInfoList.jsp";
 		else if(uri.equals("/crawlerLList.do")) 
@@ -307,5 +318,97 @@ public class InfoController {
 		model.addAttribute("info", ivo);
 
 		return "crawlerLLAdd.jsp";
+	}
+	
+	@RequestMapping(value="/getFrame.do")
+	public String getBoard(FrameVO vo, HttpSession session,
+			Model model) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 프레임 상세 조회 기능 처리");
+
+		// infoList Make
+		List<FrameHaveInfoVO> fhiList = frameService.getFHIList(vo);
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(FrameHaveInfoVO fhi : fhiList) {
+			InfoVO ivo = new InfoVO();
+			ivo.setSeq(fhi.getInum());
+			infoList.add(infoService.getInfo(ivo));
+		}
+		
+		// dataMap Make
+		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+		for(FrameHaveInfoVO fhi : fhiList) {
+			DataVO dvo = new DataVO();
+			dvo.setInum(fhi.getInum());
+			List<DataVO> dataList = dataService.getData(dvo);
+			System.out.println(dataList);
+			dataMap.put( fhi.getInum()+"" , dataList);
+		}
+		
+		model.addAttribute("infoList", infoList);
+		model.addAttribute("dataMap", dataMap);
+		return "getFrame.jsp";
+	}
+	
+	@RequestMapping(value="/frameConfirm.do")
+	public String boardConfirm(@RequestParam String seqList,
+			Model model , HttpSession session) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 정보 리스트 여러개 보기 기능 처리");
+		
+		// 1. infoList 구축
+		System.out.println(seqList);
+		String[] seqList_ = seqList.split(",");
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(String seq : seqList_) {
+			InfoVO vo = new InfoVO();
+			vo.setSeq(Integer.parseInt(seq));
+			infoList.add(infoService.getInfo(vo));
+		}
+		
+		// 2. dataMap 구축
+		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+		for(String seq : seqList_) {
+			DataVO dvo = new DataVO();
+			dvo.setInum(Integer.parseInt(seq));
+			List<DataVO> dataList = dataService.getData(dvo);
+			dataMap.put(seq, dataList);
+		}
+		
+		// 3. session에 값 저장
+		model.addAttribute("infoList", infoList);
+		model.addAttribute("dataMap", dataMap);
+		return "frameConfirm.jsp";
+	}
+	
+	@RequestMapping(value="/frameAdd_proc.do")
+	public String boardAdd(FrameVO fvo, HttpSession session , 
+			@RequestParam(value="inumList", required=true) List<String> inumList) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 게시판 등록 기능 처리");
+		
+		frameService.insertFrame(fvo);
+		
+		for(String inum : inumList) {
+			FrameHaveInfoVO fhivo = new FrameHaveInfoVO();
+			fhivo.setInum(Integer.parseInt(inum));
+			frameService.insertFHI(fhivo);
+		}
+		
+		return "getInfoList.do";
+	}
+	
+	@RequestMapping(value="/deleteFrame.do")
+	public String deleteBoard(FrameVO vo, HttpSession session, Model model) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 프레임 삭제 기능 처리");
+		
+		frameService.deleteFrame(vo);
+		
+		return "getInfoList.do";
 	}
 }

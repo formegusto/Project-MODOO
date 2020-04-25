@@ -13,7 +13,7 @@
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
-<title>Board Confirm Page</title>
+<title>frame Confirm Page</title>
 </head>
 <body>
 <!-- Navbar : Login, 알람 정보 -->
@@ -42,11 +42,11 @@
 <div style="margin:auto;">
   <div class="form-group">
 	<label for="inputTitle">Title</label>
-	<input type="text" name="title" class="form-control" id="inputTitle" placeholder="Input Board Title">
+	<input type="text" name="title" class="form-control" id="inputTitle" placeholder="Input Frame Title">
   </div>
   <div class="form-group">
     <label for="contentTextarea">Content</label>
-    <textarea class="form-control" name="content" id="contentTextarea" rows="3" placeholder="Input Board Contents"></textarea>
+    <textarea class="form-control" name="content" id="contentTextarea" rows="3" placeholder="Input Frame Contents"></textarea>
     <input type="hidden" name="id" value="${user.id }"/>
   </div>
 </div>
@@ -58,7 +58,7 @@
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
 	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='getInfoList.do'; form.submit();">Cancel</button>
-	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='boardAdd_proc.do'; form.submit();">Register</button>
+	    <button type="button" class="btn btn-secondary" onclick="javascript: form.action='frameAdd_proc.do'; form.submit();">Register</button>
 	  	</div>
   	</div>
 </div>
