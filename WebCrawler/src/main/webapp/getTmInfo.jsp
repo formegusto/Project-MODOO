@@ -82,10 +82,10 @@ function goR(url){
 			  <tbody>
 			    <tr>
 			    	<td>
-			    	<button type="button" class="btn btn-outline-dark" onclick="goR('wordCount.do')">WordCount</button>
+			    	<button type="button" class="btn btn-outline-dark" onclick="goR('wordCount.do')">WordCloud</button>
 			    	</td>
 			    	<td>
-			    	글자 빈도수 프레임을 생성 해줍니다.
+			    	글자 빈도수 프레임을 생성 해주고, 워드클라우드로 표현 해줍니다.
 			    	</td>
 			    </tr>
 			    <tr>

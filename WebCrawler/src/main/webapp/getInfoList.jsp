@@ -75,6 +75,7 @@
 <div class="row">
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
+	  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='clipboardAdd.jsp'; form.submit()">New ClipBoard</button>
 	  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='csvAdd.jsp'; form.submit()">New CSV</button>
 	    <div class="dropdown">
 		  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

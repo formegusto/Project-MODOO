@@ -164,7 +164,7 @@
 <script type="text/javascript">
     var textarea = document.getElementById("messageWindow");
     var rnum = ${room.rnum};
-    var webSocket = new WebSocket('ws://192.168.24.7:8080/WCrawl/chat.do?' + rnum + '&' + $("#chat_id").val());
+    var webSocket = new WebSocket('ws://192.168.24.60:8080/WCrawl/chat.do?' + rnum + '&' + $("#chat_id").val());
     var inputMessage = document.getElementById("inputMessage");
     webSocket.onerror = function(event) {
         onError(event)

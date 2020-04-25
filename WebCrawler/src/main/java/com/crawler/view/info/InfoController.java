@@ -34,6 +34,63 @@ public class InfoController {
 	@Autowired
 	DataService dataService;
 	
+	// 클립보드 처리
+	@RequestMapping(value="/clipboardConfirm.do")
+	public String clipboardConfirm(@RequestParam String table,
+			HttpSession session,
+			Model model) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 클립보드 확인 처리");
+		
+		// 1. dataMap 구성
+		String fieldStr = table.split("\n")[0];
+		String fieldList[] = fieldStr.split("\\s+");
+		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+		for(String field : fieldList)
+			dataMap.put(field, new ArrayList<DataVO>());
+		
+		String[] dataStr = table.split("\n");
+		for(int i=1;i<dataStr.length;i++) {
+			dataStr[i] = dataStr[i].replaceAll("(\r\n|\r|\n|\n\r)", " ");
+			String[] dataList = dataStr[i].split("\t");
+			for(int j=0;j<dataList.length;j++) {
+				DataVO dvo = new DataVO();
+				dvo.setData(dataList[j]);
+				dataMap.get(fieldList[j]).add(dvo);
+			}
+		}
+		
+		/* 값 확인
+		for(int i=0;i<fieldList.length;i++) {
+			List<DataVO> dataList = dataMap.get(fieldList[i]);
+			System.out.println("------" + fieldList[i] + "------");
+			for(DataVO data : dataList) {
+				System.out.println(data.getData());
+			}
+		}
+		*/
+
+		// 2. infoList 구성
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(String field : fieldList) {
+			InfoVO info = new InfoVO();
+			info.setField(field);
+			info.setCssQuery("user:clipboard");
+			info.setItype("user:clipboard");
+			info.setLink("user:clipboard");
+			
+			infoList.add(info);
+		}
+		
+		// 3. 세션에 값 저장
+		model.addAttribute("infoList", infoList);
+		model.addAttribute("dataMap", dataMap);
+		
+		
+		return "clipboardConfirm.jsp";
+	}
+	
 	// 행위객체 정보 상세 보기
 	@RequestMapping(value="/getTmInfo.do")
 	public String getTmInfo(InfoVO ivo, DataVO dvo, Model model, HttpSession session) {
