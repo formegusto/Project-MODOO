@@ -105,6 +105,9 @@
 				<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 				  	<div class="btn-group mr-2" role="group" aria-label="First group">
 				  	<button type="button" class="btn btn-secondary" onclick="location.href='getInfoList.do'">InfoList</button>
+				  	<button type="button" class="btn btn-outline-secondary" onclick="javascript: form.action='boardConfirm.do'; form.submit()">Share</button>
+				  	<input type="hidden" name="bnum" value="${frame.fseq }"/>
+				  	<input type="hidden" name="btype" value="frame"/>
 				  	</div>
 			  	</div>
 			</div>

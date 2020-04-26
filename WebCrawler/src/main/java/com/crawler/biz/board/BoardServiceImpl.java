@@ -17,20 +17,10 @@ public class BoardServiceImpl implements BoardService {
 	public void insertBoard(BoardVO vo) {
 		boardDAO.insertBoard(vo);
 	}
-
-	@Override
-	public void insertBHI(BoardHaveInfoVO vo) {
-		boardDAO.insertBHI(vo);
-	}
 	
 	@Override
 	public void deleteBoard(BoardVO vo) {
 		boardDAO.deleteBoard(vo);
-	}
-
-	@Override
-	public List<BoardHaveInfoVO> getBHIList(BoardVO vo) {
-		return boardDAO.getBHIList(vo);
 	}
 
 	@Override

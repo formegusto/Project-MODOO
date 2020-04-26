@@ -4,23 +4,13 @@
 
 <mapper namespace="BoardDAO">
 	<insert id="insertBoard">
-		insert into board(bseq, title, content, id)
-		values ((SELECT ifnull(max(bseq), 0) + 1 FROM board a),#{title },#{content },#{id })
-	</insert>
-	<insert id="insertBHI">
-		insert into board_have_info(bhiseq,bseq,inum)
-		values ((SELECT ifnull(max(bhiseq), 0) + 1 FROM board_have_info a),(SELECT ifnull(max(bseq), 0) + 0 FROM board b), #{inum})
+		insert into board(bseq, bnum, btype, title, content, id)
+		values ((SELECT ifnull(max(bseq), 0) + 1 FROM board a),#{bnum},#{btype},#{title },#{content },#{id })
 	</insert>
 	<delete id="deleteBoard">
 		DELETE FROM BOARD
 		WHERE BSEQ=${bseq}
 	</delete>
-	<select id="getBHIList" resultType="bhi">
-		SELECT *
-		FROM BOARD_HAVE_INFO
-		WHERE BSEQ=${bseq}
-		ORDER BY BHISEQ ASC
-	</select>
 	<select id="getBoard" resultType="board">
 		SELECT *
 		FROM BOARD

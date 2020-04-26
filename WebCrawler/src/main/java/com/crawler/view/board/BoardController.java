@@ -18,13 +18,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crawler.biz.board.BoardHaveInfoVO;
 import com.crawler.biz.board.BoardVO;
 import com.crawler.biz.board.impl.BoardService;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
+import com.crawler.biz.info.FrameHaveInfoVO;
+import com.crawler.biz.info.FrameVO;
 import com.crawler.biz.info.InfoVO;
+import com.crawler.biz.info.impl.FrameService;
 import com.crawler.biz.info.impl.InfoService;
+import com.crawler.biz.visual.VisualHaveInfoVO;
+import com.crawler.biz.visual.VisualVO;
+import com.crawler.biz.visual.impl.VisualService;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
@@ -36,56 +41,109 @@ public class BoardController {
 	InfoService	infoService;
 	@Autowired
 	DataService	dataService;
+	@Autowired
+	FrameService frameService;
+	@Autowired
+	VisualService visualService;
 	
 	@RequestMapping(value="/boardConfirm.do")
-	public String boardConfirm(@RequestParam String seqList,
+	public String boardConfirm(BoardVO vo,
 			Model model , HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 정보 리스트 여러개 보기 기능 처리");
 		
-		// 1. infoList 구축
-		System.out.println(seqList);
-		String[] seqList_ = seqList.split(",");
-		List<InfoVO> infoList = new ArrayList<InfoVO>();
-		for(String seq : seqList_) {
-			InfoVO vo = new InfoVO();
-			vo.setSeq(Integer.parseInt(seq));
-			infoList.add(infoService.getInfo(vo));
-		}
 		
-		// 2. dataMap 구축
-		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
-		for(String seq : seqList_) {
-			DataVO dvo = new DataVO();
-			dvo.setInum(Integer.parseInt(seq));
-			List<DataVO> dataList = dataService.getData(dvo);
-			dataMap.put(seq, dataList);
+		// 0. Frame 참조 리스트 구축
+		if(vo.getBtype().equals("frame")) {
+			FrameVO fvo = new FrameVO();
+			fvo.setFseq(vo.getBnum());
+			List<FrameHaveInfoVO> fhiList = frameService.getFHIList(fvo);
+			List<InfoVO> infoList = new ArrayList<InfoVO>();
+			Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+			FrameVO frame = frameService.getFrame(fvo);
+			
+			// 0-1. infoList 구축
+			for(FrameHaveInfoVO fhi : fhiList) {
+				InfoVO ivo = new InfoVO();
+				ivo.setSeq(fhi.getInum());
+				infoList.add(infoService.getInfo(ivo));
+			}
+			
+			// 0-2. dataMap 구축
+			for(FrameHaveInfoVO fhi : fhiList) {
+				DataVO dvo = new DataVO();
+				dvo.setInum(fhi.getInum());
+				List<DataVO> dataList = dataService.getData(dvo);
+				System.out.println(dataList);
+				dataMap.put( fhi.getInum()+"" , dataList);
+			}
+			
+			model.addAttribute("frame", frame);
+			model.addAttribute("infoList", infoList);
+			model.addAttribute("dataMap", dataMap);
+		} 
+		// 1. Visual 참조 리스트 구축
+		else if(vo.getBtype().equals("visual")) {
+			VisualVO vvo = new VisualVO();
+			vvo.setVseq(vo.getBnum());
+			List<VisualHaveInfoVO> vhiList = visualService.getVHIList(vvo);
+			VisualVO visual = visualService.getVisual(vvo);
+			List<Integer> numList = new ArrayList<Integer>();
+			List<String> strList = new ArrayList<String>();
+			List<DataVO> dataList;
+			List<String> bgList = new ArrayList<String>();
+			List<String> boList = new ArrayList<String>();
+			
+			for(VisualHaveInfoVO vhi : vhiList) {
+				if(vhi.getDtype().equals("num")) {
+					DataVO num_dvo = new DataVO();
+					num_dvo.setInum(vhi.getInum());
+					dataList = dataService.getData(num_dvo);
+					for(DataVO data : dataList) {
+						numList.add(Integer.parseInt(data.getData()));
+					}
+				} else if (vhi.getDtype().equals("str")) {
+					DataVO str_dvo = new DataVO();
+					str_dvo.setInum(vhi.getInum());
+					dataList = dataService.getData(str_dvo);
+					for(DataVO data : dataList) {
+						strList.add("\'" + data.getData() + "\'");
+						bgList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+								+ ((int)(Math.random() * 256) + 1) + "," 
+								+ ((int)(Math.random() * 256) + 1) + "," 
+								+ "0.2)\'");
+						boList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+								+ ((int)(Math.random() * 256) + 1) + "," 
+								+ ((int)(Math.random() * 256) + 1) + "," 
+								+ "0.2)\'");
+					}
+				}
+			}
+			model.addAttribute("numList", numList);
+			model.addAttribute("strList", strList);
+			model.addAttribute("bgList", bgList);
+			model.addAttribute("boList", boList);
+			model.addAttribute("visual",visual);
+			model.addAttribute("vtype_split", "\'" + visual.getVtype().split(":")[1] + "\'");
 		}
 		
 		// 3. session에 값 저장
-		model.addAttribute("infoList", infoList);
-		model.addAttribute("dataMap", dataMap);
+		model.addAttribute("board",vo);
+		
 		return "boardConfirm.jsp";
 	}
 	
 	@RequestMapping(value="/boardAdd_proc.do")
-	public String boardAdd(BoardVO bvo, HttpSession session , 
-			@RequestParam(value="inumList", required=true) List<String> inumList) {
+	public String boardAdd(BoardVO vo, HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 게시판 등록 기능 처리");
 		
-		boardService.insertBoard(bvo);
-		for(String inum : inumList) {
-			BoardHaveInfoVO bhivo = new BoardHaveInfoVO();
-			bhivo.setInum(Integer.parseInt(inum));
-			boardService.insertBHI(bhivo);
-		}
+		boardService.insertBoard(vo);
 		
 		return "getInfoList.do";
 	}
-	
 	
 	@RequestMapping(value="/deleteBoard.do")
 	public String deleteBoard(BoardVO vo, HttpSession session, Model model,
@@ -151,6 +209,7 @@ public class BoardController {
 		return "getBoardList.jsp";
 	}
 	
+	
 	@RequestMapping(value="/getBoard.do")
 	public String getBoard(BoardVO vo, HttpSession session,
 			Model model,
@@ -160,33 +219,87 @@ public class BoardController {
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 게시판 상세 조회 기능 처리");
 
-		// infoList Make
-		List<BoardHaveInfoVO> bhiList = boardService.getBHIList(vo);
-		List<InfoVO> infoList = new ArrayList<InfoVO>();
-		for(BoardHaveInfoVO bhi : bhiList) {
-			InfoVO ivo = new InfoVO();
-			ivo.setSeq(bhi.getInum());
-			infoList.add(infoService.getInfo(ivo));
+		BoardVO board = boardService.getBoard(vo);
+		
+		if(board.getBtype().equals("frame")) {
+			FrameVO fvo = new FrameVO();
+			fvo.setFseq(board.getBnum());
+			List<FrameHaveInfoVO> fhiList = frameService.getFHIList(fvo);
+			List<InfoVO> infoList = new ArrayList<InfoVO>();
+			Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+			FrameVO frame = frameService.getFrame(fvo);
+			
+			for(FrameHaveInfoVO fhi : fhiList) {
+				InfoVO ivo = new InfoVO();
+				ivo.setSeq(fhi.getInum());
+				infoList.add(infoService.getInfo(ivo));
+			}
+			// 0-2. dataMap 구축
+			for(FrameHaveInfoVO fhi : fhiList) {
+				DataVO dvo = new DataVO();
+				dvo.setInum(fhi.getInum());
+				List<DataVO> dataList = dataService.getData(dvo);
+				System.out.println(dataList);
+				dataMap.put( fhi.getInum()+"" , dataList);
+			}
+			
+			model.addAttribute("infoList", infoList);
+			model.addAttribute("frame", frame);
+			model.addAttribute("dataMap", dataMap);
+		}
+		else if(board.getBtype().equals("visual")) {
+			VisualVO vvo = new VisualVO();
+			vvo.setVseq(board.getBnum());
+			List<VisualHaveInfoVO> vhiList = visualService.getVHIList(vvo);
+			VisualVO visual = visualService.getVisual(vvo);
+			List<Integer> numList = new ArrayList<Integer>();
+			List<String> strList = new ArrayList<String>();
+			List<DataVO> dataList;
+			List<String> bgList = new ArrayList<String>();
+			List<String> boList = new ArrayList<String>();
+			
+			for(VisualHaveInfoVO vhi : vhiList) {
+				if(vhi.getDtype().equals("num")) {
+					DataVO num_dvo = new DataVO();
+					num_dvo.setInum(vhi.getInum());
+					dataList = dataService.getData(num_dvo);
+					for(DataVO data : dataList) {
+						numList.add(Integer.parseInt(data.getData()));
+					}
+				} else if (vhi.getDtype().equals("str")) {
+					DataVO str_dvo = new DataVO();
+					str_dvo.setInum(vhi.getInum());
+					dataList = dataService.getData(str_dvo);
+					for(DataVO data : dataList) {
+						strList.add("\'" + data.getData() + "\'");
+						bgList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+								+ ((int)(Math.random() * 256) + 1) + "," 
+								+ ((int)(Math.random() * 256) + 1) + "," 
+								+ "0.2)\'");
+						boList.add("\'rgba(" + ((int)(Math.random() * 256) + 1) + "," 
+								+ ((int)(Math.random() * 256) + 1) + "," 
+								+ ((int)(Math.random() * 256) + 1) + "," 
+								+ "0.2)\'");
+					}
+				}
+			}
+			model.addAttribute("numList", numList);
+			model.addAttribute("strList", strList);
+			model.addAttribute("bgList", bgList);
+			model.addAttribute("boList", boList);
+			model.addAttribute("visual",visual);
+			model.addAttribute("vtype_split", "\'" + visual.getVtype().split(":")[1] + "\'");
 		}
 		
-		// dataMap Make
-		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
-		for(BoardHaveInfoVO bhi : bhiList) {
-			DataVO dvo = new DataVO();
-			dvo.setInum(bhi.getInum());
-			List<DataVO> dataList = dataService.getData(dvo);
-			System.out.println(dataList);
-			dataMap.put( bhi.getInum()+"" , dataList);
-		}
-		
-		model.addAttribute("startPage",startPage);
 		model.addAttribute("pageNum",pageNum);
-		model.addAttribute("board", boardService.getBoard(vo));
-		model.addAttribute("infoList", infoList);
-		model.addAttribute("dataMap", dataMap);
+		model.addAttribute("startPage",startPage);
+		model.addAttribute("board", board);
+		
 		return "getBoard.jsp";
 	}
 	
+	
+	/*
 	@RequestMapping(value="/convertCSV.do")
 	public String convertCSV(BoardVO vo, HttpSession session,
 			Model model, @RequestParam String ctitle,
@@ -197,6 +310,7 @@ public class BoardController {
 		System.out.println("[Spring Service MVC Framework] Table Convert To CSV 처리 기능 처리");
 		
 		ctitle += ".csv";
+		
 		
 		// infoList Make
 		List<BoardHaveInfoVO> bhiList = boardService.getBHIList(vo);
@@ -223,6 +337,7 @@ public class BoardController {
 		System.out.println(dataMap);
 		*/
 		
+	/*
 		// Convert List<String[]>
 		List<String[]> csvList = new ArrayList<String[]>();
 		String fieldList_ = "";
@@ -254,7 +369,8 @@ public class BoardController {
 			  문제점 (2) 중간 필드와 마지막 필드에서 발생한다. 만약에 띄엄띄엄 일 경우 중간에 채워주지를 못한다.  
 			  모두 하나의 테이블로서 빈칸을 채워주는 역할을 하면 될 것 같다.
 			 */
-			else {
+	/*	
+		else {
 				if(listSize < dataVOList.size()) {
 					for(int j=0;j<i;j++) {
 						if(j==0) {
@@ -309,4 +425,5 @@ public class BoardController {
 		return "csvDownload.jsp";
 	}
 	
+	*/
 }

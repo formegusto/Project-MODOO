@@ -67,7 +67,21 @@
 				    </tr>
 				 </tbody>
 				</table>
+				
+				<div class="container" style="margin-top: 15px;">
+				<div class="row">
+					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
+					  	<div class="btn-group mr-2" role="group" aria-label="First group">
+					  	<button type="button" class="btn btn-secondary" onclick="location.href='getVisualList.do'">VisualList</button>
+					  	<button type="button" class="btn btn-outline-secondary" onclick="javascript: form.action='boardConfirm.do'; form.submit()">Share</button>
+					  	<input type="hidden" name="bnum" value="${visual.vseq }"/>
+					  	<input type="hidden" name="btype" value="visual"/>
+					  	</div>
+				  	</div>
+				</div>
+				</div>
 			</div>
+			
 			<div class="tab-pane active" id="nav-view" role="tabpanel" aria-labelledby="nav-home-tab">
 				     <div style="margin:auto;">
 				     <canvas id="myVisual" width="400" height="400"></canvas>
@@ -77,10 +91,11 @@
 		</td>
 		</tr>
 	</tbody>
-	
 </table>
 </div>
 </div>
+
+
 </form>
 <script>
 var ctx = document.getElementById('myVisual').getContext('2d');

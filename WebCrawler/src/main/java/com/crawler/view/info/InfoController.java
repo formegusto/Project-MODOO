@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.crawler.biz.board.BoardHaveInfoVO;
-import com.crawler.biz.board.BoardVO;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
 import com.crawler.biz.info.FrameHaveInfoVO;
@@ -346,6 +344,7 @@ public class InfoController {
 			dataMap.put( fhi.getInum()+"" , dataList);
 		}
 		
+		model.addAttribute("frame", vo);
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("dataMap", dataMap);
 		return "getFrame.jsp";

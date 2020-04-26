@@ -9,7 +9,6 @@
 		<typeAlias type="com.crawler.biz.data.DataVO" alias="data"></typeAlias>
 		<typeAlias type="com.crawler.biz.user.UserVO" alias="user"></typeAlias>
 		<typeAlias type="com.crawler.biz.board.BoardVO" alias="board"></typeAlias>
-		<typeAlias type="com.crawler.biz.board.BoardHaveInfoVO" alias="bhi"></typeAlias>
 		<typeAlias type="com.crawler.biz.room.RoomVO" alias="room"></typeAlias>
 		<typeAlias type="com.crawler.biz.chat.ChatVO" alias="chat"></typeAlias>
 		<typeAlias type="com.crawler.biz.visual.VisualVO" alias="visual"></typeAlias>

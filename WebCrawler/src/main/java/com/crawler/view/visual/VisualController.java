@@ -1,11 +1,8 @@
 package com.crawler.view.visual;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crawler.biz.board.BoardHaveInfoVO;
-import com.crawler.biz.board.BoardVO;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
 import com.crawler.biz.info.InfoVO;
