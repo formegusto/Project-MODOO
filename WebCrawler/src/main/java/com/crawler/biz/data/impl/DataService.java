@@ -30,4 +30,6 @@ public interface DataService {
 	public void deleteDataSeq(DataVO vo);
 	// DATA 전체 삭제
 	public void deleteData(DataVO vo);
+	// DATA 조건 삭제(문자열 길이)
+	public void deleteDataLength(Integer length, String condition);
 }

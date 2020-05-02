@@ -76,6 +76,24 @@ public class DataDAOMybatis {
 		mybatis.delete("DataDAO.deleteDataSeq", vo);
 	}
 	
+	// DATA 조건 삭제(문자열 길이)
+	public void deleteDataLength(Integer length, String condition) {
+		System.out.println("===> Mybatis로 deleteDataLength() 삭제 기능 처리");
+		if(condition.equals("lt")) {
+			mybatis.delete("DataDAO.deleteDataLengthLt", length);
+		} else if(condition.equals("le")) {
+			mybatis.delete("DataDAO.deleteDataLengthLe", length);
+		} else if(condition.equals("gt")) {
+			mybatis.delete("DataDAO.deleteDataLengthGt", length);
+		} else if(condition.equals("ge")) {
+			mybatis.delete("DataDAO.deleteDataLengthGe", length);
+		} else if(condition.equals("eq")) {
+			mybatis.delete("DataDAO.deleteDataLengthEq", length);
+		} else if(condition.equals("ne")) {
+			mybatis.delete("DataDAO.deleteDataLengthNe", length);
+		}
+	}
+	
 	// DATA 전체 삭제
 	public void deleteData(DataVO vo) {
 		System.out.println("===> Mybatis로 deleteData() 삭제 기능 처리");

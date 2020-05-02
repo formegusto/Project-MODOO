@@ -14,6 +14,7 @@ public class RTesting {
 		RConnection r = null;
 		try {
 			r = new RConnection();
+			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
 			r.eval("setwd(\"c:\\\\Download\")");
 			REXP pwd = r.eval("getwd()");

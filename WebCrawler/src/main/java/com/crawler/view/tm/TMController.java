@@ -297,6 +297,8 @@ public class TMController {
 			REXP text_wordcnt_ = r.eval("text_wordcnt");
 			RList text_wordcnt = text_wordcnt_.asList();
 			
+			
+			text_wordcnt_.asList();
 			// 2. dataMap 구축
 			Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
 			dataMap.put("word", new ArrayList<DataVO>());

@@ -12,11 +12,10 @@ public class CrawlerTest {
 		vo.setLink("https://sports.news.naver.com/wfootball/index.nhn");
 		vo.setCssQuery(".title");
 		
-		String doc = WCrawl.getDoc(vo);
-		String docList[] = doc.split("\n");
+		ArrayList<DataVO> dataList = WCrawl.getData(vo);
 		
-		for(int i=0;i<docList.length;i++) {
-			System.out.println(i+":"+docList[i]);
+		for(DataVO data : dataList) {
+			System.out.println(data.getData());
 		}
 	}
 }

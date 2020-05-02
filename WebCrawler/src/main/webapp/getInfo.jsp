@@ -57,16 +57,15 @@
 	function onUpdateMode(){
 		$("#inputFrame").show();
 		$("#textFrame").hide();
-		$("#updateBtnBox").html("${info.field }<button type='button' class='btn btn-outline-light' style='float: right' onclick='offUpdateMode()'>"
-				+ "<i class='fas fa-check'></i></button>");
+		$("#conditionBtnBox").hide();
+		$("#updateBtnBox").show();
 	}
 	function offUpdateMode(){
 		if($("input[name=updateDseqList]").val() == ""){
 			$("#inputFrame").hide();
 			$("#textFrame").show();
-			$("#updateBtnBox").html("${info.field }<button type='button' class='btn btn-outline-light' style='float: right' onclick='onUpdateMode()'>"
-					+ "<i class='fas fa-pen'></i></button>");
-			alert("수정한 데이터가 없습니다.");
+			$("#updateBtnBox").hide();
+			$("#conditionBtnBox").show();
 		} else {
 			alert("수정한 데이터 리스트 ==> " + $("input[name=updateDseqList]").val())
 			document.form.action = "updateDataContent.do";
@@ -94,6 +93,13 @@
 		    $("#cutFrame").show();
 		} else {
 		    $("#cutFrame").hide();
+		}
+	}
+	function onConditionDelMode(){
+		if($("#conditionDelFrame").css("display") == "none"){
+		    $("#conditionDelFrame").show();
+		} else {
+		    $("#conditionDelFrame").hide();
 		}
 	}
 </script>
@@ -213,13 +219,47 @@
 	  			<thead class="thead-dark">
 				    <tr>
 				      <th scope="col" colspan="2">
-				      <div id="updateBtnBox">
+				      <div id="conditionBtnBox">
 				      ${info.field }
+				      <button type="button" class="btn btn-outline-light" style="float: right" onclick="onConditionDelMode()"><i class="far fa-trash-alt"></i></button>
 				      <button type="button" class="btn btn-outline-light" style="float: right" onclick="onCutMode()"><i class="fas fa-cut"></i></button>
 				      <button type="button" class="btn btn-outline-light" style="float: right" onclick="onReplaceMode()"><i class="far fa-comments"></i></button>
 				      <button type="button" class="btn btn-outline-light" style="float: right" onclick="onUpdateMode()"><i class="fas fa-pen"></i></button>
 				      </div>
+				      <div id="updateBtnBox" style="display:none">
+				      ${info.field }
+				      <button type='button' class='btn btn-outline-light' style='float: right' onclick='offUpdateMode()'><i class='fas fa-check'></i></button>
+				      </div>
 				      </th> 
+				    </tr>
+				    <tr id="conditionDelFrame" style="display: none">
+				    	<td>
+				    	<div class="form-row align-items-center">
+						    <div class="col-auto">
+						      <select name="conditionKind" id="inputState" class="form-control">
+						        <option selected>Kind Of Condition</option>
+						        <option value="length">String Length</option>
+						      </select>
+						    </div>
+						    <div class="col-auto">
+						      <input type="text" class="form-control" name="length">
+						    </div>
+						    <div class="col-auto">
+						      <select name="condition" id="inputState" class="form-control">
+						        <option selected>Condition Sel</option>
+						        <option value="lt">&lt</option>
+						        <option value="le">&lt=</option>
+						        <option value="gt">&gt</option>
+						        <option value="ge">&gt=</option>
+						        <option value="eq">==</option>
+						        <option value="ne">!=</option>
+						      </select>
+						    </div>
+						    <div class="col-auto">
+						      <button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='conditionDel.do'; form.submit()">Delete</button>
+						    </div>
+						</div>
+						</td>
 				    </tr>
 				    <tr id="replaceFrame" style="display:none">
 				    	<td>
@@ -230,6 +270,7 @@
 						    <button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='replaceData.do'; form.submit()">Replace</button>
 						  </div>
 						</div>
+						
 						</td>
 				    </tr>
 				    <tr id="cutFrame" style="display:none">

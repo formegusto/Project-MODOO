@@ -47,6 +47,7 @@
 <div class="row">
 	<div class="card-deck">
 	<%
+	int j=0;
 	for(int i=0;i<infoList.size();i++){
 		InfoVO info = infoList.get(i);
 		if(info.getItype().equals("css:link")){
@@ -62,7 +63,10 @@
 		    <h5 class="card-title"><a href="getInfo.do?seq=<%=info.getSeq()%>" style="color:white; font-weight: bold;"><%=info.getTitle() %></a></h5>
 		  </div>
 		</div>
-	<%}if(((i+1)%4)==0){%>
+	<%
+	j++;
+		}
+		if(((j+1)%4)==0){%>
 			</div>
 			<div class="card-deck">
 	<%	}} %>

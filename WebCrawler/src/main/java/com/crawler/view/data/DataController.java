@@ -20,6 +20,22 @@ public class DataController {
 	@Autowired
 	DataService dataService;
 	
+	@RequestMapping(value="/conditionDel.do")
+	public String conditionDel(InfoVO ivo, Model model, DataVO dvo, HttpSession session,
+			@RequestParam String conditionKind,
+			@RequestParam String condition,
+			@RequestParam String length) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		
+		if(conditionKind.equals("length")) {
+			System.out.println("[문자열 길이로 데이터 삭제]");
+			dataService.deleteDataLength(Integer.parseInt(length),condition);
+		}
+		
+		return "getInfo.do";
+	}
+	
 	@RequestMapping(value="/deleteDataSeq.do")
 	public String deleteDataSeq(InfoVO ivo, Model model, DataVO dvo, HttpSession session) {
 		if(session.getAttribute("user") == null)
@@ -28,7 +44,7 @@ public class DataController {
 		dataService.deleteDataSeq(dvo);
 		model.addAttribute("seq",ivo.getSeq());
 		
-		return "getInfo.do?";
+		return "getInfo.do";
 	}
 	
 	@RequestMapping(value="/changeData.do")

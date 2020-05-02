@@ -40,6 +40,42 @@
 			WHERE DSEQ=#{dseq}
 		]]>
 	</delete>
+	<delete id="deleteDataLengthLt" parameterType="Integer">
+		<![CDATA[
+			DELETE FROM data
+			WHERE CHAR_LENGTH(data)<#{length}
+		]]>
+	</delete>
+	<delete id="deleteDataLengthLe" parameterType="Integer">
+		<![CDATA[
+			DELETE FROM data
+			WHERE CHAR_LENGTH(data)<=#{length}
+		]]>
+	</delete>
+	<delete id="deleteDataLengthGt" parameterType="Integer">
+		<![CDATA[
+			DELETE FROM data
+			WHERE CHAR_LENGTH(data)>#{length}
+		]]>
+	</delete>
+	<delete id="deleteDataLengthGe" parameterType="Integer">
+		<![CDATA[
+			DELETE FROM data
+			WHERE CHAR_LENGTH(data)>=#{length}
+		]]>
+	</delete>
+	<delete id="deleteDataLengthEq" parameterType="Integer">
+		<![CDATA[
+			DELETE FROM data
+			WHERE CHAR_LENGTH(data)=#{length}
+		]]>
+	</delete>
+	<delete id="deleteDataLengthNe" parameterType="Integer">
+		<![CDATA[
+			DELETE FROM data
+			WHERE CHAR_LENGTH(data)!=#{length}
+		]]>
+	</delete>
 	<select id="getData" resultType="data">
 		<![CDATA[
 			SELECT *
