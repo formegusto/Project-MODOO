@@ -90,6 +90,9 @@ public class VisualController {
 					+ "0.2)\'");
 		}
 		
+		System.out.println(strList);
+		System.out.println(numList);
+		
 		model.addAttribute("numSet", numSet);
 		model.addAttribute("strSet", strSet);
 		model.addAttribute("numList", numList);

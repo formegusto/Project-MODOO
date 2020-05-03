@@ -18,7 +18,10 @@ import com.crawler.biz.chat.ChatVO;
 import com.crawler.biz.chat.impl.ChatService;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
+import com.crawler.biz.info.FrameHaveInfoVO;
+import com.crawler.biz.info.FrameVO;
 import com.crawler.biz.info.InfoVO;
+import com.crawler.biz.info.impl.FrameService;
 import com.crawler.biz.info.impl.InfoService;
 import com.crawler.biz.room.RoomVO;
 import com.crawler.biz.room.impl.RoomService;
@@ -35,6 +38,8 @@ public class RoomController {
 	InfoService	infoService;
 	@Autowired
 	DataService dataService;
+	@Autowired
+	FrameService frameService;
 	
 	@RequestMapping(value="/roomAdd_proc.do")
 	public String roomAdd(RoomVO vo, HttpSession session) {
@@ -55,7 +60,7 @@ public class RoomController {
 		return "getRoomList.do";
 	}
 	
-	/*
+	
 	@RequestMapping(value="/getRoom.do")
 	public String getRoom(RoomVO vo, HttpSession session, Model model) {
 		if(session.getAttribute("user") == null)
@@ -69,11 +74,15 @@ public class RoomController {
 		ChatVO cvo = new ChatVO();
 		cvo.setRnum(vo.getRnum());
 		List<ChatVO> chatList = chatService.getChatList(cvo);
+		BoardVO board = boardService.getBoard(bvo);
 		
 		// infoList Make
-		List<BoardHaveInfoVO> bhiList = boardService.getBHIList(bvo);
+		FrameVO fvo = new FrameVO();
+		fvo.setFseq(board.getBnum());
+		
+		List<FrameHaveInfoVO> fhiList = frameService.getFHIList(fvo);
 		List<InfoVO> infoList = new ArrayList<InfoVO>();
-		for(BoardHaveInfoVO bhi : bhiList) {
+		for(FrameHaveInfoVO bhi : fhiList) {
 			InfoVO ivo = new InfoVO();
 			ivo.setSeq(bhi.getInum());
 			infoList.add(infoService.getInfo(ivo));
@@ -81,7 +90,7 @@ public class RoomController {
 		
 		// dataMap Make
 		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
-		for(BoardHaveInfoVO bhi : bhiList) {
+		for(FrameHaveInfoVO bhi : fhiList) {
 				DataVO dvo = new DataVO();
 				dvo.setInum(bhi.getInum());
 				List<DataVO> dataList = dataService.getData(dvo);
@@ -96,7 +105,7 @@ public class RoomController {
 		
 		return "getRoom.jsp";
 	}
-	*/
+	
 	
 	@RequestMapping(value="/getRoomList.do")
 	public String getRoomList(RoomVO vo, HttpSession session, Model model) {

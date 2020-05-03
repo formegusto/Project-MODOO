@@ -84,9 +84,8 @@
 				  <input type="hidden" name="bnum" value="${board.bseq }"/>
 				  <input type="text" class="form-control" name="rtitle" placeholder="Chat Room Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
 				  <div class="input-group-append">
-				    <button class="btn btn-outline-secondary" type="button" onclick="javascript: send()">New Chat</button>
+				    <button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='roomAdd_proc.do'; form.submit()">New Chat</button>
 				  </div>
-				  	
 				</div>
 			</td>
 		</tr>
