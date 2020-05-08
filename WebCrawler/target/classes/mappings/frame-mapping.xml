@@ -4,12 +4,12 @@
 
 <mapper namespace="FrameDAO">
 	<insert id="insertFrame">
-		insert into frame(fseq, title, content, id)
-		values ((SELECT ifnull(max(fseq), 0) + 1 FROM frame a),#{title },#{content },#{id })
+		insert into FRAME(fseq, title, content, id)
+		values ((SELECT ifnull(max(fseq), 0) + 1 FROM FRAME a),#{title },#{content },#{id })
 	</insert>
 	<insert id="insertFHI">
-		insert into frame_have_info(fhiseq,fseq,inum)
-		values ((SELECT ifnull(max(fhiseq), 0) + 1 FROM frame_have_info a),(SELECT ifnull(max(fseq), 0) + 0 FROM frame b), #{inum})
+		insert into FRAME_HAVE_INFO(fhiseq,fseq,inum)
+		values ((SELECT ifnull(max(fhiseq), 0) + 1 FROM FRAME_HAVE_INFO a),(SELECT ifnull(max(fseq), 0) + 0 FROM FRAME b), #{inum})
 	</insert>
 	<delete id="deleteFrame">
 		DELETE FROM FRAME

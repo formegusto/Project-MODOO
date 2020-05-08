@@ -4,12 +4,12 @@
 
 <mapper namespace="VisualDAO">
 	<insert id="insertVisual">
-		insert into visual(vseq, title, content, id, vtype)
-		values ((SELECT ifnull(max(vseq), 0) + 1 FROM visual a),#{title },#{content },#{id }, #{vtype })
+		insert into VISUAL(vseq, title, content, id, vtype)
+		values ((SELECT ifnull(max(vseq), 0) + 1 FROM VISUAL a),#{title },#{content },#{id }, #{vtype })
 	</insert>
 	<insert id="insertVHI">
-		insert into visual_have_info(vhiseq,vnum,inum,dtype)
-		values ((SELECT ifnull(max(vhiseq), 0) + 1 FROM visual_have_info a),(SELECT ifnull(max(vseq), 0) + 0 FROM visual b), #{inum},#{dtype})
+		insert into VISUAL_HAVE_INFO(vhiseq,vnum,inum,dtype)
+		values ((SELECT ifnull(max(vhiseq), 0) + 1 FROM VISUAL_HAVE_INFO a),(SELECT ifnull(max(vseq), 0) + 0 FROM VISUAL b), #{inum},#{dtype})
 	</insert>
 	<select id="getVHIList" resultType="vhi">
 		SELECT *

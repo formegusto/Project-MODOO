@@ -37,6 +37,39 @@ public class TMController {
 	DataService dataService;
 	
 	@SuppressWarnings("resource")
+	@RequestMapping(value="/rUbuntuTest.do")
+	public String rUbuntuTest(InfoVO vo,Model model,HttpSession session) {
+		
+		RConnection r = null;
+		
+		try {
+			r = new RConnection();
+			System.out.println("연결 성공");
+			r.setStringEncoding("utf8");
+			REXP pwd = r.eval("getwd()");
+			model.addAttribute("rpwd",pwd.asString());
+			r.setStringEncoding("utf8");
+			
+			r.eval("setwd(\"/rDownload\")");
+			r.eval("library(rJava)");
+			r.eval("library(KoNLP)");
+			r.eval("library(reshape2)");
+			r.eval("library(tidyverse)");
+			
+			
+		} catch (RserveException e) {
+			e.printStackTrace();
+		} catch (REXPMismatchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			r.close();
+		}
+		
+		return "testResult.jsp";
+	}
+	
+	@SuppressWarnings("resource")
 	@RequestMapping(value="/sna.do")
 	public String sna(InfoVO vo,Model model,HttpSession session) {
 		if(session.getAttribute("user") == null)
@@ -57,11 +90,11 @@ public class TMController {
 			r = new RConnection();
 			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
-			r.eval("setwd(\"c:\\\\Download\")");
+			r.eval("setwd(\"/rDownload\")");
 			r.eval("library(rJava)");
 			r.eval("library(KoNLP)");
 			r.eval("library(reshape2)");
-			r.eval("library(tidyverse)");
+			r.eval("library(tidyverse)");;
 			
 			//사회 연결망 만들기
 			r.assign("text", dataStrList);
@@ -93,7 +126,7 @@ public class TMController {
 			
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
-			fis = new FileInputStream("c:\\Download\\snaTest.png"); 
+			fis = new FileInputStream("/rDownload/snaTest.png"); 
 			fos = new FileOutputStream(realPath+"/test.png");   
 			   
 			byte[] buffer = new byte[1024];
@@ -141,15 +174,15 @@ public class TMController {
 			r = new RConnection();
 			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
-			r.eval("setwd(\"c:\\\\Download\")");
+			r.eval("setwd(\"/rDownload\")");
 			r.eval("library(plyr)");
 			r.eval("library(stringr)");
 			r.eval("library(tidyverse)");
 			
 			r.assign("text", dataStrList);
-			r.eval("positive <- read_lines(\'positive.txt\')");
+			r.eval("positive <- read_lines(\'positive\')");
 			r.eval("positive = positive[-1]");
-			r.eval("negative <- read_lines(\'negative.txt\')");
+			r.eval("negative <- read_lines(\'negative\')");
 			r.eval("negative = negative[-1]");
 			r.eval("sentimental = function(sentences, positive, negative){" +
 				  "  scores = laply(sentences, function(sentence, positive, negative) { " +
@@ -234,7 +267,7 @@ public class TMController {
 			
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
-			fis = new FileInputStream("c:\\Download\\test.png"); 
+			fis = new FileInputStream("/rDownload/test.png"); 
 			fos = new FileOutputStream(realPath+"/test.png");   
 			   
 			byte[] buffer = new byte[1024];
@@ -276,12 +309,13 @@ public class TMController {
 		}
 		String[] dataStrList = dataList.toArray(new String[dataList.size()]);
 		RConnection r = null;
+		REXP html_path = null;
 		
 		try {
 			r = new RConnection();
 			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
-			r.eval("setwd(\"c:\\\\Download\")");
+			r.eval("setwd(\"/rDownload\")");
 			r.eval("library(rJava)");
 			r.eval("library(KoNLP)");
 			r.eval("library(reshape2)");
@@ -331,14 +365,15 @@ public class TMController {
 			// wordcloud
 			r.eval("library(wordcloud2)");
 			r.eval("mypath <- text_wordcnt %>% wordcloud2() %>% htmltools::html_print()");
-			REXP html_path = r.eval("mypath");
+			html_path = r.eval("mypath");
 			System.out.println(html_path.asString());
 			
 			String realPath = session.getServletContext().getRealPath("/rview");
+			System.out.println(realPath);
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
 			fis = new FileInputStream(html_path.asString()); 
-			fos = new FileOutputStream(realPath + "/test.html");   
+			fos = new FileOutputStream(realPath + "/test.html");
 			   
 			byte[] buffer = new byte[1024];
 			int readcount = 0;
@@ -350,7 +385,6 @@ public class TMController {
 		} catch (REngineException e) {
 			e.printStackTrace();
 		} catch (REXPMismatchException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

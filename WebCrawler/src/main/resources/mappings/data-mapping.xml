@@ -5,74 +5,74 @@
 <mapper namespace="DataDAO">
 	<insert id="insertData">
 		<![CDATA[
-			insert into data(dseq,inum,data)
-			values((SELECT ifnull(max(dseq), 0) + 1 FROM data b),(SELECT ifnull(max(seq), 0) + 0 FROM info a),#{data });
+			insert into DATA(dseq,inum,data)
+			values((SELECT ifnull(max(dseq), 0) + 1 FROM DATA b),(SELECT ifnull(max(seq), 0) + 0 FROM INFO a),#{data });
 		]]>
 	</insert>
 	<insert id="insertDataAll">
 		<![CDATA[
-			insert into data(dseq,inum,data)
+			insert into DATA(dseq,inum,data)
 			values(#{dseq },#{inum },#{data });
 		]]>
 	</insert>
 	<insert id="insertDataInum">
 		<![CDATA[
-			insert into data(dseq,inum,data)
-			values((SELECT ifnull(max(dseq), 0) + 1 FROM data b),#{inum },#{data });
+			insert into DATA(dseq,inum,data)
+			values((SELECT ifnull(max(dseq), 0) + 1 FROM DATA b),#{inum },#{data });
 		]]>
 	</insert>
 	<update id="updateData">
 	<![CDATA[
-			UPDATE data
+			UPDATE DATA
 			SET DATA=#{data }
 			WHERE DSEQ=#{dseq }
 	]]>
 	</update>
 	<delete id="deleteData">
 		<![CDATA[
-			DELETE FROM data
+			DELETE FROM DATA
 			WHERE INUM=#{inum}
 		]]>
 	</delete>
 	<delete id="deleteDataSeq">
 		<![CDATA[
-			DELETE FROM data
+			DELETE FROM DATA
 			WHERE DSEQ=#{dseq}
 		]]>
 	</delete>
 	<delete id="deleteDataLengthLt" parameterType="Integer">
 		<![CDATA[
-			DELETE FROM data
+			DELETE FROM DATA
 			WHERE CHAR_LENGTH(data)<#{length}
 		]]>
 	</delete>
 	<delete id="deleteDataLengthLe" parameterType="Integer">
 		<![CDATA[
-			DELETE FROM data
+			DELETE FROM DATA
 			WHERE CHAR_LENGTH(data)<=#{length}
 		]]>
 	</delete>
 	<delete id="deleteDataLengthGt" parameterType="Integer">
 		<![CDATA[
-			DELETE FROM data
+			DELETE FROM DATA
 			WHERE CHAR_LENGTH(data)>#{length}
 		]]>
 	</delete>
 	<delete id="deleteDataLengthGe" parameterType="Integer">
 		<![CDATA[
-			DELETE FROM data
+			DELETE FROM DATA
 			WHERE CHAR_LENGTH(data)>=#{length}
 		]]>
 	</delete>
 	<delete id="deleteDataLengthEq" parameterType="Integer">
 		<![CDATA[
-			DELETE FROM data
+			DELETE FROM DATA
 			WHERE CHAR_LENGTH(data)=#{length}
 		]]>
 	</delete>
 	<delete id="deleteDataLengthNe" parameterType="Integer">
 		<![CDATA[
-			DELETE FROM data
+			DELETE FROM DATA
 			WHERE CHAR_LENGTH(data)!=#{length}
 		]]>
 	</delete>

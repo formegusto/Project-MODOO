@@ -4,7 +4,7 @@
 
 <mapper namespace="UserDAO">
 	<insert id="insertUser">
-		insert into users(id,password,name,phone,email,company)
+		insert into USERS(id,password,name,phone,email,company)
 		values(#{id},#{password},#{name},#{phone},#{email},#{company})
 	</insert>
 	<select id="getUser" resultType="user">

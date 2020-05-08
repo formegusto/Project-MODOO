@@ -4,8 +4,8 @@
 
 <mapper namespace="RoomDAO">
 	<insert id="insertRoom">
-		insert into room(rnum,bnum,rtitle,id)
-		values((SELECT ifnull(max(rnum), 0) + 1 FROM room a),#{bnum},#{rtitle},#{id})
+		insert into ROOM(rnum,bnum,rtitle,id)
+		values((SELECT ifnull(max(rnum), 0) + 1 FROM ROOM a),#{bnum},#{rtitle},#{id})
 	</insert>
 	<delete id="deleteRoom">
 		DELETE FROM ROOM
@@ -13,12 +13,12 @@
 	</delete>
 	<select id="getRoom" resultType="room">
 		SELECT *
-		FROM room
+		FROM ROOM
 		WHERE RNUM=${rnum }
 	</select>
 	<select id="getRoomList" resultType="room">
 		SELECT *
-		FROM room
+		FROM ROOM
 		ORDER BY rnum DESC
 	</select>
 </mapper>

@@ -4,8 +4,8 @@
 
 <mapper namespace="BoardDAO">
 	<insert id="insertBoard">
-		insert into board(bseq, bnum, btype, title, content, id)
-		values ((SELECT ifnull(max(bseq), 0) + 1 FROM board a),#{bnum},#{btype},#{title },#{content },#{id })
+		insert into BOARD(bseq, bnum, btype, title, content, id)
+		values ((SELECT ifnull(max(bseq), 0) + 1 FROM BOARD a),#{bnum},#{btype},#{title },#{content },#{id })
 	</insert>
 	<delete id="deleteBoard">
 		DELETE FROM BOARD

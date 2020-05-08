@@ -7,16 +7,16 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<c:if test="${user == null and (pageContext.request.requestURI != '/WCrawl/login.jsp' and pageContext.request.requestURI != '/WCrawl/register.jsp')}">
+<c:if test="${user == null and (pageContext.request.requestURI != '/MODOO/login.jsp' and pageContext.request.requestURI != '/MODOO/register.jsp')}">
 	<script>
 		alert("로그인 후 이용해주세요.");
-		location.href="/WCrawl/login.jsp";
+		location.href="/MODOO/login.jsp";
 	</script>
 </c:if>
-<c:if test="${user != null and (pageContext.request.requestURI == '/WCrawl/login.jsp' or pageContext.request.requestURI == '/WCrawl/register.jsp'
+<c:if test="${user != null and (pageContext.request.requestURI == '/MODOO/login.jsp' or pageContext.request.requestURI == '/MODOO/register.jsp'
  or pageContext.request.requestURI == '/WCrawl/topHead.jsp')}">
 	<script>
 		alert("로그인 상태입니다.");
-		location.href="/WCrawl/getInfoList.do";
+		location.href="/MODOO/getInfoList.do";
 	</script>
 </c:if>

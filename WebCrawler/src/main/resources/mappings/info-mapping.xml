@@ -5,8 +5,8 @@
 <mapper namespace="InfoDAO">
 	<insert id="insertInfo">
 	<![CDATA[
-		insert into info(seq,title,link,content,field,cssquery,id,itype)
-		values((SELECT ifnull(max(seq), 0) + 1 FROM info a),#{title},#{link},#{content},#{field},#{cssQuery},#{id},#{itype})
+		insert into INFO(seq,title,link,content,field,cssquery,id,itype)
+		values((SELECT ifnull(max(seq), 0) + 1 FROM INFO a),#{title},#{link},#{content},#{field},#{cssQuery},#{id},#{itype})
 	]]>
 	</insert>
 	<select id="getInfo" resultType="info">
