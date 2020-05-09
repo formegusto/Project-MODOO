@@ -14,4 +14,5 @@ public interface InfoService {
 	//ũ�Ѹ� ���� ����Ʈ ����
 	public List<InfoVO> getInfoList(InfoVO vo);
 	public void deleteInfo(InfoVO vo);
+	public InfoVO getInfoTop(InfoVO vo);
 }

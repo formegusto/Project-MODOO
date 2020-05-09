@@ -46,28 +46,61 @@
 <!-- infoList Card -->
 <div class="container" style="margin-top: 15px;">
 <div class="row">
-	
-	<div class="card-deck">
-	<%
-	for(int i=0;i<infoList.size();i++){
-		InfoVO info = infoList.get(i);
-		if(info.getItype().equals("css:link")){
-			continue;
-		}
-	%>
-		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-		  <div class="card-header"><%=info.getSeq() %> : <%=info.getRegDate() %> 
-		  </div>
-		  <div class="card-body">
-		    <h5 class="card-title"><a href="getTmInfo.do?seq=<%=info.getSeq() %>" style="color:white; font-weight: bold;"><%=info.getTitle() %></a></h5>
-		  </div>
+<div class="col-md-12">
+	<nav>
+		<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link active" id="nav-object-tab" data-toggle="tab" href="#nav-object" role="tab" aria-controls="nav-object" aria-selected="true">Object</a>
+			<a class="nav-item nav-link" id="nav-making-tab" data-toggle="tab" href="#nav-making" role="tab" aria-controls="nav-making" aria-selected="false">Making</a>
 		</div>
-	<%if(((i+1)%4)==0){%>
-			</div>
-			<div class="card-deck">
-	<%	}} %>
+	</nav>
+	<div class="tab-content" id="nav-tabContent">
+	<!-- 행위 객체 정보 -->
+		<div class="tab-pane fade show active" id="nav-object" role="tabpanel" aria-labelledby="nav-home-tab">
+		<div class="card-deck">
+			<%
+			for(int i=0;i<infoList.size();i++){
+				InfoVO info = infoList.get(i);
+			%>
+				<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+				  <div class="card-header"><%=info.getSeq() %> : <%=info.getRegDate() %> 
+				  </div>
+				  <div class="card-body">
+				    <h5 class="card-title"><a href="getTmInfo.do?seq=<%=info.getSeq() %>" style="color:white; font-weight: bold;"><%=info.getTitle() %></a></h5>
+				  </div>
+				</div>
+			<%if(((i+1)%4)==0){%>
+					</div>
+					<div class="card-deck">
+			<%	}} %>
+		</div>
+		</div>
+		<!-- Making정보 -->
+        <div class="tab-pane fade" id="nav-making" role="tabpanel" aria-labelledby="nav-profile-tab">
+			<table class="table">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">번호</th>
+			      <th scope="col">제목</th>
+			      <th scope="col">작성자</th>
+			      <th scope="col">등록일</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+				<c:forEach items="${tmList }" var="tm">
+				<tr>
+					<th scope="row">${tm.tseq }</th>
+					<td>
+					<a href="getTm.do?tseq=${tm.tseq }">${tm.title }</a>
+					</td>
+					<td>${tm.id }</td>
+					<td>${tm.regdate }</td>
+				</tr>
+				</c:forEach>
+			  </tbody>
+			</table>
+        </div>
 	</div>
-	
+</div>
 </div>
 </div>
 </body>

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.rosuda.REngine.REXP;
@@ -23,11 +24,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
 import com.crawler.biz.info.InfoVO;
 import com.crawler.biz.info.impl.InfoService;
+import com.crawler.biz.tm.TmHaveInfoVO;
+import com.crawler.biz.tm.TmVO;
+import com.crawler.biz.tm.impl.TmService;
+import com.crawler.biz.user.UserVO;
+import com.crawler.biz.visual.VisualVO;
 
 @Controller
 public class TMController {
@@ -35,6 +42,8 @@ public class TMController {
 	InfoService infoService;
 	@Autowired
 	DataService dataService;
+	@Autowired
+	TmService tmService;
 	
 	@SuppressWarnings("resource")
 	@RequestMapping(value="/rUbuntuTest.do")
@@ -90,7 +99,11 @@ public class TMController {
 			r = new RConnection();
 			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
+			/* 리눅스용
 			r.eval("setwd(\"/rDownload\")");
+			*/
+			/* 윈도우용 */
+			r.eval("setwd(\"c:\\\\Download\")");
 			r.eval("library(rJava)");
 			r.eval("library(KoNLP)");
 			r.eval("library(reshape2)");
@@ -121,13 +134,17 @@ public class TMController {
 					 + "geom_node_text(aes(label=name)))");
 			r.eval("dev.off()");
 
-			String realPath = session.getServletContext().getRealPath("/download");
+			String realPath = session.getServletContext().getRealPath("/rview");
 			System.out.println(realPath);
 			
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
-			fis = new FileInputStream("/rDownload/snaTest.png"); 
-			fos = new FileOutputStream(realPath+"/test.png");   
+			/* 리눅스용
+			 * fis = new FileInputStream("/rDownload/snaTest.png"); 
+			 */
+			/* 윈도우용 */
+			fis = new FileInputStream("c:\\Download\\snaTest.png"); 
+			fos = new FileOutputStream(realPath+"/snaTest.png");   
 			   
 			byte[] buffer = new byte[1024];
 			int readcount = 0;
@@ -174,15 +191,27 @@ public class TMController {
 			r = new RConnection();
 			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
+			/* 리눅스용
 			r.eval("setwd(\"/rDownload\")");
+			*/
+			/* 윈도우용 */
+			r.eval("setwd(\"c:\\\\Download\")");
 			r.eval("library(plyr)");
 			r.eval("library(stringr)");
 			r.eval("library(tidyverse)");
 			
 			r.assign("text", dataStrList);
-			r.eval("positive <- read_lines(\'positive\')");
+			/* 리눅스용
+			 * r.eval("positive <- read_lines(\'positive\')");
+			 */
+			/* 윈도우용 */
+			r.eval("positive <- read_lines(\'positive.txt\')");
 			r.eval("positive = positive[-1]");
-			r.eval("negative <- read_lines(\'negative\')");
+			/* 리눅스용
+			 * r.eval("positive <- read_lines(\'negative\')");
+			 */
+			/* 윈도우용 */
+			r.eval("negative <- read_lines(\'negative.txt\')");
 			r.eval("negative = negative[-1]");
 			r.eval("sentimental = function(sentences, positive, negative){" +
 				  "  scores = laply(sentences, function(sentence, positive, negative) { " +
@@ -262,12 +291,16 @@ public class TMController {
 			
 			r.eval("detach(\"package:plyr\")");
 			
-			String realPath = session.getServletContext().getRealPath("/download");
+			String realPath = session.getServletContext().getRealPath("/rview");
 			System.out.println(realPath);
 			
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
-			fis = new FileInputStream("/rDownload/test.png"); 
+			/* 리눅스용
+			 * fis = new FileInputStream("/rDownload/snaTest.png"); 
+			 */
+			/* 윈도우용 */
+			fis = new FileInputStream("c:\\Download\\test.png"); 
 			fos = new FileOutputStream(realPath+"/test.png");   
 			   
 			byte[] buffer = new byte[1024];
@@ -315,7 +348,11 @@ public class TMController {
 			r = new RConnection();
 			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
+			/* 리눅스용
 			r.eval("setwd(\"/rDownload\")");
+			*/
+			/* 윈도우용 */
+			r.eval("setwd(\"c:\\\\Download\")");
 			r.eval("library(rJava)");
 			r.eval("library(KoNLP)");
 			r.eval("library(reshape2)");
@@ -397,5 +434,150 @@ public class TMController {
 		}
 		
 		return "wordCountResult.jsp";
+	}
+	
+	@RequestMapping(value="/tmAdd_proc.do")
+	public String tmAdd(HttpSession session,Model model,
+			HttpServletRequest request,
+			@RequestParam String ttitle,
+			@RequestParam String tcontent,
+			@RequestParam String ttype,
+			@RequestParam(value="ogField", required=true) List<String> ogFieldList,
+			@RequestParam(value="title", required=true) List<String> titleList,
+			@RequestParam(value="content", required=true) List<String> contentList,
+			@RequestParam(value="link", required=true) List<String> linkList,
+			@RequestParam(value="field", required=true) List<String> fieldList,
+			@RequestParam(value="cssQuery", required=true) List<String> cssList) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] csv 넣는 기능 처리");
+		
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(int i=0;i<ogFieldList.size();i++) {
+			// info 삽입
+			InfoVO info = new InfoVO();
+			info.setTitle(titleList.get(i));
+			info.setContent(contentList.get(i));
+			info.setLink(linkList.get(i));
+			info.setField(fieldList.get(i));
+			info.setCssQuery(cssList.get(i));
+			info.setId(((UserVO)session.getAttribute("user")).getId());
+			info.setItype(linkList.get(0));
+			infoService.insertInfo(info);
+			
+			// 데이터 삽입
+			String ogField = ogFieldList.get(i);
+			String[] datas = request.getParameterValues(ogField);
+			for(String data : datas) {
+				DataVO dvo = new DataVO();
+				dvo.setData(data);
+				dataService.insertData(dvo);
+			}
+			
+			// infoList 구축
+			infoList.add(infoService.getInfoTop(info));
+		}
+		
+		// tm 삽입
+		TmVO tm = new TmVO();
+		tm.setTitle(ttitle);
+		tm.setContent(tcontent);
+		tm.setTtype(ttype);
+		tm.setId(((UserVO)session.getAttribute("user")).getId());
+		tmService.insertTm(tm);
+		
+		// 파일 넣기
+		String realPath = session.getServletContext().getRealPath("/rview");
+		System.out.println(realPath);
+		FileInputStream fis = null;
+		FileOutputStream fos = null;
+		String fileName = null;
+		String fileNameTarget = null;
+		TmVO topTm = tmService.getTmTop(tm);
+		
+		if(ttype.equals("wordcloud")) {
+			fileNameTarget = "/test.html";
+			fileName = "/" + topTm.getTseq() + ".html";
+		} else if(ttype.equals("sentimentAnal")) {
+			fileNameTarget = "/test.png";
+			fileName = "/"+ topTm.getTseq() +".png";
+		}
+		try {
+			fis = new FileInputStream(realPath + fileNameTarget);
+			fos = new FileOutputStream(realPath + fileName);
+			
+			byte[] buffer = new byte[1024];
+			int readcount = 0;
+			  
+			while((readcount=fis.read(buffer)) != -1) 
+				fos.write(buffer, 0, readcount);    // 파일 복사 
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		// thi 삽입
+		for(InfoVO info : infoList) {
+			TmHaveInfoVO thi = new TmHaveInfoVO();
+			thi.setInum(info.getSeq());
+			tmService.insertTHI(thi);
+		}
+		
+		return "tmObjectConfirm.do";
+	}
+	
+	@RequestMapping(value="/snaAdd_proc.do")
+	public String snaAdd(TmVO tm,HttpSession session,Model model,
+			HttpServletRequest request) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] csv 넣는 기능 처리");
+		
+		// tm 삽입
+		tm.setId(((UserVO)session.getAttribute("user")).getId());
+		tmService.insertTm(tm);
+		
+		// 파일 넣기
+		String realPath = session.getServletContext().getRealPath("/rview");
+		System.out.println(realPath);
+	
+		
+		TmVO topTm = tmService.getTmTop(tm);
+		String fileName = "/" + topTm.getTseq() + ".png";
+		FileInputStream fis = null;
+		FileOutputStream fos = null;
+		
+		try {
+			fis = new FileInputStream(realPath + "/snaTest.png");
+			fos = new FileOutputStream(realPath + fileName);
+			
+			byte[] buffer = new byte[1024];
+			int readcount = 0;
+			  
+			while((readcount=fis.read(buffer)) != -1) 
+				fos.write(buffer, 0, readcount);    // 파일 복사 
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return "tmObjectConfirm.do";
+	}
+	
+	@RequestMapping(value="/getTm.do")
+	public String getTm(TmVO vo, HttpSession session, Model model) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] tm 게시판 상세 조회 기능 처리");
+		
+		model.addAttribute("tm", tmService.getTm(vo));
+		
+		return "getTm.jsp";
 	}
 }

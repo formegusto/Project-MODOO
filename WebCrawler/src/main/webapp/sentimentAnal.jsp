@@ -87,7 +87,7 @@
 		    </c:forEach>
 		    <div class="tab-pane active" id="nav-image" role="tabpanel" aria-labelledby="nav-home-tab">
 			     <div style="margin:auto; text-align: center;">
-				  <img src="download/test.png">
+				  <img src="rview/test.png">
 				</div>
 			</div>
 		    </div>
@@ -96,9 +96,12 @@
 			<div class="container" style="margin-top: 15px;">
 			<div class="row">
 				<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
-				  	<div class="btn-group mr-2" role="group" aria-label="First group">
-				  	<button type="button" class="btn btn-secondary" onclick="location.href='getTmInfo.do?seq=${rtnseq }'">Cancel</button>
-				  	<button type="button" id="crawling" class="btn btn-secondary" onclick="javascript: form.action='multiAdd_proc.do'; form.submit()">Result Add</button>
+					<input type="hidden" name="ttype" value="sentimentAnal">
+				  	<input type="text" class="form-control" name="ttitle" placeholder="TM Result Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
+				  	<input type="text" class="form-control" name="tcontent" placeholder="TM Result Content" aria-label="Recipient's username" aria-describedby="basic-addon2">
+				  	<div class="input-group-append" style="margin: auto;">
+				  		<button type="button" class="btn btn-secondary" onclick="location.href='getTmInfo.do?seq=${rtnseq }'">Cancel</button>
+				    	<button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='tmAdd_proc.do'; form.submit()">Result Add</button>
 				  	</div>
 			  	</div>
 			</div>

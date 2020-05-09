@@ -32,4 +32,9 @@ public class InfoDAOMybatis {
 		System.out.println("===> Mybatis로 deleteInfo() 삭제 기능 처리");
 		mybatis.delete("InfoDAO.deleteInfo", vo);
 	}
+	
+	public InfoVO getInfoTop(InfoVO vo) {
+		System.out.println("===> Mybatis로 getInfoTop() 조회 기능 처리");
+		return mybatis.selectOne("InfoDAO.getInfoTop", vo);
+	}
 }

@@ -30,4 +30,12 @@
 		WHERE SEQ=#{seq}
 	]]>
 	</delete>
+	<select id="getInfoTop" resultType="info">
+	<![CDATA[
+		SELECT *
+		FROM INFO
+		WHERE ID=#{id}
+		ORDER BY SEQ DESC LIMIT 1
+	]]>
+	</select>
 </mapper>

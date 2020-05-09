@@ -28,4 +28,10 @@ public class InfoServiceImpl implements InfoService{
 	public void deleteInfo(InfoVO vo) {
 		infoDAO.deleteInfo(vo);
 	}
+	@Override
+	public InfoVO getInfoTop(InfoVO vo) {
+		// TODO Auto-generated method stub
+		return infoDAO.getInfoTop(vo);
+	}
+	
 }

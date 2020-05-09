@@ -26,6 +26,8 @@ import com.crawler.biz.info.FrameVO;
 import com.crawler.biz.info.InfoVO;
 import com.crawler.biz.info.impl.FrameService;
 import com.crawler.biz.info.impl.InfoService;
+import com.crawler.biz.tm.TmVO;
+import com.crawler.biz.tm.impl.TmService;
 import com.crawler.biz.user.UserVO;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -38,6 +40,8 @@ public class InfoController {
 	DataService dataService;
 	@Autowired
 	FrameService frameService;
+	@Autowired
+	TmService tmService;
 	
 	// 클립보드 처리
 	@RequestMapping(value="/clipboardConfirm.do")
@@ -169,8 +173,12 @@ public class InfoController {
 			return "checkInfoList.jsp";
 		else if(uri.equals("/crawlerLList.do")) 
 			return "crawlerLList.jsp";
-		else if(uri.equals("/tmObjectConfirm.do"))
+		else if(uri.equals("/tmObjectConfirm.do")) {
+			TmVO tvo = new TmVO();
+			tvo.setId(((UserVO)session.getAttribute("user")).getId());
+			model.addAttribute("tmList", tmService.getTmList(tvo));
 			return "tmObjectConfirm.jsp";
+		}
 		else if(uri.equals("/checkVisualList.do")) {
 			model.addAttribute("vtype", request.getParameter("vtype"));
 			return "checkVisualList.jsp";
