@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crawler.biz.board.BoardVO;
+import com.crawler.biz.board.CommentVO;
 import com.crawler.biz.board.impl.BoardService;
+import com.crawler.biz.board.impl.CommentService;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.impl.DataService;
 import com.crawler.biz.info.FrameHaveInfoVO;
@@ -45,6 +47,8 @@ public class BoardController {
 	FrameService frameService;
 	@Autowired
 	VisualService visualService;
+	@Autowired
+	CommentService commentService;
 	
 	@RequestMapping(value="/boardConfirm.do")
 	public String boardConfirm(BoardVO vo,
@@ -209,6 +213,23 @@ public class BoardController {
 		return "getBoardList.jsp";
 	}
 	
+	@RequestMapping(value="/commentAdd_proc.do")
+	public String commentAdd(CommentVO vo, HttpSession session,
+			Model model,
+			@RequestParam String pageNum,
+			@RequestParam String startPage) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] 댓글 저장 기능 처리");
+		
+		commentService.insertComment(vo);
+		
+		model.addAttribute("bseq",vo.getBnum());
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("startPage", startPage);
+		
+		return "getBoard.do";
+	}
 	
 	@RequestMapping(value="/getBoard.do")
 	public String getBoard(BoardVO vo, HttpSession session,
@@ -283,6 +304,8 @@ public class BoardController {
 					}
 				}
 			}
+			
+			
 			model.addAttribute("numList", numList);
 			model.addAttribute("strList", strList);
 			model.addAttribute("bgList", bgList);
@@ -291,6 +314,11 @@ public class BoardController {
 			model.addAttribute("vtype_split", "\'" + visual.getVtype().split(":")[1] + "\'");
 		}
 		
+		// 댓글창
+		CommentVO cvo = new CommentVO();
+		cvo.setBnum(vo.getBseq());
+					
+		model.addAttribute("commentList", commentService.getCommentList(cvo));
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("startPage",startPage);
 		model.addAttribute("board", board);

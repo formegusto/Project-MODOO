@@ -10,6 +10,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="resources/css/comment.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
@@ -92,6 +94,42 @@
 		</c:if>
 		</tbody>
 	</table>
+	<div class="container" style="margin-top: 15px;">
+	<div class="row">
+		<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
+		  	<div class="btn-group mr-2" role="group" aria-label="First group">
+		  	<c:if test="${board.id eq user.id }">
+		  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='deleteBoard.do'; form.submit()">DeleteBoard</button>
+		    </c:if>
+		    <button type="button" class="btn btn-secondary" onclick="location.href='getBoardList.do?startPage=${startPage}&pageNum=${pageNum }'">BoardList</button>
+		  	</div>
+	  	</div>
+	</div>
+	</div>
+	<div class="container" style="margin-top: 15px;">
+	  <div class="row">
+	    <div class="col-12">
+	      <div class="comments">
+	        <div class="input-group mb-3">
+			 <input type="text" class="form-control" name="content" placeholder="Chat Room Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
+			  <div class="input-group-append">
+			    <button class="btn btn-primary" type="button" onclick="javascript: form.action='commentAdd_proc.do'; form.submit()">Comment Register</button>
+			  </div>
+			</div>
+			<c:forEach items="${commentList }" var="comment">
+			<div class="comment-box">
+	          <span class="commenter-pic">
+	          </span>
+	          <span class="commenter-name">
+	            <a href="#">${comment.id }</a>
+	          </span>       
+	          <p class="comment-txt more">${comment.content }</p>
+	        </div>
+			</c:forEach>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	</div>
 	<div class="tab-pane fade show active" id="nav-frame" role="tabpanel" aria-labelledby="nav-frame-tab">
 	<c:if test="${board.btype eq 'frame' }">
@@ -163,18 +201,9 @@
 </div>
 </div>
 
-<div class="container" style="margin-top: 15px;">
-<div class="row">
-	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
-	  	<div class="btn-group mr-2" role="group" aria-label="First group">
-	  	<c:if test="${board.id eq user.id }">
-	  	<button type="button" class="btn btn-secondary" onclick="javascript: form.action='deleteBoard.do'; form.submit()">DeleteBoard</button>
-	    </c:if>
-	    <button type="button" class="btn btn-secondary" onclick="location.href='getBoardList.do?startPage=${startPage}&pageNum=${pageNum }'">BoardList</button>
-	  	</div>
-  	</div>
-</div>
-</div>
+
+
+
 <input type="hidden" value='${user.id }' id='alarm_id' />
 </form>
 <c:if test="${board.id eq user.id }">

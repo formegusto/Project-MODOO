@@ -17,6 +17,7 @@
 		<typeAlias type="com.crawler.biz.info.FrameHaveInfoVO" alias="fhi"></typeAlias>
 		<typeAlias type="com.crawler.biz.tm.TmVO" alias="tm"></typeAlias>
 		<typeAlias type="com.crawler.biz.tm.TmHaveInfoVO" alias="thi"></typeAlias>
+		<typeAlias type="com.crawler.biz.board.CommentVO" alias="comment"></typeAlias>
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
@@ -30,5 +31,6 @@
 		<mapper resource="mappings/visual-mapping.xml"/>
 		<mapper resource="mappings/frame-mapping.xml" />
 		<mapper resource="mappings/tm-mapping.xml"/>
+		<mapper resource="mappings/comment-mapping.xml"/>
 	</mappers>
 </configuration>

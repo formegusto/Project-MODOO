@@ -20,7 +20,7 @@
          </div>
       </div>
       <div class="main">
-         <div class="col-md-6 col-sm-12">
+         <div class="col-md-6 col-sm-6">
             <div class="login-form">
                <form id="form" method="post">
                   <div class="form-group">
