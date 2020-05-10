@@ -78,6 +78,7 @@ public class TMController {
 		return "testResult.jsp";
 	}
 	
+	// sna
 	@SuppressWarnings("resource")
 	@RequestMapping(value="/sna.do")
 	public String sna(InfoVO vo,Model model,HttpSession session) {
@@ -170,6 +171,7 @@ public class TMController {
 		return "snaResult.jsp";
 	}
 	
+	// 감성분석
 	@SuppressWarnings("resource")
 	@RequestMapping(value="/sentimentAnal.do")
 	public String sentimentAnal(InfoVO vo,Model model,HttpSession session) {
@@ -326,6 +328,7 @@ public class TMController {
 		return "sentimentAnal.jsp";
 	}
 	
+	// 워드 클라우드
 	@SuppressWarnings("resource")
 	@RequestMapping(value="/wordCount.do")
 	public String wordCount(InfoVO vo,Model model,HttpSession session) {
@@ -436,6 +439,7 @@ public class TMController {
 		return "wordCountResult.jsp";
 	}
 	
+	// 텍스트 마이닝 결과 저장
 	@RequestMapping(value="/tmAdd_proc.do")
 	public String tmAdd(HttpSession session,Model model,
 			HttpServletRequest request,
@@ -529,6 +533,7 @@ public class TMController {
 		return "tmObjectConfirm.do";
 	}
 	
+	// sna 결과 저장
 	@RequestMapping(value="/snaAdd_proc.do")
 	public String snaAdd(TmVO tm,HttpSession session,Model model,
 			HttpServletRequest request) {
@@ -570,6 +575,7 @@ public class TMController {
 		return "tmObjectConfirm.do";
 	}
 	
+	// 텍스트 마이닝 조회
 	@RequestMapping(value="/getTm.do")
 	public String getTm(TmVO vo, HttpSession session, Model model) {
 		if(session.getAttribute("user") == null)

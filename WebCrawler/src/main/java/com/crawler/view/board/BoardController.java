@@ -29,6 +29,7 @@ import com.crawler.biz.info.FrameVO;
 import com.crawler.biz.info.InfoVO;
 import com.crawler.biz.info.impl.FrameService;
 import com.crawler.biz.info.impl.InfoService;
+import com.crawler.biz.user.UserVO;
 import com.crawler.biz.visual.VisualHaveInfoVO;
 import com.crawler.biz.visual.VisualVO;
 import com.crawler.biz.visual.impl.VisualService;
@@ -50,6 +51,7 @@ public class BoardController {
 	@Autowired
 	CommentService commentService;
 	
+	// 보드 확인
 	@RequestMapping(value="/boardConfirm.do")
 	public String boardConfirm(BoardVO vo,
 			Model model , HttpSession session) {
@@ -138,6 +140,7 @@ public class BoardController {
 		return "boardConfirm.jsp";
 	}
 	
+	// 게시물 생성
 	@RequestMapping(value="/boardAdd_proc.do")
 	public String boardAdd(BoardVO vo, HttpSession session) {
 		if(session.getAttribute("user") == null)
@@ -149,6 +152,7 @@ public class BoardController {
 		return "getInfoList.do";
 	}
 	
+	// 게시물 삭제
 	@RequestMapping(value="/deleteBoard.do")
 	public String deleteBoard(BoardVO vo, HttpSession session, Model model,
 			@RequestParam String pageNum,
@@ -157,6 +161,8 @@ public class BoardController {
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 게시판 삭제 기능 처리");
 		
+		
+		
 		boardService.deleteBoard(vo);
 		
 		model.addAttribute("startPage",startPage);
@@ -164,6 +170,7 @@ public class BoardController {
 		return "getBoardList.do";
 	}
 	
+	// 게시물 리스트 조회
 	@RequestMapping(value="/getBoardList.do")
 	public String getBoardList(BoardVO vo, HttpSession session,
 			Model model,
@@ -213,6 +220,7 @@ public class BoardController {
 		return "getBoardList.jsp";
 	}
 	
+	// 댓글 생성
 	@RequestMapping(value="/commentAdd_proc.do")
 	public String commentAdd(CommentVO vo, HttpSession session,
 			Model model,
@@ -222,6 +230,7 @@ public class BoardController {
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 댓글 저장 기능 처리");
 		
+		vo.setId(((UserVO)session.getAttribute("user")).getId());
 		commentService.insertComment(vo);
 		
 		model.addAttribute("bseq",vo.getBnum());
@@ -231,6 +240,7 @@ public class BoardController {
 		return "getBoard.do";
 	}
 	
+	// 게시물 및 댓글 조회
 	@RequestMapping(value="/getBoard.do")
 	public String getBoard(BoardVO vo, HttpSession session,
 			Model model,
@@ -325,7 +335,6 @@ public class BoardController {
 		
 		return "getBoard.jsp";
 	}
-	
 	
 	/*
 	@RequestMapping(value="/convertCSV.do")

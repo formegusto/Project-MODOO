@@ -107,7 +107,6 @@ public class CrawlerController {
 		return "crawlerLLConfirm.jsp";
 	}
 		
-	
 	// 데이터 업데이트 컨펌
 	@RequestMapping(value="/updateDataConfirm.do")
 	public String updateDataConfirm(InfoVO vo, Model model, HttpSession session) {
@@ -194,4 +193,6 @@ public class CrawlerController {
 		model.addAttribute("info",ivo);
 		return "getInfo.do";
 	}
+
+
 }

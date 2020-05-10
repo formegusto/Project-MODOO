@@ -40,6 +40,11 @@
 
 <!-- getBoardDesign -->
 <form method="post" name="form">
+<input type="hidden" name="id" value="${board.id }"/>
+<input type="hidden" name="bnum" value="${board.bseq }"/>
+<input type="hidden" name="bseq" value="${board.bseq }"/>
+<input type="hidden" name="pageNum" value="${pageNum }"/>
+<input type="hidden" name="startPage" value="${startPage }"/>
 <div class="container" style="margin-top: 15px;">
 <div class="row">
 <div class="col-md-12">
@@ -66,24 +71,11 @@
 	      <td>${board.content }</td>
 	    </tr>
 	    <tr>
-	    <td colspan="2">
-	    <div class="input-group mb-3">
-	    	<input type="hidden" name="bseq" value="${board.bseq }"/>
-	    	<input type="hidden" name="pageNum" value="${pageNum }"/>
-	    	<input type="hidden" name="startPage" value="${startPage }"/>
-	    	<input type="text" class="form-control" name="ctitle" placeholder="CSV Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
-			<div class="input-group-append">
-	    		<button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='convertCSV.do'; form.submit()">Convert CSV</button>
-	    	</div>
-	    </div>
-	    </td>
 	    </tr>
 	    <c:if test="${board.id eq user.id }">
 		<tr>
 			<td colspan="2"> 
 				<div class="input-group mb-3">
-				  <input type="hidden" name="id" value="${board.id }"/>
-				  <input type="hidden" name="bnum" value="${board.bseq }"/>
 				  <input type="text" class="form-control" name="rtitle" placeholder="Chat Room Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
 				  <div class="input-group-append">
 				    <button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='roomAdd_proc.do'; form.submit()">New Chat</button>
@@ -111,7 +103,7 @@
 	    <div class="col-12">
 	      <div class="comments">
 	        <div class="input-group mb-3">
-			 <input type="text" class="form-control" name="content" placeholder="Chat Room Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
+			 <input type="text" class="form-control" name="content" placeholder="Comment Input" aria-label="Recipient's username" aria-describedby="basic-addon2">
 			  <div class="input-group-append">
 			    <button class="btn btn-primary" type="button" onclick="javascript: form.action='commentAdd_proc.do'; form.submit()">Comment Register</button>
 			  </div>

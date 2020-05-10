@@ -29,6 +29,7 @@ public class VisualController {
 	@Autowired
 	DataService dataService;
 	
+	// 시각화 확인
 	@RequestMapping("/visualConfirm.do")
 	public String visualConfirm(@RequestParam String numSet,
 			@RequestParam String strSet,
@@ -105,6 +106,7 @@ public class VisualController {
 		return "visualConfirm.jsp";
 	}
 	
+	// 시각화 저장
 	@RequestMapping("/visualAdd_proc.do")
 	public String visualAdd(VisualVO vo, HttpSession session,
 			@RequestParam String numSet,
@@ -128,6 +130,7 @@ public class VisualController {
 		return "getVisualList.do";
 	}
 	
+	// 시각화 리스트 조회
 	@RequestMapping(value="/getVisualList.do")
 	public String getVisualList(VisualVO vo, HttpSession session, Model model) {
 		if(session.getAttribute("user") == null)
@@ -140,6 +143,7 @@ public class VisualController {
 		return "getVisualList.jsp";
 	}
 	
+	// 시각화 상세 조회
 	@RequestMapping(value="/getVisual.do")
 	public String getVisual(VisualVO vo, HttpSession session, Model model) {
 		if(session.getAttribute("user") == null)

@@ -60,7 +60,7 @@
 <div class="row">
 	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 	  	<div class="btn-group mr-2" role="group" aria-label="First group">
-	  	<button type="button" class="btn btn-secondary" onclick="location.href='getBoard.do?bseq=${bseq }&startPage=${startPage}&pageNum=${pageNum }'">Return</button>
+	  	<button type="button" class="btn btn-secondary" onclick="location.href='getInfoList.do'">Return</button>
 	  	</div>
   	</div>
 </div>

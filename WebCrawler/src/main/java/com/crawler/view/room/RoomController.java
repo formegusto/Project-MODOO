@@ -60,7 +60,6 @@ public class RoomController {
 		return "getRoomList.do";
 	}
 	
-	
 	@RequestMapping(value="/getRoom.do")
 	public String getRoom(RoomVO vo, HttpSession session, Model model) {
 		if(session.getAttribute("user") == null)
@@ -105,7 +104,6 @@ public class RoomController {
 		
 		return "getRoom.jsp";
 	}
-	
 	
 	@RequestMapping(value="/getRoomList.do")
 	public String getRoomList(RoomVO vo, HttpSession session, Model model) {

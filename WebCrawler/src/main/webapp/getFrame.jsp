@@ -98,10 +98,21 @@
 			</div>
 		    </c:forEach>
 		    </div>
-		    
+		    <div class="container" style="margin-top: 15px;">
+			<div class="row">
+				<div class="input-group mb-3">
+					<input type="hidden" name="fseq" value="${frame.fseq }"/>
+			    	<input type="text" class="form-control" name="ctitle" placeholder="CSV Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
+					<div class="input-group-append">
+			    		<button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='convertCSV.do'; form.submit()">Convert CSV</button>
+			    	</div>
+			    </div>
+			</div>
+			</div>
 		    <!-- Button -->
 			<div class="container" style="margin-top: 15px;">
 			<div class="row">
+				
 				<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin:auto;">
 				  	<div class="btn-group mr-2" role="group" aria-label="First group">
 				  	<button type="button" class="btn btn-secondary" onclick="location.href='getInfoList.do'">InfoList</button>

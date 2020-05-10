@@ -1,9 +1,9 @@
 package com.crawler.view.info;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +31,7 @@ import com.crawler.biz.tm.impl.TmService;
 import com.crawler.biz.user.UserVO;
 
 import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.CSVWriter;
 
 @Controller
 public class InfoController {
@@ -326,8 +327,9 @@ public class InfoController {
 		return "crawlerLLAdd.jsp";
 	}
 	
+	// 프레임 상세 정보 보기
 	@RequestMapping(value="/getFrame.do")
-	public String getBoard(FrameVO vo, HttpSession session,
+	public String getFrame(FrameVO vo, HttpSession session,
 			Model model) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
@@ -358,8 +360,9 @@ public class InfoController {
 		return "getFrame.jsp";
 	}
 	
+	// 프레임 생성 전 확인
 	@RequestMapping(value="/frameConfirm.do")
-	public String boardConfirm(@RequestParam String seqList,
+	public String frameConfirm(@RequestParam String seqList,
 			Model model , HttpSession session) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
@@ -390,8 +393,9 @@ public class InfoController {
 		return "frameConfirm.jsp";
 	}
 	
+	// 프레임 생성
 	@RequestMapping(value="/frameAdd_proc.do")
-	public String boardAdd(FrameVO fvo, HttpSession session , 
+	public String frameAdd(FrameVO fvo, HttpSession session , 
 			@RequestParam(value="inumList", required=true) List<String> inumList) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
@@ -408,8 +412,9 @@ public class InfoController {
 		return "getInfoList.do";
 	}
 	
+	// 프레임 삭제
 	@RequestMapping(value="/deleteFrame.do")
-	public String deleteBoard(FrameVO vo, HttpSession session, Model model) {
+	public String deleteFrame(FrameVO vo, HttpSession session, Model model) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		System.out.println("[Spring Service MVC Framework] 프레임 삭제 기능 처리");
@@ -417,5 +422,125 @@ public class InfoController {
 		frameService.deleteFrame(vo);
 		
 		return "getInfoList.do";
+	}
+
+	// 프레임 CSV 변환
+	@RequestMapping(value="/convertCSV.do")
+	public String convertCSV(FrameVO vo, HttpSession session,
+			Model model, @RequestParam String ctitle) {
+		if(session.getAttribute("user") == null)
+			return "topHead.jsp";
+		System.out.println("[Spring Service MVC Framework] Table Convert To CSV 처리 기능 처리");
+		
+		ctitle += ".csv";
+		
+		
+		// infoList Make
+		List<FrameHaveInfoVO> fhiList = frameService.getFHIList(vo);
+		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		for(FrameHaveInfoVO fhi : fhiList) {
+			InfoVO ivo = new InfoVO();
+			ivo.setSeq(fhi.getInum());
+			infoList.add(infoService.getInfo(ivo));
+		}
+				
+		// dataMap Make
+		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
+		for(FrameHaveInfoVO fhi : fhiList) {
+			DataVO dvo = new DataVO();
+			dvo.setInum(fhi.getInum());
+			List<DataVO> dataList = dataService.getData(dvo);
+			System.out.println(dataList);
+			dataMap.put( fhi.getInum()+"" , dataList);
+		}
+		
+		/* Check
+		System.out.println(ctitle);
+		System.out.println(infoList);
+		System.out.println(dataMap);
+		*/
+		
+		// Convert List<String[]>
+		List<String[]> csvList = new ArrayList<String[]>();
+		String fieldList_ = "";
+		for(int i=0;i<infoList.size();i++) {
+			InfoVO info = infoList.get(i);
+			if((i+1) == infoList.size()) fieldList_ += (info.getField());
+			else fieldList_ += (info.getField() + ",");
+		}
+		String[] fieldList = fieldList_.split(",");
+		csvList.add(fieldList);
+		
+		List<List<String>> dataList_ = new ArrayList<List<String>>();
+		InfoVO info_ = infoList.get(0);
+		int listSize = dataMap.get(info_.getSeq()+"").size(); // 첫 필드의 총 사이즈
+		for(int i=0;i<infoList.size();i++) {
+			InfoVO info = infoList.get(i);
+			List<DataVO> dataVOList = dataMap.get(info.getSeq()+"");
+			if(i==0) {
+				for(int j=0;j<listSize;j++) {
+					DataVO dataVO = dataVOList.get(j);
+					List<String> data_ = new ArrayList<String>();
+					data_.add(dataVO.getData());
+					dataList_.add(data_);
+				}
+			} 
+			/*
+			 문제점 (1) 중간 필드와 마지막 필드에서 발생한다. 첫번째 필드에서 모든것의 개수가 맞추어 지기때문에 
+			  개수가 넘어갈 경우에 IndexOutBoundException을 터뜨린다.
+			  문제점 (2) 중간 필드와 마지막 필드에서 발생한다. 만약에 띄엄띄엄 일 경우 중간에 채워주지를 못한다.  
+			  모두 하나의 테이블로서 빈칸을 채워주는 역할을 하면 될 것 같다.
+			 */
+		else {
+				if(listSize < dataVOList.size()) {
+					for(int j=0;j<i;j++) {
+						if(j==0) {
+							for(int k=listSize;k<dataVOList.size();k++) {
+								List<String> data_ = new ArrayList<String>();
+								data_.add("");
+								dataList_.add(data_);
+							}
+						} else {
+							for(int k=listSize;k<dataVOList.size();k++) {
+								dataList_.get(k).add("");
+							}
+						}
+					}
+					listSize = dataVOList.size();
+				}
+				for(int j=0;j<dataVOList.size();j++) {
+					DataVO dataVO = dataVOList.get(j);
+					dataList_.get(j).add(dataVO.getData());
+				}
+				if(listSize > dataVOList.size()) {
+					for(int j=dataVOList.size();j<listSize;j++) {
+						dataList_.get(j).add("");
+					}
+				}
+			}
+		}
+		
+		for(List<String> data : dataList_) {
+			String[] dataList = data.toArray(new String[data.size()]);
+			csvList.add(dataList);
+		}
+		
+		// Convert CSV
+		CSVWriter writer = null;
+		String realPath = session.getServletContext().getRealPath("/download");
+		System.out.println(realPath);
+		try {
+			writer = new CSVWriter(new FileWriter(realPath+"/"+ctitle));
+			for(String[] csvStr : csvList)
+				writer.writeNext(csvStr);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		
+		model.addAttribute("ctitle",ctitle);
+		model.addAttribute("bseq",vo.getFseq());
+		
+		return "csvDownload.jsp";
 	}
 }
