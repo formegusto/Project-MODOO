@@ -21,6 +21,7 @@
 <script defer src="resources/fontawesome/js/all.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <title>${room.rtitle }</title>
 <!-- 로그인한 상태일 경우와 비로그인 상태일 경우의 chat_id설정 -->
 <c:if test="${(user.id ne '') and !(empty user.id)}">
@@ -29,6 +30,21 @@
 <c:if test="${(user.id eq '') or (empty user.id)}">
 	<input type="hidden" value='<%=session.getId().substring(0, 6)%>' id='chat_id' />
 </c:if>
+<script>
+	function clickHideView(){
+		if($('#nav-view').css("display") == "none"){
+			$('#nav-view').show();	
+		}
+		else {
+			$('#nav-view').hide();	
+		}
+		
+	}
+	
+	$(window).ready(function(){
+		$('#nav-view').hide();
+	})
+</script>
 </head>
 <body>
 <!-- Navbar : Login, 알람 정보 -->
@@ -57,8 +73,9 @@
         <div class="col-md-3 float-left col-1 pl-0 pr-0 collapse width " id="sidebar">
                 <div class="list-group border-0 card text-center text-md-left">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#nav-view" role="tab" aria-controls="v-pills-home" aria-selected="true" onclick="clickHideView()">view</a>
                 <c:forEach items="${infoList }" var="info">
-	  				<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#nav-${info.seq }" role="tab" aria-controls="v-pills-home" aria-selected="true">${info.field }</a>
+	  				<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#nav-${info.seq }" role="tab" aria-controls="v-pills-home" aria-selected="false">${info.field }</a>
 				</c:forEach>
 				</div>
             	</div>
@@ -70,6 +87,87 @@
             </a>
             <div class="row">
             <div class="tab-content" id="v-pills-tabContent" style="margin-left: 15px;">
+            	<div class="col tab-pane show active" id="nav-view" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            	<c:if test="${board.btype eq 'frame' }">
+			    <table class="table">
+			    	<thead>
+				    	<tr>
+				    	<%
+				    	for(InfoVO info : infoList){
+				    	%>
+				    				<th scope="col"><%=info.getField() %></th>
+				    	<% } %>
+				    	</tr>
+				    	</thead>
+				    	<tbody>
+				    	<tr>
+				    	<% for(InfoVO info : infoList){ 
+				    		List<DataVO> dataList = dataMap.get(info.getSeq()+"");
+				    	%>
+				    		<td>
+				    		<table class="table">
+				    		<tbody>
+						  			<%for(DataVO data : dataList){ %>
+								   <tr>
+								   <%if((data.getData()).equals("")){ %>
+								   		<td>
+									   		!!blank!!
+									   	</td>
+								   <%}else{ %>
+									   	<td>
+									   		<%=data.getData() %>
+									   	</td>
+									<%} %>
+								   </tr>
+								    <%} %>
+					  		 </tbody>
+				    		</table>	
+				    		</td>
+				    	<%} %>
+				   	</tr>
+				   	</tbody>
+				</table>
+				</c:if>
+				<c:if test="${board.btype eq 'visual' }">
+				<div style="margin:auto;">
+				  <canvas id="myVisual" width="400" height="400"></canvas>
+				</div>
+				<script>
+					var ctx = document.getElementById('myVisual').getContext('2d');
+					new Chart(ctx, {
+					    type: ${vtype_split},
+					    data: {
+					        labels: ${strList},
+					        datasets: [{
+					            label: '# of Votes',
+					            data: ${numList},
+					            backgroundColor: ${bgList},
+					            borderColor: ${boList},
+					            borderWidth: 1
+					        }]
+					    },
+					    options: {}
+					});
+				</script>
+				</c:if>
+				<c:if test="${board.btype eq 'tm' }">
+						<c:if test="${tm.ttype eq 'wordcloud' }">
+							<jsp:include page="/rview/${tm.tseq }.html"/>
+						</c:if>
+						<c:if test="${tm.ttype eq 'sentimentAnal' }">
+						<div style="margin:auto; text-align: center;">
+							<img src="rview/${tm.tseq }.png">
+						</div>
+						</c:if>
+						<c:if test="${tm.ttype eq 'sna' }">
+						<div style="margin:auto; text-align: center;">
+							<img src="rview/${tm.tseq }.png">
+						</div>
+						</c:if>
+				</c:if>
+           		</div>
+            <div class="tab-content" id="v-pills-tabContent" style="margin-left: 15px;">
+              
             <%
             for(InfoVO info : infoList){
             	List<DataVO> dataList = dataMap.get(info.getSeq()+"");	
@@ -87,7 +185,9 @@
 			  </div>
 			<%} %>
 			</div>
-			
+         </div>
+            
+            
 			<div class="col">
 			<div class="messaging">
 			      <div class="inbox_msg">

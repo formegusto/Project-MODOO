@@ -29,6 +29,9 @@ import com.crawler.biz.info.FrameVO;
 import com.crawler.biz.info.InfoVO;
 import com.crawler.biz.info.impl.FrameService;
 import com.crawler.biz.info.impl.InfoService;
+import com.crawler.biz.tm.TmHaveInfoVO;
+import com.crawler.biz.tm.TmVO;
+import com.crawler.biz.tm.impl.TmService;
 import com.crawler.biz.user.UserVO;
 import com.crawler.biz.visual.VisualHaveInfoVO;
 import com.crawler.biz.visual.VisualVO;
@@ -50,6 +53,8 @@ public class BoardController {
 	VisualService visualService;
 	@Autowired
 	CommentService commentService;
+	@Autowired
+	TmService tmService;
 	
 	// 보드 확인
 	@RequestMapping(value="/boardConfirm.do")
@@ -126,6 +131,7 @@ public class BoardController {
 					}
 				}
 			}
+			
 			model.addAttribute("numList", numList);
 			model.addAttribute("strList", strList);
 			model.addAttribute("bgList", bgList);
@@ -133,7 +139,12 @@ public class BoardController {
 			model.addAttribute("visual",visual);
 			model.addAttribute("vtype_split", "\'" + visual.getVtype().split(":")[1] + "\'");
 		}
-		
+		// 2. tm 리스트 구축
+		else if(vo.getBtype().equals("tm")) {
+			TmVO tvo = new TmVO();
+			tvo.setTseq(vo.getBnum());
+			model.addAttribute("tm", tmService.getTm(tvo));
+		}
 		// 3. session에 값 저장
 		model.addAttribute("board",vo);
 		
@@ -323,7 +334,11 @@ public class BoardController {
 			model.addAttribute("visual",visual);
 			model.addAttribute("vtype_split", "\'" + visual.getVtype().split(":")[1] + "\'");
 		}
-		
+		else if(board.getBtype().equals("tm")) {
+			TmVO tvo = new TmVO();
+			tvo.setTseq(board.getBnum());
+			model.addAttribute("tm", tmService.getTm(tvo));
+		}
 		// 댓글창
 		CommentVO cvo = new CommentVO();
 		cvo.setBnum(vo.getBseq());

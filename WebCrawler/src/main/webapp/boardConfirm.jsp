@@ -228,8 +228,68 @@ new Chart(ctx, {
 </div>
 </div>
 </c:if>
+
+<c:if test="${board.btype eq 'tm' }">
+<div class="container" style="margin-top: 15px;">
+<div class="row">
+<table class="table">
+	<tbody>
+		<tr>
+			<td>
+	    	<nav>
+			<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-visual" role="tab" aria-controls="nav-test" aria-selected="false">TM Info</a>
+			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-view" role="tab" aria-controls="nav-test" aria-selected="false">View</a>
+			</div>
+			</nav>
+			</td>
+		</tr>
+		<tr>
+		<td colspan="2">
+			<div class="tab-content" id="nav-tabContent">
+			<div class="tab-pane" id="nav-visual" role="tabpanel" aria-labelledby="nav-home-tab">
+				<table class="table">
+				  <tbody>
+				    <tr>
+				      <th scope="row">제목</th>
+				      <td>${tm.title }</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">작성자</th>
+				      <td>${tm.id }</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">내용</th>
+				      <td>${tm.content }</td>
+				    </tr>
+				 </tbody>
+				</table>
+			</div>
+			
+			<div class="tab-pane active" id="nav-view" role="tabpanel" aria-labelledby="nav-home-tab">
+				     <c:if test="${tm.ttype eq 'wordcloud' }">
+						<jsp:include page="/rview/${tm.tseq }.html"/>
+					</c:if>
+					<c:if test="${tm.ttype eq 'sentimentAnal' }">
+					<div style="margin:auto; text-align: center;">
+						<img src="rview/${tm.tseq }.png">
+					</div>
+					</c:if>
+					<c:if test="${tm.ttype eq 'sna' }">
+					<div style="margin:auto; text-align: center;">
+						<img src="rview/${tm.tseq }.png">
+					</div>
+					</c:if>
+			</div>
+			</div>
+		</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+</div>
+</c:if>
+
 </form>
-
-
 </body>
 </html>

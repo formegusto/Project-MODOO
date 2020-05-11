@@ -123,6 +123,7 @@
 	  </div>
 	</div>
 	</div>
+	
 	<div class="tab-pane fade show active" id="nav-frame" role="tabpanel" aria-labelledby="nav-frame-tab">
 	<c:if test="${board.btype eq 'frame' }">
 	<table class="table">
@@ -160,9 +161,9 @@
 	    		</table>	
 	    		</td>
 	    	<%} %>
-	    	</tr>
-	    	</tbody>
-	    	</table>
+	   	</tr>
+	   	</tbody>
+	</table>
 	</c:if>
 
 	<c:if test="${board.btype eq 'visual' }">
@@ -187,6 +188,22 @@
 			});
 		</script>
 	</c:if>
+	
+	<c:if test="${board.btype eq 'tm' }">
+		<c:if test="${tm.ttype eq 'wordcloud' }">
+			<jsp:include page="/rview/${tm.tseq }.html"/>
+		</c:if>
+		<c:if test="${tm.ttype eq 'sentimentAnal' }">
+		<div style="margin:auto; text-align: center;">
+			<img src="rview/${tm.tseq }.png">
+		</div>
+		</c:if>
+		<c:if test="${tm.ttype eq 'sna' }">
+		<div style="margin:auto; text-align: center;">
+			<img src="rview/${tm.tseq }.png">
+		</div>
+		</c:if>
+	</c:if>
 	</div>
 	</div>
 </div>
@@ -199,6 +216,7 @@
 <input type="hidden" value='${user.id }' id='alarm_id' />
 </form>
 <c:if test="${board.id eq user.id }">
+<!--  
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 
@@ -226,6 +244,7 @@
  //       alert(event.data);
  //   }
 </script>
+-->
 </c:if>
 </body>
 </html>

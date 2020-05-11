@@ -19,6 +19,6 @@
 	<select id="getRoomList" resultType="room">
 		SELECT *
 		FROM ROOM
-		ORDER BY rnum DESC
+		ORDER BY RNUM DESC
 	</select>
 </mapper>
