@@ -66,7 +66,8 @@ public class WCrawl {
 			for(Element e : es) {
 				DataVO data = new DataVO();
 				data.setData(e.attr("href"));
-				if(!(data.getData().contains("http://"))) {
+				if((!(data.getData().contains("http://"))) && (!(data.getData().contains("https://")))) {
+					System.out.println("설마?");
 					URL url = new URL(vo.getLink());
 					data.setData("http://" + url.getHost() + e.attr("href"));
 				}

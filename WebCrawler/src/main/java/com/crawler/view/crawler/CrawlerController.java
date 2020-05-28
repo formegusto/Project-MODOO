@@ -133,8 +133,10 @@ public class CrawlerController {
 				infoList.add(info);
 			}
 			model.addAttribute("new_dataList",WCrawl.getData(infoList));
-		} else {
+		} else if(vo.getItype().equals("css:text")){
 			model.addAttribute("new_dataList", WCrawl.getData(vo));
+		} else if(vo.getItype().equals("css:link")) {
+			model.addAttribute("new_dataList", WCrawl.getLinkData(vo));
 		}
 		
 		return "updateDataConfirm.jsp";

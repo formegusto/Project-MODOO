@@ -89,6 +89,9 @@ public class WebSocketChat {
 				client.getBasicRemote().sendText(message);
 			client.getBasicRemote().sendText("userList|" + userListMsg);
 		}
+		
+		System.out.println(message);
+		System.out.println("userList|" + userListMsg);
 	}
 	
 	@OnClose

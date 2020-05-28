@@ -39,7 +39,7 @@
 		<tr>
 		<td colspan="2">
 			<div style="margin:auto; text-align: center;">
-				 <img src="rview/test.png">
+				 <img src="rview/snaTest.png">
 			</div>
 		    <!-- Button -->
 			<div class="container" style="margin-top: 15px;">

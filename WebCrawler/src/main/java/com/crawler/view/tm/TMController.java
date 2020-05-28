@@ -1,7 +1,5 @@
 package com.crawler.view.tm;
 
-import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,7 +32,6 @@ import com.crawler.biz.tm.TmHaveInfoVO;
 import com.crawler.biz.tm.TmVO;
 import com.crawler.biz.tm.impl.TmService;
 import com.crawler.biz.user.UserVO;
-import com.crawler.biz.visual.VisualVO;
 
 @Controller
 public class TMController {
@@ -100,11 +97,12 @@ public class TMController {
 			r = new RConnection();
 			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
-			/* 리눅스용
+			/* 리눅스용 
 			r.eval("setwd(\"/rDownload\")");
 			*/
-			/* 윈도우용 */
+			/* 윈도우용  */
 			r.eval("setwd(\"c:\\\\Download\")");
+			
 			r.eval("library(rJava)");
 			r.eval("library(KoNLP)");
 			r.eval("library(reshape2)");
@@ -141,10 +139,11 @@ public class TMController {
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
 			/* 리눅스용
-			 * fis = new FileInputStream("/rDownload/snaTest.png"); 
-			 */
+			fis = new FileInputStream("/rDownload/snaTest.png"); 
+			  */
 			/* 윈도우용 */
 			fis = new FileInputStream("c:\\Download\\snaTest.png"); 
+			 
 			fos = new FileOutputStream(realPath+"/snaTest.png");   
 			   
 			byte[] buffer = new byte[1024];
@@ -193,26 +192,19 @@ public class TMController {
 			r = new RConnection();
 			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
-			/* 리눅스용
+			/* 리눅스용 
 			r.eval("setwd(\"/rDownload\")");
 			*/
 			/* 윈도우용 */
 			r.eval("setwd(\"c:\\\\Download\")");
+			 
 			r.eval("library(plyr)");
 			r.eval("library(stringr)");
 			r.eval("library(tidyverse)");
 			
 			r.assign("text", dataStrList);
-			/* 리눅스용
-			 * r.eval("positive <- read_lines(\'positive\')");
-			 */
-			/* 윈도우용 */
 			r.eval("positive <- read_lines(\'positive.txt\')");
 			r.eval("positive = positive[-1]");
-			/* 리눅스용
-			 * r.eval("positive <- read_lines(\'negative\')");
-			 */
-			/* 윈도우용 */
 			r.eval("negative <- read_lines(\'negative.txt\')");
 			r.eval("negative = negative[-1]");
 			r.eval("sentimental = function(sentences, positive, negative){" +
@@ -298,11 +290,12 @@ public class TMController {
 			
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
-			/* 리눅스용
-			 * fis = new FileInputStream("/rDownload/snaTest.png"); 
+			/* 리눅스용 
+			fis = new FileInputStream("/rDownload/snaTest.png"); 
 			 */
 			/* 윈도우용 */
 			fis = new FileInputStream("c:\\Download\\test.png"); 
+			
 			fos = new FileOutputStream(realPath+"/test.png");   
 			   
 			byte[] buffer = new byte[1024];
@@ -351,11 +344,12 @@ public class TMController {
 			r = new RConnection();
 			System.out.println("연결 성공");
 			r.setStringEncoding("utf8");
-			/* 리눅스용
+			/* 리눅스용 
 			r.eval("setwd(\"/rDownload\")");
 			*/
 			/* 윈도우용 */
 			r.eval("setwd(\"c:\\\\Download\")");
+			
 			r.eval("library(rJava)");
 			r.eval("library(KoNLP)");
 			r.eval("library(reshape2)");
@@ -407,7 +401,9 @@ public class TMController {
 			r.eval("mypath <- text_wordcnt %>% wordcloud2() %>% htmltools::html_print()");
 			html_path = r.eval("mypath");
 			System.out.println(html_path.asString());
-			
+			/* 리눅스용
+			r.eval("system(\"sudo chmod 777 -R /tmp\")");
+			*/
 			String realPath = session.getServletContext().getRealPath("/rview");
 			System.out.println(realPath);
 			FileInputStream fis = null;

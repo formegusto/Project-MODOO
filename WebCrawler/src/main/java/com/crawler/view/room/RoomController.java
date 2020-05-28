@@ -87,7 +87,7 @@ public class RoomController {
 		
 		if(board.getBtype().equals("frame")) {
 			FrameVO fvo = new FrameVO();
-			fvo.setFseq(vo.getBnum());
+			fvo.setFseq(board.getBnum());
 			List<FrameHaveInfoVO> fhiList = frameService.getFHIList(fvo);
 			List<InfoVO> infoList = new ArrayList<InfoVO>();
 			Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
@@ -108,6 +108,9 @@ public class RoomController {
 				System.out.println(dataList);
 				dataMap.put( fhi.getInum()+"" , dataList);
 			}
+			
+			System.out.println(infoList.toString());
+			System.out.println(dataMap.toString());
 			
 			model.addAttribute("frame", frame);
 			model.addAttribute("infoList", infoList);
