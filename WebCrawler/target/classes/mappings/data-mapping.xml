@@ -40,40 +40,46 @@
 			WHERE DSEQ=#{dseq}
 		]]>
 	</delete>
-	<delete id="deleteDataLengthLt" parameterType="Integer">
+	<delete id="deleteDataLengthLt" parameterType="cdlength">
 		<![CDATA[
 			DELETE FROM DATA
-			WHERE CHAR_LENGTH(data)<#{length}
+			WHERE INUM=#{pdseq}
+			AND CHAR_LENGTH(data)<#{length}
 		]]>
 	</delete>
-	<delete id="deleteDataLengthLe" parameterType="Integer">
+	<delete id="deleteDataLengthLe" parameterType="cdlength">
 		<![CDATA[
 			DELETE FROM DATA
-			WHERE CHAR_LENGTH(data)<=#{length}
+			WHERE INUM=#{pdseq} 
+			AND CHAR_LENGTH(data)<=#{length}
 		]]>
 	</delete>
-	<delete id="deleteDataLengthGt" parameterType="Integer">
+	<delete id="deleteDataLengthGt" parameterType="cdlength">
 		<![CDATA[
 			DELETE FROM DATA
-			WHERE CHAR_LENGTH(data)>#{length}
+			WHERE INUM=#{pdseq} 
+			AND CHAR_LENGTH(data)>#{length}
 		]]>
 	</delete>
-	<delete id="deleteDataLengthGe" parameterType="Integer">
+	<delete id="deleteDataLengthGe" parameterType="cdlength">
 		<![CDATA[
 			DELETE FROM DATA
-			WHERE CHAR_LENGTH(data)>=#{length}
+			WHERE INUM=#{pdseq}
+			AND CHAR_LENGTH(data)>=#{length}
 		]]>
 	</delete>
-	<delete id="deleteDataLengthEq" parameterType="Integer">
+	<delete id="deleteDataLengthEq" parameterType="cdlength">
 		<![CDATA[
 			DELETE FROM DATA
-			WHERE CHAR_LENGTH(data)=#{length}
+			WHERE INUM=#{pdseq}
+			AND CHAR_LENGTH(data)=#{length}
 		]]>
 	</delete>
-	<delete id="deleteDataLengthNe" parameterType="Integer">
+	<delete id="deleteDataLengthNe" parameterType="cdlength">
 		<![CDATA[
 			DELETE FROM DATA
-			WHERE CHAR_LENGTH(data)!=#{length}
+			WHERE INUM=#{pdseq}
+			AND CHAR_LENGTH(data)!=#{length}
 		]]>
 	</delete>
 	<select id="getData" resultType="data">

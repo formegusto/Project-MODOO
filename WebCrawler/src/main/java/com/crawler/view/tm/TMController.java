@@ -100,9 +100,9 @@ public class TMController {
 			/* 리눅스용 
 			r.eval("setwd(\"/rDownload\")");
 			*/
-			/* 윈도우용  */
+			// 윈도우용 
 			r.eval("setwd(\"c:\\\\Download\")");
-			
+			 
 			r.eval("library(rJava)");
 			r.eval("library(KoNLP)");
 			r.eval("library(reshape2)");
@@ -141,7 +141,7 @@ public class TMController {
 			/* 리눅스용
 			fis = new FileInputStream("/rDownload/snaTest.png"); 
 			  */
-			/* 윈도우용 */
+			// 윈도우용 
 			fis = new FileInputStream("c:\\Download\\snaTest.png"); 
 			 
 			fos = new FileOutputStream(realPath+"/snaTest.png");   
@@ -290,9 +290,9 @@ public class TMController {
 			
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
-			/* 리눅스용 
-			fis = new FileInputStream("/rDownload/snaTest.png"); 
-			 */
+			/* 리눅스용  
+			fis = new FileInputStream("/rDownload/test.png"); 
+			*/
 			/* 윈도우용 */
 			fis = new FileInputStream("c:\\Download\\test.png"); 
 			
@@ -403,7 +403,7 @@ public class TMController {
 			System.out.println(html_path.asString());
 			/* 리눅스용
 			r.eval("system(\"sudo chmod 777 -R /tmp\")");
-			*/
+			 */
 			String realPath = session.getServletContext().getRealPath("/rview");
 			System.out.println(realPath);
 			FileInputStream fis = null;

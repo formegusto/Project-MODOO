@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.crawler.biz.data.DataVO;
+import com.crawler.biz.data.LengthVO;
 
 @Repository
 public class DataDAOMybatis {
@@ -77,20 +78,20 @@ public class DataDAOMybatis {
 	}
 	
 	// DATA 조건 삭제(문자열 길이)
-	public void deleteDataLength(Integer length, String condition) {
+	public void deleteDataLength(LengthVO vo, String condition) {
 		System.out.println("===> Mybatis로 deleteDataLength() 삭제 기능 처리");
 		if(condition.equals("lt")) {
-			mybatis.delete("DataDAO.deleteDataLengthLt", length);
+			mybatis.delete("DataDAO.deleteDataLengthLt", vo);
 		} else if(condition.equals("le")) {
-			mybatis.delete("DataDAO.deleteDataLengthLe", length);
+			mybatis.delete("DataDAO.deleteDataLengthLe", vo);
 		} else if(condition.equals("gt")) {
-			mybatis.delete("DataDAO.deleteDataLengthGt", length);
+			mybatis.delete("DataDAO.deleteDataLengthGt", vo);
 		} else if(condition.equals("ge")) {
-			mybatis.delete("DataDAO.deleteDataLengthGe", length);
+			mybatis.delete("DataDAO.deleteDataLengthGe", vo);
 		} else if(condition.equals("eq")) {
-			mybatis.delete("DataDAO.deleteDataLengthEq", length);
+			mybatis.delete("DataDAO.deleteDataLengthEq", vo);
 		} else if(condition.equals("ne")) {
-			mybatis.delete("DataDAO.deleteDataLengthNe", length);
+			mybatis.delete("DataDAO.deleteDataLengthNe", vo);
 		}
 	}
 	

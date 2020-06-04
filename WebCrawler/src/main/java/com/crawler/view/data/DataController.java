@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crawler.biz.data.DataVO;
+import com.crawler.biz.data.LengthVO;
 import com.crawler.biz.data.impl.DataService;
 import com.crawler.biz.info.InfoVO;
 
@@ -21,16 +22,15 @@ public class DataController {
 	DataService dataService;
 	
 	@RequestMapping(value="/conditionDel.do")
-	public String conditionDel(InfoVO ivo, Model model, DataVO dvo, HttpSession session,
+	public String conditionDel(InfoVO ivo, LengthVO vo,Model model, DataVO dvo, HttpSession session,
 			@RequestParam String conditionKind,
-			@RequestParam String condition,
-			@RequestParam String length) {
+			@RequestParam String condition) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		
 		if(conditionKind.equals("length")) {
 			System.out.println("[문자열 길이로 데이터 삭제]");
-			dataService.deleteDataLength(Integer.parseInt(length),condition);
+			dataService.deleteDataLength(vo,condition);
 		}
 		
 		return "getInfo.do";

@@ -256,6 +256,7 @@
 						      </select>
 						    </div>
 						    <div class="col-auto">
+						    	<input type="hidden" value="${info.seq }" name="pdseq"/>
 						      <button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='conditionDel.do'; form.submit()">Delete</button>
 						    </div>
 						</div>

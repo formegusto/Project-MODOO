@@ -18,6 +18,7 @@
 		<typeAlias type="com.crawler.biz.tm.TmVO" alias="tm"></typeAlias>
 		<typeAlias type="com.crawler.biz.tm.TmHaveInfoVO" alias="thi"></typeAlias>
 		<typeAlias type="com.crawler.biz.board.CommentVO" alias="comment"></typeAlias>
+		<typeAlias type="com.crawler.biz.data.LengthVO" alias="cdlength"></typeAlias>
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->

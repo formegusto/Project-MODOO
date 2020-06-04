@@ -66,7 +66,7 @@ public class DataServiceImpl implements DataService {
 		dataDAO.deleteData(vo);
 	}
 	@Override
-	public void deleteDataLength(Integer length,String condition) {
-		dataDAO.deleteDataLength(length,condition);	
+	public void deleteDataLength(LengthVO vo,String condition) {
+		dataDAO.deleteDataLength(vo,condition);	
 	}
 }
