@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.crawler.biz.data.ContainVO;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.LengthVO;
 
@@ -76,7 +77,11 @@ public class DataDAOMybatis {
 		System.out.println("===> Mybatis로 deleteDataSeq() 삭제 기능 처리");
 		mybatis.delete("DataDAO.deleteDataSeq", vo);
 	}
-	
+	// DATA 조건 삭제(문자열 포함)
+	public void deleteDataContain(ContainVO vo) {
+		System.out.println("===> Mybatis로 deleteDataContain() 삭제 기능 처리");
+		mybatis.delete("DataDAO.deleteDataContain", vo);
+	}
 	// DATA 조건 삭제(문자열 길이)
 	public void deleteDataLength(LengthVO vo, String condition) {
 		System.out.println("===> Mybatis로 deleteDataLength() 삭제 기능 처리");

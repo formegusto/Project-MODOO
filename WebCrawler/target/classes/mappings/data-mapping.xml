@@ -40,6 +40,13 @@
 			WHERE DSEQ=#{dseq}
 		]]>
 	</delete>
+	<delete id="deleteDataContain">
+		<![CDATA[
+			DELETE FROM DATA
+			WHERE INUM=#{pdseq} AND
+			DATA LIKE CONCAT('%',#{containWord},'%')
+		]]>
+	</delete>
 	<delete id="deleteDataLengthLt" parameterType="cdlength">
 		<![CDATA[
 			DELETE FROM DATA

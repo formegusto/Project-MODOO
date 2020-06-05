@@ -2,6 +2,7 @@ package com.crawler.biz.data.impl;
 
 import java.util.List;
 
+import com.crawler.biz.data.ContainVO;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.LengthVO;
 
@@ -31,6 +32,8 @@ public interface DataService {
 	public void deleteDataSeq(DataVO vo);
 	// DATA 전체 삭제
 	public void deleteData(DataVO vo);
+	// DATA 조건 삭제(문자열 포함)
+	public void deleteDataContain(ContainVO vo);
 	// DATA 조건 삭제(문자열 길이)
 	public void deleteDataLength(LengthVO vo, String condition);
 }

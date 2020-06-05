@@ -3,6 +3,7 @@ package com.crawler.view.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.crawler.biz.data.ContainVO;
 import com.crawler.biz.data.DataVO;
 import com.crawler.biz.data.LengthVO;
 import com.crawler.biz.data.impl.DataService;
@@ -22,15 +24,20 @@ public class DataController {
 	DataService dataService;
 	
 	@RequestMapping(value="/conditionDel.do")
-	public String conditionDel(InfoVO ivo, LengthVO vo,Model model, DataVO dvo, HttpSession session,
-			@RequestParam String conditionKind,
-			@RequestParam String condition) {
+	public String conditionDel(InfoVO ivo, LengthVO lvo,
+			ContainVO cvo, Model model, DataVO dvo, HttpSession session, HttpServletRequest request,
+			@RequestParam String conditionKind) {
 		if(session.getAttribute("user") == null)
 			return "topHead.jsp";
 		
 		if(conditionKind.equals("length")) {
 			System.out.println("[문자열 길이로 데이터 삭제]");
-			dataService.deleteDataLength(vo,condition);
+			String condition = request.getParameter("condition");
+			dataService.deleteDataLength(lvo,condition);
+		}
+		if(conditionKind.equals("contain")) {
+			System.out.println("[문자열 포함으로 데이터 삭제] " + cvo.toString());
+			dataService.deleteDataContain(cvo);
 		}
 		
 		return "getInfo.do";

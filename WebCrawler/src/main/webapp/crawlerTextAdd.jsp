@@ -8,13 +8,17 @@
 <title>Crawler Add Page</title>
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="resources/css/loading.css">
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+<link href="resources/bootstrap/css/bootstrap.min.css?update" rel="stylesheet"></link>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).on("click","#crawling",function(){
 		$('#loading').show();
 		$('#loading-image').show();
+	});
+	$(function(){
+		$('[data-toggle="tooltip"]').tooltip()
 	});
 </script>
 </head>
@@ -58,7 +62,8 @@
   </div>
   <div class="form-group">
     <label for="inputLink">Link</label>
-    <input type="text" name="link" class="form-control" id="inputLink" placeholder="Input Crawling Target URL">
+    <input type="text" name="link" class="form-control" id="inputLink" placeholder="Input Crawling Target URL"
+    	data-toggle="tooltip" data-placement="top" data-html="true" title="수집데이터가 있는 페이지 링크를 넣어주세요.">
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -67,7 +72,8 @@
     </div>
     <div class="form-group col-md-6">
       <label for="inputCssQuery">CssQuery</label>
-      <input type="text" name="cssQuery" class="form-control" id="inputCssQuery" placeholder="Input CssQuery">
+      <input type="text" name="cssQuery" class="form-control" id="inputCssQuery" placeholder="Input CssQuery"
+      	data-toggle="tooltip" data-placement="top" data-html="true" title="<img src='images/cssQueryExam.JPG'/><br/>수집하고자 하는 데이터의 CSSQuery를 크롬 개발자 모드(Ctrl+Shift+C)를 통해 확인 후 넣어주세요.">
     </div>
   </div>
 </div>

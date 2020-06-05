@@ -102,6 +102,46 @@
 		    $("#conditionDelFrame").hide();
 		}
 	}
+	function changeCond(){
+		basicHtml = '<select name="conditionKind" id="conditionKind" class="form-control" onchange="changeCond()">'
+        	+ '<option value="basic" selected>Kind Of Condition</option>'
+        	+ '<option value="length">String Length</option>'
+        	+ '<option value="contain">String Contain</option>'
+      		+ '</select>'
+		conditionType = $('#conditionKind option:selected').val();
+      	
+      	if( conditionType == 'basic' ){
+      		$('#conditionForm').html(basicHtml)
+      	}
+		if( conditionType == 'length' ) {
+			$('#conditionForm').html('<select name="conditionKind" id="conditionKind" class="form-control" onchange="changeCond()">'
+		        + '<option value="basic">Kind Of Condition</option>'
+		        + '<option value="length" selected>String Length</option>'
+		        + '<option value="contain">String Contain</option>'
+		      	+ '</select>'
+				+ '<input type="text" class="form-control" name="length">'
+		        + '<select name="condition" id="inputState" class="form-control">'
+		        + '<option selected>Condition Sel</option>'
+		        + '<option value="lt">&lt</option>'
+		        + '<option value="le">&lt=</option>'
+		        + '<option value="gt">&gt</option>'
+		        + '<option value="ge">&gt=</option>'
+		        + '<option value="eq">==</option>'
+		        + '<option value="ne">!=</option>'
+		        + '</select>'
+		        + '<button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action=\'conditionDel.do\'; form.submit()">Delete</button>')
+		}
+		if( conditionType == 'contain') {
+			$('#conditionForm').html('<select name="conditionKind" id="conditionKind" class="form-control" onchange="changeCond()">'
+			        + '<option value="basic">Kind Of Condition</option>'
+			        + '<option value="length">String Length</option>'
+			        + '<option value="contain" selected>String Contain</option>'
+			      	+ '</select>'
+				    + '<input type="text" class="form-control" name="containWord"/>'
+				    + '<button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action=\'conditionDel.do\'; form.submit()">Delete</button>')
+		}
+		
+	}
 </script>
 <title>Crawler SELECT Page</title>
 </head>
@@ -110,6 +150,7 @@
 <div id="loading">
 	<img id="loading-image" src="images/viewLoading.gif" alt="Loading..."/>
 </div>
+
 
 <!-- Navbar : Login, 알람 정보 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -131,6 +172,7 @@
 
 <!-- getInfoDesign -->
 <form method="post" name="form">
+<input type="hidden" value="${info.seq }" name="pdseq"/>
 <input type="hidden" value="" name="dseqChangeList"/>
 <input type="hidden" value="" name="updateDseqList"/>
 <div class="container" style="margin-top: 15px;">
@@ -235,30 +277,13 @@
 				    <tr id="conditionDelFrame" style="display: none">
 				    	<td>
 				    	<div class="form-row align-items-center">
-						    <div class="col-auto">
-						      <select name="conditionKind" id="inputState" class="form-control">
-						        <option selected>Kind Of Condition</option>
+				    		<div class="input-group mb-3" id="conditionForm">
+						      <select name="conditionKind" id="conditionKind" class="form-control" onchange="changeCond()">
+						        <option value="basic" selected>Kind Of Condition</option>
 						        <option value="length">String Length</option>
+						        <option value="contain">String Contain</option>
 						      </select>
-						    </div>
-						    <div class="col-auto">
-						      <input type="text" class="form-control" name="length">
-						    </div>
-						    <div class="col-auto">
-						      <select name="condition" id="inputState" class="form-control">
-						        <option selected>Condition Sel</option>
-						        <option value="lt">&lt</option>
-						        <option value="le">&lt=</option>
-						        <option value="gt">&gt</option>
-						        <option value="ge">&gt=</option>
-						        <option value="eq">==</option>
-						        <option value="ne">!=</option>
-						      </select>
-						    </div>
-						    <div class="col-auto">
-						    	<input type="hidden" value="${info.seq }" name="pdseq"/>
-						      <button class="btn btn-outline-secondary" type="button" onclick="javascript: form.action='conditionDel.do'; form.submit()">Delete</button>
-						    </div>
+							</div>
 						</div>
 						</td>
 				    </tr>
