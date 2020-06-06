@@ -47,7 +47,7 @@
 			<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 			<c:forEach items="${infoList }" var="info">
 			<input type="hidden" name="ogField" value="${info.field }"/>
-			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.field }" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
+			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.seq }0" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
 			</c:forEach>
 			</div>
 			</nav>
@@ -57,7 +57,7 @@
 			<td colspan="2">
 			<div class="tab-content" id="nav-tabContent">
 			<c:forEach items="${infoList }" var="info">
-			<div class="tab-pane fade" id="nav-${info.field }" role="tabpanel" aria-labelledby="nav-home-tab">
+			<div class="tab-pane fade" id="nav-${info.seq }0" role="tabpanel" aria-labelledby="nav-home-tab">
 			     <div style="margin:auto;">
 				  <div class="form-group">
 					<label for="inputTitle">Title</label>
@@ -105,7 +105,7 @@
 			<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 			<!-- infoList -->
 			<c:forEach items="${infoList }" var="info">
-			<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-${info.field }0" role="tab" aria-controls="nav-test" aria-selected="false">${info.field }</a>
+			<a class="nav-item nav-link" id="nav-${info.seq }-tab" data-toggle="tab" href="#nav-${info.seq }" role="tab" aria-controls="nav-${info.seq }" aria-selected="false">${info.field }</a>
 			</c:forEach>
 			</div>
 			</nav>
@@ -118,7 +118,7 @@
 				for(InfoVO info : infoList){
 					List<DataVO> dataList = dataMap.get(info.getField());
 			%>
-			<div class="tab-pane fade" id="nav-<%=info.getField() %>0" role="tabpanel" aria-labelledby="nav-home-tab">
+			<div class="tab-pane fade" id="nav-<%=info.getSeq() %>" role="tabpanel" aria-labelledby="nav-<%=info.getSeq() %>-tab">
 			     <table class="table">
 				  <tbody>
 				  <%for(DataVO data : dataList){ %>

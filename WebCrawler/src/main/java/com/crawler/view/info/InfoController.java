@@ -83,14 +83,17 @@ public class InfoController {
 
 		// 2. infoList 구성
 		List<InfoVO> infoList = new ArrayList<InfoVO>();
+		int filedCnt = 0;
 		for(String field : fieldList) {
 			InfoVO info = new InfoVO();
+			info.setSeq(filedCnt);
 			info.setField(field);
 			info.setCssQuery("user:clipboard");
 			info.setItype("user:clipboard");
 			info.setLink("user:clipboard");
 			
 			infoList.add(info);
+			filedCnt++;
 		}
 		
 		// 3. 세션에 값 저장
@@ -239,11 +242,14 @@ public class InfoController {
 		Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
 		
 		String[] fieldList = datas.get(0);
+		int filedCnt = 0;
 		for(String field : fieldList) {
 			InfoVO info = new InfoVO();
+			info.setSeq(filedCnt);
 			info.setTitle(csvName + " (" + field + ")");
 			info.setField(field);
 			infoList.add(info);
+			filedCnt++;
 		}
 		
 		datas.remove(0);
