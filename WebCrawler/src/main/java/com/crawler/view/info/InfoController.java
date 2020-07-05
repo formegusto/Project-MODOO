@@ -229,6 +229,7 @@ public class InfoController {
 				System.out.println();
 			}
 			*/
+			csvReader.close();
 		} catch (IOException e) {
 			System.out.println("CSV Error");
 			e.printStackTrace();
