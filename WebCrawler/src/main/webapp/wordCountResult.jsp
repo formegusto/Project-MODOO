@@ -85,8 +85,8 @@
 			</div>
 		    </c:forEach>
 		    <div class="tab-pane active" id="nav-view" role="tabpanel" aria-labelledby="nav-home-tab">
-			     <div style="margin:auto;">
-			     <jsp:include page="/rview/test.html"/> <!-- 에러는 뜨지만 잘 작동한다 하하 -->
+			     <div style="display: flex; justify-content: center;">
+			     	<jsp:include page="/rview/test.html"/> <!-- 에러는 뜨지만 잘 작동한다 하하 -->
 				 </div>
 			</div>
 		    </div>
