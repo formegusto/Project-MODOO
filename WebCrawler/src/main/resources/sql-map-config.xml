@@ -5,34 +5,11 @@
 <configuration>
 	<!-- Alias 설정 -->
 	<typeAliases>
-		<typeAlias type="com.crawler.biz.info.InfoVO" alias="info"></typeAlias>
-		<typeAlias type="com.crawler.biz.data.DataVO" alias="data"></typeAlias>
-		<typeAlias type="com.crawler.biz.user.UserVO" alias="user"></typeAlias>
-		<typeAlias type="com.crawler.biz.board.BoardVO" alias="board"></typeAlias>
-		<typeAlias type="com.crawler.biz.room.RoomVO" alias="room"></typeAlias>
-		<typeAlias type="com.crawler.biz.chat.ChatVO" alias="chat"></typeAlias>
-		<typeAlias type="com.crawler.biz.visual.VisualVO" alias="visual"></typeAlias>
-		<typeAlias type="com.crawler.biz.visual.VisualHaveInfoVO" alias="vhi"></typeAlias>
-		<typeAlias type="com.crawler.biz.info.FrameVO" alias="frame"></typeAlias>
-		<typeAlias type="com.crawler.biz.info.FrameHaveInfoVO" alias="fhi"></typeAlias>
-		<typeAlias type="com.crawler.biz.tm.TmVO" alias="tm"></typeAlias>
-		<typeAlias type="com.crawler.biz.tm.TmHaveInfoVO" alias="thi"></typeAlias>
-		<typeAlias type="com.crawler.biz.board.CommentVO" alias="comment"></typeAlias>
-		<typeAlias type="com.crawler.biz.data.LengthVO" alias="cdlength"></typeAlias>
-		<typeAlias type="com.crawler.biz.data.ContainVO" alias="cdcontain"></typeAlias>
+		<typeAlias type="com.modoo.wrk.users.UsersVO" alias="users"></typeAlias>
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
 	<mappers>
-		<mapper resource="mappings/info-mapping.xml" />
-		<mapper resource="mappings/data-mapping.xml" />
 		<mapper resource="mappings/users-mapping.xml" />
-		<mapper resource="mappings/board-mapping.xml" />
-		<mapper resource="mappings/room-mapping.xml"/>
-		<mapper resource="mappings/chat-mapping.xml"/>
-		<mapper resource="mappings/visual-mapping.xml"/>
-		<mapper resource="mappings/frame-mapping.xml" />
-		<mapper resource="mappings/tm-mapping.xml"/>
-		<mapper resource="mappings/comment-mapping.xml"/>
 	</mappers>
 </configuration>

@@ -1,0 +1,89 @@
+html {
+	height: 100%;
+	display: flex;
+}
+
+body {
+	width: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items : center;
+	animation: fadeIn 1.5s;
+}
+
+header {
+	z-index: 100;
+	background: black;
+	position: fixed;
+	width: 100%;
+	color: white;
+	height: 100px;
+	top: 0;
+	margin: 0;
+	animation: aniHeader 1s;
+}
+
+section {
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.contents {
+	display: flex;
+	justify-content: center;
+	flex-flow: wrap;
+	margin-top: 6.5rem;
+	width: 100%;
+	margin-left: 10%;
+	margin-right: 10%;
+	padding: .5rem;
+}
+
+.contentCard {
+	border: 1px solid white;
+	background: black;
+	color: white;
+	border-radius: 1rem;
+	width: 40%;
+	height: 40%;
+	margin: .5rem;
+	cursor: pointer;
+	padding: .5rem;
+	box-shadow: .1rem .05rem .05rem 0 black; 
+}
+
+.contentCard:hover {
+	transform: translateY(-5px);
+	box-shadow: .5rem .25rem .25rem 0 gray; 
+	transition: .3s;
+}
+
+.contentCard p {
+	overflow: hidden;
+	width: 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* animation keyframe */
+@keyframes fadeIn {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+@keyframes aniHeader {
+	from {
+		height: 50px;
+	}
+	to {
+		heigth: 100px;
+	}
+}
+
