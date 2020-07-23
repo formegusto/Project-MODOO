@@ -5,37 +5,24 @@
 <mapper namespace="InfoDAO">
 	<insert id="insertInfo">
 	<![CDATA[
-		insert into INFO(seq,title,link,content,field,cssquery,id,itype)
-		values((SELECT ifnull(max(seq), 0) + 1 FROM INFO a),#{title},#{link},#{content},#{field},#{cssQuery},#{id},#{itype})
+		insert into INFO(iseq,title,link,content,field,cssquery,itype,id)
+		values((SELECT ifnull(max(iseq), 0) + 1 FROM INFO a),
+			#{title},#{link},#{content},#{field},#{cssQuery},#{itype},#{id})
 	]]>
 	</insert>
-	<select id="getInfo" resultType="info">
-		<![CDATA[
-			SELECT *
-			FROM INFO
-			WHERE SEQ=#{seq}
-		]]>
-	</select>
 	<select id="getInfoList" resultType="info">
 		<![CDATA[
 			SELECT *
 			FROM INFO
 			WHERE ID=#{id}
-			ORDER BY SEQ DESC
+			ORDER BY ISEQ DESC
 		]]>
 	</select>
-	<delete id="deleteInfo">
-	<![CDATA[
-		DELETE FROM INFO
-		WHERE SEQ=#{seq}
-	]]>
-	</delete>
-	<select id="getInfoTop" resultType="info">
-	<![CDATA[
-		SELECT *
-		FROM INFO
-		WHERE ID=#{id}
-		ORDER BY SEQ DESC LIMIT 1
-	]]>
+	<select id="getInfo" resultType="info">
+		<![CDATA[
+			SELECT *
+			FROM INFO
+			WHERE ISEQ=#{iseq}
+		]]>
 	</select>
 </mapper>

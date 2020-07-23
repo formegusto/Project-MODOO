@@ -23,7 +23,7 @@ public class UsersController {
 			return "redirect:account.jsp";
 		} else {
 			session.setAttribute("user", user);
-			return "redirect:service.jsp";
+			return "redirect:infoService.do";
 		}
 	}
 	
@@ -32,6 +32,6 @@ public class UsersController {
 	public String signup(UsersVO vo, HttpSession session) {
 		System.out.println("[UsersController] Signup THX :)");
 		usersService.signupUser(vo);
-		return "redirect:service.jsp";
+		return "redirect:infoService.do";
 	}
 }

@@ -4,13 +4,17 @@
 
 <mapper namespace="UsersDAO">
 	<insert id="signupUser">
+	<![CDATA[
 		insert into USERS(id,password,nickname,email)
 		values(#{id},#{password},#{nickname},#{email})
+	]]>
 	</insert>
 	<select id="signinUser" resultType="users">
+	<![CDATA[
 		SELECT *
 		FROM USERS
 		WHERE ID=#{id} 
 		AND PASSWORD=#{password}
+	]]>
 	</select>
 </mapper>

@@ -5,118 +5,24 @@
 <mapper namespace="DataDAO">
 	<insert id="insertData">
 		<![CDATA[
-			insert into DATA(dseq,inum,data)
-			values((SELECT ifnull(max(dseq), 0) + 1 FROM DATA b),(SELECT ifnull(max(seq), 0) + 0 FROM INFO a),#{data });
+			insert into DATA(dseq,iseq,data)
+			values((SELECT ifnull(max(dseq), 0) + 1 FROM DATA b),(SELECT ifnull(max(iseq), 0) + 0 FROM INFO a),#{data });
 		]]>
 	</insert>
-	<insert id="insertDataAll">
-		<![CDATA[
-			insert into DATA(dseq,inum,data)
-			values(#{dseq },#{inum },#{data });
-		]]>
-	</insert>
-	<insert id="insertDataInum">
-		<![CDATA[
-			insert into DATA(dseq,inum,data)
-			values((SELECT ifnull(max(dseq), 0) + 1 FROM DATA b),#{inum },#{data });
-		]]>
-	</insert>
-	<update id="updateData">
-	<![CDATA[
-			UPDATE DATA
-			SET DATA=#{data }
-			WHERE DSEQ=#{dseq }
-	]]>
-	</update>
-	<delete id="deleteData">
-		<![CDATA[
-			DELETE FROM DATA
-			WHERE INUM=#{inum}
-		]]>
-	</delete>
-	<delete id="deleteDataSeq">
-		<![CDATA[
-			DELETE FROM DATA
-			WHERE DSEQ=#{dseq}
-		]]>
-	</delete>
-	<delete id="deleteDataContain">
-		<![CDATA[
-			DELETE FROM DATA
-			WHERE INUM=#{pdseq} AND
-			DATA LIKE CONCAT('%',#{containWord},'%')
-		]]>
-	</delete>
-	<delete id="deleteDataLengthLt" parameterType="cdlength">
-		<![CDATA[
-			DELETE FROM DATA
-			WHERE INUM=#{pdseq}
-			AND CHAR_LENGTH(data)<#{length}
-		]]>
-	</delete>
-	<delete id="deleteDataLengthLe" parameterType="cdlength">
-		<![CDATA[
-			DELETE FROM DATA
-			WHERE INUM=#{pdseq} 
-			AND CHAR_LENGTH(data)<=#{length}
-		]]>
-	</delete>
-	<delete id="deleteDataLengthGt" parameterType="cdlength">
-		<![CDATA[
-			DELETE FROM DATA
-			WHERE INUM=#{pdseq} 
-			AND CHAR_LENGTH(data)>#{length}
-		]]>
-	</delete>
-	<delete id="deleteDataLengthGe" parameterType="cdlength">
-		<![CDATA[
-			DELETE FROM DATA
-			WHERE INUM=#{pdseq}
-			AND CHAR_LENGTH(data)>=#{length}
-		]]>
-	</delete>
-	<delete id="deleteDataLengthEq" parameterType="cdlength">
-		<![CDATA[
-			DELETE FROM DATA
-			WHERE INUM=#{pdseq}
-			AND CHAR_LENGTH(data)=#{length}
-		]]>
-	</delete>
-	<delete id="deleteDataLengthNe" parameterType="cdlength">
-		<![CDATA[
-			DELETE FROM DATA
-			WHERE INUM=#{pdseq}
-			AND CHAR_LENGTH(data)!=#{length}
-		]]>
-	</delete>
 	<select id="getData" resultType="data">
 		<![CDATA[
 			SELECT *
 			FROM DATA
-			WHERE INUM=#{inum}
+			WHERE ISEQ=#{iseq}
 			ORDER BY DSEQ ASC
 		]]>
 	</select>
-	<select id="getDataDseq" resultType="data">
-		<![CDATA[
-			SELECT *
-			FROM DATA
-			WHERE DSEQ=#{dseq}
-		]]>
-	</select>
-	<select id="getDataList" resultType="data">
-		<![CDATA[
-			SELECT *
-			FROM DATA
-			ORDER BY dseq DESC
-		]]>
-	</select>
-	<select id="getDataStr" resultType="string">
+	<select id="getDataRand" resultType="String">
 		<![CDATA[
 			SELECT data
 			FROM DATA
-			WHERE INUM=#{inum}
-			ORDER BY dseq DESC
+			WHERE ISEQ=#{iseq}
+			ORDER BY RAND() LIMIT 3
 		]]>
 	</select>
 </mapper>
