@@ -20,8 +20,8 @@ function cv_handleHover(item, dimension, evt) {
   el.removeAttribute('hidden');
   // console.log(evt.srcElement.offsetLeft);
 
-  el.style.left = evt.pageX + 'px';
-  el.style.top = evt.pageY + 'px';
+  el.style.left = dimension.x + evt.srcElement.offsetLeft + 'px';
+  el.style.top = dimension.y + evt.srcElement.offsetTop + 'px';
   el.style.width = dimension.w + 'px';
   el.style.height = dimension.h + 'px';
 

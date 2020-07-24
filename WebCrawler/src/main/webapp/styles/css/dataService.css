@@ -69,6 +69,19 @@ thead td {
 	color: white;
 	border-radius: 1rem;
 	padding: 1.5rem;
+	text-align: center;
+}
+
+thead .dataItem {
+	flex: 3;
+}
+
+thead .blindOption {
+	flex: 1;
+}
+
+tr {
+	display: flex;
 }
 
 tbody td {
@@ -88,6 +101,34 @@ tbody td:hover {
 	z-index: 1;
 	transform: translateY(-5px) translateX(5px);
 	transition: .3s;
+}
+
+tbody .dataItem {
+	flex: 3;
+}
+
+tbody .blindOption {
+	flex: 1;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	cursor: default;
+}
+
+.blindOption div {
+	flex: 1;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 2rem;
+	cursor: pointer;
+}
+
+.blindOption div:hover {
+	transform: translateY(-5px);
+	box-shadow: .3rem .175rem .175rem 0 black; 
+	background: #808e9b;
+	color: white;
+	transition: .5s;
 }
 
 .dataTooltip {

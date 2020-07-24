@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataService.css?d"></link>
+<link rel="stylesheet" href="styles/css/dataService.css?e"></link>
 <script type="text/javascript" src="styles/js/dataService.js?ferf"></script>
 <title>MODOO</title>
 </head>
@@ -16,18 +16,25 @@
 		<table id="dataTable">
 			<thead>
 				<tr>
-					<td>
+					<td class="dataItem">
 						${info.field }
+					</td>
+					<td class="blindOption">
+						Tools
 					</td>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${dataList }" var="datavo">
 					<tr>
-						<td onclick="allDataContent(this)">
+						<td onclick="allDataContent(this)" class="dataItem">
 							${datavo.data }
 						</td>
-						
+						<td class="blindOption">
+								<div>C</div>
+								<div>U</div>
+								<div>D</div>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

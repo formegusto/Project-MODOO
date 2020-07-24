@@ -25,7 +25,6 @@ header {
 	height: 100px;
 	top: 0;
 	margin: 0;
-	animation: aniHeader 1s;
 	display: flex;
 	align-items: center;
 }
@@ -36,18 +35,12 @@ header h1 {
 	overflow: hidden;
 	animation: fadeIn 1.5s;
 	margin-left: 1rem;
-	margin-right: 1rem;
 	cursor: pointer;
 }
 
 header h1:hover {
 	transform: translateY(7px) translateX(7px);
 	transition: .5s;
-}
-
-header h2 {
-	flex: 2;
-	font-family: 'Jua', sans-serif;
 }
 
 section {
@@ -79,13 +72,19 @@ section {
 	cursor: pointer;
 	padding: 1.25rem;
 	box-shadow: .3rem .175rem .175rem 0 black; 
+	position: relative;
 }
 
 .contentCard:hover {
-	opacity: .5;
+	background: white;
 	transform: translateY(-5px);
 	box-shadow: .5rem .25rem .25rem 0 gray; 
 	transition: .3s;
+}
+
+.contentCard:hover .checkBlind {
+	opacity: 1;
+	transition: .75s;
 }
 
 .contentCard h1 {
@@ -106,13 +105,26 @@ section {
 	white-space: nowrap;
 }
 
+.checkBlind {
+	opacity: 0;
+	color: black;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	font-size: 2rem;
+	font-family: 'Do Hyeon', sans-serif;
+}
+
 .sideContent {
-	width:15%;
+	width:10%;
 	border: 1px white solid;
 	border-radius: 1rem;
 	position: sticky;
 	top: 20%;
-	height: 20%;
+	height: 10%;
 	background: black;
 	color: white;
 	display: flex;
@@ -144,6 +156,26 @@ section {
 	background: white;
 	color: black;
 }
+
+.loading {
+	display: none;
+}
+
+.loading.active {
+	display: flex;
+	animation: fadeIn 1s forwards;
+	position: fixed;
+	background: black;
+	font-size: 10rem;
+	font-family: 'Do Hyeon', sans-serif;
+	color: white;
+	width: 100%;
+	height: 100%;
+	z-index: 250;
+	align-items: center;
+	justify-content: center;
+}
+
 
 /* animation keyframe */
 @keyframes fadeIn {

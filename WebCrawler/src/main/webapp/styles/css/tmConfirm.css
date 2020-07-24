@@ -25,7 +25,6 @@ header {
 	height: 100px;
 	top: 0;
 	margin: 0;
-	animation: aniHeader 1s;
 	display: flex;
 	align-items: center;
 }
@@ -36,7 +35,6 @@ header h1 {
 	overflow: hidden;
 	animation: fadeIn 1.5s;
 	margin-left: 1rem;
-	margin-right: 1rem;
 	cursor: pointer;
 }
 
@@ -45,74 +43,47 @@ header h1:hover {
 	transition: .5s;
 }
 
-header h2 {
-	flex: 2;
-	font-family: 'Jua', sans-serif;
-}
-
 section {
 	z-index: 1;
 	width: 100%;
-	height: 100%;
 	display: flex;
 	justify-content: center;
 }
 
 .contents {
 	display: flex;
-	justify-content: flex-end;
-	flex-flow: wrap;
-	width: 45%;
-	margin-top: 6.5rem;
-	padding: .5rem;
+	flex-direction: column;
+	margin-top: 7.5rem;
+	margin-right: 1rem;
 }
 
-.contentCard {
-	flex: 1;
-	border: 1px solid white;
+.contentsNav {
 	background: black;
-	color: white;
-	border-radius: 1rem;
-	width: 40%;
-	height: 30%;
-	margin: .6rem;
-	cursor: pointer;
-	padding: 1.25rem;
-	box-shadow: .3rem .175rem .175rem 0 black; 
-}
-
-.contentCard:hover {
-	opacity: .5;
-	transform: translateY(-5px);
-	box-shadow: .5rem .25rem .25rem 0 gray; 
-	transition: .3s;
-}
-
-.contentCard h1 {
-	overflow: hidden;
-	font-family: 'Jua', sans-serif;
-	width: 100%;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.contentCard p {
-	font-size: 1.25rem;
+	font-size: 5rem;
 	font-family: 'Do Hyeon', sans-serif;
-	margin-bottom: 2rem;
-	overflow: hidden;
-	width: 100%;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	text-align: center;
+	color: white;
+	border: 2px solid black;
+	border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem;
+	box-shadow: .5rem .5rem .5rem 0 gray; 
+	animation: navDance 1s infinite alternate;
+}
+
+.contentsItem {
+	padding: 3rem;
+	border: 2px solid black;
+	border-radius: 1rem;
+	box-shadow: .5rem .5rem .5rem 0 black; 
 }
 
 .sideContent {
-	width:15%;
+	width:10%;
 	border: 1px white solid;
 	border-radius: 1rem;
 	position: sticky;
 	top: 20%;
-	height: 20%;
+	height: 10%;
 	background: black;
 	color: white;
 	display: flex;
@@ -145,7 +116,36 @@ section {
 	color: black;
 }
 
+.loading {
+	display: none;
+}
+
+.loading.active {
+	display: flex;
+	animation: fadeIn 1s forwards;
+	position: fixed;
+	background: black;
+	font-size: 10rem;
+	font-family: 'Do Hyeon', sans-serif;
+	color: white;
+	width: 100%;
+	height: 100%;
+	z-index: 250;
+	align-items: center;
+	justify-content: center;
+}
+
+
 /* animation keyframe */
+@keyframes navDance{
+   from{
+		transform: translateY(1rem);
+   }
+   to{
+		transform: translateY(-1rem);
+   }
+}  
+
 @keyframes fadeIn {
 	from {
 		opacity:0;

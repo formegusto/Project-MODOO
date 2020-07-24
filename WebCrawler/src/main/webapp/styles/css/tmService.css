@@ -25,7 +25,6 @@ header {
 	height: 100px;
 	top: 0;
 	margin: 0;
-	animation: aniHeader 1s;
 	display: flex;
 	align-items: center;
 }
@@ -36,18 +35,12 @@ header h1 {
 	overflow: hidden;
 	animation: fadeIn 1.5s;
 	margin-left: 1rem;
-	margin-right: 1rem;
 	cursor: pointer;
 }
 
 header h1:hover {
 	transform: translateY(7px) translateX(7px);
 	transition: .5s;
-}
-
-header h2 {
-	flex: 2;
-	font-family: 'Jua', sans-serif;
 }
 
 section {
@@ -59,12 +52,17 @@ section {
 }
 
 .contents {
+	display: none;
+}
+
+.contents.active {
 	display: flex;
 	justify-content: flex-end;
 	flex-flow: wrap;
 	width: 45%;
 	margin-top: 6.5rem;
 	padding: .5rem;
+	animation: fadeIn 1.5s forwards;
 }
 
 .contentCard {

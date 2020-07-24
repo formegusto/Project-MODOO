@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.modoo.wrk.data.DataVO;
-import com.modoo.wrk.info.InfoVO;
 
 @Repository
 public class DataDAO {

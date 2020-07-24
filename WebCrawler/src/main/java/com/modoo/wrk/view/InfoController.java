@@ -2,6 +2,7 @@ package com.modoo.wrk.view;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +53,12 @@ public class InfoController {
 		return "redirect:infoService.do";
 	}
 	
-	@RequestMapping("/infoService.do")
-	public String infoService(HttpSession session,
+	@RequestMapping(value={"/infoService.do", "/infoServiceByTm.do"})
+	public String infoService(HttpSession session,HttpServletRequest req,
 			Model model) {
 		UsersVO user = (UsersVO) session.getAttribute("user");
+		String forwardPage = "";
+		String URI = req.getRequestURI();
 		
 		InfoVO vo = new InfoVO();
 		vo.setId(user.getId());
@@ -68,6 +71,12 @@ public class InfoController {
 		}
 		model.addAttribute("infoList", infoList);
 		
-		return "infoService.jsp";
+		if(URI.equals("/MODOO/infoService.do")) {
+			forwardPage = "infoService.jsp";
+		} else {
+			forwardPage = "tmMake.jsp";
+		}
+		
+		return forwardPage;
 	}
 }
