@@ -33,7 +33,7 @@
 		</c:forEach>
 	</div>
 	<div class="sideContent">
-		<div class="sideItem">CANCLE</div>
+		<div class="sideItem" onclick="location.href='tmService.do'">CANCLE</div>
 	</div>
 </section>
 </body>

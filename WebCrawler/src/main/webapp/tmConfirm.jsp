@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="styles/css/tmConfirm.css?2"></link>
+<link rel="stylesheet" href="styles/css/tmConfirm.css?4"></link>
 <script type="text/javascript" src="styles/js/tmConfirm.js?1"></script>
-<meta content="text/html; charset=UTF-8">
+<meta content="text/html; charset=EUC-KR">
 <title>MODOO</title>
 </head>
 <body>
@@ -13,14 +13,19 @@
 <section> 
 	<div class="contents">
 		<div class="contentsNav">
-			ìž˜ êµ¬ì›Œì§„ ì›Œë“œí´ë¼ìš°ë“œ ê²°ê³¼ë¬¼!
+			Àß ±¸¿öÁø ¿öµåÅ¬¶ó¿ìµå °á°ú¹°!
 		</div>
 		<div class="contentsItem">
 			<jsp:include page="/confirmRview/${viewSeq }.html"/>
+			<form name="tmform" method="post" action="tmAdd.do" >
+				<input type="hidden" name="iseq" value="${viewSeq }"/>
+				<input type="hidden" name="ttype" value="info:wordcloud"/>
+				<input type="text" name="title" placeholder="´ç½ÅÀÇ ¿öµåÅ¬¶ó¿ìµå¿¡ ÀÌ¸§À» Áö¾îÁÖ¼¼¿ä!"/>
+			</form>
 		</div>
 	</div>
 	<div class="sideContent">
-		<div class="sideItem">SAVE</div>
+		<div class="sideItem" onclick="document.tmform.submit()">SAVE</div>
 		<div class="sideItem" onclick="location.href='tmService.jsp'">CANCLE</div>
 	</div>
 </section>

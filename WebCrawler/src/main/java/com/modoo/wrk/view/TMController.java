@@ -5,9 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,12 +23,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.impl.DataService;
 import com.modoo.wrk.info.InfoVO;
+import com.modoo.wrk.tm.THIVO;
 import com.modoo.wrk.tm.TmVO;
+import com.modoo.wrk.tm.impl.TmService;
+import com.modoo.wrk.users.UsersVO;
 
 @Controller
 public class TMController {
 	@Autowired
 	private DataService dataService;
+	@Autowired
+	private TmService tmService;
+	
+	@RequestMapping("/tmService.do")
+	public String tmService(HttpSession session, Model model) {
+		TmVO tvo = new TmVO();
+		
+		tvo.setId(((UsersVO)session.getAttribute("user")).getId());
+		model.addAttribute("tmList", tmService.getTmList(tvo));
+		
+		return "tmService.jsp";
+	}
 	
 	// 일단 워드클라우드
 	@SuppressWarnings("resource")
@@ -152,5 +165,51 @@ public class TMController {
 		}
 			
 		return "tmConfirm.jsp";
+	}
+	
+	@RequestMapping("tmAdd.do")
+	public String tmAdd(TmVO tvo, THIVO thivo, HttpSession session) {
+		System.out.println(tvo);
+		System.out.println(thivo);
+		
+		tvo.setId(((UsersVO)session.getAttribute("user")).getId());
+		
+		tmService.insertTm(tvo);
+		
+		String realPath = session.getServletContext().getRealPath("/confirmRview");
+		String savePath = session.getServletContext().getRealPath("/userRview");
+		
+		FileInputStream fis = null;
+		FileOutputStream fos = null;
+		String fileName = null;
+		String fileNameTarget = null;
+		
+		// 복사할 confirmFile
+		fileName = "/" + thivo.getIseq() + ".html"; 
+		// 붙여넣기 할 realFile의 경로
+		fileNameTarget = "/" + tmService.getTmTop(tvo) + ".html";
+		
+		try {
+			fis = new FileInputStream(realPath + fileName);
+			fos = new FileOutputStream(savePath + fileNameTarget);
+			
+			byte[] buffer = new byte[1024];
+			int readcount = 0;
+			  
+			while((readcount=fis.read(buffer)) != -1) 
+				fos.write(buffer, 0, readcount);    // 파일 복사 
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// thi 삽입
+		tmService.insertTHI(thivo);
+		
+		return "redirect:tmService.do";
 	}
 }

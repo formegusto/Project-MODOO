@@ -57,8 +57,8 @@ section {
 
 .contents.active {
 	display: flex;
-	justify-content: flex-end;
-	flex-flow: wrap;
+	flex-direction: column;
+	align-items: center;
 	width: 45%;
 	margin-top: 6.5rem;
 	padding: .5rem;
@@ -71,19 +71,11 @@ section {
 	background: black;
 	color: white;
 	border-radius: 1rem;
-	width: 40%;
-	height: 30%;
+	width: 90%;
 	margin: .6rem;
 	cursor: pointer;
 	padding: 1.25rem;
 	box-shadow: .3rem .175rem .175rem 0 black; 
-}
-
-.contentCard:hover {
-	opacity: .5;
-	transform: translateY(-5px);
-	box-shadow: .5rem .25rem .25rem 0 gray; 
-	transition: .3s;
 }
 
 .contentCard h1 {
@@ -92,6 +84,7 @@ section {
 	width: 100%;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	padding-left: 1rem;
 }
 
 .contentCard p {
@@ -102,6 +95,31 @@ section {
 	width: 100%;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.contentCard.tm:hover {
+	opacity: .5;
+	transform: translateY(-5px);
+	box-shadow: .5rem .25rem .25rem 0 gray; 
+	transition: .3s;	
+}
+
+.contentItem {
+	display: flex;
+	padding: 3rem;
+	border: 2px solid black;
+	border-radius: 1rem;
+	box-shadow: .5rem .5rem .5rem 0 black; 
+}
+
+.contentItem canvas {
+	border-radius: 1rem;
+	padding: .5rem;
+	transition: border-radius .75s linear;
+}
+
+.contentItem canvas:hover {
+	border-radius: 20rem;
 }
 
 .sideContent {

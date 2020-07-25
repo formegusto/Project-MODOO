@@ -5,7 +5,7 @@ import java.sql.Date;
 public class TmVO {
 	private int tseq;
 	private String title;
-	private String ttpye;
+	private String ttype;
 	private String id;
 	private Date regDate;
 	
@@ -21,11 +21,11 @@ public class TmVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getTtpye() {
-		return ttpye;
+	public String getTtype() {
+		return ttype;
 	}
-	public void setTtpye(String ttpye) {
-		this.ttpye = ttpye;
+	public void setTtype(String ttype) {
+		this.ttype = ttype;
 	}
 	public String getId() {
 		return id;
@@ -42,7 +42,7 @@ public class TmVO {
 	
 	@Override
 	public String toString() {
-		return "TmVO [tseq=" + tseq + ", title=" + title + ", ttpye=" + ttpye + ", id=" + id + ", regDate=" + regDate
+		return "TmVO [tseq=" + tseq + ", title=" + title + ", ttype=" + ttype + ", id=" + id + ", regDate=" + regDate
 				+ "]";
 	}
 }

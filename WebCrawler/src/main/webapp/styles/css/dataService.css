@@ -51,6 +51,7 @@ section {
 }
 
 form {
+	margin-left: .5rem;
 	width: 40%;
 	margin-right: .5rem;
 }
@@ -172,6 +173,11 @@ tbody .blindOption {
 	background: white;
 	color: black;
 	transition: .5s;
+}
+
+.sideItem.active {
+	background: white;
+	color: black;
 }
 
 /* animation keyframe */

@@ -4,29 +4,38 @@
 
 <mapper namespace="TmDAO">
 	<insert id="insertTm">
-		insert into TM(tseq, title, content, id, ttype)
-		values ((SELECT ifnull(max(tseq), 0) + 1 FROM TM a),#{title },#{content },#{id }, #{ttype })
+		insert into TM(tseq, title, ttype, id)
+		values ((SELECT ifnull(max(tseq), 0) + 1 FROM TM a),#{title },#{ttype}, #{id})
 	</insert>
 	<insert id="insertTHI">
-		insert into TM_HAVE_INFO(thiseq,tnum,inum)
-		values ((SELECT ifnull(max(thiseq), 0) + 1 FROM TM_HAVE_INFO a),(SELECT ifnull(max(tseq), 0) + 0 FROM TM b), #{inum})
+		insert into TM_HAVE_INFO(thiseq,tseq,iseq)
+		values ((SELECT ifnull(max(thiseq), 0) + 1 FROM TM_HAVE_INFO a),(SELECT ifnull(max(tseq), 0) + 0 FROM TM b), #{iseq})
 	</insert>
-	<select id="getTHIList" resultType="thi">
-		SELECT *
-		FROM TM_HAVE_INFO
-		WHERE TNUM=#{tseq}
-		ORDER BY THISEQ ASC
-	</select>
-	<select id="getTm" resultType="tm">
-		SELECT *
-		FROM TM
-		WHERE TSEQ=#{tseq}
-	</select>
 	<select id="getTmList" resultType="tm">
 		SELECT * 
 		FROM TM
 		WHERE ID=#{id}
 		ORDER BY tseq DESC
+	</select>
+	<select id="getTmTop" resultType="int">
+		<![CDATA[
+			SELECT tseq
+			FROM TM
+			WHERE ID=#{id}
+			ORDER BY TSEQ DESC LIMIT 1
+		]]>
+	</select>
+	<!-- 
+	<select id="getTHIList" resultType="thi">
+		SELECT *
+		FROM TM_HAVE_INFO
+		WHERE TNUM=#{tseq}
+		ORDER BY THISEQ ASC
+	</select> 
+	<select id="getTm" resultType="tm">
+		SELECT *
+		FROM TM
+		WHERE TSEQ=#{tseq}
 	</select>
 	<select id="getTmTop" resultType="tm">
 	<![CDATA[
@@ -36,4 +45,5 @@
 		ORDER BY TSEQ DESC LIMIT 1
 	]]>
 	</select>
+	-->
 </mapper>

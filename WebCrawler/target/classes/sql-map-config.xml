@@ -8,6 +8,8 @@
 		<typeAlias type="com.modoo.wrk.users.UsersVO" alias="users"></typeAlias>
 		<typeAlias type="com.modoo.wrk.info.InfoVO" alias="info"></typeAlias>
 		<typeAlias type="com.modoo.wrk.data.DataVO" alias="data"></typeAlias>
+		<typeAlias type="com.modoo.wrk.tm.TmVO" alias="tm"></typeAlias>
+		<typeAlias type="com.modoo.wrk.tm.THIVO" alias="thi"></typeAlias>
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
@@ -15,5 +17,6 @@
 		<mapper resource="mappings/users-mapping.xml" />
 		<mapper resource="mappings/info-mapping.xml" />
 		<mapper resource="mappings/data-mapping.xml" />
+		<mapper resource="mappings/tm-mapping.xml" />
 	</mappers>
 </configuration>

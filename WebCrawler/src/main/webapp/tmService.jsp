@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/tmService.css?33"></link>
+<link rel="stylesheet" href="styles/css/tmService.css?2"></link>
 <script type="text/javascript" src="styles/js/tmService.js"></script>
 <title>MODOO</title>
 </head>
@@ -13,62 +14,36 @@
 <section> 
 	<div class="sideContent">
 		<div class="sideItem" onClick="location.href='infoService.do'">수집</div>
-		<div class="sideItem active" onClick="location.href='tmService.jsp'">텍스트마이닝 중!</div>
+		<div class="sideItem active" onClick="location.href='tmService.do'">텍스트마이닝 중!</div>
 		<div class="sideItem">시각화</div>
 	</div>
 	<div class="contents active" id="tmList">
+		<c:forEach items="${tmList }" var="tm">
 			<div class="contentCard">
-			<h1>TM Title</h1>
+			<h1>${tm.title }</h1>
 			<hr/>
-					<p>
-					이거 길게 안써서 나한테 그러는건가? 너무하다 ㅠㅠㅠㅠㅠ;
-					</p>
+				<div class="contentItem">
+					<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
+				</div>
 			</div>
-			<div class="contentCard">
-			<h1>TM Title</h1>
-			<hr/>
-					<p>
-					이거 길게 안써서 나한테 그러는건가? 너무하다 ㅠㅠㅠㅠㅠ;
-					</p>
-			</div>
-			<div class="contentCard">
-			<h1>TM Title</h1>
-			<hr/>
-					<p>
-					이거 길게 안써서 나한테 그러는건가? 너무하다 ㅠㅠㅠㅠㅠ;
-					</p>
-			</div>
-			<div class="contentCard">
-			<h1>TM Title</h1>
-			<hr/>
-					<p>
-					이거 길게 안써서 나한테 그러는건가? 너무하다 ㅠㅠㅠㅠㅠ;
-					</p>
-			</div>
-			<div class="contentCard">
-			<h1>TM Title</h1>
-			<hr/>
-					<p>
-					이거 길게 안써서 나한테 그러는건가? 너무하다 ㅠㅠㅠㅠㅠ;
-					</p>
-			</div>
+		</c:forEach>
 	</div>
 	<div class="contents" id="tmMakeList">
-			<div class="contentCard" onClick="location.href='infoServiceByTm.do'">
+			<div class="contentCard tm" onClick="location.href='infoServiceByTm.do'">
 			<h1>WordCloud</h1>
 			<hr/>
 					<p>
 					단어의 빈도수를 계산하여 WordCloud로 표현 해 줍니다.
 					</p>
 			</div>
-			<div class="contentCard">
+			<div class="contentCard tm">
 			<h1>SocialNetworkAnalysis</h1>
 			<hr/>
 					<p>
 					각 단어들 간의 연관성을 연결성을 통해 표현 해 줍니다.
 					</p>
 			</div>
-			<div class="contentCard">
+			<div class="contentCard tm">
 			<h1>SentimentAnalysis</h1>
 			<hr/>
 					<p>
