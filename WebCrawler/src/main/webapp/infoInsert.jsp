@@ -9,6 +9,10 @@
 <title>MODOO</title>
 </head>
 <body>
+<div class="loading">
+	결과가 안나와도 울지마세요.<br/>
+	인생은 그런겁니다 :)
+</div>
 <jsp:include page="components/header.html"/>
 <section> 
 	<ul class="formNav">

@@ -25,4 +25,10 @@
 			ORDER BY RAND() LIMIT 3
 		]]>
 	</select>
+	<delete id="deleteData">
+		<![CDATA[
+			DELETE FROM DATA
+			WHERE DSEQ=#{dseq}
+		]]>
+	</delete>
 </mapper>

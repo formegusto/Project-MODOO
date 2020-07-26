@@ -14,6 +14,9 @@ function changeType(e,type){
 
 function onClick(clickType){
 	if(clickType === 'confirm'){
+		let loading = document.getElementsByClassName('loading')[0];
+		loading.className = "loading active";
+		
 		document.info.submit();
 	} else {
 		location.href="infoInsert.jsp";

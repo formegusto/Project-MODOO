@@ -86,50 +86,66 @@ tr {
 }
 
 tbody td {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	font-family: 'Do Hyeon', sans-serif;
 	font-size: 1.5rem;
 	border: 1px black solid;
 	border-radius: 1rem;
 	padding: 1rem;
 	box-shadow: .25rem .25rem .25rem 0 black; 
+	position: relative;
+}
+
+.dataTools {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	justify-content: center;
+	align-items: center;
 	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	color: white;
+}
+
+.dataTools.active {
+	display: flex;
+	background: black;
+	border: 1px black solid;
+	border-radius: 1rem;
+	box-shadow: .25rem .25rem .25rem 0 black; 
+}
+
+.dataTools div {
+	flex: 1;
+	text-align: center;
+	color: white;
+	border: 1px solid white;
+	border-radius: 2rem;
+	cursor: pointer;
+	margin-left: 2rem;
+	margin-right: 2rem;
+}
+
+.dataTools div:hover {
+	transform: translateY(-5px);
+	box-shadow: .3rem .3rem .3rem .3rem white; 
+	background: #808e9b;
+	transition: .5s;
 }
 
 tbody td:hover {
-	z-index: 1;
+	background: black;
 	transform: translateY(-5px) translateX(5px);
 	transition: .3s;
 }
 
+tbody td:hover .dataTools {
+	display: flex;
+}
+
 tbody .dataItem {
 	flex: 3;
-}
-
-tbody .blindOption {
-	flex: 1;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	cursor: default;
-}
-
-.blindOption div {
-	flex: 1;
-	text-align: center;
-	border: 1px solid black;
-	border-radius: 2rem;
-	cursor: pointer;
-}
-
-.blindOption div:hover {
-	transform: translateY(-5px);
-	box-shadow: .3rem .175rem .175rem 0 black; 
-	background: #808e9b;
-	color: white;
-	transition: .5s;
 }
 
 .dataTooltip {
@@ -178,6 +194,10 @@ tbody .blindOption {
 .sideItem.active {
 	background: white;
 	color: black;
+}
+
+.sideContent hr{
+	width: 90%;
 }
 
 /* animation keyframe */

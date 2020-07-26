@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoService.css?e"></link>
+<link rel="stylesheet" href="styles/css/infoService.css?k"></link>
 <script type="text/javascript" src="styles/js/infoService.js"></script>
 <title>MODOO</title>
 </head>
@@ -19,7 +19,7 @@
 	</div>
 	<div class="contents">
 		<c:forEach items="${infoList }" var="info">
-					<div class="contentCard" onclick="location.href='dataService.do?iseq=${info.iseq}'">
+					<div class="contentCard" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=read'">
 					<h1>${info.title }</h1>
 					<hr/>
 					<c:forEach items="${info.dataList }" var="data">

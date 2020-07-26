@@ -30,4 +30,10 @@ public class DataDAO {
 		System.out.println("[DataDAO Log] getDataRand() Call ");
 		return mybatis.selectList("DataDAO.getDataRand", vo);
 	}
+	
+	// DATA 삭제
+	public void deleteData(DataVO vo) {
+		System.out.println("[DataDAO Log] deleteData() Call ");
+		mybatis.delete("DataDAO.deleteData", vo);
+	}
 }

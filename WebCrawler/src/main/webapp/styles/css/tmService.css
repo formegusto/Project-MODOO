@@ -46,7 +46,6 @@ header h1:hover {
 section {
 	z-index: 1;
 	width: 100%;
-	height: 100%;
 	display: flex;
 	justify-content: center;
 }
@@ -128,7 +127,7 @@ section {
 	border-radius: 1rem;
 	position: sticky;
 	top: 20%;
-	height: 20%;
+	height: 250px;
 	background: black;
 	color: white;
 	display: flex;

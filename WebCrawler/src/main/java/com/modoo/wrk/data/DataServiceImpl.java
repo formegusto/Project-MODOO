@@ -27,4 +27,9 @@ public class DataServiceImpl implements DataService {
 	public List<String> getDataRand(DataVO vo) {
 		return dataDAO.getDataRand(vo);
 	}
+
+	@Override
+	public void deleteData(DataVO vo) {
+		dataDAO.deleteData(vo);
+	}
 }
