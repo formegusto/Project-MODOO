@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataService.css?k"></link>
+<link rel="stylesheet" href="styles/css/dataService.css?z"></link>
 <script type="text/javascript" src="styles/js/dataService.js?ferf"></script>
 <title>MODOO</title>
 </head>
@@ -19,8 +19,18 @@
 		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=delete'">삭제</div>
 	</div>
 	<form>
+		
 		<table id="dataTable">
 			<thead>
+				<tr>
+					<td class="searchBar">
+						<div>
+							<input type="text" placeholder="너의 단어를 보여줘."/>
+							<span class="textBottomEffect"></span>
+						</div>
+						<button>검색</button>
+					</td>
+				</tr>
 				<tr>
 					<td class="dataItem">
 						${info.field }

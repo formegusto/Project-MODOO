@@ -26,7 +26,7 @@
 	</div>
 	<div class="sideContent">
 		<div class="sideItem" onclick="document.tmform.submit()">SAVE</div>
-		<div class="sideItem" onclick="location.href='tmService.jsp'">CANCLE</div>
+		<div class="sideItem" onclick="location.href='tmService.do'">CANCLE</div>
 	</div>
 </section>
 
