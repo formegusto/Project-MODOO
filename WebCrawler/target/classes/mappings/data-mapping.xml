@@ -39,4 +39,11 @@
 			WHERE DSEQ=#{dseq}
 		]]>
 	</delete>
+	<update id="updateData">
+		<![CDATA[
+				UPDATE DATA
+				SET DATA=#{data }
+				WHERE DSEQ=#{dseq }
+		]]>
+	</update>
 </mapper>

@@ -19,6 +19,6 @@ function onClick(clickType){
 		
 		document.info.submit();
 	} else {
-		location.href="infoInsert.jsp";
+		location.href="infoService.do";
 	}
 }

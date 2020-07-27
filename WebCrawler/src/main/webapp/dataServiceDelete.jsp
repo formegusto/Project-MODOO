@@ -15,12 +15,21 @@
 	<div class="sideContent">
 		<div class="sideItem active">가공 중!</div>
 		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=read'">읽기</div>
-		<div class="sideItem">수정</div>
+		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=update'">수정</div>
 		<div class="sideItem active">삭제 중!</div>
 	</div>
 	<form>
 		<table id="dataTable">
 			<thead>
+				<tr>
+					<td class="searchBar">
+						<div>
+							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
+							<span class="textBottomEffect"></span>
+						</div>
+						<button type="button" onclick="onKeyword('${info.iseq}','delete')">검색</button>
+					</td>
+				</tr>
 				<tr>
 					<td class="dataItem">
 						${info.field }

@@ -43,4 +43,10 @@ public class DataDAO {
 		System.out.println("[DataDAO Log] deleteData() Call ");
 		mybatis.delete("DataDAO.deleteData", vo);
 	}
+	
+	// DATA 수정
+	public void updateData(DataVO vo) {
+		System.out.println("[DataDAO Log] updateData() Call ");
+		mybatis.update("DataDAO.updateData", vo);
+	}
 }

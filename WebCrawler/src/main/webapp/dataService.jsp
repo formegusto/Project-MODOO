@@ -15,11 +15,10 @@
 	<div class="sideContent">
 		<div class="sideItem active">가공 중!</div>
 		<div class="sideItem active">읽는 중!</div>
-		<div class="sideItem">수정</div>
+		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=update'">수정</div>
 		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=delete'">삭제</div>
 	</div>
-	<form>
-		
+	<form onsubmit="return false">
 		<table id="dataTable">
 			<thead>
 				<tr>
@@ -54,10 +53,10 @@
 		</table>
 	</form>
 	<div class="sideContent">
-		<div class="sideItem">여기에 인포정보</div>
-		<div class="sideItem">REPLACE</div>
-		<div class="sideItem">DELETE</div>
-		<div class="sideItem" onclick="location.href='infoService.do'">CANCLE</div>
+		<div class="sideItem">${info.title }</div>
+		<hr/>
+		<div class="sideItem">${info.link }</div>
+		<div class="sideItem">${info.cssQuery }</div>
 	</div>
 </section>
 </body>

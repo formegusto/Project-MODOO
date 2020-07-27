@@ -1,14 +1,9 @@
 package com.modoo.wrk.view;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.SearchVO;
@@ -35,6 +30,9 @@ public class DataController {
 		
 		if(mode.equals("delete")) {
 			page = "dataServiceDelete.jsp";
+		}
+		if(mode.equals("update")) {
+			page = "dataServiceUpdate.jsp";
 		}
 		
 		InfoVO info = infoService.getInfo(vo);
@@ -73,5 +71,25 @@ public class DataController {
 		}
 		
 		return "redirect:dataService.do?iseq=" + info.getIseq() + "&mode=delete";
+	}
+	
+	@RequestMapping("/updateData.do")
+	public String updateData(String dseqList, String dataList,
+			InfoVO info) {
+		System.out.println(dseqList);
+		System.out.println(dataList);
+		
+		String[] dseqList_ = dseqList.split(",");
+		String[] dataList_ = dataList.split(",");
+		
+		DataVO vo = new DataVO();
+		for(int i=0;i<dseqList_.length;i++) {
+			vo.setDseq(Integer.parseInt(dseqList_[i]));
+			vo.setData(dataList_[i]);
+			
+			dataService.updateData(vo);
+		}
+		
+		return "redirect:dataService.do?iseq=" + info.getIseq() + "&mode=update";
 	}
 }

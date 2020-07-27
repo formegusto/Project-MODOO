@@ -38,4 +38,10 @@ public class DataServiceImpl implements DataService {
 	public void deleteData(DataVO vo) {
 		dataDAO.deleteData(vo);
 	}
+
+	@Override
+	public void updateData(DataVO vo) {
+		// TODO Auto-generated method stub
+		dataDAO.updateData(vo);
+	}
 }

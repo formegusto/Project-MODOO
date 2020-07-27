@@ -56,3 +56,39 @@ function onDelSubmit() {
 	
 	document.delForm.submit();
 }
+
+// update 용
+let nowData;
+let updateDseq = [];
+let updateData = [];
+
+function changeStart(e){
+	console.log("change Start");
+	nowData = e.value;
+}
+
+function changeEnd(e, dseq) {
+	console.log("change End");
+	if(nowData === e.value){
+		console.log("changeData Nope");
+	} else {
+		updateDseq.push(dseq);
+		updateData.push(e.value);
+		
+		console.log(updateDseq);
+		console.log(updateData);
+		
+		let updateConfirm = document.getElementsByClassName('updateConfirm ' + dseq)[0];
+		updateConfirm.style.opacity = 1; 
+	}
+}
+
+function onUpSubmit() {
+	let dseqInput = document.getElementById('upDseqInput');
+	dseqInput.value = updateDseq;
+	
+	let dataInput = document.getElementById('upDataInput');
+	dataInput.value = updateData;
+	
+	document.updateForm.submit();
+}
