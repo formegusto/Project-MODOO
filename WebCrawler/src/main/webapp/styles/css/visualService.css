@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+html {
+	height: 100%;
+	display: flex;
+}
+
+body {
+	width: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items : center;
+	animation: fadeIn 1.5s;
+}
+
+header {
+	z-index: 100;
+	background: black;
+	position: fixed;
+	width: 100%;
+	color: white;
+	height: 100px;
+	top: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+}
+
+header h1 {
+	flex: 1;
+	font-family: 'Indie Flower', cursive;
+	overflow: hidden;
+	animation: fadeIn 1.5s;
+	margin-left: 1rem;
+	cursor: pointer;
+}
+
+header h1:hover {
+	transform: translateY(7px) translateX(7px);
+	transition: .5s;
+}
+
+section {
+	z-index: 1;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.contents {
+	display: none;
+}
+
+.contents.active {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 45%;
+	margin-top: 6.5rem;
+	padding: .5rem;
+	animation: fadeIn 1.5s forwards;
+}
+
+.contentCard {
+	flex: 1;
+	border: 1px solid white;
+	background: black;
+	color: white;
+	border-radius: 1rem;
+	width: 90%;
+	margin: .6rem;
+	cursor: pointer;
+	padding: 1.25rem;
+	box-shadow: .3rem .175rem .175rem 0 black; 
+}
+
+.contentCard h1 {
+	overflow: hidden;
+	font-family: 'Jua', sans-serif;
+	width: 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding-left: 1rem;
+}
+
+.contentCard p {
+	font-size: 1.25rem;
+	font-family: 'Do Hyeon', sans-serif;
+	margin-bottom: 2rem;
+	overflow: hidden;
+	width: 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.contentCard.visual:hover {
+	opacity: .5;
+	transform: translateY(-5px);
+	box-shadow: .5rem .25rem .25rem 0 gray; 
+	transition: .3s;	
+}
+
+.contentCard.visual div {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.contentCard.visual div p {
+	text-align: center;
+	font-size: 3rem;
+}
+
+.contentItem {
+	display: flex;
+	padding: 3rem;
+	border: 2px solid black;
+	border-radius: 1rem;
+	box-shadow: .5rem .5rem .5rem 0 black; 
+}
+
+.contentItem canvas {
+	border-radius: 1rem;
+	padding: .5rem;
+	transition: border-radius .75s linear;
+}
+
+.contentItem canvas:hover {
+	border-radius: 20rem;
+}
+
+.sideContent {
+	width:15%;
+	border: 1px white solid;
+	border-radius: 1rem;
+	position: sticky;
+	top: 20%;
+	height: 250px;
+	background: black;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	box-shadow: .3rem .175rem .175rem 0 black; 
+}
+
+.sideItem {
+	flex: 1;
+	display: flex;
+	border: 1px white solid;
+	border-radius: 1rem;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	margin: .5rem;
+	font-family: 'Jua', sans-serif;
+}
+
+.sideItem:hover {
+	transform: translateY(-5px);
+	box-shadow: .3rem .175rem .175rem 0 #808e9b; 
+	background: white;
+	color: black;
+	transition: .5s;
+}
+
+.sideItem.active {
+	background: white;
+	color: black;
+}
+
+/* animation keyframe */
+@keyframes fadeIn {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+@keyframes aniHeader {
+	from {
+		height: 50px;
+	}
+	to {
+		heigth: 100px;
+	}
+}
+@media (max-width: 1100px){
+	.sideContent {
+		flex: 1;
+	}
+	.contents {
+		flex: 4;
+	}
+	.contentCard{
+		width: 100%;
+	}
+}

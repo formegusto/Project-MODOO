@@ -15,7 +15,7 @@
 	<div class="sideContent">
 		<div class="sideItem" onClick="location.href='infoService.do'">수집</div>
 		<div class="sideItem active" onClick="location.href='tmService.do'">텍스트마이닝 중!</div>
-		<div class="sideItem">시각화</div>
+		<div class="sideItem" onClick="location.href='visualService.jsp'">시각화</div>
 	</div>
 	<div class="contents active" id="tmList">
 		<c:forEach items="${tmList }" var="tm">

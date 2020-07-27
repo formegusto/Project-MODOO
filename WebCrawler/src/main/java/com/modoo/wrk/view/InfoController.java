@@ -53,7 +53,7 @@ public class InfoController {
 		return "redirect:infoService.do";
 	}
 	
-	@RequestMapping(value={"/infoService.do", "/infoServiceByTm.do"})
+	@RequestMapping(value={"/infoService.do", "/infoServiceByTm.do", "/infoServiceByVisual.do"})
 	public String infoService(HttpSession session,HttpServletRequest req,
 			Model model) {
 		UsersVO user = (UsersVO) session.getAttribute("user");
@@ -73,8 +73,13 @@ public class InfoController {
 		
 		if(URI.equals("/MODOO/infoService.do")) {
 			forwardPage = "infoService.jsp";
-		} else {
+		} else if(URI.equals("/MODOO/infoServiceByTm.do")) {
 			forwardPage = "tmMake.jsp";
+		} else {
+			String vtype = req.getParameter("vtype");
+			
+			model.addAttribute("vtype", vtype);
+			forwardPage = "visualMake.jsp";
 		}
 		
 		return forwardPage;
