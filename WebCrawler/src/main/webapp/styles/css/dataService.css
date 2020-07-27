@@ -134,6 +134,12 @@ thead .searchBar {
 	font-size: 1.5rem;
 	border-top-right-radius: 1rem;
 	border-bottom-right-radius: 1rem;
+	transition: 1s;
+}
+
+.searchBar button:hover {
+	color: black;
+	background: white;
 }
 
 thead td {

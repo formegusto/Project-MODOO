@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataService.css?z"></link>
-<script type="text/javascript" src="styles/js/dataService.js?ferf"></script>
+<link rel="stylesheet" href="styles/css/dataService.css?k"></link>
+<script type="text/javascript" src="styles/js/dataService.js?ee"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -25,10 +25,10 @@
 				<tr>
 					<td class="searchBar">
 						<div>
-							<input type="text" placeholder="너의 단어를 보여줘."/>
+							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
 							<span class="textBottomEffect"></span>
 						</div>
-						<button>검색</button>
+						<button type="button" onclick="onKeyword('${info.iseq}','read')">검색</button>
 					</td>
 				</tr>
 				<tr>

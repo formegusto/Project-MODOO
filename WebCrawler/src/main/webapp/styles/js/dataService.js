@@ -1,3 +1,11 @@
+// 통합
+function onKeyword(iseq,mode){
+	let keywordInput = document.getElementById('keyword');
+	
+	location.href="dataService.do?iseq=" + iseq + "&mode=" + mode + "&keyword=" + keywordInput.value;
+}
+
+// read 용
 function onClick(type){
 	if(type === 'save'){
 		document.saveInfo.submit();

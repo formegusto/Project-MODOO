@@ -22,6 +22,12 @@ public class DataServiceImpl implements DataService {
 	public List<DataVO> getData(DataVO vo) {
 		return dataDAO.getData(vo);
 	}
+	
+	@Override
+	public List<DataVO> getDataSearch(SearchVO vo) {
+		// TODO Auto-generated method stub
+		return dataDAO.getDataSearch(vo);
+	}
 
 	@Override
 	public List<String> getDataRand(DataVO vo) {

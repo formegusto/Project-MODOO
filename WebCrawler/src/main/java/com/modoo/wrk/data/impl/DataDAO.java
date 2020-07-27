@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.modoo.wrk.data.DataVO;
+import com.modoo.wrk.data.SearchVO;
 
 @Repository
 public class DataDAO {
@@ -23,6 +24,12 @@ public class DataDAO {
 	public List<DataVO> getData(DataVO vo) {
 		System.out.println("[DataDAO Log] getData() Call ");
 		return mybatis.selectList("DataDAO.getData", vo);
+	}
+	
+	// DATA 리스트 (키워드로) 조회
+	public List<DataVO> getDataSearch(SearchVO vo){
+		System.out.println("[DataDAO Log] getDataSearch() Call");
+		return mybatis.selectList("DataDAO.getDataSearch", vo);
 	}
 	
 	// DATA 랜덞 리스트 조회

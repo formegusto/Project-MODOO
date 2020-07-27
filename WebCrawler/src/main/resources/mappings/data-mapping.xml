@@ -17,6 +17,14 @@
 			ORDER BY DSEQ ASC
 		]]>
 	</select>
+	<select id="getDataSearch" resultType="data">
+		<![CDATA[
+			SELECT *
+			FROM DATA
+			WHERE ISEQ=#{iseq}
+			AND DATA LIKE CONCAT('%',#{keyword},'%')
+		]]>
+	</select>
 	<select id="getDataRand" resultType="String">
 		<![CDATA[
 			SELECT data
