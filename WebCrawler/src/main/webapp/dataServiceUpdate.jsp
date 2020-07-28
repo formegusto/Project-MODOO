@@ -6,7 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/dataService.css?e"></link>
-<script type="text/javascript" src="styles/js/updateDataService.js?a"></script>
+<script type="text/javascript" src="styles/js/updateDataService.js?e"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -75,8 +75,10 @@
 	</div>
 	<form name="updateForm" method="post" action="updateData.do" style="display:none">
 		<input type="hidden" name="iseq" value="${info.iseq }" />
-		<input id="upDseqInput" type="hidden" name="dseqList" value=""/>
-		<input id="upDataInput" type="hidden" name="dataList" value=""/>
+		<div class="inputDseqList">
+		</div>
+		<div class="inputDataList">
+		</div>
 	</form>
 </section>
 </body>

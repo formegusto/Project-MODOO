@@ -33,6 +33,12 @@ public class DataServiceImpl implements DataService {
 	public List<String> getDataRand(DataVO vo) {
 		return dataDAO.getDataRand(vo);
 	}
+	
+	@Override
+	public List<String> getDataNotVO(DataVO vo) {
+		// TODO Auto-generated method stub
+		return dataDAO.getDataNotVO(vo);
+	}
 
 	@Override
 	public void deleteData(DataVO vo) {

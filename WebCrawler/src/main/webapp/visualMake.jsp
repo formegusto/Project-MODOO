@@ -6,13 +6,13 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/visualMake.css?2"></link>
-<script type="text/javascript" src="styles/js/visualMake.js?1"></script>
+<script type="text/javascript" src="styles/js/visualMake.js?3"></script>
 <title>MODOO</title>
 </head>
 <body>
 <div class="loading">
-	텍스트 마이닝 진행 중 입니다.<br/>
-	기다려주세여
+	시각화를 생성 중 입니다.<br/>
+	기다려주세여.
 </div>
 <jsp:include page="components/header.html"/>
 <section> 
@@ -42,6 +42,10 @@
 	<div class="sideContent">
 		<div class="sideItem" onclick="location.href='visualService.jsp'">CANCLE</div>
 	</div>
+	<form action="visualMake.do" method="post" name="visualForm">
+		<input type="hidden" id="numIseq" name="numIseq"/>
+		<input type="hidden" id="strIseq" name="strIseq"/>
+	</form>
 </section>
 </body>
 </html>

@@ -33,6 +33,13 @@
 			ORDER BY RAND() LIMIT 3
 		]]>
 	</select>
+	<select id="getDataNotVO" resultType="String">
+		<![CDATA[
+			SELECT data
+			FROM DATA
+			WHERE ISEQ=#{iseq};
+		]]>
+	</select>
 	<delete id="deleteData">
 		<![CDATA[
 			DELETE FROM DATA

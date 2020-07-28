@@ -13,6 +13,9 @@ function changeEnd(e, dseq) {
 	if(nowData === e.value){
 		console.log("changeData Nope");
 	} else {
+		/*
+			이미 있는 항목인지 검사
+		*/
 		let updateTable = document.getElementsByClassName('updateTable')[0];
 		let newTr = document.createElement('tr');
 		newTr.innerHTML = "<td>" + nowData + "</td>" +
@@ -32,12 +35,31 @@ function changeEnd(e, dseq) {
 }
 
 function onUpSubmit() {
+	/*
 	let dseqInput = document.getElementById('upDseqInput');
-	dseqInput.value = updateDseq;
+	dseqInput.value = [...updateDseq];
 	
 	let dataInput = document.getElementById('upDataInput');
-	dataInput.value = updateData;
+	dataInput.value = [...updateData];
+	*/
+	let inputDseqList = document.getElementsByClassName('inputDseqList')[0];
+	let inputDataList = document.getElementsByClassName('inputDataList')[0];
 	
+	for(let i=0;i<updateDseq.length;i++){
+		let inputDseq = document.createElement('input');
+		inputDseq.setAttribute('type','hidden');
+		inputDseq.setAttribute('name','dseqList');
+		inputDseq.setAttribute('value',updateDseq[i]);
+		
+		let inputData = document.createElement('input');
+		inputData.setAttribute('type','hidden');
+		inputData.setAttribute('name','dataList');
+		inputData.setAttribute('value',updateData[i]);
+		
+		inputDseqList.appendChild(inputDseq);
+		inputDataList.append(inputData);
+	}
+
 	document.updateForm.submit();
 }
 

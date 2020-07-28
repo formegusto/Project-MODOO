@@ -1,5 +1,5 @@
-let numIseq;
-let strIseq;				
+let numIseq = null;
+let strIseq = null;				
 function onVisual(iseq,type){
 	let ptag = document.getElementsByClassName("ptag " + iseq)[0];
 	let contentCard = document.getElementsByClassName("contentCard " + iseq)[0];
@@ -23,6 +23,19 @@ function onVisual(iseq,type){
 	}
 	
 	console.log("num ==> " + numIseq + "/str ==> " + strIseq);
+	
+	if(numIseq && strIseq){
+		let numInput = document.getElementById('numIseq');
+		let strInput = document.getElementById('strIseq');
+		let loading = document.getElementsByClassName('loading')[0];
+		
+		loading.className = "loading active";
+		
+		numInput.value = numIseq;
+		strInput.value = strIseq;
+		
+		document.visualForm.submit();
+	}
 }
 
 function offVisual(iseq){

@@ -3,6 +3,7 @@ package com.modoo.wrk.view;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.modoo.wrk.data.DataVO;
@@ -74,18 +75,15 @@ public class DataController {
 	}
 	
 	@RequestMapping("/updateData.do")
-	public String updateData(String dseqList, String dataList,
+	public String updateData(String[] dseqList, String[] dataList,
 			InfoVO info) {
 		System.out.println(dseqList);
 		System.out.println(dataList);
 		
-		String[] dseqList_ = dseqList.split(",");
-		String[] dataList_ = dataList.split(",");
-		
 		DataVO vo = new DataVO();
-		for(int i=0;i<dseqList_.length;i++) {
-			vo.setDseq(Integer.parseInt(dseqList_[i]));
-			vo.setData(dataList_[i]);
+		for(int i=0;i<dseqList.length;i++) {
+			vo.setDseq(Integer.parseInt(dseqList[i]));
+			vo.setData(dataList[i]);
 			
 			dataService.updateData(vo);
 		}
