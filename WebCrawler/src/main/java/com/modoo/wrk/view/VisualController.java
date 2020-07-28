@@ -16,7 +16,7 @@ public class VisualController {
 	private DataService dataService;
 	
 	@RequestMapping("visualMake.do")
-	public String visualMake(Integer numIseq, Integer strIseq,
+	public String visualMake(Integer numIseq, Integer strIseq, String color, String vtype,
 			Model model) {
 		System.out.println("숫자 리스트 => " + numIseq);
 		System.out.println("문자 리스트 => " + strIseq);
@@ -43,6 +43,14 @@ public class VisualController {
 			strList.set(i, str);
 		}
 		
+		if(color.equals("pink")) {
+			color = "\'rgb(255, 99, 132)\'";
+		} else if(color.equals("skyblue")) {
+			color = "\'rgb(146, 205, 177)\'";
+		}
+		
+		model.addAttribute("vtype", "\'" + vtype + "\'");
+		model.addAttribute("color", color);
 		model.addAttribute("numList", numList);
 		model.addAttribute("strList", strList);		
 		

@@ -52,6 +52,7 @@ section {
 
 .contents {
 	width: 50%;
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	margin-top: 7.5rem;
@@ -72,10 +73,18 @@ section {
 }
 
 .contentsItem {
+	display: flex;
+	flex-direction: column;
+	overflow: visible;
 	padding: 3rem;
 	border: 2px solid black;
 	border-radius: 1rem;
 	box-shadow: .5rem .5rem .5rem 0 black; 
+}
+
+.contentsItem canvas{
+	flex: 1;
+	overflow: auto;
 }
 
 .contentsItem input {

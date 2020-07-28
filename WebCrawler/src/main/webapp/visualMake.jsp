@@ -5,14 +5,36 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/visualMake.css?2"></link>
-<script type="text/javascript" src="styles/js/visualMake.js?3"></script>
+<link rel="stylesheet" href="styles/css/visualMake.css?4"></link>
+<script type="text/javascript" src="styles/js/visualMake.js?5"></script>
 <title>MODOO</title>
 </head>
 <body>
 <div class="loading">
-	시각화를 생성 중 입니다.<br/>
-	기다려주세여.
+	<table>
+		<thead>
+			<tr class="theadTitle">
+				<td colspan="3">당신의 최애 색! 선택하시죠</td>
+			</tr>
+			<tr class="theadContent">
+				<td colspan="3">
+					<div onclick="submitCancle()">아 잠만요 다시할게요</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="pink" onmouseenter="onColor('pink')" onmouseleave="offColor('pink')" onclick="onSubmit('pink')">
+					<div class="color pink">이거다!</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="skyblue" onmouseenter="onColor('skyblue')" onmouseleave="offColor('skyblue')" onclick="onSubmit('skyblue')">
+					<div class="color skyblue">이거다!</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 <jsp:include page="components/header.html"/>
 <section> 
@@ -45,6 +67,8 @@
 	<form action="visualMake.do" method="post" name="visualForm">
 		<input type="hidden" id="numIseq" name="numIseq"/>
 		<input type="hidden" id="strIseq" name="strIseq"/>
+		<input type="hidden" id="color" name="color"/>
+		<input type="hidden" id="vtype" name="vtype" value="${vtype }"/>
 	</form>
 </section>
 </body>

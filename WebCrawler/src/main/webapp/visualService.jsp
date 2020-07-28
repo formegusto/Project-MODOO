@@ -76,7 +76,7 @@ window.addEventListener("load", function() {
 					</p>
 				</div>
 			</div>
-			<div class="contentCard visual" onClick="location.href='infoServiceByVisual.do?vtype=polararea'">
+			<div class="contentCard visual" onClick="location.href='infoServiceByVisual.do?vtype=polarArea'">
 			<h1>PolarArea</h1>
 			<hr/>
 				<div>

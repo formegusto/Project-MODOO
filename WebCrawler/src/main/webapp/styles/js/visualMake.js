@@ -33,9 +33,14 @@ function onVisual(iseq,type){
 		
 		numInput.value = numIseq;
 		strInput.value = strIseq;
-		
-		document.visualForm.submit();
 	}
+}
+
+function onSubmit(color) {
+	let colorInput = document.getElementById('color');
+	colorInput.value = color;
+	
+	document.visualForm.submit();
 }
 
 function offVisual(iseq){
@@ -57,4 +62,14 @@ function offVisual(iseq){
 	btnGrp.style.display = "flex";
 	contentCard.style.background = "";
 	chkBlind.style.opacity = "";
+}
+
+function onColor(color){
+	let colorDiv = document.getElementsByClassName('color ' + color)[0];
+	colorDiv.style.opacity = 1;
+}
+
+function offColor(color){
+	let colorDiv = document.getElementsByClassName('color ' + color)[0];
+	colorDiv.style.opacity = 0;
 }

@@ -209,10 +209,99 @@ section {
 	width: 100%;
 	height: 100%;
 	z-index: 250;
+	justify-content: center;
+	overflow: scroll;
+}
+
+.loading::-webkit-scrollbar {
+    display: none;
+}
+
+.loading table {
+	margin-top: 0;
+}
+
+.loading thead .theadTitle td{
+	font-size: 10rem;
+	text-align: center;
+}
+
+.loading thead .theadContent{
+	font-size: 5rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	flex-wrap: nowrap;
+	border-bottom: 3px solid white;
+}
+
+.loading thead .theadContent td{
+	font-size: 5rem;
+	display: flex;
+}
+
+.loading thead .theadContent div {
+	margin-right: 2rem;
+	border: 1rem solid white;
+	border-radius: 1rem;
+	cursor: pointer;
+	padding: .5rem;
+}
+
+.loading thead .theadContent div:hover {
+	background: white;
+	color: black;
+	transform: translateY(-3px);
+	transition: .5s;
+}
+
+.loading tbody tr {
+	margin-top: 1rem;
+	display: flex;
+	text-align: center;
+	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
+.loading tbody td {
+	font-size: 3rem;
+	flex: 1;
+	transition: .7s;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.loading tbody td:hover {
+	opacity: .8;
+	border: .5rem white solid;
+}
+
+.loading tbody td div {
+	opacity: 0;
+	position: absolute;
+	background: transparent;
+	color: black;
+	transition: .7s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pink {
+	border-radius: 2rem;
+	height: 5rem;
+	background: #ff6384;
+}
+
+.skyblue {
+	border-radius: 2rem;
+	height: 5rem;
+	background: #92cdb1;
+}
 
 /* animation keyframe */
 @keyframes fadeIn {
