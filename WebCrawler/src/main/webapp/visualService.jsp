@@ -5,17 +5,35 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/visualService.css?e"></link>
+<link rel="stylesheet" href="styles/css/visualService.css?z"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script type="text/javascript" src="styles/js/visualService.js"></script>
+<script type="text/javascript" src="styles/js/visualService.js?5"></script>
 <script>
 window.addEventListener("load", function() {
-	let visualCanvas = document.getElementsByClassName('visual');
-	let typeList = ['pie','doughnut','polarArea','bar', 'line'];
+	let visualCanvas = document.getElementsByClassName('visualcanvas');
 	
-	for(let i=0; i<visualCanvas.length; i++){
-		visualDraw(visualCanvas[i],typeList[i]);	
-	}
+	let i=0;
+	let title = [];
+	let vtype = [];
+	let color = [];
+	let labels = [];
+	let datas = [];
+	<c:forEach items="${visualList }" var="visual">
+		title.push('${visual.title}');
+		vtype.push(${visual.vtype});
+		color.push(${visual.color});
+		labels.push(${visual.labels});
+		datas.push(${visual.datas});
+		
+		console.log(title[i]);
+		console.log(vtype[i]);
+		console.log(color[i]);
+		console.log(labels[i]);
+		console.log(datas[i]);
+		
+		visualDraw(visualCanvas[i],title[i],vtype[i],labels[i],datas[i],color[i]);
+		i++;
+	</c:forEach>
 })
 </script>
 <title>MODOO</title>
@@ -29,31 +47,13 @@ window.addEventListener("load", function() {
 		<div class="sideItem active">시각화 중!</div>
 	</div>
 	<div class="contents active" id="tmList">
+		<c:forEach items="${visualList }" var="visual">
 			<div class="contentCard">
-			<h1>고기고기1</h1>
+			<h1>${visual.title }</h1>
 			<hr/>
-				<canvas class="visual"></canvas>
+				<canvas class="visualcanvas"></canvas>
 			</div>
-			<div class="contentCard">
-			<h1>고기고기2</h1>
-			<hr/>
-				<canvas class="visual"></canvas>
-			</div>
-			<div class="contentCard">
-			<h1>고기고기2</h1>
-			<hr/>
-				<canvas class="visual"></canvas>
-			</div>
-			<div class="contentCard">
-			<h1>고기고기2</h1>
-			<hr/>
-				<canvas class="visual"></canvas>
-			</div>
-			<div class="contentCard">
-			<h1>고기고기2</h1>
-			<hr/>
-				<canvas class="visual"></canvas>
-			</div>
+		</c:forEach>
 	</div>
 	<div class="contents" id="tmMakeList">
 			<div class="contentCard visual" onClick="location.href='infoServiceByVisual.do?vtype=line'">

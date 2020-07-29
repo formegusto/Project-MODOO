@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/visualMake.css?4"></link>
+<link rel="stylesheet" href="styles/css/visualMake.css?5"></link>
 <script type="text/javascript" src="styles/js/visualMake.js?5"></script>
 <title>MODOO</title>
 </head>
@@ -31,6 +31,16 @@
 			<tr>
 				<td class="skyblue" onmouseenter="onColor('skyblue')" onmouseleave="offColor('skyblue')" onclick="onSubmit('skyblue')">
 					<div class="color skyblue">이거다!</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="green" onmouseenter="onColor('green')" onmouseleave="offColor('green')" onclick="onSubmit('green')">
+					<div class="color green">이거다!</div>
+				</td>
+			</tr>
+			<tr>
+			<td class="purple" onmouseenter="onColor('purple')" onmouseleave="offColor('purple')" onclick="onSubmit('purple')">
+					<div class="color purple">이거다!</div>
 				</td>
 			</tr>
 		</tbody>

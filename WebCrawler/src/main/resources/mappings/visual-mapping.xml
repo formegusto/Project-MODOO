@@ -4,28 +4,31 @@
 
 <mapper namespace="VisualDAO">
 	<insert id="insertVisual">
-		insert into VISUAL(vseq, title, content, id, vtype)
-		values ((SELECT ifnull(max(vseq), 0) + 1 FROM VISUAL a),#{title },#{content },#{id }, #{vtype })
+	<![CDATA[
+		insert into VISUAL(vseq, title, id, vtype, color)
+		values ((SELECT ifnull(max(vseq), 0) + 1 FROM VISUAL a),#{title },#{id }, #{vtype }, #{color })
+	]]>
 	</insert>
 	<insert id="insertVHI">
-		insert into VISUAL_HAVE_INFO(vhiseq,vnum,inum,dtype)
-		values ((SELECT ifnull(max(vhiseq), 0) + 1 FROM VISUAL_HAVE_INFO a),(SELECT ifnull(max(vseq), 0) + 0 FROM VISUAL b), #{inum},#{dtype})
+	<![CDATA[
+		insert into VISUAL_HAVE_INFO(vhiseq,vseq,iseq,dtype)
+		values ((SELECT ifnull(max(vhiseq), 0) + 1 FROM VISUAL_HAVE_INFO a),(SELECT ifnull(max(vseq), 0) + 0 FROM VISUAL b), #{iseq},#{dtype})
+	]]>
 	</insert>
 	<select id="getVHIList" resultType="vhi">
+	<![CDATA[
 		SELECT *
 		FROM VISUAL_HAVE_INFO
-		WHERE VNUM=#{vseq}
-		ORDER BY VHISEQ ASC
-	</select>
-	<select id="getVisual" resultType="visual">
-		SELECT *
-		FROM VISUAL
 		WHERE VSEQ=#{vseq}
+		ORDER BY VHISEQ DESC
+	]]>
 	</select>
 	<select id="getVisualList" resultType="visual">
+	<![CDATA[
 		SELECT * 
 		FROM VISUAL
 		WHERE ID=#{id}
 		ORDER BY vseq DESC
+	]]>
 	</select>
 </mapper>

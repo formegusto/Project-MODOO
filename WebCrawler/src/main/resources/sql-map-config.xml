@@ -10,6 +10,8 @@
 		<typeAlias type="com.modoo.wrk.data.DataVO" alias="data"></typeAlias>
 		<typeAlias type="com.modoo.wrk.tm.TmVO" alias="tm"></typeAlias>
 		<typeAlias type="com.modoo.wrk.tm.THIVO" alias="thi"></typeAlias>
+		<typeAlias type="com.modoo.wrk.visual.VisualVO" alias="visual"></typeAlias>
+		<typeAlias type="com.modoo.wrk.visual.VHIVO" alias="vhi"></typeAlias>
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
@@ -18,5 +20,6 @@
 		<mapper resource="mappings/info-mapping.xml" />
 		<mapper resource="mappings/data-mapping.xml" />
 		<mapper resource="mappings/tm-mapping.xml" />
+		<mapper resource="mappings/visual-mapping.xml" />
 	</mappers>
 </configuration>

@@ -31,20 +31,25 @@ window.addEventListener("load", function() {
 <section> 
 	<div class="contents">
 		<div class="contentsNav">
-			쭈욱 펴진 라인 결과물!
+			쭈욱 펴진 ${vtype} 결과물!
 		</div>
 		<div class="contentsItem">
 			<canvas class="visual"></canvas>
-			<form name="tmform" method="post" action="visualService.do" >
-				<input type="text" name="title" placeholder="당신의 라인에 이름을 지어주세요!"/>
+			<form name="visualForm" method="post" action="visualAdd.do" >
+				<input type="hidden" name="numIseq" value="${numIseq }" />
+				<input type="hidden" name="strIseq" value="${strIseq }" />
+				<input type="hidden" name="vtype" value="${vtype }" />
+				<input type="hidden" name="color" value="${color }" />
+				<input type="text" name="title" placeholder="당신의 ${vtype }에 이름을 지어주세요!"/>
 			</form>
 		</div>
 	</div>
 	<div class="sideContent">
-		<div class="sideItem" onclick="document.tmform.submit()">SAVE</div>
+		<div class="sideItem" onclick="document.visualForm.submit()">SAVE</div>
 		<div class="sideItem" onclick="location.href='tmService.do'">CANCLE</div>
 	</div>
 </section>
+
 
 </body>
 </html>

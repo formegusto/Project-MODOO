@@ -123,14 +123,11 @@ section {
 	box-shadow: .5rem .5rem .5rem 0 black; 
 }
 
-.contentItem canvas {
+.visualcanvas {
+	margin-top: 1rem;
 	border-radius: 1rem;
 	padding: .5rem;
 	transition: border-radius .75s linear;
-}
-
-.contentItem canvas:hover {
-	border-radius: 20rem;
 }
 
 .sideContent {

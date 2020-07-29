@@ -1,19 +1,33 @@
-function visualDraw(ctx,type) {
+function visualDraw(ctx,title,vtype,labels,datas,color) {
+	console.log(vtype);
+	
 	new Chart(ctx, {
     // The type of chart we want to create
-    type: type,
+    type: vtype,
 
     // The data for our dataset
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: labels,
         datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
+            label: title,
+            backgroundColor: color,
             borderColor: 'rgb(0,0,0)',
-            data: [0, 10, 5, 2, 20, 30, 45]
+            data: datas
         }]
-    },
+    	},
+	options: {
+		legend: {
+			maintainAspectRatio: false,
+            display: false,
+			labels: {
+				fontColor: 'white'
+			}
+		}
+		}
 	});
+	
+	console.log(ctx.style.width);
+	console.log(ctx.style.height);
 }
 
 function onChange(e,type){

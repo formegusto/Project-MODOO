@@ -303,6 +303,18 @@ section {
 	background: #92cdb1;
 }
 
+.green {
+	border-radius: 2rem;
+	height: 5rem;
+	background: #40fd6a;
+}
+
+.purple {
+	border-radius: 2rem;
+	height: 5rem;
+	background: #e2aff4;
+}
+
 /* animation keyframe */
 @keyframes fadeIn {
 	from {
