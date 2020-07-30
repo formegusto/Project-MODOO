@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoService.css?c"></link>
+<link rel="stylesheet" href="styles/css/infoService.css?e"></link>
 <script type="text/javascript" src="styles/js/infoService.js"></script>
 <title>MODOO</title>
 </head>
@@ -19,18 +19,18 @@
 	</div>
 	<div class="contents">
 		<ul class="contentNav">
-			<li class="navItem active">
-				리스트 보는 중!
+			<li class="navItem" onclick="location.href='infoService.do'">
+				리스트
 			</li>
-			<li class="navItem" onclick="location.href='frameService.do'">
-				프레임
+			<li class="navItem active">
+				프레임 보는 중!
 			</li>
 		</ul>
-		<c:forEach items="${infoList }" var="info">
-					<div class="contentCard" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=read'">
-					<h1>${info.title }</h1>
+		<c:forEach items="${frameList }" var="frame">
+					<div class="contentCard" onclick="location.href='dataService.do?fseq=${frame.fseq}&mode=read'">
+					<h1>${frame.title }</h1>
 					<hr/>
-					<c:forEach items="${info.dataList }" var="data">
+					<c:forEach items="${frame.dataList }" var="data">
 						<p>
 							${data }
 						</p>
@@ -39,8 +39,7 @@
 		</c:forEach>
 	</div>
 	<div class="sideContent">
-		<div class="sideItem" onclick="onInsertPage('crawling')">CRAWLING</div>
-		<div class="sideItem" onclick="onInsertPage('csv')">CSV</div>
+		<div class="sideItem" onclick="location.href='infoServiceByFrame.do'">프레임 만들기</div>
 	</div>
 </section>
 </body>

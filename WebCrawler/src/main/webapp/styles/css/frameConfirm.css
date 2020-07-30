@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+html {
+	height: 100%;
+	display: flex;
+}
+
+body {
+	width: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items : center;
+}
+
+header {
+	z-index: 100;
+	background: black;
+	position: fixed;
+	width: 100%;
+	color: white;
+	height: 100px;
+	top: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+}
+
+header h1 {
+	flex: 1;
+	font-family: 'Indie Flower', cursive;
+	overflow: hidden;
+	margin-left: 1rem;
+	cursor: pointer;
+}
+
+header h1:hover {
+	transform: translateY(7px) translateX(7px);
+	transition: .5s;
+}
+
+section {
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	background: white;
+	animation: fadeIn 1.5s;
+}
+
+form {
+	overflow: scroll;
+	width: 60%;
+	margin-right: .5rem;
+}
+
+form::-webkit-scrollbar{
+	width: 10px;
+}
+
+form::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 1rem;
+    transition: .7s;
+}
+form::-webkit-scrollbar-track {
+	border-radius: 1rem;
+    background-color: black;
+}
+
+table {
+	margin-top: 6.5rem;
+	width: 100%;
+	border-radius: 1rem;
+}
+
+tbody {
+	display:flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+tbody tr {
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+}
+
+tbody td {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 1.5rem;
+	border: 1px black solid;
+	border-radius: 1rem;
+	padding: 1rem;
+	box-shadow: .25rem .25rem .25rem 0 black; 
+}
+
+tbody td:active {
+	white-space: normal;
+}
+
+tbody td:hover {
+	text-transform: translateY(-5px) translateX(5px);
+	text-shadow: .25rem .25rem .25rem 0 gray; 
+	transform: translateY(-5px) translateX(5px);
+	transition: .3s;
+}
+
+td.fieldHeader {
+	background: black;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 1.5rem;
+	color: white;
+	border-radius: 1rem;
+	padding: 1.5rem;
+}
+
+.sideContent {
+	width:15%;
+	border: 1px white solid;
+	border-radius: 1rem;
+	position: sticky;
+	top: 20%;
+	height: 250px;
+	background: black;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	box-shadow: .3rem .175rem .175rem 0 black; 
+}
+
+.sideItem {
+	flex: 1;
+	display: flex;
+	border: 1px white solid;
+	border-radius: 1rem;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	margin: .5rem;
+	font-family: 'Jua', sans-serif;
+}
+
+.sideItem:hover {
+	transform: translateY(-5px);
+	box-shadow: .3rem .175rem .175rem 0 #808e9b; 
+	background: white;
+	color: black;
+	transition: .5s;
+}
+
+/* animation keyframe */
+@keyframes fadeIn {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+
+@keyframes tdDancing {
+	from {
+		margin-bottom: 5rem;
+	}
+	to {
+		margin-bottom: 0
+	}
+}

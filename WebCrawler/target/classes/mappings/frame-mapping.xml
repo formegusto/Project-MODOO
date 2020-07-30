@@ -4,17 +4,19 @@
 
 <mapper namespace="FrameDAO">
 	<insert id="insertFrame">
-		insert into FRAME(fseq, title, content, id)
-		values ((SELECT ifnull(max(fseq), 0) + 1 FROM FRAME a),#{title },#{content },#{id })
+		insert into FRAME(fseq, title, id)
+		values ((SELECT ifnull(max(fseq), 0) + 1 FROM FRAME a),#{title }, #{id })
 	</insert>
 	<insert id="insertFHI">
-		insert into FRAME_HAVE_INFO(fhiseq,fseq,inum)
-		values ((SELECT ifnull(max(fhiseq), 0) + 1 FROM FRAME_HAVE_INFO a),(SELECT ifnull(max(fseq), 0) + 0 FROM FRAME b), #{inum})
+		insert into FRAME_HAVE_INFO(fhiseq,fseq,iseq)
+		values ((SELECT ifnull(max(fhiseq), 0) + 1 FROM FRAME_HAVE_INFO a),(SELECT ifnull(max(fseq), 0) + 0 FROM FRAME b), #{iseq})
 	</insert>
-	<delete id="deleteFrame">
-		DELETE FROM FRAME
-		WHERE FSEQ=${fseq}
-	</delete>
+	<select id="getFrameList" resultType="frame">
+		SELECT * 
+		FROM FRAME
+		WHERE ID=#{id}
+		ORDER BY fseq DESC
+	</select>
 	<select id="getFHIList" resultType="fhi">
 		SELECT *
 		FROM FRAME_HAVE_INFO
@@ -26,10 +28,8 @@
 		FROM FRAME
 		WHERE FSEQ=${fseq}
 	</select>
-	<select id="getFrameList" resultType="frame">
-		SELECT * 
-		FROM FRAME
-		WHERE ID=#{id}
-		ORDER BY fseq DESC
-	</select>
+	<delete id="deleteFrame">
+		DELETE FROM FRAME
+		WHERE FSEQ=${fseq}
+	</delete>
 </mapper>
