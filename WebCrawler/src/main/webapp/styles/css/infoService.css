@@ -60,7 +60,8 @@ section {
 
 .contents {
 	display: flex;
-	justify-content: flex-end;
+	flex-direction: column;
+	justify-content: center;
 	flex-flow: wrap;
 	width: 45%;
 	margin-top: 6.5rem;
@@ -136,6 +137,13 @@ section {
 	border-left: 1px solid black;
 	border-right: 1px solid black;
 	border-bottom: 9px solid white;
+}
+
+.cardGroup {
+	display:flex;
+	flex-flow: wrap;
+	height: 100%;
+	width: 100%;
 }
 
 .contentCard {

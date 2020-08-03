@@ -5,202 +5,39 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/frameConfirm.css?z"></link>
-<script type="text/javascript" src="styles/js/frameConfirm.js"></script>
+<link rel="stylesheet" href="styles/css/frameConfirm.css?e"></link>
+<script type="text/javascript" src="styles/js/frameConfirm.js?x"></script>
 <title>MODOO</title>
 </head>
 <body>
 <jsp:include page="components/header.html"/>
 <section> 
-	<form name="saveInfo" method="post" action="insertInfo.do">
+	<div class="sideContent">
+		<input id="titleInput" class="sideItem input" type="text" placeholder="저의 이름을 지어주세요..!"/>
+	</div>
+	<form name="saveFrame" method="post" action="frameMake.do">
+		<input type="text" name="title" value="" id="title"/>
 		<table>
 			<tbody>
+				<c:forEach items="${infoList }" var="info">
 					<tr>
 						<td class="fieldHeader">
-							제목이고1
+						<input type="hidden" name="iseqList" value="${info.iseq }" />
+							${info.field }
 						</td>
-						<td>
-							이렇게 올건데1
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데1
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데1
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
+						<c:forEach items="${info.dataList }" var="data">
+							<td>
+								${data }
+							</td>
+						</c:forEach>
 					</tr>
-					<tr>
-						<td class="fieldHeader">
-							제목이고2
-						</td>
-						<td>
-							이건 여기붙냐?
-						</td>
-					</tr>
-					<tr>
-						<td class="fieldHeader">
-							제목이고3
-						</td>
-						<td>
-							이렇게 올건데1
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-					</tr>
-					<tr>
-						<td class="fieldHeader">
-							존나많으면?
-						</td>
-						<td>
-							이렇게 올건데1
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-					</tr>
-					<tr>
-						<td class="fieldHeader">
-							여기까지 되냐?
-						</td>
-						<td>
-							내용이 이렇게 엄청나게 많으면 어떻게 할래?내용이 이렇게 엄청나게 많으면 어떻게 할래?내용이 이렇게 엄청나게 많으면 어떻게 할래?내용이 이렇게 엄청나게 많으면 어떻게 할래?내용이 이렇게 엄청나게 많으면 어떻게 할래?내용이 이렇게 엄청나게 많으면 어떻게 할래?
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-					</tr>
-					<tr>
-						<td class="fieldHeader">
-							ㅋㅋㅋㅋㅋ
-						</td>
-						<td>
-							이렇게 올건데1
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							내용이 이렇게 엄청나게 많으면 어떻게 할래?
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-						<td>
-							이렇게 올건데2
-						</td>
-					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</form>
 	<div class="sideContent">
 		<div class="sideItem" onclick="onClick('save')">SAVE</div>
-		<div class="sideItem">CANCLE</div>
+		<div class="sideItem" onclick="location.href='frameService.do'">CANCLE</div>
 	</div>
 </section>
 </body>

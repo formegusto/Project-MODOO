@@ -1,14 +1,21 @@
 package com.modoo.wrk.view;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.crawler.biz.info.FrameServiceImpl;
 import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
+import com.modoo.wrk.frame.FHIVO;
+import com.modoo.wrk.frame.FrameVO;
+import com.modoo.wrk.frame.impl.FrameService;
 import com.modoo.wrk.info.InfoVO;
 import com.modoo.wrk.info.ModooCrawler;
 import com.modoo.wrk.info.impl.InfoService;
@@ -20,49 +27,93 @@ public class DataController {
 	@Autowired
 	private DataService dataService;
 	@Autowired
+	private FrameService frameService;
+	@Autowired
 	private ModooCrawler modooCrawler;
 	
-	@RequestMapping("/dataService.do")
-	public String infoService(InfoVO vo, String mode, String keyword,
-			Model model) {
+	@RequestMapping(value = {"/dataService.do", "/dataServiceByFrame.do"})
+	public String infoService(InfoVO vo, FrameVO fvo,String mode, String keyword,
+			Model model, HttpServletRequest req) {
 		System.out.println(keyword);
 		
 		String page = "dataService.jsp";
+		String URI = req.getRequestURI();
 		
-		if(mode.equals("delete")) {
-			page = "dataServiceDelete.jsp";
-		}
-		if(mode.equals("update")) {
-			page = "dataServiceUpdate.jsp";
-		}
-		
-		InfoVO info = infoService.getInfo(vo);
-		
-		model.addAttribute("info", info);
-		
-		
-		if(keyword == null) {
-			System.out.println("키워드 따위 없는 시크한 그런 데이터 리스트!");
-			DataVO dvo = new DataVO();
-			dvo.setIseq(vo.getIseq());
+		if(URI.equals("/MODOO/dataService.do")) {
+			if(mode.equals("delete")) {
+				page = "dataServiceDelete.jsp";
+			}
+			if(mode.equals("update")) {
+				page = "dataServiceUpdate.jsp";
+			}
 			
-			model.addAttribute("dataList", dataService.getData(dvo));
+			InfoVO info = infoService.getInfo(vo);
+			
+			model.addAttribute("info", info);
+			
+			if(keyword == null) {
+				System.out.println("키워드 따위 없는 시크한 그런 데이터 리스트!");
+				DataVO dvo = new DataVO();
+				dvo.setIseq(vo.getIseq());
+				
+				model.addAttribute("dataList", dataService.getData(dvo));
+			} else {
+				System.out.println("키워드 있는 똑똑한 그런 데이터 리스트!");
+				SearchVO svo = new SearchVO();
+				svo.setIseq(vo.getIseq());
+				svo.setKeyword(keyword);
+				
+				model.addAttribute("dataList", dataService.getDataSearch(svo));
+			}
 		} else {
-			System.out.println("키워드 있는 똑똑한 그런 데이터 리스트!");
-			SearchVO svo = new SearchVO();
-			svo.setIseq(vo.getIseq());
-			svo.setKeyword(keyword);
+			page = "dataServiceByFrame.jsp";
+			if(mode.equals("delete")) {
+				page = "dataServiceByFrameDelete.jsp";
+			}
+			if(mode.equals("update")) {
+				page = "dataServiceByFrameUpdate.jsp";
+			}
 			
-			model.addAttribute("dataList", dataService.getDataSearch(svo));
+			FrameVO frame = frameService.getFrame(fvo);
+			List<FHIVO> fhiList = frameService.getFHIList(fvo);
+			
+			for(int i=0;i<fhiList.size();i++) {
+				FHIVO fhi = fhiList.get(i);
+				
+				InfoVO ivo = new InfoVO();
+				ivo.setIseq(fhi.getIseq());
+				
+				InfoVO info = infoService.getInfo(ivo);
+				
+				DataVO dvo = new DataVO();
+				dvo.setIseq(fhi.getIseq());
+				
+				List<DataVO> dataList = dataService.getData(dvo);
+				
+				fhi.setField(info.getField());
+				fhi.setDataList(dataList);
+				
+				fhiList.set(i, fhi);
+			}
+			
+			model.addAttribute("frame", frame);
+			model.addAttribute("fhiList", fhiList);
 		}
 		
 		return page;
 	}
 	
-	@RequestMapping("/deleteData.do")
+	@RequestMapping(value = {"/deleteData.do", "/deleteDataByFrame.do"})
 	public String deleteData(String dseqList,
-			InfoVO info) {
+			InfoVO info, FrameVO frame,
+			HttpServletRequest req) {
 		String[] dseqList_ = dseqList.split(",");
+		String page = "redirect:dataService.do?iseq=" + info.getIseq() + "&mode=delete";
+		String URI = req.getRequestURI();
+		
+		if(URI.equals("/MODOO/deleteDataByFrame.do")) {
+			page = "redirect:dataServiceByFrame.do?fseq=" + frame.getFseq() + "&mode=delete";
+		} 
 		
 		DataVO vo = new DataVO();
 		
@@ -71,7 +122,7 @@ public class DataController {
 			dataService.deleteData(vo);
 		}
 		
-		return "redirect:dataService.do?iseq=" + info.getIseq() + "&mode=delete";
+		return page;
 	}
 	
 	@RequestMapping("/updateData.do")

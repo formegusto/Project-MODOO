@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoService.css?e"></link>
+<link rel="stylesheet" href="styles/css/infoService.css?z"></link>
 <script type="text/javascript" src="styles/js/infoService.js"></script>
 <title>MODOO</title>
 </head>
@@ -26,17 +26,23 @@
 				프레임 보는 중!
 			</li>
 		</ul>
-		<c:forEach items="${frameList }" var="frame">
-					<div class="contentCard" onclick="location.href='dataService.do?fseq=${frame.fseq}&mode=read'">
+		<div class="cardGroup">
+			<c:forEach items="${frameList }" var="frame">
+					<div class="contentCard" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=read'">
 					<h1>${frame.title }</h1>
 					<hr/>
-					<c:forEach items="${frame.dataList }" var="data">
 						<p>
-							${data }
+							띵킹띵킹
 						</p>
-					</c:forEach>
+						<p>
+							띵킹띵킹
+						</p>
+						<p>
+							띵킹띵킹
+						</p>
 				</div>
-		</c:forEach>
+			</c:forEach>
+		</div>
 	</div>
 	<div class="sideContent">
 		<div class="sideItem" onclick="location.href='infoServiceByFrame.do'">프레임 만들기</div>

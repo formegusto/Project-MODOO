@@ -91,6 +91,7 @@ tbody tr {
 }
 
 tbody td {
+	position: relative;
 	height: 2.5rem;
 	white-space: nowrap;
 	overflow: hidden;
@@ -101,18 +102,7 @@ tbody td {
 	border-radius: 1rem;
 	padding: 1rem;
 	box-shadow: .25rem .25rem .25rem 0 black; 
-}
-
-tbody td:active {
-	height: auto;
-	white-space: normal;
-}
-
-tbody td:hover {
-	text-transform: translateY(-5px) translateX(5px);
-	text-shadow: .25rem .25rem .25rem 0 gray; 
-	transform: translateY(-5px) translateX(5px);
-	transition: .3s;
+	cursor: pointer;
 }
 
 td.fieldHeader {
@@ -170,6 +160,60 @@ td.fieldHeader {
 	background: white;
 	color: black;
 	transition: .5s;
+}
+
+.sideItem.active {
+	background: white;
+	color: black;
+}
+
+.sideContent hr{
+	width: 90%;
+}
+
+.dataTools {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	color: white;
+}
+
+.dataTools.active {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	background: black;
+	border: 1px black solid;
+	border-radius: 1rem;
+}
+
+tbody td:hover {
+	background: black;
+	transform: translateY(-5px) translateX(5px);
+	transition: .3s;
+}
+
+.dataTools div:hover {
+	transform: translateY(-5px);
+	box-shadow: .3rem .3rem .3rem .3rem white; 
+	background: #808e9b;
+	transition: .5s;
+}
+
+tbody td:hover .dataTools {
+	display: flex;
 }
 
 /* animation keyframe */

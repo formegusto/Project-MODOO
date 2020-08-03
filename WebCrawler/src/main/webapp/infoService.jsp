@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoService.css?c"></link>
+<link rel="stylesheet" href="styles/css/infoService.css?g"></link>
 <script type="text/javascript" src="styles/js/infoService.js"></script>
 <title>MODOO</title>
 </head>
@@ -26,8 +26,9 @@
 				프레임
 			</li>
 		</ul>
-		<c:forEach items="${infoList }" var="info">
-					<div class="contentCard" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=read'">
+		<div class="cardGroup">
+			<c:forEach items="${infoList }" var="info">
+				<div class="contentCard" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=read'">
 					<h1>${info.title }</h1>
 					<hr/>
 					<c:forEach items="${info.dataList }" var="data">
@@ -36,7 +37,8 @@
 						</p>
 					</c:forEach>
 				</div>
-		</c:forEach>
+			</c:forEach>
+		</div>
 	</div>
 	<div class="sideContent">
 		<div class="sideItem" onclick="onInsertPage('crawling')">CRAWLING</div>
