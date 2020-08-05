@@ -125,11 +125,19 @@ public class DataController {
 		return page;
 	}
 	
-	@RequestMapping("/updateData.do")
+	@RequestMapping(value = {"/updateData.do", "/updateDataByFrame.do"})
 	public String updateData(String[] dseqList, String[] dataList,
-			InfoVO info) {
+			InfoVO info, FrameVO frame,
+			HttpServletRequest req) {
 		System.out.println(dseqList);
 		System.out.println(dataList);
+		
+		String page = "redirect:dataService.do?iseq=" + info.getIseq() + "&mode=update";
+		String URI = req.getRequestURI();
+		
+		if(URI.equals("/MODOO/updateDataByFrame.do")) {
+			page = "redirect:dataServiceByFrame.do?fseq=" + frame.getFseq() + "&mode=update";
+		} 
 		
 		DataVO vo = new DataVO();
 		for(int i=0;i<dseqList.length;i++) {
@@ -139,6 +147,6 @@ public class DataController {
 			dataService.updateData(vo);
 		}
 		
-		return "redirect:dataService.do?iseq=" + info.getIseq() + "&mode=update";
+		return page;
 	}
 }
