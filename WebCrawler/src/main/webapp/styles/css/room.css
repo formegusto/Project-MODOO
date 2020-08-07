@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+html {
+	height: 100%;
+	display: flex;
+}
+
+body {
+	width: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items : center;
+	animation: fadeIn 1.5s;
+}
+
+header {
+	z-index: 100;
+	background: black;
+	position: fixed;
+	width: 100%;
+	color: white;
+	height: 100px;
+	top: 0;
+	margin: 0;
+	animation: aniHeader 1s;
+	display: flex;
+	align-items: center;
+}
+
+header h1 {
+	flex: 1;
+	font-family: 'Indie Flower', cursive;
+	overflow: hidden;
+	animation: fadeIn 1.5s;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	cursor: pointer;
+}
+
+header h1:hover {
+	transform: translateY(7px) translateX(7px);
+	transition: .5s;
+}
+
+header h2 {
+	flex: 2;
+	font-family: 'Jua', sans-serif;
+}
+
+section {
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.contents {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex-flow: wrap;
+	width: 100%;
+	margin-top: 6.5rem;
+	padding: .5rem;
+}
+
+.data {
+	border: 1px solid black;
+	border-radius: 1rem;
+	display: flex;
+	flex: 1;
+	margin-right: .5rem;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+}
+
+.data canvas{
+	border-radius: 1rem;
+}
+
+.chatDiv {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	border: 1px solid black;
+	border-radius: 1rem;
+}
+
+.chatDiv div {
+	width: 100%;
+}
+
+.chatTitle{
+	height: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
+	font-family: 'Do Hyeon', sans-serif;
+}
+
+.chat {
+	height: 712px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: center;
+}
+
+.chat::-webkit-scrollbar{
+	width: 10px;
+}
+
+.chat::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 1rem;
+    transition: .7s;
+}
+.chat::-webkit-scrollbar-track {
+	border-radius: 1rem;
+    background-color: black;
+}
+
+.chat div {
+	width: 100%;
+	margin-bottom: .5rem;
+}
+
+.chat .me {
+	border: none;
+	padding-right: 1rem;
+	display: flex;
+	flex-direction: row-reverse;
+}
+.chat .notme {
+	border: none;
+	padding-left: 1rem;
+	display: flex;
+	flex-direction: row;
+}
+
+.chat .me div {
+	font-size: 1.25rem;
+	font-family: 'Do Hyeon', sans-serif;
+	border: none;
+	background: black;
+	color: white;
+	display: flex;
+	position: relative;
+	width: 40%;
+	padding: .75rem;
+	flex-direction: row-reverse;
+}
+
+.chat .me div::before {
+	content: '';
+	position: absolute;
+	bottom: -1rem;
+	left: 0;
+	width: 77%;
+	border: white .75rem solid;
+	border-top-right-radius: 1rem;
+}
+
+.chat .me div::after {
+	content: '';
+	position: absolute;
+	bottom: -1rem;
+	right: 0;
+	width: 5%;
+	border: white .75rem solid;
+	border-top-left-radius: 1rem;
+}
+
+.chat .notme div {
+	font-size: 1.25rem;
+	font-family: 'Do Hyeon', sans-serif;
+	border: none;
+	background: black;
+	color: white;
+	display: flex;
+	position: relative;
+	width: 40%;
+	padding: .75rem;
+	flex-direction: row-reverse;
+}
+
+.chat .notme div::before {
+	content: '';
+	position: absolute;
+	bottom: -1rem;
+	right: 0;
+	width: 77%;
+	border: white .75rem solid;
+	border-top-left-radius: 1rem;
+}
+
+.chat .notme div::after {
+	content: '';
+	position: absolute;
+	bottom: -1rem;
+	left: 0;
+	width: 5%;
+	border: white .75rem solid;
+	border-top-right-radius: 1rem;
+}
+
+.chat .notme div {
+	display: flex;
+	position: relative;
+	width: 40%;
+	padding: .5rem;
+	flex-direction: row;
+}
+
+
+
+.chatForm {
+	height: 15%;
+}
+
+.userList {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: .5;
+	border: 1px solid black;
+	border-radius: 1rem;
+}
+
+/* animation keyframe */
+@keyframes fadeIn {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+@keyframes aniHeader {
+	from {
+		height: 50px;
+	}
+	to {
+		heigth: 100px;
+	}
+}
+@media (max-width: 1100px){
+	.sideContent {
+		flex: 1;
+	}
+	.contents {
+		flex: 4;
+	}
+	.contentCard{
+		width: 100%;
+	}
+}
