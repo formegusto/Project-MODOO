@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoService.css?g"></link>
+<link rel="stylesheet" href="styles/css/infoService.css?d"></link>
 <script type="text/javascript" src="styles/js/infoService.js"></script>
 <title>MODOO</title>
 </head>
