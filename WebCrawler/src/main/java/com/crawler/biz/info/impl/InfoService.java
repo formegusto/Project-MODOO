@@ -15,4 +15,5 @@ public interface InfoService {
 	public List<InfoVO> getInfoList(InfoVO vo);
 	public void deleteInfo(InfoVO vo);
 	public InfoVO getInfoTop(InfoVO vo);
+	public List<InfoVO> getInfoListSearch(String keyword);
 }

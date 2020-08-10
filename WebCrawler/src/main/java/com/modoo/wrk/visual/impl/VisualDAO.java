@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.visual.VHIVO;
 import com.modoo.wrk.visual.VisualVO;
 
@@ -34,5 +35,8 @@ public class VisualDAO {
 		System.out.println("[VisualDAO] getVisualList() Call");
 		return mybatis.selectList("VisualDAO.getVisualList",vo);
 	}
-	
+	public List<VisualVO> getVisualListSearch(SearchVO search){
+		System.out.println("[VisualDAO] getVisualList(search) Call");
+		return mybatis.selectList("VisualDAO.getVisualListSearch",search);
+	}
 }

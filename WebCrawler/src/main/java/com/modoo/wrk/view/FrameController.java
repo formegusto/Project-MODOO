@@ -3,6 +3,7 @@ package com.modoo.wrk.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.modoo.wrk.data.DataVO;
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
 import com.modoo.wrk.frame.FHIVO;
 import com.modoo.wrk.frame.FrameVO;
@@ -30,12 +32,21 @@ public class FrameController {
 	
 	@RequestMapping("frameService.do")
 	public String frameService(HttpSession session,
-			Model model) {
+			Model model, HttpServletRequest req) {
 		FrameVO fvo = new FrameVO();
 		
 		fvo.setId(((UsersVO)session.getAttribute("user")).getId());
 		
-		model.addAttribute("frameList", frameService.getFrameList(fvo));
+		String keyword = req.getParameter("keyword");
+		
+		if(keyword != "" && keyword != null) {
+			SearchVO search = new SearchVO();
+			search.setId(fvo.getId());
+			search.setKeyword(keyword);
+			model.addAttribute("frameList", frameService.getFrameListSearch(search));
+		} else {
+			model.addAttribute("frameList", frameService.getFrameList(fvo));
+		}
 		
 		return "frameService.jsp";
 	}

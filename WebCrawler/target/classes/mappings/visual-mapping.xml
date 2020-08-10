@@ -31,4 +31,13 @@
 		ORDER BY vseq DESC
 	]]>
 	</select>
+	<select id="getVisualListSearch" resultType="visual">
+		<![CDATA[
+			SELECT *
+			FROM VISUAL
+			WHERE ID=#{id}
+			AND TITLE LIKE CONCAT('%',#{keyword},'%')
+			ORDER BY VSEQ DESC
+		]]>
+	</select>
 </mapper>

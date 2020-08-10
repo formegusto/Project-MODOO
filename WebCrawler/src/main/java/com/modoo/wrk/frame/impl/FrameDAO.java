@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.frame.FHIVO;
 import com.modoo.wrk.frame.FrameVO;
 
@@ -37,5 +38,9 @@ public class FrameDAO {
 	public List<FrameVO> getFrameList(FrameVO vo){
 		System.out.println("[FrameDAO] getBoardList() Call!");
 		return mybatis.selectList("FrameDAO.getFrameList", vo);
+	}
+	public List<FrameVO> getFrameListSearch(SearchVO search){
+		System.out.println("===> Mybatis로 getFrameList(" + search.getKeyword() + ") 조회 기능 처리");
+		return mybatis.selectList("FrameDAO.getFrameListSearch", search);
 	}
 }

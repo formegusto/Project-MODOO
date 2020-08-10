@@ -1,3 +1,10 @@
+// ХыЧе
+function onKeyword(){
+	let keywordInput = document.getElementById('keyword');
+	
+	location.href= "visualService.do?keyword=" + keywordInput.value;
+}
+
 function visualDraw(ctx,title,vtype,labels,datas,color) {
 	console.log(vtype);
 	

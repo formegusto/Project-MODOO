@@ -6,7 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/infoService.css?e"></link>
-<script type="text/javascript" src="styles/js/infoService.js"></script>
+<script type="text/javascript" src="styles/js/infoService.js?e"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -31,7 +31,7 @@
 							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
 							<span class="textBottomEffect"></span>
 					</div>
-						<button type="button" onclick="onKeyword('${info.iseq}','read')">검색</button>
+						<button type="button" onclick="onKeyword('frame')">검색</button>
 		</div>
 		<div class="cardGroup">
 			<c:forEach items="${frameList }" var="frame">

@@ -7,7 +7,7 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/visualService.css?e"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script type="text/javascript" src="styles/js/visualService.js?5"></script>
+<script type="text/javascript" src="styles/js/visualService.js?e"></script>
 <script>
 window.addEventListener("load", function() {
 	let visualCanvas = document.getElementsByClassName('visualcanvas');
@@ -52,7 +52,7 @@ window.addEventListener("load", function() {
 							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
 							<span class="textBottomEffect"></span>
 					</div>
-						<button type="button" onclick="onKeyword('${info.iseq}','read')">검색</button>
+						<button type="button" onclick="onKeyword()">검색</button>
 		</div>
 		<c:forEach items="${visualList }" var="visual">
 			<div class="contentCard">

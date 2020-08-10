@@ -6,7 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/tmService.css?e"></link>
-<script type="text/javascript" src="styles/js/tmService.js"></script>
+<script type="text/javascript" src="styles/js/tmService.js?1"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
 							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
 							<span class="textBottomEffect"></span>
 					</div>
-						<button type="button" onclick="onKeyword('${info.iseq}','read')">검색</button>
+						<button type="button" onclick="onKeyword()">검색</button>
 		</div>
 		<c:forEach items="${tmList }" var="tm">
 			<div class="contentCard">

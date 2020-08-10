@@ -32,4 +32,13 @@
 		DELETE FROM FRAME
 		WHERE FSEQ=${fseq}
 	</delete>
+	<select id="getFrameListSearch" resultType="frame">
+		<![CDATA[
+			SELECT *
+			FROM FRAME
+			WHERE ID=#{id}
+			AND TITLE LIKE CONCAT('%',#{keyword},'%')
+			ORDER BY FSEQ DESC
+		]]>
+	</select>
 </mapper>

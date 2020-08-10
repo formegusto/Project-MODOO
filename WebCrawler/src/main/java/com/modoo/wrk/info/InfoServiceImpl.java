@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.info.impl.InfoDAO;
 import com.modoo.wrk.info.impl.InfoService;
 
@@ -30,5 +30,11 @@ public class InfoServiceImpl implements InfoService {
 	public InfoVO getInfo(InfoVO vo) {
 		// TODO Auto-generated method stub
 		return infoDAO.getInfo(vo);
+	}
+
+	@Override
+	public List<InfoVO> getInfoListSearch(SearchVO search) {
+		// TODO Auto-generated method stub
+		return infoDAO.getInfoListSearch(search);
 	}
 }

@@ -37,4 +37,9 @@ public class InfoDAOMybatis {
 		System.out.println("===> Mybatis로 getInfoTop() 조회 기능 처리");
 		return mybatis.selectOne("InfoDAO.getInfoTop", vo);
 	}
+	
+	public List<InfoVO> getInfoListSearch(String keyword){
+		System.out.println("===> Mybatis로 getInfoTop(" + keyword + ") 조회 기능 처리");
+		return mybatis.selectOne("InfoDAO.getInfoTop", keyword);
+	}
 }

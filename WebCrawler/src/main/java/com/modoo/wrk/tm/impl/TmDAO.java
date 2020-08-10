@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.tm.THIVO;
 import com.modoo.wrk.tm.TmVO;
 
@@ -32,5 +33,10 @@ public class TmDAO {
 	public int getTmTop (TmVO vo) {
 		System.out.println("[TmDAO Log] getTmTop() Call ");
 		return mybatis.selectOne("TmDAO.getTmTop", vo);
+	}
+	
+	public List<TmVO> getTmListSearch (SearchVO search) {
+		System.out.println("[TmDAO Log] getTmList(Search) Call ");
+		return mybatis.selectList("TmDAO.getTmListSearch", search);
 	}
 }

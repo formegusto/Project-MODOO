@@ -25,4 +25,13 @@
 			WHERE ISEQ=#{iseq}
 		]]>
 	</select>
+	<select id="getInfoListSearch" resultType="info">
+		<![CDATA[
+			SELECT *
+			FROM INFO
+			WHERE ID=#{id}
+			AND TITLE LIKE CONCAT('%',#{keyword},'%')
+			ORDER BY ISEQ DESC
+		]]>
+	</select>
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.frame.impl.FrameDAO;
 import com.modoo.wrk.frame.impl.FrameService;
 
@@ -49,4 +50,9 @@ public class FrameServiceImpl implements FrameService {
 		return frameDAO.getFrameList(vo);
 	}
 
+	@Override
+	public List<FrameVO> getFrameListSearch(SearchVO search) {
+		// TODO Auto-generated method stub
+		return frameDAO.getFrameListSearch(search);
+	}
 }

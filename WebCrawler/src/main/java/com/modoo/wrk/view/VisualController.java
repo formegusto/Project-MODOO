@@ -2,6 +2,7 @@ package com.modoo.wrk.view;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.modoo.wrk.data.DataVO;
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
 import com.modoo.wrk.users.UsersVO;
 import com.modoo.wrk.visual.VHIVO;
@@ -24,12 +26,24 @@ public class VisualController {
 	private VisualService visualService;
 	
 	@RequestMapping("visualService.do")
-	public String visualService(Model model, HttpSession session) {
+	public String visualService(Model model, HttpSession session,
+			HttpServletRequest req) {
 		VisualVO vo = new VisualVO();
 		vo.setId(((UsersVO)session.getAttribute("user")).getId());
 		
 		// VisualList
-		List<VisualVO> visualList = visualService.getVisualList(vo);
+		List<VisualVO> visualList;
+		
+		String keyword = req.getParameter("keyword");
+		
+		if(keyword != "" && keyword != null) {
+			SearchVO search = new SearchVO();
+			search.setId(vo.getId());
+			search.setKeyword(keyword);
+			visualList = visualService.getVisualListSearch(search);
+		} else {
+			visualList = visualService.getVisualList(vo);
+		}
 		
 		// datas, labels 구축
 		VisualVO tmpVisual = new VisualVO();

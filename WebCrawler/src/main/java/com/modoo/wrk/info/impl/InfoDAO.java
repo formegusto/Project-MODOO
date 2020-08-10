@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.info.InfoVO;
 
 @Repository
@@ -29,5 +30,11 @@ public class InfoDAO {
 	public InfoVO getInfo(InfoVO vo) {
 		System.out.println("[InfoDAO Log] getInfo() Call ");
 		return mybatis.selectOne("InfoDAO.getInfo", vo);
+	}
+	
+	// INFO Keyword 조회
+	public List<InfoVO> getInfoListSearch(SearchVO search){
+		System.out.println("===> Mybatis로 getInfoTop(" + search.getKeyword() + ") 조회 기능 처리");
+		return mybatis.selectList("InfoDAO.getInfoListSearch", search);
 	}
 }

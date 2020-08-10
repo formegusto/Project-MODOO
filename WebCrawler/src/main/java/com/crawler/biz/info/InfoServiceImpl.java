@@ -33,5 +33,9 @@ public class InfoServiceImpl implements InfoService{
 		// TODO Auto-generated method stub
 		return infoDAO.getInfoTop(vo);
 	}
-	
+	@Override
+	public List<InfoVO> getInfoListSearch(String keyword) {
+		// TODO Auto-generated method stub
+		return infoDAO.getInfoListSearch(keyword);
+	}
 }

@@ -1,4 +1,9 @@
-
+// ХыЧе
+function onKeyword(){
+	let keywordInput = document.getElementById('keyword');
+	
+	location.href= "tmService.do?keyword=" + keywordInput.value;
+}
 
 function onChange(e,type){
 	let prevE = document.getElementsByClassName('sideItem active')[1];

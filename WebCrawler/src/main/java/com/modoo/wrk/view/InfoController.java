@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.modoo.wrk.data.DataVO;
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
 import com.modoo.wrk.info.InfoVO;
 import com.modoo.wrk.info.ModooCrawler;
@@ -59,10 +60,22 @@ public class InfoController {
 		UsersVO user = (UsersVO) session.getAttribute("user");
 		String forwardPage = "";
 		String URI = req.getRequestURI();
+		String keyword = req.getParameter("keyword");
 		
 		InfoVO vo = new InfoVO();
 		vo.setId(user.getId());
-		List<InfoVO> infoList = infoService.getInfoList(vo);
+		
+		List<InfoVO> infoList = null;
+		
+		if(keyword != "" && keyword != null) {
+			SearchVO search = new SearchVO();
+			search.setId(vo.getId());
+			search.setKeyword(keyword);
+			infoList = infoService.getInfoListSearch(search);
+		} else {
+			infoList = infoService.getInfoList(vo);
+		}
+		
 		
 		DataVO dvo = new DataVO();
 		for(int i=0;i<infoList.size();i++) {

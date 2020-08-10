@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.rosuda.REngine.REXP;
@@ -21,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.modoo.wrk.data.DataVO;
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
 import com.modoo.wrk.info.InfoVO;
 import com.modoo.wrk.tm.THIVO;
@@ -36,11 +38,22 @@ public class TMController {
 	private TmService tmService;
 	
 	@RequestMapping("/tmService.do")
-	public String tmService(HttpSession session, Model model) {
+	public String tmService(HttpSession session, Model model,
+			HttpServletRequest req) {
 		TmVO tvo = new TmVO();
 		
 		tvo.setId(((UsersVO)session.getAttribute("user")).getId());
-		model.addAttribute("tmList", tmService.getTmList(tvo));
+		
+		String keyword = req.getParameter("keyword");
+		
+		if(keyword != "" && keyword != null) {
+			SearchVO search = new SearchVO();
+			search.setId(tvo.getId());
+			search.setKeyword(keyword);
+			model.addAttribute("tmList", tmService.getTmListSearch(search));
+		} else {
+			model.addAttribute("tmList", tmService.getTmList(tvo));
+		}
 		
 		return "tmService.jsp";
 	}

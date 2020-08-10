@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.tm.impl.TmDAO;
 import com.modoo.wrk.tm.impl.TmService;
 
@@ -35,5 +36,11 @@ public class TmServiceImpl implements TmService {
 	public int getTmTop(TmVO vo) {
 		// TODO Auto-generated method stub
 		return tmDAO.getTmTop(vo);
+	}
+
+	@Override
+	public List<TmVO> getTmListSearch(SearchVO search) {
+		// TODO Auto-generated method stub
+		return tmDAO.getTmListSearch(search);
 	}
 }
