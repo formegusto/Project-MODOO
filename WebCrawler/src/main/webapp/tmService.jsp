@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/tmService.css?3"></link>
+<link rel="stylesheet" href="styles/css/tmService.css?e"></link>
 <script type="text/javascript" src="styles/js/tmService.js"></script>
 <title>MODOO</title>
 </head>
@@ -18,6 +18,13 @@
 		<div class="sideItem" onClick="location.href='visualService.do'">시각화</div>
 	</div>
 	<div class="contents active" id="tmList">
+		<div class="searchBar">
+					<div>
+							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
+							<span class="textBottomEffect"></span>
+					</div>
+						<button type="button" onclick="onKeyword('${info.iseq}','read')">검색</button>
+		</div>
 		<c:forEach items="${tmList }" var="tm">
 			<div class="contentCard">
 			<h1>${tm.title }</h1>

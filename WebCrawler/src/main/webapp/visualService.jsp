@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/visualService.css?z"></link>
+<link rel="stylesheet" href="styles/css/visualService.css?e"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript" src="styles/js/visualService.js?5"></script>
 <script>
@@ -47,6 +47,13 @@ window.addEventListener("load", function() {
 		<div class="sideItem active">시각화 중!</div>
 	</div>
 	<div class="contents active" id="tmList">
+		<div class="searchBar">
+					<div>
+							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
+							<span class="textBottomEffect"></span>
+					</div>
+						<button type="button" onclick="onKeyword('${info.iseq}','read')">검색</button>
+		</div>
 		<c:forEach items="${visualList }" var="visual">
 			<div class="contentCard">
 			<h1>${visual.title }</h1>
