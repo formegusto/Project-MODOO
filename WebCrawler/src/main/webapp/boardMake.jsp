@@ -20,82 +20,31 @@
 			<div class="contentHeader">
 				橇饭烙
 			</div>
-			<div class="content" onmouseenter="titleEnter(this)" onmouseleave="titleLeave(this)">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
+			<c:forEach items="${frameList}" var="frame">
+				<div class="content" onmouseenter="titleEnter(this)" onmouseleave="titleLeave(this)">
+					${frame.title }
+				</div>
+			</c:forEach>
 		</div>
 		<div class="subContent">
 			<div class="contentHeader">
 				咆胶飘付捞醋
 			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
+			<c:forEach items="${tmList}" var="tm">
+				<div class="content" onmouseenter="titleEnter(this)" onmouseleave="titleLeave(this)">
+					${tm.title }
+				</div>
+			</c:forEach>
 		</div>
 		<div class="subContent">
 			<div class="contentHeader">
-				厚林倔
+				矫阿拳
 			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
-			<div class="content">
-				力格
-			</div>
+			<c:forEach items="${visualList}" var="visual">
+				<div class="content" onmouseenter="titleEnter(this)" onmouseleave="titleLeave(this)">
+					${visual.title }
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 	<div class="sideContent">
