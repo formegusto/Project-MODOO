@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.modoo.wrk.frame.FrameVO;
 import com.modoo.wrk.frame.impl.FrameService;
@@ -24,7 +25,7 @@ public class BoardController {
 	@Autowired
 	private VisualService visualService;
 	
-	@RequestMapping("boardMake.do")
+	@RequestMapping(value = "boardMake.do", method = RequestMethod.GET)
 	public String boardMake(HttpSession session,
 			Model model) {
 		UsersVO user = (UsersVO) session.getAttribute("user");

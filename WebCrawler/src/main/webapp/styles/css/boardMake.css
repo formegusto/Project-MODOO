@@ -36,12 +36,17 @@ section {
 	background: black;
 	color: white;
 	text-align: center;
+	width: 400px;
 }
 
 .content {
+	width: 400px;
 	font-size: 2rem;
 	cursor: pointer;
 	transition: 1s;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .sideContent {
@@ -89,6 +94,7 @@ section {
 
 .loading.active {
 	display: flex;
+	flex-direction: column;
 	animation: fadeIn 1s forwards;
 	position: fixed;
 	background: black;
@@ -100,6 +106,89 @@ section {
 	z-index: 250;
 	align-items: center;
 	justify-content: center;
+}
+
+.loading.active {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	animation: fadeIn 1s forwards;
+	position: fixed;
+	background: black;
+	font-size: 10rem;
+	font-family: 'Do Hyeon', sans-serif;
+	color: white;
+	width: 100%;
+	height: 100%;
+	z-index: 250;
+	align-items: center;
+	justify-content: center;
+}
+
+.loading.active::-webkit-scrollbar{
+	width: 10px;
+}
+
+.loading.active::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 1rem;
+    transition: .7s;
+}
+.loading.active::-webkit-scrollbar-track {
+	border-radius: 1rem;
+    background-color: black;
+}
+
+.loading.active form{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+}
+
+.loading.active input {
+	width: 80%;
+	border-radius: 1rem;
+	border: 1px black solid;
+	font-size: 5rem;
+	outline: none;
+	font-family: 'Do Hyeon', sans-serif;
+	padding: .5rem;
+}
+
+.loading.active textarea {
+	width: 80%;
+	height: 15rem;
+	border-radius: 1rem;
+	border: 1px black solid;
+	font-size: 2.5rem;
+	outline: none;
+	font-family: 'Do Hyeon', sans-serif;
+	resize: vertical;
+	padding: .5rem;
+}
+
+.loading.active button {
+	width: 50%;
+	border-radius: 1rem;
+	font-size: 2.5rem;
+	border: .5rem black solid;
+	outline: none;
+	font-family: 'Do Hyeon', sans-serif;
+	padding: .5rem;
+	background: white;
+	color: black;
+	cursor: pointer;
+	transition: .7s;
+}
+
+.loading.active button:hover {
+	background: gray;
+}
+
+.loading.active textarea::placeholder {
+	font-size: 5rem;
 }
 
 /* animation keyframe */
