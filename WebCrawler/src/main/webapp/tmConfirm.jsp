@@ -19,7 +19,7 @@
 			<jsp:include page="/confirmRview/${viewSeq }.html"/>
 			<form name="tmform" method="post" action="tmAdd.do" >
 				<input type="hidden" name="iseq" value="${viewSeq }"/>
-				<input type="hidden" name="ttype" value="info:wordcloud"/>
+				<input type="hidden" name="ttype" value="wordcloud"/>
 				<input type="text" name="title" placeholder="당신의 워드클라우드에 이름을 지어주세요!"/>
 			</form>
 		</div>

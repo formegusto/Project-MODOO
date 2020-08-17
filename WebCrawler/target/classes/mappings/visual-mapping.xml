@@ -15,6 +15,13 @@
 		values ((SELECT ifnull(max(vhiseq), 0) + 1 FROM VISUAL_HAVE_INFO a),(SELECT ifnull(max(vseq), 0) + 0 FROM VISUAL b), #{iseq},#{dtype})
 	]]>
 	</insert>
+	<select id="getVisual" resultType="visual">
+	<![CDATA[
+		SELECT *
+		FROM VISUAL
+		WHERE VSEQ=#{vseq}
+	]]>
+	</select>
 	<select id="getVHIList" resultType="vhi">
 	<![CDATA[
 		SELECT *

@@ -4,18 +4,31 @@
 
 <mapper namespace="TmDAO">
 	<insert id="insertTm">
+	<![CDATA[
 		insert into TM(tseq, title, ttype, id)
 		values ((SELECT ifnull(max(tseq), 0) + 1 FROM TM a),#{title },#{ttype}, #{id})
+	]]>
 	</insert>
 	<insert id="insertTHI">
+	<![CDATA[
 		insert into TM_HAVE_INFO(thiseq,tseq,iseq)
 		values ((SELECT ifnull(max(thiseq), 0) + 1 FROM TM_HAVE_INFO a),(SELECT ifnull(max(tseq), 0) + 0 FROM TM b), #{iseq})
+	]]>
 	</insert>
+	<select id="getTm" resultType="tm">
+	<![CDATA[
+		SELECT *
+		FROM TM
+		WHERE tseq=#{tseq}
+	]]>
+	</select>
 	<select id="getTmList" resultType="tm">
+	<![CDATA[
 		SELECT * 
 		FROM TM
 		WHERE ID=#{id}
 		ORDER BY tseq DESC
+	]]>
 	</select>
 	<select id="getTmTop" resultType="int">
 		<![CDATA[

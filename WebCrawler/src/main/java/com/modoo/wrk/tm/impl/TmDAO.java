@@ -25,6 +25,11 @@ public class TmDAO {
 		mybatis.insert("TmDAO.insertTHI", vo);
 	}
 	
+	public TmVO getTm(TmVO vo) {
+		System.out.println("[TmDAO Log] getTm() Call ");
+		return mybatis.selectOne("TmDAO.getTm", vo);
+	}
+	
 	public List<TmVO> getTmList (TmVO vo) {
 		System.out.println("[TmDAO Log] getTmList() Call ");
 		return mybatis.selectList("TmDAO.getTmList", vo);

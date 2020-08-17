@@ -4,25 +4,30 @@
 
 <mapper namespace="BoardDAO">
 	<insert id="insertBoard">
-		insert into BOARD(bseq, bnum, btype, title, content, id)
-		values ((SELECT ifnull(max(bseq), 0) + 1 FROM BOARD a),#{bnum},#{btype},#{title },#{content },#{id })
+	<![CDATA[
+		insert into BOARD(bseq, title, content, id)
+		values ((SELECT ifnull(max(bseq), 0) + 1 FROM BOARD a),#{title },#{content },#{id })
+	]]>
 	</insert>
-	<delete id="deleteBoard">
-		DELETE FROM BOARD
-		WHERE BSEQ=${bseq}
-	</delete>
-	<select id="getBoard" resultType="board">
-		SELECT *
-		FROM BOARD
-		WHERE BSEQ=${bseq}
-	</select>
+	<insert id="insertBHD">
+	<![CDATA[
+		insert into BOARD_HAVE_DATA(bhdseq, bseq, type, seq)
+		values ((SELECT ifnull(max(bhdseq), 0) + 1 FROM BOARD_HAVE_DATA a),#{bseq },#{type },#{seq })
+	]]>	
+	</insert>
 	<select id="getBoardList" resultType="board">
+	<![CDATA[
 		SELECT * 
 		FROM BOARD
 		ORDER BY bseq DESC
+	]]>
 	</select>
-	<select id="boardCnt" resultType="Integer">
-		SELECT COUNT(*)
-		FROM BOARD
+	<select id="getBoardTop" resultType="int">
+	<![CDATA[
+			SELECT bseq
+			FROM BOARD
+			WHERE ID=#{id}
+			ORDER BY BSEQ DESC LIMIT 1
+	]]>
 	</select>
 </mapper>

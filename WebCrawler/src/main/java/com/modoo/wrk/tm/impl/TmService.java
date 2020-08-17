@@ -9,6 +9,7 @@ import com.modoo.wrk.tm.TmVO;
 public interface TmService {
 	public void insertTm(TmVO vo);
 	public void insertTHI(THIVO vo);
+	public TmVO getTm(TmVO vo);
 	public List<TmVO> getTmList (TmVO vo);
 	public int getTmTop (TmVO vo);
 	public List<TmVO> getTmListSearch (SearchVO search);

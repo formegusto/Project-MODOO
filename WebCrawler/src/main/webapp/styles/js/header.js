@@ -4,6 +4,8 @@ function selTogether(type){
 		togetherDiv.className = "together";
 	} else if (type === 'make') {
 		location.href = "boardMake.do";
+	} else if (type === 'read') {
+		location.href = "boardService.do";
 	}
 }
 

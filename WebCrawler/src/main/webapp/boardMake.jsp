@@ -18,7 +18,7 @@
 		<input type="hidden" name="tseq" id="tseq"/>
 		<input type="hidden" name="vseq" id="vseq"/>
 		<input type="text" name="title" id="title" placeholder="제목" />
-		<textarea placeholder="설명"></textarea>
+		<textarea placeholder="설명" name="content"></textarea>
 		<button type="submit">만들기</button>
 	</form>
 </div>

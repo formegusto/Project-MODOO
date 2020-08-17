@@ -26,6 +26,13 @@ public class VisualServiceImpl implements VisualService {
 		visualDAO.insertVHI(vo);
 	}
 
+	
+	@Override
+	public VisualVO getVisual(VisualVO vo) {
+		// TODO Auto-generated method stub
+		return visualDAO.getVisual(vo);
+	}
+
 	@Override
 	public List<VHIVO> getVHIList(VisualVO vo) {
 		// TODO Auto-generated method stub

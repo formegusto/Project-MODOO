@@ -15,9 +15,14 @@ import com.modoo.wrk.tm.impl.TmService;
 import com.modoo.wrk.users.UsersVO;
 import com.modoo.wrk.visual.VisualVO;
 import com.modoo.wrk.visual.impl.VisualService;
+import com.modoo.wrk.board.BHDVO;
+import com.modoo.wrk.board.BoardVO;
+import com.modoo.wrk.board.impl.BoardService;
 
 @Controller
 public class BoardController {
+	@Autowired
+	private BoardService boardService;
 	@Autowired
 	private FrameService frameService;
 	@Autowired
@@ -43,5 +48,46 @@ public class BoardController {
 		model.addAttribute("visualList", visualService.getVisualList(vvo));
 		
 		return "boardMake.jsp";
+	}
+	
+	@RequestMapping(value = "boardMake.do", method = RequestMethod.POST)
+	public String boardMake_proc(BoardVO bvo, FrameVO fvo,
+			TmVO tvo, VisualVO vvo, HttpSession session) {
+		UsersVO user = (UsersVO) session.getAttribute("user");
+		
+		FrameVO frame = frameService.getFrame(fvo);
+		TmVO tm = tmService.getTm(tvo);
+		VisualVO visual = visualService.getVisual(vvo);
+		bvo.setId(user.getId());
+		boardService.insertBoard(bvo);
+		
+		BHDVO frameBHD = new BHDVO();
+		BHDVO tmBHD = new BHDVO();
+		BHDVO visualBHD = new BHDVO();
+		
+		int bseq = boardService.getBoardTop(bvo);
+		
+		frameBHD.setBseq(bseq);
+		frameBHD.setSeq(frame.getFseq());
+		frameBHD.setType("frame");
+		tmBHD.setBseq(bseq);
+		tmBHD.setSeq(tm.getTseq());
+		tmBHD.setType("tm");
+		visualBHD.setBseq(bseq);
+		visualBHD.setSeq(visual.getVseq());
+		visualBHD.setType("visual");
+		
+		boardService.insertBHD(frameBHD);
+		boardService.insertBHD(tmBHD);
+		boardService.insertBHD(visualBHD);
+		
+		return "redirect:boardService.do";
+	}
+	
+	@RequestMapping(value = "boardService.do")
+	public String boardService(Model model) {
+		model.addAttribute("boardList", boardService.getBoardList());
+		
+		return "boardService.jsp";
 	}
 }

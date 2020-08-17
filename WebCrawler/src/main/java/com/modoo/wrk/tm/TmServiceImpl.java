@@ -27,6 +27,12 @@ public class TmServiceImpl implements TmService {
 	}
 
 	@Override
+	public TmVO getTm(TmVO vo) {
+		// TODO Auto-generated method stub
+		return tmDAO.getTm(vo);
+	}
+
+	@Override
 	public List<TmVO> getTmList(TmVO vo) {
 		// TODO Auto-generated method stub
 		return tmDAO.getTmList(vo);
