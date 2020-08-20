@@ -1,5 +1,7 @@
 package com.modoo.wrk.view;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,21 +10,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.modoo.wrk.frame.FrameVO;
-import com.modoo.wrk.frame.impl.FrameService;
-import com.modoo.wrk.tm.TmVO;
-import com.modoo.wrk.tm.impl.TmService;
-import com.modoo.wrk.users.UsersVO;
-import com.modoo.wrk.visual.VisualVO;
-import com.modoo.wrk.visual.impl.VisualService;
 import com.modoo.wrk.board.BHDVO;
 import com.modoo.wrk.board.BoardVO;
 import com.modoo.wrk.board.impl.BoardService;
+import com.modoo.wrk.data.DataVO;
+import com.modoo.wrk.data.impl.DataService;
+import com.modoo.wrk.frame.FHIVO;
+import com.modoo.wrk.frame.FrameVO;
+import com.modoo.wrk.frame.impl.FrameService;
+import com.modoo.wrk.info.InfoVO;
+import com.modoo.wrk.info.impl.InfoService;
+import com.modoo.wrk.tm.TmVO;
+import com.modoo.wrk.tm.impl.TmService;
+import com.modoo.wrk.users.UsersVO;
+import com.modoo.wrk.visual.VHIVO;
+import com.modoo.wrk.visual.VisualVO;
+import com.modoo.wrk.visual.impl.VisualService;
 
 @Controller
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private InfoService infoService;
+	@Autowired
+	private DataService dataService;
 	@Autowired
 	private FrameService frameService;
 	@Autowired
@@ -89,5 +101,84 @@ public class BoardController {
 		model.addAttribute("boardList", boardService.getBoardList());
 		
 		return "boardService.jsp";
+	}
+	
+	@RequestMapping(value = "boardDetailService.do", method = RequestMethod.GET)
+	public String boardDetailService(BoardVO vo, Model model) {
+		BoardVO board = boardService.getBoard(vo);
+		List<BHDVO> bhdList = boardService.getBHDList(vo);
+		
+		for(BHDVO bhd : bhdList) {
+			if(bhd.getType().equals("frame")) {
+				FrameVO fvo = new FrameVO();
+				fvo.setFseq(bhd.getSeq());
+				
+				FrameVO frame = frameService.getFrame(fvo);
+				List<FHIVO> fhiList = frameService.getFHIList(fvo);
+				
+				for(int i=0;i<fhiList.size();i++) {
+					FHIVO fhi = fhiList.get(i);
+					
+					InfoVO ivo = new InfoVO();
+					ivo.setIseq(fhi.getIseq());
+					
+					InfoVO info = infoService.getInfo(ivo);
+					
+					DataVO dvo = new DataVO();
+					dvo.setIseq(fhi.getIseq());
+					
+					List<DataVO> dataList = dataService.getData(dvo);
+					
+					fhi.setField(info.getField());
+					fhi.setDataList(dataList);
+					
+					fhiList.set(i, fhi);
+				}
+				
+				model.addAttribute("frame", frame);
+				model.addAttribute("fhiList", fhiList);
+			} else if(bhd.getType().equals("tm")) {
+				TmVO tvo = new TmVO();
+				tvo.setTseq(bhd.getSeq());
+				
+				model.addAttribute("tm", tmService.getTm(tvo));
+			} else if(bhd.getType().equals("visual")) {
+				VisualVO vvo = new VisualVO();
+				vvo.setVseq(bhd.getSeq());
+				
+				VisualVO visual = visualService.getVisual(vvo);
+				List<VHIVO> vhiList = visualService.getVHIList(visual);
+				
+				for(VHIVO vhi : vhiList) {
+					DataVO dvo = new DataVO();
+					dvo.setIseq(vhi.getIseq());
+					List<String> dataList = dataService.getDataNotVO(dvo);
+					if(vhi.getDtype().equals("datas")) {
+						for(int j=0;j<dataList.size();j++) {
+							String data = dataList.get(j);
+							data = data.replaceAll("[^0-9]", "");
+							
+							dataList.set(j, data);
+						}
+						visual.setDatas(dataList);
+					}
+					if(vhi.getDtype().equals("labels")) {
+						for(int j=0;j<dataList.size();j++) {
+							String data = dataList.get(j);
+							data = "\'" + data + "\'";
+							
+							dataList.set(j, data);
+						}
+						visual.setLabels(dataList);
+					}
+				}
+				
+				model.addAttribute("visual", visual);
+			}
+		}
+		
+		model.addAttribute("board", board);
+
+		return "boardDetailService.jsp";
 	}
 }

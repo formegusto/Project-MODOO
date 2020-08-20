@@ -22,6 +22,14 @@ public class BoardDAO {
 		mybatis.insert("BoardDAO.insertBHD", vo);
 	}
 	
+	public BoardVO getBoard(BoardVO vo) {
+		return mybatis.selectOne("BoardDAO.getBoard", vo);
+	}
+	
+	public List<BHDVO> getBHDList(BoardVO vo){
+		return mybatis.selectList("BoardDAO.getBHDList", vo);
+	}
+	
 	public List<BoardVO> getBoardList(){
 		return mybatis.selectList("BoardDAO.getBoardList");
 	}

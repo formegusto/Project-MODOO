@@ -15,12 +15,26 @@
 		values ((SELECT ifnull(max(bhdseq), 0) + 1 FROM BOARD_HAVE_DATA a),#{bseq },#{type },#{seq })
 	]]>	
 	</insert>
+	<select id="getBoard" resultType="board">
+	<![CDATA[
+		SELECT * 
+		FROM BOARD
+		WHERE BSEQ = #{bseq}
+	]]>
+	</select>
 	<select id="getBoardList" resultType="board">
 	<![CDATA[
 		SELECT * 
 		FROM BOARD
 		ORDER BY bseq DESC
 	]]>
+	</select>
+	<select id="getBHDList" resultType="bhd">
+	<![CDATA[
+		SELECT * 
+		FROM BOARD_HAVE_DATA
+		WHERE BSEQ = #{bseq}
+	]]>	
 	</select>
 	<select id="getBoardTop" resultType="int">
 	<![CDATA[

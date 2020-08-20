@@ -8,6 +8,8 @@ import com.modoo.wrk.board.BoardVO;
 public interface BoardService {
 	public void insertBoard(BoardVO vo);
 	public void insertBHD(BHDVO vo);
+	public BoardVO getBoard(BoardVO vo);
+	public List<BHDVO> getBHDList(BoardVO vo);
 	public List<BoardVO> getBoardList();
 	public Integer getBoardTop(BoardVO vo);
 }

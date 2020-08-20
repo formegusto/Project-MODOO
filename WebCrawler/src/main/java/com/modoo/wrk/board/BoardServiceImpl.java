@@ -24,6 +24,18 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		boardDAO.insertBHD(vo);
 	}
+	
+	@Override
+	public BoardVO getBoard(BoardVO vo) {
+		// TODO Auto-generated method stub
+		return boardDAO.getBoard(vo);
+	}
+
+	@Override
+	public List<BHDVO> getBHDList(BoardVO vo) {
+		// TODO Auto-generated method stub
+		return boardDAO.getBHDList(vo);
+	}
 
 	@Override
 	public List<BoardVO> getBoardList() {

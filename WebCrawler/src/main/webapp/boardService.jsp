@@ -37,7 +37,7 @@
 			<tbody>
 					<c:forEach items="${boardList }" var="board">
 					<tr>
-						<td class="title">
+						<td class="title" onclick="location.href='boardDetailService.do?bseq=${board.bseq}'">
 							${board.title }
 						</td>
 						<td class="subtd">
