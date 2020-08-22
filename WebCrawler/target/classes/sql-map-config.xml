@@ -17,6 +17,8 @@
 		<typeAlias type="com.modoo.wrk.board.BoardVO" alias="board"></typeAlias>
 		<typeAlias type="com.modoo.wrk.board.BHDVO" alias="bhd"></typeAlias>
 		<typeAlias type="com.modoo.wrk.comment.CommentVO" alias="comment"></typeAlias>
+		<typeAlias type="com.modoo.wrk.room.RoomVO" alias="room"></typeAlias>
+		<typeAlias type="com.modoo.wrk.room.RHDVO" alias="rhd"></typeAlias>
 	</typeAliases>
 	
 	<!-- Sql Mapper 설정 -->
@@ -29,5 +31,6 @@
 		<mapper resource="mappings/frame-mapping.xml" />
 		<mapper resource="mappings/board-mapping.xml" />
 		<mapper resource="mappings/comment-mapping.xml" />
+		<mapper resource="mappings/room-mapping.xml" />
 	</mappers>
 </configuration>

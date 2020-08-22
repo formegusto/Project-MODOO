@@ -4,21 +4,44 @@
 
 <mapper namespace="RoomDAO">
 	<insert id="insertRoom">
-		insert into ROOM(rnum,bnum,rtitle,id)
-		values((SELECT ifnull(max(rnum), 0) + 1 FROM ROOM a),#{bnum},#{rtitle},#{id})
+	<![CDATA[
+		insert into ROOM(rseq, title, content, id)
+		values ((SELECT ifnull(max(rseq), 0) + 1 FROM ROOM a),#{title },#{content },#{id })
+	]]>
 	</insert>
-	<delete id="deleteRoom">
-		DELETE FROM ROOM
-		WHERE RNUM=${rnum }
-	</delete>
+	<insert id="insertRHD">
+	<![CDATA[
+		insert into ROOM_HAVE_DATA(rhdseq, rseq, type, seq)
+		values ((SELECT ifnull(max(rhdseq), 0) + 1 FROM ROOM_HAVE_DATA a),#{rseq },#{type },#{seq })
+	]]>	
+	</insert>
 	<select id="getRoom" resultType="room">
-		SELECT *
+	<![CDATA[
+		SELECT * 
 		FROM ROOM
-		WHERE RNUM=${rnum }
+		WHERE RSEQ = #{rseq}
+	]]>
 	</select>
 	<select id="getRoomList" resultType="room">
-		SELECT *
+	<![CDATA[
+		SELECT * 
 		FROM ROOM
-		ORDER BY RNUM DESC
+		ORDER BY rseq DESC
+	]]>
+	</select>
+	<select id="getRHDList" resultType="rhd">
+	<![CDATA[
+		SELECT * 
+		FROM ROOM_HAVE_DATA
+		WHERE RSEQ = #{rseq}
+	]]>	
+	</select>
+	<select id="getRoomTop" resultType="int">
+	<![CDATA[
+			SELECT rseq
+			FROM ROOM
+			WHERE ID=#{id}
+			ORDER BY RSEQ DESC LIMIT 1
+	]]>
 	</select>
 </mapper>

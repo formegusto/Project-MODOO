@@ -18,6 +18,11 @@ section {
 	padding: .5rem;
 }
 
+hr {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
 .subContent {
 	flex: 1;
 	display: flex;
@@ -189,6 +194,12 @@ section {
 
 .loading.active textarea::placeholder {
 	font-size: 5rem;
+}
+
+.btnGrp {
+	display: flex;
+	width: 80%;
+	justify-content: center; 
 }
 
 /* animation keyframe */

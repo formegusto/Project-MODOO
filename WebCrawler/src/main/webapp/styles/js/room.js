@@ -1,3 +1,8 @@
+window.onload = () => {
+	chat = document.getElementById("chat");
+	chat.scrollTop = chat.scrollHeight;
+}
+
 function onMessage() {
 	var messageInput = document.getElementById("message");
 	var message = messageInput.value;

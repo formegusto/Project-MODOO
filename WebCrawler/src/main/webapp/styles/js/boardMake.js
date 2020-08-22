@@ -33,3 +33,23 @@ function makeClick() {
 	let loading = document.getElementsByClassName('loading')[0];
 	loading.className = "loading active";
 }
+
+function typeClick(btn, type) {
+	btn.style.background = "black";
+	btn.style.color = "white";
+	btn.style.border = "1px solid white";
+	
+	var typeInput = document.getElementById('type');
+	typeInput.value = type;
+}
+
+function onMake() {
+	var typeInput = document.getElementById('type');
+	if(typeInput.value === 'board'){
+		document.board.action = 'boardMake.do';
+	} else if(typeInput.value === 'room') {
+		document.board.action = 'roomMake.do';
+	}
+	
+	document.board.submit();
+}
