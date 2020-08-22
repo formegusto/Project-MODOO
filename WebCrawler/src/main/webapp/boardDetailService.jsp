@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/boardDetailService.css?a"></link>
+<link rel="stylesheet" href="styles/css/boardDetailService.css?e"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script type="text/javascript" src="styles/js/boardDetailService.js?e"></script>
+<script type="text/javascript" src="styles/js/boardDetailService.js?z"></script>
 <script>
 window.addEventListener("load", function() {
 	let visualCanvas = document.getElementsByClassName('visualcanvas')[0];
@@ -23,8 +23,8 @@ window.addEventListener("load", function() {
 	console.log(color);
 	console.log(labels);
 	console.log(datas);
-		
-	visualDraw(visualCanvas,title,vtype,labels,datas,color);
+	
+	setVisualState(visualCanvas,title,vtype,labels,datas,color);
 })
 </script>
 <title>MODOO</title>
@@ -68,7 +68,7 @@ window.addEventListener("load", function() {
 					<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
 				</div>				
 				<div id="visual">
-					<canvas class="visualcanvas"></canvas>
+					<canvas class="visualcanvas" style="width:500px; height: 500px;"></canvas>
 				</div>
 			</div>
 		</div>
@@ -79,47 +79,24 @@ window.addEventListener("load", function() {
 				<div class="boardContent">
 					${board.content }
 				</div>
+				<hr/>
 			</div>
 			<hr/>
 			<div class="comment">
 				<div class="commentForm">
-					<textarea placeholder="욕은 안됩니다!"></textarea>
+					<form method="post" action="commentService.do" name="form">
+						<textarea placeholder="욕은 안됩니다!" class="commentArea" name="content" onkeypress="javasciprt:if(event.keyCode==13){document.form.submit;}"></textarea>
+						<button type="submit" class="commentButton">댓글 달기</button>
+						<input type="hidden" name="bseq" value="${board.bseq }" />
+					</form>
 				</div>
+				<c:forEach items="${commentList }" var="comment">
 				<div class="commentBox">
-					<div class="commentWriter">작성자</div>
+					<div class="commentWriter">${comment.id }</div>
 					<hr/>
-					<div class="commentContent">댓글내용</div>
+					<div class="commentContent">${comment.content }</div>
 				</div>
-				<div class="commentBox">
-					<div class="commentWriter">작성자</div>
-					<hr/>
-					<div class="commentContent">댓글내용</div>
-				</div>
-				<div class="commentBox">
-					<div class="commentWriter">작성자</div>
-					<hr/>
-					<div class="commentContent">댓글내용</div>
-				</div>
-				<div class="commentBox">
-					<div class="commentWriter">작성자</div>
-					<hr/>
-					<div class="commentContent">댓글내용</div>
-				</div>
-				<div class="commentBox">
-					<div class="commentWriter">작성자</div>
-					<hr/>
-					<div class="commentContent">댓글내용</div>
-				</div>
-				<div class="commentBox">
-					<div class="commentWriter">작성자</div>
-					<hr/>
-					<div class="commentContent">댓글내용</div>
-				</div>
-				<div class="commentBox">
-					<div class="commentWriter">작성자</div>
-					<hr/>
-					<div class="commentContent">댓글내용</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

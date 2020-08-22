@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.modoo.wrk.board.BHDVO;
 import com.modoo.wrk.board.BoardVO;
 import com.modoo.wrk.board.impl.BoardService;
+import com.modoo.wrk.comment.CommentVO;
+import com.modoo.wrk.comment.impl.CommentService;
 import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.impl.DataService;
 import com.modoo.wrk.frame.FHIVO;
@@ -41,6 +43,8 @@ public class BoardController {
 	private TmService tmService;
 	@Autowired
 	private VisualService visualService;
+	@Autowired
+	private CommentService commentService;
 	
 	@RequestMapping(value = "boardMake.do", method = RequestMethod.GET)
 	public String boardMake(HttpSession session,
@@ -176,7 +180,10 @@ public class BoardController {
 				model.addAttribute("visual", visual);
 			}
 		}
+		CommentVO cvo = new CommentVO();
+		cvo.setBseq(vo.getBseq());
 		
+		model.addAttribute("commentList", commentService.getCommentList(cvo));
 		model.addAttribute("board", board);
 
 		return "boardDetailService.jsp";

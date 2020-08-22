@@ -5,15 +5,15 @@
 <mapper namespace="CommentDAO">
 	<insert id="insertComment">
 	<![CDATA[
-		INSERT INTO COMMENT(cseq,bnum,id,content)
-		values((SELECT ifnull(max(cseq), 0) + 1 FROM COMMENT a),#{bnum},#{id},#{content})
+		INSERT INTO COMMENT(cseq,bseq,id,content)
+		values((SELECT ifnull(max(cseq), 0) + 1 FROM COMMENT a),#{bseq},#{id},#{content})
 	]]>
 	</insert>
 	<select id="getCommentList" resultType="comment">
 	<![CDATA[
 		SELECT *
 		FROM COMMENT
-		WHERE BNUM=${bnum}
+		WHERE BSEQ=${bseq}
 		ORDER BY cseq DESC;
 	]]>
 	</select>

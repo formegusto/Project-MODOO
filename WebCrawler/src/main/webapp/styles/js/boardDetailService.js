@@ -2,28 +2,27 @@ window.onload = () => {
 	tm = document.getElementById("tm");
 	tm.style.display = "none";
 	
-	/*
 	visual = document.getElementById("visual");
 	visual.style.display = "none";
-	*/
 }
 
-function changeType(type, name){
-	var nowType = document.getElementsByClassName("dataHeaderitem active")[0];
-	nowType.className = "";
-	
-	type.className = "dataHeaderitem active";
-	
-	var nowContent = document.getElementsByClassName("content active")[0];
-	nowContent.style.display = "none";
-	nowContent.className = "";
-	
-	newContent = document.getElementById(name);
-	newContent.style.display = "inline";
-	newContent.className = "content active";
+let ctx;
+let title;
+let vtype;
+let labels;
+let datas;
+let color;
+
+function setVisualState(sctx,stitle,svtype,slabels,sdatas,scolor){
+	ctx = sctx;
+	title = stitle;
+	vtype = svtype;
+	labels = slabels;
+	datas = sdatas;
+	color = scolor;
 }
 
-function visualDraw(ctx,title,vtype,labels,datas,color) {
+function visualDraw() {
 	console.log(vtype);
 	
 	new Chart(ctx, {
@@ -53,4 +52,23 @@ function visualDraw(ctx,title,vtype,labels,datas,color) {
 	
 	console.log(ctx.style.width);
 	console.log(ctx.style.height);
+}
+
+function changeType(type, name){
+	var nowType = document.getElementsByClassName("dataHeaderitem active")[0];
+	nowType.className = "";
+	
+	type.className = "dataHeaderitem active";
+	
+	var nowContent = document.getElementsByClassName("content active")[0];
+	nowContent.style.display = "none";
+	nowContent.className = "";
+	
+	newContent = document.getElementById(name);
+	newContent.style.display = "inline";
+	newContent.className = "content active";
+	
+	if(name === 'visual') {
+		visualDraw();
+	}
 }
