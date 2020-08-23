@@ -7,7 +7,7 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/chatService.css?z"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script type="text/javascript" src="styles/js/chatService.js?"></script>
+<script type="text/javascript" src="styles/js/chatService.js?z"></script>
 <script>
 window.addEventListener("load", function() {
 	let visualCanvas = document.getElementsByClassName('visualcanvas')[0];
@@ -25,6 +25,11 @@ window.addEventListener("load", function() {
 	console.log(datas);
 	
 	setVisualState(visualCanvas,title,vtype,labels,datas,color);
+	
+	let rseq = ${room.rseq};
+	let userId = '${user.id}';
+	
+	setChatSocket(rseq,userId);
 })
 </script>
 <title>MODOO</title>
@@ -90,161 +95,10 @@ window.addEventListener("load", function() {
 						유저이름
 					</span>
 				</div>
-				<div class="notme">
-					<div class="chatContent">
-						너무해요 제가 누군지 몰라요?
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						누구신데요
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						안녕하세요
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						당연히 모르죠!
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						너무해요 제가 누군지 몰라요?
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						누구신데요
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						안녕하세요
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						당연히 모르죠!
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						너무해요 제가 누군지 몰라요?
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						누구신데요
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						안녕하세요
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						당연히 모르죠!
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						너무해요 제가 누군지 몰라요?
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						누구신데요
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						안녕하세요
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						당연히 모르죠!
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						너무해요 제가 누군지 몰라요?
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						누구신데요
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						안녕하세요
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						당연히 모르죠!
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						너무해요 제가 누군지 몰라요?
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
-				<div class="me">
-					<div class="chatContent">
-						누구신데요
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						안녕하세요
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
 			</div>
 			<div class="chatForm">
-				<input name="message" id="message" type="text" placeholder="메세지 적기" onkeypress="javasciprt:if(event.keyCode==13){onMessage()}"/>
-				<button onclick="onMessage()">전송</button>
+				<input name="message" id="message" type="text" placeholder="메세지 적기" onkeypress="javasciprt:if(event.keyCode==13){sendMessage()}"/>
+				<button onclick="sendMessage()">전송</button>
 			</div>
 		</div>
 		<!--  

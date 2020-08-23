@@ -1,4 +1,12 @@
+/* Socket Function */
+let msgInput;
+let chatSocket;
+let userId;
+
+/* Custome Message Function */
 window.onload = () => {
+	msgInput = document.getElementById("message");
+	
 	chat = document.getElementById("chat");
 	chat.scrollTop = chat.scrollHeight;
 	
@@ -9,30 +17,87 @@ window.onload = () => {
 	visual.style.display = "none";
 }
 
-function onMessage() {
-	var messageInput = document.getElementById("message");
-	var message = messageInput.value;
+function onMessage(event) {
+	var message = event.data.split("|");
+	var type = message[0];
 	
 	console.log(message);
 	
-	var chat = document.getElementById("chat");
+	if(type == "msg") {
+		var sender = message[1];
+		var content = message[2];
+		
+		createNotMeMsg(sender, content);
+	}
+}
+
+function onOpen(event) {
+	createNotMeMsg("관리자", userId + "님 환영합니다!");
+}
+
+function setChatSocket(rseq, id) {
+	chatSocket = new WebSocket('ws://' + window.location.host + '/MODOO/chat.do?' + rseq + '&' + id);
+	userId = id; 
 	
+	chatSocket.onopen = function(event) {
+		onOpen(event);
+	}
+	
+	chatSocket.onmessage = function(event) {
+		onMessage(event);
+	}
+}
+
+function createMeMsg(msg){
+	var chat = document.getElementById("chat");
 	var meDiv = document.createElement('div');
 	meDiv.className = "me";
 	
 	var me = document.createElement('div');
 	me.className = "chatContent";
 	
-	var meMsg = document.createTextNode(message);
+	var meMsg = document.createTextNode(msg);
 	
 	me.appendChild(meMsg);
 	meDiv.appendChild(me);
 	chat.appendChild(meDiv);
 	
 	chat.scrollTop = chat.scrollHeight;
-	messageInput.value="";
 }
 
+function createNotMeMsg(id,msg){
+	var chat = document.getElementById("chat");
+	var notMeDiv = document.createElement('div');
+	notMeDiv.className = "notme";
+	
+	var notMe = document.createElement('div');
+	notMe.className = "chatContent";
+	
+	var notMeUser = document.createElement('span');
+	notMeUser.className = "chatUser";
+	
+	var notMeMsg = document.createTextNode(msg);
+	var notMeUserId = document.createTextNode(id);
+	
+	notMe.appendChild(notMeMsg);
+	notMeUser.appendChild(notMeUserId);
+	notMeDiv.appendChild(notMe);
+	notMeDiv.appendChild(notMeUser);
+	chat.appendChild(notMeDiv);
+	
+	chat.scrollTop = chat.scrollHeight;
+}
+
+function sendMessage() {
+	var msg = msgInput.value;
+	createMeMsg(msg);
+	msgInput.value="";
+	
+	chatSocket.send(msg);
+}
+
+
+/* Visual Function */
 let ctx;
 let title;
 let vtype;

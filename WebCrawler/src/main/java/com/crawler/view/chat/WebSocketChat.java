@@ -18,7 +18,7 @@ import org.springframework.web.socket.server.standard.SpringConfigurator;
 import com.crawler.biz.chat.ChatVO;
 import com.crawler.biz.chat.impl.ChatService;
 
-@ServerEndpoint(value="/chat.do", configurator=SpringConfigurator.class)
+@ServerEndpoint(value="/chatdd.do", configurator=SpringConfigurator.class)
 public class WebSocketChat {
 	@Autowired
 	ChatService chatService;
