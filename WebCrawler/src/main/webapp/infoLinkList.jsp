@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoService.css?z"></link>
-<script type="text/javascript" src="styles/js/infoService.js?a"></script>
+<link rel="stylesheet" href="styles/css/infoLinkList.css?c"></link>
+<script type="text/javascript" src="styles/js/infoLinkList.js?z"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -26,30 +26,15 @@
 </div>
 <jsp:include page="components/header.html"/>
 <section> 
-	<div class="sideContent">
-		<div class="sideItem active" onClick="location.href='infoService.do'">수집 중!</div>
-		<div class="sideItem" onClick="location.href='tmService.do'">텍스트마이닝</div>
-		<div class="sideItem" onClick="location.href='visualService.do'">시각화</div>
-	</div>
 	<div class="contents">
 		<ul class="contentNav">
-			<li class="navItem active">
-				리스트 보는 중!
-			</li>
-			<li class="navItem" onclick="location.href='frameService.do'">
-				프레임
+			<li class="navItem">
+				진행하시기 전에 사용하실 Link 데이터를 선택해주세요!
 			</li>
 		</ul>
-		<div class="searchBar">
-					<div>
-							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
-							<span class="textBottomEffect"></span>
-					</div>
-						<button type="button" onclick="onKeyword('info')">검색</button>
-		</div>
 		<div class="cardGroup">
 			<c:forEach items="${infoList }" var="info">
-				<div class="contentCard" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=read'">
+				<div class="contentCard" onclick="location.href='infoInsert.do?type=linklist&iseq=${info.iseq }'">
 					<h1>${info.title }</h1>
 					<hr/>
 					<c:forEach items="${info.dataList }" var="data">
@@ -57,13 +42,15 @@
 							${data }
 						</p>
 					</c:forEach>
+					<div class="checkBlind">
+						클릭하시면 바로 진행합니다!
+					</div>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
 	<div class="sideContent">
-		<div class="sideItem" onclick="onInsertPage('crawling')">CRAWLING</div>
-		<div class="sideItem" onclick="onInsertPage('csv')">CSV</div>
+		<div class="sideItem" onclick="location.href='infoService.do'">Cancle</div>
 	</div>
 </section>
 </body>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.modoo.wrk.data.DataVO;
@@ -31,7 +32,14 @@ public class InfoController {
 	@RequestMapping("/confirmData.do")
 	public String confirmInfo(InfoVO vo, Model model,
 			HttpSession session) {
-		List<DataVO> dataList = modooCrawler.getDataTypeText(vo);
+		List<DataVO> dataList = null;
+		if(vo.getItype().equals("text")) {
+			dataList = modooCrawler.getDataTypeText(vo);
+		} else if(vo.getItype().equals("link")) {
+			dataList = modooCrawler.getDataTypeLink(vo);
+		} else if(vo.getItype().equals("linklist")) {
+			dataList = modooCrawler.getDataTypeLinkList(vo);
+		}
 		
 		vo.setId(((UsersVO) session.getAttribute("user")).getId());
 		model.addAttribute("info", vo);
@@ -40,7 +48,7 @@ public class InfoController {
 		return "infoConfirm.jsp";
 	}
 	
-	@RequestMapping("/insertInfo.do")
+	@RequestMapping(value = "/insertInfo.do", method = RequestMethod.POST)
 	public String insertInfo(@RequestParam(value="data", required=true) List<String> dataList,
 			InfoVO vo) {
 		infoService.insertInfo(vo);
@@ -52,6 +60,38 @@ public class InfoController {
 		}
 		
 		return "redirect:infoService.do";
+	}
+	
+	@RequestMapping(value="/infoLinkList.do")
+	public String infoLinkList(Model model, HttpSession session) {
+		UsersVO user = (UsersVO) session.getAttribute("user");
+		InfoVO vo = new InfoVO();
+		vo.setId(user.getId());
+		
+		List<InfoVO> infoList = infoService.getInfoTypeLink(vo);
+		
+		DataVO dvo = new DataVO();
+		for(int i=0;i<infoList.size();i++) {
+			dvo.setIseq(infoList.get(i).getIseq());
+			infoList.get(i).setDataList(dataService.getDataRand(dvo));
+		}
+		model.addAttribute("infoList", infoList);
+		
+		return "infoLinkList.jsp";
+	}
+	
+	@RequestMapping(value = "/infoInsert.do", method = RequestMethod.GET)
+	public String infoInsert(String type, Model model,
+			HttpServletRequest req) {
+		if(type.equals("linklist")) {
+			String link = req.getParameter("iseq");
+			model.addAttribute("link", link);
+		}
+		
+		model.addAttribute("itype", type);
+		model.addAttribute("type", type.toUpperCase());
+		
+		return "infoInsert.jsp";
 	}
 	
 	@RequestMapping(value={"/infoService.do", "/infoServiceByTm.do", "/infoServiceByVisual.do", "/infoServiceByFrame.do"})

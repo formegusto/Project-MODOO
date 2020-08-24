@@ -99,20 +99,22 @@ section {
 }
 
 .contentCard {
+	flex: 1;
 	border: 1px solid white;
 	background: black;
 	color: white;
 	border-radius: 1rem;
-	width: 42%;
+	width: 40%;
 	height: 30%;
 	margin: .6rem;
 	cursor: pointer;
 	padding: 1.25rem;
 	box-shadow: .3rem .175rem .175rem 0 black; 
+	position: relative;
 }
 
 .contentCard:hover {
-	opacity: .5;
+	background: white;
 	transform: translateY(-5px);
 	box-shadow: .5rem .25rem .25rem 0 gray; 
 	transition: .3s;
@@ -136,13 +138,31 @@ section {
 	white-space: nowrap;
 }
 
+.checkBlind {
+	opacity: 0;
+	color: black;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	font-size: 2rem;
+	font-family: 'Do Hyeon', sans-serif;
+}
+
+.contentCard:hover .checkBlind {
+	opacity: 1;
+	transition: .75s;
+}
+
 .sideContent {
-	width:15%;
+	width:10%;
 	border: 1px white solid;
 	border-radius: 1rem;
 	position: sticky;
 	top: 20%;
-	height: 250px;
+	height: 150px;
 	background: black;
 	color: white;
 	display: flex;

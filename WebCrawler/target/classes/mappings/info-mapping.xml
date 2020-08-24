@@ -34,4 +34,13 @@
 			ORDER BY ISEQ DESC
 		]]>
 	</select>
+	<select id="getInfoTypeLink" resultType="info">
+		<![CDATA[
+			SELECT *
+			FROM INFO
+			WHERE ID=#{id}
+			AND ITYPE='link'
+			ORDER BY ISEQ DESC
+		]]>
+	</select>
 </mapper>

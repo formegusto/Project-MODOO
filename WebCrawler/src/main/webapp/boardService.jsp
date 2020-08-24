@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/boardService.css?3"></link>
+<link rel="stylesheet" href="styles/css/boardService.css?d"></link>
 <script type="text/javascript" src="styles/js/boardService.js?"></script>
 <title>MODOO</title>
 </head>
@@ -13,6 +13,14 @@
 <jsp:include page="components/header.html"/>
 <section> 
 	<div class="contents">
+		<ul class="contentNav">
+			<li class="navItem active">
+				게시판 보는 중!
+			</li>
+			<li class="navItem" onclick="location.href='roomService.do'">
+				채팅방
+			</li>
+		</ul>
 		<div class="searchBar">
 					<div>
 							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />

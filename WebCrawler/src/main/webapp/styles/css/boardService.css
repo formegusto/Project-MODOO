@@ -19,6 +19,47 @@ section {
 	padding: .5rem;
 }
 
+.contentNav {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	list-style-type: none;	
+	padding: 0;
+	margin: 0;
+}
+
+.navItem {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	cursor: pointer;
+	flex: 1;
+	font-size: 1.75rem;
+	font-family: 'Do Hyeon', sans-serif;
+	text-align: center;
+	background: black;
+	color: white;
+	border-top-left-radius: 2rem;
+	border-top-right-radius: 2rem;
+	height: 3rem;
+	padding-bottom: 10px;
+	padding-top: 1rem;
+	margin: .6rem;
+	transition: .7s;
+}
+
+.navItem.active {
+	background: white;
+	color: black;
+	border-top-right-radius: 2rem;
+	border-top-left-radius: 2rem;
+	border: 1px solid black;
+}
+
+.navItem:hover {
+	opacity: .5;
+}
+
 .searchBar {
 	display: flex;
 	width: 100%;

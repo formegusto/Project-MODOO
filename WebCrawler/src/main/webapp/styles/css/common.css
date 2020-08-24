@@ -13,6 +13,27 @@ body {
 	align-items : center;
 }
 
+form {
+	overflow: scroll;
+	width: 50%;
+	margin-left: .5rem;
+	margin-right: .5rem;
+}
+
+body::-webkit-scrollbar{
+	width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 1rem;
+    transition: .7s;
+}
+body::-webkit-scrollbar-track {
+	border-radius: 1rem;
+    background-color: black;
+}
+
 header {
 	z-index: 100;
 	background: black;
@@ -32,11 +53,29 @@ header h1 {
 	overflow: hidden;
 	margin-left: 1rem;
 	cursor: pointer;
+	
+}
+
+.headerMem{
+	border: .25rem solid black;
+	padding: .5rem;
+	border-radius: 1rem;
+}
+
+.headerMem.active{
+	border: .25rem solid white;
+	padding: .5rem;
+	border-radius: 1rem;
 }
 
 header h1:hover {
 	transform: translateY(7px) translateX(7px);
 	transition: .5s;
+}
+
+.headerGrp {
+	display: flex;
+	margin-right: 1rem;
 }
 
 .together {

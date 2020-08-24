@@ -10,4 +10,5 @@ public interface InfoService {
 	public List<InfoVO> getInfoList(InfoVO vo);
 	public InfoVO getInfo(InfoVO vo);
 	public List<InfoVO> getInfoListSearch(SearchVO search);
+	public List<InfoVO> getInfoTypeLink(InfoVO vo);
 }

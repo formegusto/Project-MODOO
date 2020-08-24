@@ -37,4 +37,10 @@ public class InfoDAO {
 		System.out.println("===> Mybatis로 getInfoTop(" + search.getKeyword() + ") 조회 기능 처리");
 		return mybatis.selectList("InfoDAO.getInfoListSearch", search);
 	}
+	
+	// INFO Link 조회
+	public List<InfoVO> getInfoTypeLink(InfoVO vo){
+		System.out.println("[InfoDAO Log] getInfoTypeLink() Call ");
+		return mybatis.selectList("InfoDAO.getInfoTypeLink", vo);
+	}
 }

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoInsert.css?e"></link>
+<link rel="stylesheet" href="styles/css/infoInsert.css?s"></link>
 <script type="text/javascript" src="styles/js/infoInsert.js?e"></script>
 <title>MODOO</title>
 </head>
@@ -16,23 +17,9 @@
 <jsp:include page="components/header.html"/>
 <section> 
 	<ul class="formNav">
-		<li onclick="changeType(this,'text')">
-			<div class="typeText">
-				Text
-			</div>
-			<div class="checkText">
-				check!
-			</div>
+		<li>
+			${type }
 		</li>
-		<li onclick="changeType(this,'link')">
-			<div class="typeText">
-				Link
-			</div>
-			<div class="checkText">
-				check!
-			</div>
-		</li>
-		<li>LinkList</li>
 	</ul>
 	<div class="formBox">
 		<form class="infoForm" name="info" action="confirmData.do" method="post">
@@ -43,13 +30,18 @@
 				<textarea name="content" placeholder="content!"></textarea>
 			</div>
 			<div class="inputGroup">
-				<input type="text" name="link" placeholder="link!"/>
+				<c:if test="${link ne null and link ne '' }">
+					<input type="text" name="link" placeholder="link!" value="${link }" readonly="readonly"/>
+				</c:if>
+				<c:if test="${link eq null or link eq '' }">
+					<input type="text" name="link" placeholder="link!"/>
+				</c:if>
 			</div>
 			<div class="inputGroup">
 				<input type="text" name="field" placeholder="field!"/>
 				<input type="text" name="cssQuery" placeholder="cssQuery!"/>
 			</div>
-			<input type="hidden" name="itype" value="" id="itype"/>
+			<input type="hidden" name="itype" value=${itype } id="itype"/>
 		</form>
 	</div>
 	<ul class="formNavBottom">

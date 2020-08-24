@@ -37,4 +37,10 @@ public class InfoServiceImpl implements InfoService {
 		// TODO Auto-generated method stub
 		return infoDAO.getInfoListSearch(search);
 	}
+
+	@Override
+	public List<InfoVO> getInfoTypeLink(InfoVO vo) {
+		// TODO Auto-generated method stub
+		return infoDAO.getInfoTypeLink(vo);
+	}
 }

@@ -30,7 +30,7 @@
 			SELECT data
 			FROM DATA
 			WHERE ISEQ=#{iseq}
-			ORDER BY RAND() LIMIT 4
+			ORDER BY RAND() LIMIT 3
 		]]>
 	</select>
 	<select id="getDataNotVO" resultType="String">

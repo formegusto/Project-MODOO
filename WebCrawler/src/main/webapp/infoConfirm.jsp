@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoConfirm.css?1"></link>
+<link rel="stylesheet" href="styles/css/infoConfirm.css?a"></link>
 <script type="text/javascript" src="styles/js/infoConfirm.js"></script>
 <title>MODOO</title>
 </head>

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="styles/css/common.css?1"></link>
+<link rel="stylesheet" href="styles/css/common.css?e"></link>
 <script src="styles/js/header.js?2"></script>
 <div class="together">
 	<div class="read" onclick="selTogether('read')">보기</div>
@@ -7,10 +7,12 @@
 </div>
 <header>
 	<h1 onclick="location.href='/MODOO/infoService.do'">MODOO</h1>
-	<h1 onclick="location.href='/MODOO/infoService.do'">
-		My
-	</h1>
-	<h1 onclick="onTogether()">
-		Together
-	</h1>
+	<div class="headerGrp">
+		<h1 class="headerMem" onclick="location.href='/MODOO/infoService.do'">
+			개인공간
+		</h1>
+		<h1 class="headerMem" onclick="onTogether()">
+			공유하기
+		</h1>
+	</div>
  </header>

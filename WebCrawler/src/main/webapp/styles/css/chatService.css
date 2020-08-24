@@ -234,29 +234,9 @@ td.fieldHeader {
 	animation: fadeIn .7s forwards;
 }
 
-.chat .me div::before {
-	content: '';
-	position: absolute;
-	bottom: -1rem;
-	left: 0;
-	width: 77%;
-	border: white .75rem solid;
-	border-top-right-radius: 1rem;
-}
-
-.chat .me div::after {
-	content: '';
-	position: absolute;
-	bottom: -1rem;
-	right: 0;
-	width: 5%;
-	border: white .75rem solid;
-	border-top-left-radius: 1rem;
-}
-
 .chatUser {
 	position: absolute;
-	bottom: -13px;
+	bottom: -17px;
 	left: 25px;
 	font-size: 1rem;
 	font-family: 'Do Hyeon', sans-serif;
@@ -274,26 +254,6 @@ td.fieldHeader {
 	padding: .75rem;
 	flex-direction: row-reverse;
 	animation: fadeIn .7s forwards;
-}
-
-.chat .notme div::before {
-	content: '';
-	position: absolute;
-	bottom: -1rem;
-	right: 0;
-	width: 77%;
-	border: white .75rem solid;
-	border-top-left-radius: 1rem;
-}
-
-.chat .notme div::after {
-	content: '';
-	position: absolute;
-	bottom: -1rem;
-	left: 0;
-	width: 5%;
-	border: white .75rem solid;
-	border-top-right-radius: 1rem;
 }
 
 .chat .notme div {

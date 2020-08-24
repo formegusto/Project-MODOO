@@ -19,13 +19,13 @@ section {
 	align-items: center;
 	background: black;
 	width: 35%;
-	height: 50%;
 	border-bottom-left-radius: 1rem;
 	border-bottom-right-radius: 1rem;
 	box-shadow: .5rem .5rem .5rem 0 gray; 
 }
 
 .infoForm {
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -67,6 +67,22 @@ section {
 	border-right: 0px;
 	border-left: 0px;
 	border-bottom: 1px transparent solid;
+	resize: none;
+	overflow-y: scroll;
+}
+
+.inputGroup textarea::-webkit-scrollbar{
+	width: 10px;
+}
+
+.inputGroup textarea::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 1rem;
+    transition: .7s;
+}
+.inputGroup textarea::-webkit-scrollbar-track {
+	border-radius: 1rem;
+    background-color: black;
 }
 
 .inputGroup input::placeholder {
@@ -101,6 +117,8 @@ section {
 .formNav li {
 	z-index: 2;
 	cursor: pointer;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 2rem;
 	flex: 1;
 	text-align: center;
 	border: 1px solid black;
