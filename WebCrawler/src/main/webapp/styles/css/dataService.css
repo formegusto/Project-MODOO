@@ -15,6 +15,11 @@ form {
 	width: 40%;
 	margin-right: .5rem;
 }
+
+form::-webkit-scrollbar { 
+	display: none; 
+}
+
 table {
 	z-index: 1;
 	margin-top: 6.5rem;

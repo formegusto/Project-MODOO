@@ -35,6 +35,12 @@ public class DataServiceImpl implements DataService {
 	}
 	
 	@Override
+	public String getDataRandOne(DataVO vo) {
+		// TODO Auto-generated method stub
+		return dataDAO.getDataRandOne(vo);
+	}
+
+	@Override
 	public List<String> getDataNotVO(DataVO vo) {
 		// TODO Auto-generated method stub
 		return dataDAO.getDataNotVO(vo);

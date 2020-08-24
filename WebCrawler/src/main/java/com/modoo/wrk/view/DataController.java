@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.crawler.biz.info.FrameServiceImpl;
 import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
@@ -17,7 +16,6 @@ import com.modoo.wrk.frame.FHIVO;
 import com.modoo.wrk.frame.FrameVO;
 import com.modoo.wrk.frame.impl.FrameService;
 import com.modoo.wrk.info.InfoVO;
-import com.modoo.wrk.info.ModooCrawler;
 import com.modoo.wrk.info.impl.InfoService;
 
 @Controller
@@ -28,11 +26,9 @@ public class DataController {
 	private DataService dataService;
 	@Autowired
 	private FrameService frameService;
-	@Autowired
-	private ModooCrawler modooCrawler;
 	
 	@RequestMapping(value = {"/dataService.do", "/dataServiceByFrame.do"})
-	public String infoService(InfoVO vo, FrameVO fvo,String mode, String keyword,
+	public String infoService(InfoVO vo, FrameVO fvo,String mode, String keyword, String ctitle,
 			Model model, HttpServletRequest req) {
 		System.out.println(keyword);
 		
@@ -52,13 +48,11 @@ public class DataController {
 			model.addAttribute("info", info);
 			
 			if(keyword == null) {
-				System.out.println("키워드 따위 없는 시크한 그런 데이터 리스트!");
 				DataVO dvo = new DataVO();
 				dvo.setIseq(vo.getIseq());
 				
 				model.addAttribute("dataList", dataService.getData(dvo));
 			} else {
-				System.out.println("키워드 있는 똑똑한 그런 데이터 리스트!");
 				SearchVO svo = new SearchVO();
 				svo.setIseq(vo.getIseq());
 				svo.setKeyword(keyword);
@@ -98,6 +92,10 @@ public class DataController {
 			
 			model.addAttribute("frame", frame);
 			model.addAttribute("fhiList", fhiList);
+			
+			if(ctitle != null && !ctitle.equals("")) {
+				model.addAttribute("ctitle", ctitle);
+			}
 		}
 		
 		return page;

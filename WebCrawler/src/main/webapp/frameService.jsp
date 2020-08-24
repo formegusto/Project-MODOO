@@ -38,15 +38,11 @@
 					<div class="contentCard" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=read'">
 					<h1>${frame.title }</h1>
 					<hr/>
+					<c:forEach items="${frame.dataList }" var="data">
 						<p>
-							∂Ú≈∑∂Ú≈∑
+							${data }
 						</p>
-						<p>
-							∂Ú≈∑∂Ú≈∑
-						</p>
-						<p>
-							∂Ú≈∑∂Ú≈∑
-						</p>
+					</c:forEach>
 				</div>
 			</c:forEach>
 		</div>

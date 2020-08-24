@@ -5,12 +5,18 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataServiceByFrame.css?z"></link>
-<script type="text/javascript" src="styles/js/dataServiceByFrame.js?x"></script>
+<link rel="stylesheet" href="styles/css/dataServiceByFrame.css?e"></link>
+<script type="text/javascript" src="styles/js/dataServiceByFrame.js?2"></script>
 <title>MODOO</title>
 </head>
 <body>
 <jsp:include page="components/header.html"/>
+<div class="csvloading">
+	<h5 style="margin:0;">제목을 적어주세요!</h5>
+	<hr style="width: 100%;"/>
+	<input type="text" id="ctitle" placeholder="제목" />
+	<button type="button" onclick="submitDownload()">만들기</button>
+</div>
 <section> 
 	<div class="sideContent">
 		<div class="sideItem active">가공 중!</div>
@@ -43,7 +49,7 @@
 	<div class="sideContent">
 		<div class="sideItem" onclick="onDelSubmit()">삭제</div>
 		<hr/>
-		<div class="sideItem">인풋</div>
+		<div class="sideItem" onclick="onDownload(${frame.fseq})">CSV 다운로드</div>
 		<div class="sideItem" onclick="location.href='frameService.do'">CANCLE</div>
 	</div>
 	<form name="delForm" method="post" action="deleteDataByFrame.do" style="display:none">

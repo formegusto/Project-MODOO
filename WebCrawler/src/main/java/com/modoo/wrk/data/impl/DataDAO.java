@@ -38,6 +38,12 @@ public class DataDAO {
 		return mybatis.selectList("DataDAO.getDataRand", vo);
 	}
 	
+	// DATA 랜덞 리스트 조회
+	public String getDataRandOne(DataVO vo) {
+		System.out.println("[DataDAO Log] getDataRandOne() Call ");
+		return mybatis.selectOne("DataDAO.getDataRandOne", vo);
+	}
+	
 	// DATA만 조회
 	public List<String> getDataNotVO(DataVO vo) {
 		System.out.println("[DataDAO Log] getDataNotVO() Call ");

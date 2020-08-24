@@ -33,6 +33,14 @@
 			ORDER BY RAND() LIMIT 3
 		]]>
 	</select>
+	<select id="getDataRandOne" resultType="String">
+		<![CDATA[
+			SELECT data
+			FROM DATA
+			WHERE ISEQ=#{iseq}
+			ORDER BY RAND() LIMIT 1
+		]]>
+	</select>
 	<select id="getDataNotVO" resultType="String">
 		<![CDATA[
 			SELECT data

@@ -55,7 +55,8 @@ public class ModooCrawler {
 				DataVO data = new DataVO();
 				String tmp = e.attr("href");
 				
-				if(!tmp.contains("http") || !tmp.contains("https")) {
+				if(!tmp.contains("http") && !tmp.contains("https")) {
+					System.out.println("들어옴 ==> " + tmp);
 					URL url = new URL(vo.getLink());
 					tmp = "http://" + url.getHost() + tmp;
 				}

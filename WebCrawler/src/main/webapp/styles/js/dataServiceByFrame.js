@@ -92,3 +92,17 @@ function onUpSubmit() {
 	
 	document.updateForm.submit();
 }
+
+let fseq
+
+function onDownload(seq) {
+	fseq = seq;
+	let loading = document.getElementsByClassName('csvloading')[0];
+	loading.className = "csvloading active";
+}
+
+function submitDownload(){
+	let ctitleInput = document.getElementById("ctitle");
+	let ctitle = ctitleInput.value;
+	location.href='csvDownload.do?fseq=' + fseq + '&ctitle=' + ctitle;
+}

@@ -10,6 +10,7 @@ public interface DataService {
 	public List<DataVO> getData(DataVO vo);
 	public List<DataVO> getDataSearch(SearchVO vo);
 	public List<String> getDataRand(DataVO vo);
+	public String getDataRandOne(DataVO vo);
 	public List<String> getDataNotVO(DataVO vo);
 	public void deleteData(DataVO vo);
 	public void updateData(DataVO vo);

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataService.css?k"></link>
+<link rel="stylesheet" href="styles/css/dataService.css?ee"></link>
 <script type="text/javascript" src="styles/js/dataService.js?ee"></script>
 <title>MODOO</title>
 </head>
@@ -41,11 +41,6 @@
 					<tr>
 						<td onclick="allDataContent(this)" class="dataItem">
 							${datavo.data }
-							<div class="dataTools">
-								<div>C</div>
-								<div>U</div>
-								<div>D</div>
-							</div>
 						</td>
 					</tr>
 				</c:forEach>

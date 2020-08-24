@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.rosuda.REngine.REXP;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngineException;
-import org.rosuda.REngine.RList;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +101,7 @@ public class TMController {
 			r.eval("text_wordcnt <- text_noun %>% filter(str_length(noun)>=2) %>% count(noun,sort=TRUE)");
 			
 			REXP text_wordcnt_ = r.eval("text_wordcnt");
-			RList text_wordcnt = text_wordcnt_.asList();
+			//RList text_wordcnt = text_wordcnt_.asList();
 			
 			
 			text_wordcnt_.asList();

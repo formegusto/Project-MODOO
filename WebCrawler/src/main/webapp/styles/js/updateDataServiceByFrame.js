@@ -30,7 +30,7 @@ function changeEnd(e, dseq) {
 		console.log(updateData);
 		
 		let updateConfirm = document.getElementsByClassName('updateConfirm ' + dseq)[0];
-		updateConfirm.style.opacity = 1; 
+		updateConfirm.className = 'updateConfirm active ' + dseq;
 	}
 }
 
@@ -75,4 +75,18 @@ function submitCancle() {
 		loading.className = "loading";
 		this.removeEventListener("animationend",arguments.callee);
 	}, false);
+}
+
+let fseq
+
+function onDownload(seq) {
+	fseq = seq;
+	let loading = document.getElementsByClassName('csvloading')[0];
+	loading.className = "csvloading active";
+}
+
+function submitDownload(){
+	let ctitleInput = document.getElementById("ctitle");
+	let ctitle = ctitleInput.value;
+	location.href='csvDownload.do?fseq=' + fseq + '&ctitle=' + ctitle;
 }

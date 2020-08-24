@@ -8,6 +8,9 @@ public class FrameVO {
 	private String title;
 	private String id;
 	private Date regdate;
+	
+	/* UI 용 Data */
+	private List<String> dataList;
 
 	public int getFseq() {
 		return fseq;
@@ -41,8 +44,17 @@ public class FrameVO {
 		this.regdate = regdate;
 	}
 
+	public List<String> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(List<String> dataList) {
+		this.dataList = dataList;
+	}
+
 	@Override
 	public String toString() {
-		return "FrameVO [fseq=" + fseq + ", title=" + title + ", id=" + id + ", regdate=" + regdate + "]";
+		return "FrameVO [fseq=" + fseq + ", title=" + title + ", id=" + id + ", regdate=" + regdate + ", dataList="
+				+ dataList + "]";
 	}
 }

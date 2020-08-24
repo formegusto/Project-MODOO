@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataServiceByFrame.css?z"></link>
-<script type="text/javascript" src="styles/js/updateDataServiceByFrame.js?x"></script>
+<link rel="stylesheet" href="styles/css/dataServiceByFrame.css?e"></link>
+<script type="text/javascript" src="styles/js/updateDataServiceByFrame.js?3"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -26,6 +26,12 @@
 		<tbody class="updateTable">
 		</tbody>
 	</table>
+</div>
+<div class="csvloading">
+	<h5 style="margin:0;">제목을 적어주세요!</h5>
+	<hr style="width: 100%;"/>
+	<input type="text" id="ctitle" placeholder="제목" />
+	<button type="button" onclick="submitDownload()">만들기</button>
 </div>
 <jsp:include page="components/header.html"/>
 <section> 
@@ -60,8 +66,8 @@
 	<div class="sideContent">
 		<div class="sideItem" onclick="onCheck()">수정</div>
 		<hr/>
-		<div class="sideItem">인풋</div>
-		<div class="sideItem" onclick="location.href='infoService.do'">CANCLE</div>
+		<div class="sideItem" onclick="onDownload(${frame.fseq})">CSV 다운로드</div>
+		<div class="sideItem" onclick="location.href='frameService.do'">CANCLE</div>
 	</div>
 	<form name="updateForm" method="post" action="updateDataByFrame.do" style="display:none">
 		<input type="hidden" name="fseq" value="${frame.fseq}" />
