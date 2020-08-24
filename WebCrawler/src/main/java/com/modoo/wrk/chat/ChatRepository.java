@@ -1,6 +1,5 @@
 package com.modoo.wrk.chat;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,16 +7,19 @@ import java.util.Map;
 
 import javax.websocket.Session;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.modoo.wrk.chat.impl.ChatService;
 
 @Component
 public class ChatRepository {
+	@Autowired
+	private ChatService chatService;
 	private Map<String, List<Session>> clientMap;
-	private Map<String, List<String>> userMap;
 	
 	public ChatRepository() {
 		this.clientMap = new HashMap<String, List<Session>>();
-		this.userMap = new HashMap<String, List<String>>();
 	}
 	
 	public String getRseq(Session session) {
@@ -47,6 +49,20 @@ public class ChatRepository {
 		String id = uri.substring(uri.lastIndexOf("&")+1);
 		
 		return "msg|" + id + "|" + message;
+	}
+	
+	public void saveMessage(String message, Session session) {
+		String uri = session.getRequestURI().toString();
+		String rseq = uri.substring(uri.lastIndexOf("?")+1,uri.lastIndexOf("?")+2);
+		String id = uri.substring(uri.lastIndexOf("&")+1);
+		
+		ChatVO vo = new ChatVO();
+		
+		vo.setRseq(Integer.parseInt(rseq));
+		vo.setId(id);
+		vo.setContent(message);
+		
+		chatService.insertChat(vo);
 	}
 	
 	public String byeUser(Session session) {

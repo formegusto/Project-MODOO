@@ -82,54 +82,31 @@ window.addEventListener("load", function() {
 				${room.title }
 			</div>
 			<div id="chat" class="chat">
-				<div class="me">
-					<div class="chatContent">
-						당연히 모르죠!
-					</div>
-				</div>
-				<div class="notme">
-					<div class="chatContent">
-						너무해요 제가 누군지 몰라요? 이거 완전 길게 써볼게요 개 길어요.
-					</div>
-					<span class="chatUser">
-						유저이름
-					</span>
-				</div>
+					<c:forEach items="${chatList }" var="chat">
+				            	<c:if test="${chat.id eq user.id }">
+					            	<div class="me">
+										<div class="chatContent">
+											${chat.content }
+										</div>
+									</div>
+				            	</c:if>
+				            	<c:if test="${chat.id ne user.id }">
+				            		<div class="notme">
+										<div class="chatContent">
+											${chat.content }
+										</div>
+										<span class="chatUser">
+											${chat.id }
+										</span>
+									</div>
+				            	</c:if>
+			          </c:forEach>
 			</div>
 			<div class="chatForm">
 				<input name="message" id="message" type="text" placeholder="메세지 적기" onkeypress="javasciprt:if(event.keyCode==13){sendMessage()}"/>
 				<button onclick="sendMessage()">전송</button>
 			</div>
 		</div>
-		<!--  
-		<div class="userDiv">
-			<div class="userHeader">
-				접속자 리스트
-			</div>
-			<div class="userList">
-				<div class="user">
-					노태헌
-				</div>
-				<div class="user">
-					김태헌
-				</div>
-				<div class="user">
-					이태헌
-				</div>
-				<div class="user">
-					박태헌
-				</div>
-				<div class="user">
-					최태헌
-				</div>
-			</div>
-			<div class="userFooter">
-				<button>
-					나가기
-				</button>
-			</div>
-		</div>
-		-->
 	</div>
 </section>
 </body>

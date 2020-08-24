@@ -28,6 +28,8 @@ public class ChatSocket {
 		for(Session client : clients)
 			if(!client.equals(session))
 				client.getBasicRemote().sendText(msg);
+		
+		chatRepository.saveMessage(message, session);
 	}
 	
 	@OnOpen
