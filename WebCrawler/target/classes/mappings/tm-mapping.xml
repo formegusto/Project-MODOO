@@ -47,6 +47,14 @@
 			ORDER BY TSEQ DESC
 		]]>
 	</select>
+	<select id="getComment" resultType="tc">
+		<![CDATA[
+			SELECT *
+			FROM TM_COMMENT
+			WHERE TTYPE=#{ttype}
+			ORDER BY RAND() LIMIT 1
+		]]>
+	</select>
 	<!-- 
 	<select id="getTHIList" resultType="thi">
 		SELECT *

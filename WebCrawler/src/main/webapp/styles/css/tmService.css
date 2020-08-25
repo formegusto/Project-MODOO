@@ -79,6 +79,17 @@ section {
 	border-radius: 20rem;
 }
 
+.contentItem img {
+	width: 100%;
+	border-radius: 1rem;
+	padding: .5rem;
+	transition: border-radius .75s linear;
+}
+
+.contentItem img:hover {
+	border-radius: 20rem;
+}
+
 .sideContent {
 	width:15%;
 	border: 1px white solid;

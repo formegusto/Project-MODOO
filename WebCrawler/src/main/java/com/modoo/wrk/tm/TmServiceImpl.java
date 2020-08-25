@@ -43,6 +43,12 @@ public class TmServiceImpl implements TmService {
 		// TODO Auto-generated method stub
 		return tmDAO.getTmTop(vo);
 	}
+	
+	@Override
+	public TCVO getComment(TmVO vo) {
+		// TODO Auto-generated method stub
+		return tmDAO.getComment(vo);
+	}
 
 	@Override
 	public List<TmVO> getTmListSearch(SearchVO search) {

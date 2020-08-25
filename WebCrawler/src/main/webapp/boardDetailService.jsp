@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/boardDetailService.css?e"></link>
+<link rel="stylesheet" href="styles/css/boardDetailService.css?s"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript" src="styles/js/boardDetailService.js?z"></script>
 <script>

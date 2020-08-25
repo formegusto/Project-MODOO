@@ -127,6 +127,9 @@ public class InfoController {
 		if(URI.equals("/MODOO/infoService.do")) {
 			forwardPage = "infoService.jsp";
 		} else if(URI.equals("/MODOO/infoServiceByTm.do")) {
+			String ttype = req.getParameter("ttype");
+			model.addAttribute("ttype", ttype);
+			
 			forwardPage = "tmMake.jsp";
 		} else if(URI.equals("/MODOO/infoServiceByVisual.do")){
 			String vtype = req.getParameter("vtype");

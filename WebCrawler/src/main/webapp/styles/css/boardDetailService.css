@@ -9,6 +9,10 @@ section {
 	justify-content: center;
 }
 
+form::-webkit-scrollbar { 
+	display: none; 
+}
+
 .contents {
 	display: flex;
 	flex-direction: column;

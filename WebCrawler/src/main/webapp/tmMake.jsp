@@ -6,7 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/tmMake.css?2"></link>
-<script type="text/javascript" src="styles/js/tmMake.js?1"></script>
+<script type="text/javascript" src="styles/js/tmMake.js?2"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -18,7 +18,7 @@
 <section> 
 	<div class="contents">
 		<c:forEach items="${infoList }" var="info">
-				<div class="contentCard" onclick="onTm(${info.iseq})">
+				<div class="contentCard" onclick="onTm(${info.iseq},'${ttype }')">
 					<h1>${info.title }</h1>
 					<hr/>
 					<c:forEach items="${info.dataList }" var="data">

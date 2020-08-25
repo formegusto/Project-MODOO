@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/tmService.css?e"></link>
+<link rel="stylesheet" href="styles/css/tmService.css?s"></link>
 <script type="text/javascript" src="styles/js/tmService.js?1"></script>
 <title>MODOO</title>
 </head>
@@ -30,27 +30,32 @@
 			<h1>${tm.title }</h1>
 			<hr/>
 				<div class="contentItem">
-					<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
+					<c:if test="${tm.ttype eq 'wordcloud' }">
+						<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
+					</c:if>
+					<c:if test="${tm.ttype eq 'sna' }">
+						<img src="userRview/${tm.tseq }.png"/>
+					</c:if>
 				</div>
 			</div>
 		</c:forEach>
 	</div>
 	<div class="contents" id="tmMakeList">
-			<div class="contentCard tm" onClick="location.href='infoServiceByTm.do'">
+			<div class="contentCard tm" onClick="location.href='infoServiceByTm.do?ttype=wordcloud'">
 			<h1>WordCloud</h1>
 			<hr/>
 					<p>
 					단어의 빈도수를 계산하여 WordCloud로 표현 해 줍니다.
 					</p>
 			</div>
-			<div class="contentCard tm">
+			<div class="contentCard tm" onClick="location.href='infoServiceByTm.do?ttype=sna'">
 			<h1>SocialNetworkAnalysis</h1>
 			<hr/>
 					<p>
 					각 단어들 간의 연관성을 연결성을 통해 표현 해 줍니다.
 					</p>
 			</div>
-			<div class="contentCard tm">
+			<div class="contentCard tm" onClick="location.href='infoServiceByTm.do?ttype=sentiment'">
 			<h1>SentimentAnalysis</h1>
 			<hr/>
 					<p>

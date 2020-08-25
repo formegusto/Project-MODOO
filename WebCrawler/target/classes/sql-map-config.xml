@@ -10,6 +10,7 @@
 		<typeAlias type="com.modoo.wrk.data.DataVO" alias="data"></typeAlias>
 		<typeAlias type="com.modoo.wrk.tm.TmVO" alias="tm"></typeAlias>
 		<typeAlias type="com.modoo.wrk.tm.THIVO" alias="thi"></typeAlias>
+		<typeAlias type="com.modoo.wrk.tm.TCVO" alias="tc"></typeAlias>
 		<typeAlias type="com.modoo.wrk.visual.VisualVO" alias="visual"></typeAlias>
 		<typeAlias type="com.modoo.wrk.visual.VHIVO" alias="vhi"></typeAlias>
 		<typeAlias type="com.modoo.wrk.frame.FrameVO" alias="frame"></typeAlias>

@@ -15,6 +15,18 @@ section {
 	margin-right: 1rem;
 }
 
+.tmform {
+	width: 100%;
+}
+
+.tmform::-webkit-scrollbar { 
+	display: none; 
+}
+
+img {
+	width: 100%;
+}
+
 .contentsNav {
 	background: black;
 	font-size: 5rem;
