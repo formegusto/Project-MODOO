@@ -9,6 +9,9 @@ public class TmVO {
 	private String id;
 	private Date regDate;
 	
+	// ttype 이 Visual 인 경우 보내줄 데이터
+	private TVIVO tvi;
+	
 	public int getTseq() {
 		return tseq;
 	}
@@ -39,10 +42,16 @@ public class TmVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public TVIVO getTvi() {
+		return tvi;
+	}
+	public void setTvi(TVIVO tvi) {
+		this.tvi = tvi;
+	}
 	
 	@Override
 	public String toString() {
 		return "TmVO [tseq=" + tseq + ", title=" + title + ", ttype=" + ttype + ", id=" + id + ", regDate=" + regDate
-				+ "]";
+				+ ", tvi=" + tvi + "]";
 	}
 }

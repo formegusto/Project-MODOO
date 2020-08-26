@@ -7,6 +7,7 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/tmService.css?s"></link>
 <script type="text/javascript" src="styles/js/tmService.js?1"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -33,8 +34,31 @@
 					<c:if test="${tm.ttype eq 'wordcloud' }">
 						<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
 					</c:if>
-					<c:if test="${tm.ttype eq 'sna' }">
+					<c:if test="${tm.ttype eq 'sna'}">
 						<img src="userRview/${tm.tseq }.png"/>
+					</c:if>
+					<c:if test="${tm.ttype eq 'sentiment'}">
+						<canvas class="sentiment ${tm.tseq }"></canvas>
+						<script>
+								new Chart(document.getElementsByClassName('sentiment ' + ${tm.tseq})[0], {
+							    // The type of chart we want to create
+							    type: 'pie',
+	
+							    // The data for our dataset
+							    data: {
+							        labels: ['긍정','부정','중립'],
+							        datasets: [{
+							            label: '감성분석 결과',
+							            backgroundColor: ['rgb(000,051,255)','rgb(255,051,051)','rgb(255,102,051)'],
+							            borderColor: 'rgb(0,0,0)',
+							            data: [${tm.tvi.positive},${tm.tvi.negative},${tm.tvi.neutral}]
+							        }]
+							    	},
+								});
+								
+								console.log(ctx.style.width);
+								console.log(ctx.style.height);
+						</script>
 					</c:if>
 				</div>
 			</div>

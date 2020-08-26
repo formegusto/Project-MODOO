@@ -70,7 +70,12 @@ window.addEventListener("load", function() {
 					</table>
 				</div>
 				<div id="tm">
-					<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
+					<c:if test="${tm.ttype eq 'wordcloud' }">
+						<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
+					</c:if>
+					<c:if test="${tm.ttype eq 'sna'}">
+						<img src="userRview/${tm.tseq }.png"/>
+					</c:if>
 				</div>				
 				<div id="visual">
 					<canvas class="visualcanvas" style="width:500px; height: 500px;"></canvas>

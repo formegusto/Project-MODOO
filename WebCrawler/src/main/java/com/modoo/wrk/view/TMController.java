@@ -1,13 +1,11 @@
 package com.modoo.wrk.view;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,6 +25,7 @@ import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
 import com.modoo.wrk.info.InfoVO;
 import com.modoo.wrk.tm.THIVO;
+import com.modoo.wrk.tm.TVIVO;
 import com.modoo.wrk.tm.TmVO;
 import com.modoo.wrk.tm.impl.TmService;
 import com.modoo.wrk.users.UsersVO;
@@ -47,14 +46,26 @@ public class TMController {
 		
 		String keyword = req.getParameter("keyword");
 		
+		List<TmVO> tmList = null;
 		if(keyword != "" && keyword != null) {
 			SearchVO search = new SearchVO();
 			search.setId(tvo.getId());
 			search.setKeyword(keyword);
-			model.addAttribute("tmList", tmService.getTmListSearch(search));
+			tmList = tmService.getTmListSearch(search);
 		} else {
-			model.addAttribute("tmList", tmService.getTmList(tvo));
+			tmList = tmService.getTmList(tvo);
 		}
+		
+		// Sentiment 검사
+		for(TmVO tm : tmList) {
+			if(tm.getTtype().equals("sentiment")) {
+				TVIVO tvivo = new TVIVO();
+				tvivo.setTseq(tm.getTseq());
+				tm.setTvi(tmService.getTVI(tvivo));
+			}
+		}
+		
+		model.addAttribute("tmList", tmList);
 		
 		return "tmService.jsp";
 	}
@@ -228,7 +239,7 @@ public class TMController {
 			} else if(tvo.getTtype().equals("sentiment")) {
 				String sentimentRealPath = session.getServletContext().getRealPath("/sentiment");
 				System.out.println(sentimentRealPath);
-				r.eval("setwd(\"" + sentimentRealPath + "\")");
+				r.eval("setwd(\"c:\\\\rContent\")");
 				
 				r.eval("library(plyr)");
 				r.eval("library(stringr)");
@@ -265,11 +276,11 @@ public class TMController {
 				r.eval("result$remark[result$score < 0] = \"부정\"");
 				r.eval("result_table <- table(result$remark)");
 				
-				r.eval("png(\'" + ivo.getIseq() + ".png\')");
-				r.eval("pie(result_table, main=\"감성분석 결과\", col=c(\"blue\",\"red\",\"green\"), radius=0.8)");
-				r.eval("dev.off()");
+				// r.eval("png(\'" + ivo.getIseq() + ".png\')");
+				// r.eval("pie(result_table, main=\"감성분석 결과\", col=c(\"blue\",\"red\",\"green\"), radius=0.8)");
+				// r.eval("dev.off()");
 				
-				/*
+				
 				REXP pos_res_ = r.eval("result_table[\"긍정\"]");
 				REXP neg_res_ = r.eval("result_table[\"부정\"]");
 				REXP neu_res_ = r.eval("result_table[\"중립\"]");
@@ -284,6 +295,7 @@ public class TMController {
 					neu_res = neu_res_.asInteger();
 				}
 				
+				/*
 				// 2. dataMap 구축
 				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
 				dataMap.put("positive", new ArrayList<DataVO>());
@@ -318,15 +330,18 @@ public class TMController {
 				
 				r.eval("detach(\"package:plyr\")");
 				
+				/*
 				String realPath = session.getServletContext().getRealPath("/confirmRview");
 				System.out.println(realPath);
 				FileInputStream fis = null;
 				FileOutputStream fos = null;
+				*/
 				/* 리눅스용
 				fis = new FileInputStream("/rDownload/snaTest.png"); 
 				  */
 				// 윈도우용 
-				fis = new FileInputStream("c:\\Download\\" + ivo.getIseq() + ".png"); 
+				/*
+				fis = new FileInputStream("c:\\rContent\\" + ivo.getIseq() + ".png"); 
 				 
 				fos = new FileOutputStream(realPath+"/" + ivo.getIseq() + ".png");  
 				   
@@ -335,7 +350,10 @@ public class TMController {
 				  
 				while((readcount=fis.read(buffer)) != -1) 
 					fos.write(buffer, 0, readcount);    // 파일 복사 
-				
+				*/
+				model.addAttribute("positive", pos_res);
+				model.addAttribute("negative", neg_res);
+				model.addAttribute("neutral", neu_res);
 				model.addAttribute("viewSeq", ivo.getIseq());
 				model.addAttribute("ttypeString", "감성분석");
 			}
@@ -362,7 +380,7 @@ public class TMController {
 	}
 	
 	@RequestMapping("tmAdd.do")
-	public String tmAdd(TmVO tvo, THIVO thivo, HttpSession session) {
+	public String tmAdd(TmVO tvo, THIVO thivo, TVIVO tvivo,HttpSession session) {
 		System.out.println(tvo);
 		System.out.println(thivo);
 		
@@ -379,34 +397,41 @@ public class TMController {
 		String fileNameTarget = null;
 		String type = null;
 		
-		if(tvo.getTtype().equals("wordcloud")) {
-			type = ".html";
+		if(tvo.getTtype().equals("sentiment")) {
+			tvivo.setTseq(tmService.getTmTop(tvo));
+			tmService.insertTVI(tvivo);
 		} else {
-			type = ".png";
+			if(tvo.getTtype().equals("wordcloud")) {
+				type = ".html";
+			} else if(tvo.getTtype().equals("sna")){
+				type = ".png";
+			} 
+			
+			// 복사할 confirmFile
+			fileName = "/" + thivo.getIseq() + type; 
+			// 붙여넣기 할 realFile의 경로
+			fileNameTarget = "/" + tmService.getTmTop(tvo) + type;
+			
+			try {
+				fis = new FileInputStream(realPath + fileName);
+				fos = new FileOutputStream(savePath + fileNameTarget);
+				
+				byte[] buffer = new byte[1024];
+				int readcount = 0;
+				  
+				while((readcount=fis.read(buffer)) != -1) 
+					fos.write(buffer, 0, readcount);    // 파일 복사 
+				
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
-		// 복사할 confirmFile
-		fileName = "/" + thivo.getIseq() + type; 
-		// 붙여넣기 할 realFile의 경로
-		fileNameTarget = "/" + tmService.getTmTop(tvo) + type;
 		
-		try {
-			fis = new FileInputStream(realPath + fileName);
-			fos = new FileOutputStream(savePath + fileNameTarget);
-			
-			byte[] buffer = new byte[1024];
-			int readcount = 0;
-			  
-			while((readcount=fis.read(buffer)) != -1) 
-				fos.write(buffer, 0, readcount);    // 파일 복사 
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		// thi 삽입
 		tmService.insertTHI(thivo);

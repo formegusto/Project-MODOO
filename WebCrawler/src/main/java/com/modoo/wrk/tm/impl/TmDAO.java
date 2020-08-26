@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.tm.TCVO;
 import com.modoo.wrk.tm.THIVO;
+import com.modoo.wrk.tm.TVIVO;
 import com.modoo.wrk.tm.TmVO;
 
 @Repository
@@ -49,5 +50,15 @@ public class TmDAO {
 	public List<TmVO> getTmListSearch (SearchVO search) {
 		System.out.println("[TmDAO Log] getTmList(Search) Call ");
 		return mybatis.selectList("TmDAO.getTmListSearch", search);
+	}
+	
+	public void insertTVI(TVIVO vo) {
+		System.out.println("[TmDAO Log] insertTVI(Search) Call ");
+		mybatis.insert("TmDAO.insertTVI", vo);
+	}
+	
+	public TVIVO getTVI(TVIVO vo) {
+		System.out.println("[TmDAO Log] getTVI() Call ");
+		return mybatis.selectOne("TmDAO.getTVI", vo);
 	}
 }

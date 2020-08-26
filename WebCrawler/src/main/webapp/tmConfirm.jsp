@@ -4,8 +4,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="styles/css/tmConfirm.css?s"></link>
-<script type="text/javascript" src="styles/js/tmConfirm.js?1"></script>
+<link rel="stylesheet" href="styles/css/tmConfirm.css?e"></link>
+<script type="text/javascript" src="styles/js/tmConfirm.js?e"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<c:if test="${ttype eq 'sentiment'}">
+		<script>
+		window.addEventListener("load", function() {
+			let sentiCanvas = document.getElementsByClassName('sentiment')[0];
+			
+			let positive = ${positive};
+			let negative = ${negative};
+			let neutral = ${neutral};
+			
+			sentiDraw(sentiCanvas, positive , negative, neutral);
+		})
+		</script>		
+</c:if>
 <meta content="text/html; charset=EUC-KR">
 <title>MODOO</title>
 </head>
@@ -20,10 +34,18 @@
 			<c:if test="${ttype eq 'wordcloud' }">
 				<jsp:include page="/confirmRview/${viewSeq }.html"/>
 			</c:if>
-			<c:if test="${ttype eq 'sna' }">
+			<c:if test="${ttype eq 'sna'}">
 				<img src="confirmRview/${viewSeq }.png"/>
 			</c:if>
+			<c:if test="${ttype eq 'sentiment'}">
+				<canvas class="sentiment"></canvas>
+			</c:if>
 			<form class="tmform" name="tmform" method="post" action="tmAdd.do" >
+				<c:if test="${ttype eq 'sentiment'}">
+					<input type="hidden" name="positive" value="${positive}"/>
+					<input type="hidden" name="negative" value="${negative}"/>
+					<input type="hidden" name="neutral" value="${neutral}"/>
+				</c:if>
 				<input type="hidden" name="iseq" value="${viewSeq }"/>
 				<input type="hidden" name="ttype" value="${ttype }"/>
 				<input type="text" name="title" placeholder="당신의 ${ttypeString }에 이름을 지어주세요!"/>

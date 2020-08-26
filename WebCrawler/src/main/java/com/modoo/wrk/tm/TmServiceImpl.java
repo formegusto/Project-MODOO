@@ -55,4 +55,16 @@ public class TmServiceImpl implements TmService {
 		// TODO Auto-generated method stub
 		return tmDAO.getTmListSearch(search);
 	}
+
+	@Override
+	public void insertTVI(TVIVO vo) {
+		// TODO Auto-generated method stub
+		tmDAO.insertTVI(vo);
+	}
+
+	@Override
+	public TVIVO getTVI(TVIVO vo) {
+		// TODO Auto-generated method stub
+		return tmDAO.getTVI(vo);
+	}
 }

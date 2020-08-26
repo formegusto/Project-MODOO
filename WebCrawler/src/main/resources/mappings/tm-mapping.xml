@@ -55,6 +55,19 @@
 			ORDER BY RAND() LIMIT 1
 		]]>
 	</select>
+	<insert id="insertTVI">
+		<![CDATA[
+			INSERT INTO TM_VISUAL_INFO(tviseq,tseq,positive,negative,neutral)
+			VALUES ((SELECT ifnull(max(tviseq), 0) + 1 FROM TM_VISUAL_INFO a),#{tseq},#{positive},#{negative},#{neutral})
+		]]>
+	</insert>
+	<select id="getTVI" resultType="tvi">
+		<![CDATA[
+			SELECT *
+			FROM TM_VISUAL_INFO
+			WHERE TSEQ=#{tseq}
+		]]>
+	</select>
 	<!-- 
 	<select id="getTHIList" resultType="thi">
 		SELECT *
