@@ -22,6 +22,7 @@ import com.modoo.wrk.frame.FrameVO;
 import com.modoo.wrk.frame.impl.FrameService;
 import com.modoo.wrk.info.InfoVO;
 import com.modoo.wrk.info.impl.InfoService;
+import com.modoo.wrk.tm.TVIVO;
 import com.modoo.wrk.tm.TmVO;
 import com.modoo.wrk.tm.impl.TmService;
 import com.modoo.wrk.users.UsersVO;
@@ -145,7 +146,13 @@ public class BoardController {
 				TmVO tvo = new TmVO();
 				tvo.setTseq(bhd.getSeq());
 				
-				model.addAttribute("tm", tmService.getTm(tvo));
+				TmVO tm = tmService.getTm(tvo);
+				if(tm.getTtype().equals("sentiment")) {
+					TVIVO tvivo = new TVIVO();
+					tvivo.setTseq(tm.getTseq());
+					tm.setTvi(tmService.getTVI(tvivo));
+				}
+				model.addAttribute("tm", tm);
 			} else if(bhd.getType().equals("visual")) {
 				VisualVO vvo = new VisualVO();
 				vvo.setVseq(bhd.getSeq());

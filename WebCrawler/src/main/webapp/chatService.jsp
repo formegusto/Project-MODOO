@@ -7,7 +7,7 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/chatService.css?e"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script type="text/javascript" src="styles/js/chatService.js?z"></script>
+<script type="text/javascript" src="styles/js/chatService.js?s"></script>
 <script>
 window.addEventListener("load", function() {
 	let visualCanvas = document.getElementsByClassName('visualcanvas')[0];
@@ -43,9 +43,21 @@ window.addEventListener("load", function() {
 				<li class="dataHeaderitem active" onclick="changeType(this,'frame')">
 					프레임
 				</li>
-				<li onclick="changeType(this,'tm')">
-					텍스트마이닝
-				</li>
+				<c:if test="${tm.ttype eq 'wordcloud' }">
+						<li onclick="changeType(this,'tm')">
+							텍스트마이닝
+						</li>
+				</c:if>
+				<c:if test="${tm.ttype eq 'sna'}">
+						<li onclick="changeType(this,'tm')">
+							텍스트마이닝
+						</li>
+				</c:if>
+				<c:if test="${tm.ttype eq 'sentiment'}">
+						<li onclick="changeTypeSenti(this,'tm',${tm.tvi.positive},${tm.tvi.negative }, ${tm.tvi.neutral })">
+							텍스트마이닝
+						</li>
+				</c:if>
 				<li onclick="changeType(this,'visual')">
 					시각화
 				</li>
@@ -75,6 +87,9 @@ window.addEventListener("load", function() {
 					</c:if>
 					<c:if test="${tm.ttype eq 'sna'}">
 						<img src="userRview/${tm.tseq }.png"/>
+					</c:if>
+					<c:if test="${tm.ttype eq 'sentiment'}">
+						<canvas class="senticanvas"></canvas>
 					</c:if>
 				</div>				
 				<div id="visual">

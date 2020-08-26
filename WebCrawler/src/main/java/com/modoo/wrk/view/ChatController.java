@@ -20,6 +20,7 @@ import com.modoo.wrk.info.impl.InfoService;
 import com.modoo.wrk.room.RHDVO;
 import com.modoo.wrk.room.RoomVO;
 import com.modoo.wrk.room.impl.RoomService;
+import com.modoo.wrk.tm.TVIVO;
 import com.modoo.wrk.tm.TmVO;
 import com.modoo.wrk.tm.impl.TmService;
 import com.modoo.wrk.visual.VHIVO;
@@ -81,7 +82,13 @@ public class ChatController {
 				TmVO tvo = new TmVO();
 				tvo.setTseq(rhd.getSeq());
 				
-				model.addAttribute("tm", tmService.getTm(tvo));
+				TmVO tm = tmService.getTm(tvo);
+				if(tm.getTtype().equals("sentiment")) {
+					TVIVO tvivo = new TVIVO();
+					tvivo.setTseq(tm.getTseq());
+					tm.setTvi(tmService.getTVI(tvivo));
+				}
+				model.addAttribute("tm", tm);
 			} else if(rhd.getType().equals("visual")) {
 				VisualVO vvo = new VisualVO();
 				vvo.setVseq(rhd.getSeq());

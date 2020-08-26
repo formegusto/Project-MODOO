@@ -72,3 +72,24 @@ function changeType(type, name){
 		visualDraw();
 	}
 }
+
+function changeTypeSenti (type, name,positive, negative, neutral) {
+	changeType(type,name);
+	
+	var sentictx = document.getElementsByClassName("senticanvas")[0];
+	new Chart(sentictx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['긍정','부정','중립'],
+        datasets: [{
+            label: '감성분석 결과',
+            backgroundColor: ['rgb(000,051,255)','rgb(255,051,051)','rgb(255,102,051)'],
+            borderColor: 'rgb(0,0,0)',
+            data: [positive,negative,neutral]
+        }]
+    	},
+	});
+}
