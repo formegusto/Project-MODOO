@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/boardDetailService.css?s"></link>
+<link rel="stylesheet" href="styles/css/boardDetailService.css?a"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript" src="styles/js/boardDetailService.js?e"></script>
 <script>
@@ -105,7 +105,12 @@ window.addEventListener("load", function() {
 			<div class="comment">
 				<div class="commentForm">
 					<form method="post" action="commentService.do" name="form">
-						<textarea placeholder="욕은 안됩니다!" class="commentArea" name="content" onkeypress="javasciprt:if(event.keyCode==13){document.form.submit;}"></textarea>
+						<c:if test="${user == null}">
+							<textarea class="commentArea" name="content" disabled="disabled">로그인 후 이용 가능합니다.</textarea>
+						</c:if>
+						<c:if test="${user != null}">
+							<textarea placeholder="욕은 안됩니다!" class="commentArea" name="content" onkeypress="javasciprt:if(event.keyCode==13){document.form.submit;}"></textarea>
+						</c:if>
 						<button type="submit" class="commentButton">댓글 달기</button>
 						<input type="hidden" name="bseq" value="${board.bseq }" />
 					</form>

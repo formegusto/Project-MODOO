@@ -117,6 +117,17 @@ form::-webkit-scrollbar {
 	color: black;
 }
 
+#tm {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 2rem;
+}
+
+#tm img {
+	width: 100%;
+}
+
 #visual {
 	width: 100%;
 	display: flex;
