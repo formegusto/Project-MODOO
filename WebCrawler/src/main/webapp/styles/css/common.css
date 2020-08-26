@@ -13,13 +13,6 @@ body {
 	align-items : center;
 }
 
-form {
-	overflow: scroll;
-	width: 50%;
-	margin-left: .5rem;
-	margin-right: .5rem;
-}
-
 body::-webkit-scrollbar{
 	width: 10px;
 }

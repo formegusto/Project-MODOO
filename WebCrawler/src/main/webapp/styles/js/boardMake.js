@@ -1,32 +1,66 @@
-var tmp;
-
 function titleEnter(content){
-	tmp = content.innerText;
 	content.style.background = "black";
 	content.style.color = "white";
-	content.innerText = "선택!";
 }
 
 function titleLeave(content){
 	content.style.background = "white";
 	content.style.color = "black";
-	content.innerText = tmp;
 }
 
 function titleClick(content, seq, type){
-	content.style.background = "black";
-	content.style.color = "white";
-	content.removeAttribute('onmouseleave');
-	if(type === 'frame'){
-		var fseqInput = document.getElementById('fseq');
-		fseqInput.value = seq;
-	} else if(type === 'tm') {
-		var tseqInput = document.getElementById('tseq');
-		tseqInput.value = seq;
-	} else if(type === 'visual') {
-		var vseqInput = document.getElementById('vseq');
-		vseqInput.value = seq;
+	var fseqInput = document.getElementById('fseq');
+	var tseqInput = document.getElementById('tseq');
+	var vseqInput = document.getElementById('vseq');
+	
+	if((type === 'frame' && fseqInput.value !== "") || (type === 'tm' && tseqInput.value !== "") ||
+		(type === 'visual' && vseqInput.value !== "")){
+		alert('종류 당 하나씩만 선택 가능합니다.');		
 	}
+	else{
+		content.style.background = "black";
+		content.style.color = "white";
+		content.removeAttribute('onmouseleave');
+		content.removeAttribute('onmouseenter');
+		
+		if(type === 'frame'){
+			var fseqInput = document.getElementById('fseq');
+			fseqInput.value = seq;
+		} else if(type === 'tm') {
+			var tseqInput = document.getElementById('tseq');
+			tseqInput.value = seq;
+		} else if(type === 'visual') {
+			var vseqInput = document.getElementById('vseq');
+			vseqInput.value = seq;
+		}
+		
+		content.setAttribute('onclick', "titleReClick(this,'" + type + "')");
+	}
+}
+
+function titleReClick(content, type){
+	content.style.background = "white";
+	content.style.color = "black";
+	
+	let seq;
+	
+	if(type === 'frame'){
+			var fseqInput = document.getElementById('fseq');
+			seq = fseqInput.value;
+			fseqInput.value = "";
+	} else if(type === 'tm') {
+			var tseqInput = document.getElementById('tseq');
+			seq = tseqInput.value;
+			tseqInput.value = "";
+	} else if(type === 'visual') {
+			var vseqInput = document.getElementById('vseq');
+			seq = vseqInput.value;
+			vseqInput.value = "";
+	}
+	
+	content.setAttribute('onclick', "titleClick(this," + seq + ",'" + type + "')");
+	content.setAttribute('onmouseleave', "titleLeave(this)");
+	content.setAttribute('onmouseenter', "titleEnter(this)");
 }
 
 function makeClick() {

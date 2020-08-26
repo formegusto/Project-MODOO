@@ -6,7 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/boardMake.css?s"></link>
-<script type="text/javascript" src="styles/js/boardMake.js?2"></script>
+<script type="text/javascript" src="styles/js/boardMake.js?f"></script>
 <title>MODOO</title>
 </head>
 <body>
