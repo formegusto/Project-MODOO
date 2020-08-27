@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoService.css?e"></link>
+<link rel="stylesheet" href="styles/css/infoService.css?s"></link>
 <script type="text/javascript" src="styles/js/infoService.js?e"></script>
 <title>MODOO</title>
 </head>
@@ -35,15 +35,16 @@
 		</div>
 		<div class="cardGroup">
 			<c:forEach items="${frameList }" var="frame">
-					<div class="contentCard" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=read'">
-					<h1>${frame.title }</h1>
+					<div class="contentCard">
+					<h1 onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=read'">${frame.title }</h1>
 					<hr/>
 					<c:forEach items="${frame.dataList }" var="data">
-						<p>
+						<p onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=read'">
 							${data }
 						</p>
 					</c:forEach>
-				</div>
+					<button class="delBtn" onclick="location.href='deleteFrame.do?fseq=${frame.fseq}'">X</button>
+					</div>
 			</c:forEach>
 		</div>
 	</div>

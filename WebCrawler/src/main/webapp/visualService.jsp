@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/visualService.css?e"></link>
+<link rel="stylesheet" href="styles/css/visualService.css?s"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript" src="styles/js/visualService.js?e"></script>
 <script>
@@ -59,6 +59,7 @@ window.addEventListener("load", function() {
 			<h1>${visual.title }</h1>
 			<hr/>
 				<canvas class="visualcanvas"></canvas>
+			<button class="delBtn" onclick="location.href='deleteVisual.do?vseq=${visual.vseq}'">X</button>
 			</div>
 		</c:forEach>
 	</div>
@@ -83,16 +84,6 @@ window.addEventListener("load", function() {
 					</p>
 				</div>
 			</div>
-			<div class="contentCard visual" onClick="location.href='infoServiceByVisual.do?vtype=polarArea'">
-			<h1>PolarArea</h1>
-			<hr/>
-				<div>
-					<img src="styles/png/polararea.PNG"/>
-					<p>
-						폴라아리아? 폴럴아리아? 뭐죠?
-					</p>
-				</div>
-			</div >
 			<div class="contentCard visual" onClick="location.href='infoServiceByVisual.do?vtype=pie'">
 			<h1>Pie</h1>
 			<hr/>

@@ -31,6 +31,7 @@ public class DataController {
 	public String infoService(InfoVO vo, FrameVO fvo,String mode, String keyword, String ctitle,
 			Model model, HttpServletRequest req) {
 		System.out.println(keyword);
+		System.out.println(ctitle);
 		
 		String page = "dataService.jsp";
 		String URI = req.getRequestURI();

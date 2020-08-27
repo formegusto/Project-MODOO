@@ -50,4 +50,10 @@ public class VisualServiceImpl implements VisualService {
 		// TODO Auto-generated method stub
 		return visualDAO.getVisualListSearch(search);
 	}
+
+	@Override
+	public void deleteVisual(VisualVO vo) {
+		// TODO Auto-generated method stub
+		visualDAO.deleteVisual(vo);
+	}
 }

@@ -68,6 +68,13 @@
 			WHERE TSEQ=#{tseq}
 		]]>
 	</select>
+	<delete id="deleteTm">
+		<![CDATA[
+			DELETE
+			FROM TM
+			WHERE TSEQ=#{tseq}
+		]]>
+	</delete>
 	<!-- 
 	<select id="getTHIList" resultType="thi">
 		SELECT *

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/tmService.css?s"></link>
+<link rel="stylesheet" href="styles/css/tmService.css?g"></link>
 <script type="text/javascript" src="styles/js/tmService.js?1"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <title>MODOO</title>
@@ -61,6 +61,7 @@
 						</script>
 					</c:if>
 				</div>
+				<button class="delBtn" onclick="location.href='deleteTm.do?tseq=${tm.tseq }'">X</button>
 			</div>
 		</c:forEach>
 	</div>

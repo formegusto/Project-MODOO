@@ -13,4 +13,5 @@ public interface VisualService {
 	public List<VHIVO> getVHIList(VisualVO vo);
 	public List<VisualVO> getVisualList(VisualVO vo);
 	public List<VisualVO> getVisualListSearch(SearchVO search);
+	public void deleteVisual(VisualVO vo);
 }

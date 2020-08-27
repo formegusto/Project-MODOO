@@ -109,6 +109,25 @@ section {
 	cursor: pointer;
 	padding: 1.25rem;
 	box-shadow: .3rem .175rem .175rem 0 black; 
+	position: relative;
+}
+
+.delBtn {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 1.5rem;
+	background: transparent;
+	color: gray;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	transition: .7s;
+}
+
+.delBtn:hover {
+	color: white;
 }
 
 .contentCard:hover {

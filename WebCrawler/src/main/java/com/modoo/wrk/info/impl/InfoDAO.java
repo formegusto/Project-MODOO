@@ -43,4 +43,9 @@ public class InfoDAO {
 		System.out.println("[InfoDAO Log] getInfoTypeLink() Call ");
 		return mybatis.selectList("InfoDAO.getInfoTypeLink", vo);
 	}
+	
+	public void deleteInfo(InfoVO vo) {
+		System.out.println("[InfoDAO Log] deleteInfo() Call");
+		mybatis.delete("InfoDAO.deleteInfo", vo);
+	}
 }

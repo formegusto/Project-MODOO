@@ -39,4 +39,8 @@ public class VisualDAO {
 		System.out.println("[VisualDAO] getVisualList(search) Call");
 		return mybatis.selectList("VisualDAO.getVisualListSearch",search);
 	}
+	public void deleteVisual(VisualVO vo) {
+		System.out.println("[VisualDAO] deleteVisual() Call");
+		mybatis.delete("VisualDAO.deleteVisual", vo);
+	}
 }

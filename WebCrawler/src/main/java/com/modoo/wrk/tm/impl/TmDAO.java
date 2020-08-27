@@ -61,4 +61,9 @@ public class TmDAO {
 		System.out.println("[TmDAO Log] getTVI() Call ");
 		return mybatis.selectOne("TmDAO.getTVI", vo);
 	}
+	
+	public void deleteTm(TmVO vo) {
+		System.out.println("[TmDAO Log] deleteTm() Call ");
+		mybatis.delete("TmDAO.deleteTm", vo);
+	}
 }

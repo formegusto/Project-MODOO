@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataService.css?ee"></link>
+<link rel="stylesheet" href="styles/css/dataService.css?s"></link>
 <script type="text/javascript" src="styles/js/dataService.js?ee"></script>
 <title>MODOO</title>
 </head>
@@ -48,10 +48,21 @@
 		</table>
 	</form>
 	<div class="sideContent">
-		<div class="sideItem">${info.title }</div>
+		<div class="sideItemInfo">
+			${info.title }
+			<div class="sideItemToolTip">
+				<div class="ToolTipItem">
+					${info.link }
+				</div>
+				<hr/>
+				<div class="ToolTipItem">
+					${info.cssQuery }
+				</div>
+			</div>
+		</div>
 		<hr/>
-		<div class="sideItem">${info.link }</div>
-		<div class="sideItem">${info.cssQuery }</div>
+		<div class="sideItem">Recrawl</div>
+		<div class="sideItem">CANCLE</div>
 	</div>
 </section>
 </body>

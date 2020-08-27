@@ -62,17 +62,20 @@ public class FrameController {
 			List<FHIVO> fhiList = frameService.getFHIList(frame);
 			List<String> dataList = new ArrayList<String>();
 			
-			for(int i=0;i<3;i++) {
-				DataVO dvo = new DataVO();
-				int f = ran.nextInt(fhiList.size());
+			if(fhiList.size() != 0) {
+				for(int i=0;i<3;i++) {
+					DataVO dvo = new DataVO();
+					int f = ran.nextInt(fhiList.size());
+					
+					FHIVO fhi = fhiList.get(f);
+					dvo.setIseq(fhi.getIseq());
+					
+					dataList.add(dataService.getDataRandOne(dvo));
+				}
 				
-				FHIVO fhi = fhiList.get(f);
-				dvo.setIseq(fhi.getIseq());
-				
-				dataList.add(dataService.getDataRandOne(dvo));
+				frame.setDataList(dataList);
 			}
 			
-			frame.setDataList(dataList);
 			frameList.add(frame);
 		}
 		
@@ -220,6 +223,17 @@ public class FrameController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:dataServiceByFrame.do?fseq=" + vo.getFseq() + "&mode=read&ctitle=" + ctitle;
+		model.addAttribute("fseq", vo.getFseq());
+		model.addAttribute("ctitle", ctitle);
+		model.addAttribute("mode", "read");
+		
+		return "redirect:dataServiceByFrame.do";
+	}
+	
+	@RequestMapping("deleteFrame.do")
+	public String deleteFrame(FrameVO vo) {
+		frameService.deleteFrame(vo);
+		
+		return "redirect:frameService.do";
 	}
 }

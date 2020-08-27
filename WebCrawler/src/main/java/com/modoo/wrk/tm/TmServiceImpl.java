@@ -67,4 +67,10 @@ public class TmServiceImpl implements TmService {
 		// TODO Auto-generated method stub
 		return tmDAO.getTVI(vo);
 	}
+
+	@Override
+	public void deleteTm(TmVO vo) {
+		// TODO Auto-generated method stub
+		tmDAO.deleteTm(vo);
+	}
 }

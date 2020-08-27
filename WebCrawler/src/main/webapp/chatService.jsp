@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="styles/css/chatService.css?e"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript" src="styles/js/chatService.js?s"></script>
+<c:if test="${visual ne null }">
 <script>
 window.addEventListener("load", function() {
 	let visualCanvas = document.getElementsByClassName('visualcanvas')[0];
@@ -32,6 +33,7 @@ window.addEventListener("load", function() {
 	setChatSocket(rseq,userId);
 })
 </script>
+</c:if>
 <title>MODOO</title>
 </head>
 <body>
@@ -40,29 +42,36 @@ window.addEventListener("load", function() {
 	<div class="contents">
 		<div class="data">
 			<ul class="dataHeader">
-				<li class="dataHeaderitem active" onclick="changeType(this,'frame')">
-					프레임
-				</li>
-				<c:if test="${tm.ttype eq 'wordcloud' }">
-						<li onclick="changeType(this,'tm')">
-							텍스트마이닝
-						</li>
+				<c:if test="${frame ne null }">
+					<li class="dataHeaderitem active" onclick="changeType(this,'frame')">
+						프레임
+					</li>
 				</c:if>
-				<c:if test="${tm.ttype eq 'sna'}">
-						<li onclick="changeType(this,'tm')">
-							텍스트마이닝
-						</li>
+				<c:if test="${tm ne null }">
+					<c:if test="${tm.ttype eq 'wordcloud' }">
+							<li onclick="changeType(this,'tm')">
+								텍스트마이닝
+							</li>
+					</c:if>
+					<c:if test="${tm.ttype eq 'sna'}">
+							<li onclick="changeType(this,'tm')">
+								텍스트마이닝
+							</li>
+					</c:if>
+					<c:if test="${tm.ttype eq 'sentiment'}">
+							<li onclick="changeTypeSenti(this,'tm',${tm.tvi.positive},${tm.tvi.negative }, ${tm.tvi.neutral })">
+								텍스트마이닝
+							</li>
+					</c:if>
 				</c:if>
-				<c:if test="${tm.ttype eq 'sentiment'}">
-						<li onclick="changeTypeSenti(this,'tm',${tm.tvi.positive},${tm.tvi.negative }, ${tm.tvi.neutral })">
-							텍스트마이닝
-						</li>
+				<c:if test="${visual ne null }">
+					<li onclick="changeType(this,'visual')">
+						시각화
+					</li>
 				</c:if>
-				<li onclick="changeType(this,'visual')">
-					시각화
-				</li>
 			</ul>
 			<div class="dataContent">
+				<c:if test="${frame ne null }">
 				<div id="frame" class="content active">
 					<table>
 						<tbody>
@@ -81,6 +90,8 @@ window.addEventListener("load", function() {
 						</tbody>
 					</table>
 				</div>
+				</c:if>
+				<c:if test="${tm ne null }">
 				<div id="tm">
 					<c:if test="${tm.ttype eq 'wordcloud' }">
 						<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
@@ -92,9 +103,12 @@ window.addEventListener("load", function() {
 						<canvas class="senticanvas"></canvas>
 					</c:if>
 				</div>				
+				</c:if>
+				<c:if test="${visual ne null }">
 				<div id="visual">
 					<canvas class="visualcanvas" style="width:500px; height: 500px;"></canvas>
 				</div>
+				</c:if>
 			</div>
 		</div>
 		<div class="chatDiv">

@@ -431,10 +431,15 @@ public class TMController {
 			}
 		}
 		
-		
-		
 		// thi 삽입
 		tmService.insertTHI(thivo);
+		
+		return "redirect:tmService.do";
+	}
+	
+	@RequestMapping("deleteTm.do")
+	public String deleteTm(TmVO vo) {
+		tmService.deleteTm(vo);
 		
 		return "redirect:tmService.do";
 	}

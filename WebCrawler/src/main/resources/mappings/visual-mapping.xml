@@ -47,4 +47,11 @@
 			ORDER BY VSEQ DESC
 		]]>
 	</select>
+	<delete id="deleteVisual">
+		<![CDATA[
+			DELETE
+			FROM VISUAL
+			WHERE VSEQ=#{vseq}
+		]]>
+	</delete>
 </mapper>

@@ -43,4 +43,10 @@ public class InfoServiceImpl implements InfoService {
 		// TODO Auto-generated method stub
 		return infoDAO.getInfoTypeLink(vo);
 	}
+
+	@Override
+	public void deleteInfo(InfoVO vo) {
+		// TODO Auto-generated method stub
+		infoDAO.deleteInfo(vo);
+	}
 }

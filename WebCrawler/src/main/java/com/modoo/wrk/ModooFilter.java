@@ -21,7 +21,8 @@ import javax.servlet.http.HttpSession;
 public class ModooFilter implements Filter {
 	private List<String> unauth_allow_api = new ArrayList<String>(
 			Arrays.asList( 
-					"/MODOO", "/MODOO/", "/MODOO/403.jsp" , "/MODOO/account.jsp", "/MODOO/boardService.do", "/MODOO/boardDetailService.do"
+					"/MODOO", "/MODOO/", "/MODOO/403.jsp" , "/MODOO/account.jsp", "/MODOO/boardService.do", "/MODOO/boardDetailService.do",
+					"/MODOO/signin.do", "/MODOO/signup.do"
 				));
     /**
      * Default constructor. 
@@ -41,8 +42,9 @@ public class ModooFilter implements Filter {
 		System.out.println("[Filter] 로그인 검사");
 		
 		HttpServletRequest req = (HttpServletRequest) request;
+		req.setCharacterEncoding("EUC-KR");
 		HttpServletResponse res = (HttpServletResponse) response;
-		HttpSession session = req.getSession(false);
+		HttpSession session = req.getSession();
 		
 		if (session != null) {
 			if(session.getAttribute("user") != null) {

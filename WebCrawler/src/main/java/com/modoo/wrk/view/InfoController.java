@@ -142,4 +142,11 @@ public class InfoController {
 		
 		return forwardPage;
 	}
+	
+	@RequestMapping("deleteInfo.do")
+	public String deleteInfo(InfoVO vo) {
+		infoService.deleteInfo(vo);
+		
+		return "redirect:infoService.do";
+	}
 }

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="styles/css/boardDetailService.css?a"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript" src="styles/js/boardDetailService.js?e"></script>
+<c:if test="${visual ne null }">
 <script>
 window.addEventListener("load", function() {
 	let visualCanvas = document.getElementsByClassName('visualcanvas')[0];
@@ -27,6 +28,7 @@ window.addEventListener("load", function() {
 	setVisualState(visualCanvas,title,vtype,labels,datas,color);
 })
 </script>
+</c:if>
 <title>MODOO</title>
 </head>
 <body>
@@ -35,61 +37,73 @@ window.addEventListener("load", function() {
 	<div class="contents">
 		<div class="data">
 			<ul class="dataHeader">
-				<li class="dataHeaderitem active" onclick="changeType(this,'frame')">
-					프레임
-				</li>
-				<c:if test="${tm.ttype eq 'wordcloud' }">
-						<li onclick="changeType(this,'tm')">
-							텍스트마이닝
-						</li>
+				<c:if test="${frame ne null }">
+					<li class="dataHeaderitem active" onclick="changeType(this,'frame')">
+						프레임
+					</li>
 				</c:if>
-				<c:if test="${tm.ttype eq 'sna'}">
-						<li onclick="changeType(this,'tm')">
-							텍스트마이닝
-						</li>
-				</c:if>
-				<c:if test="${tm.ttype eq 'sentiment'}">
-						<li onclick="changeTypeSenti(this,'tm',${tm.tvi.positive},${tm.tvi.negative }, ${tm.tvi.neutral })">
-							텍스트마이닝
-						</li>
-				</c:if>
-				<li onclick="changeType(this,'visual')">
-					시각화
-				</li>
-			</ul>
-			<div class="dataContent">
-				<div id="frame" class="content active">
-					<table>
-						<tbody>
-						<c:forEach items="${fhiList }" var="fhi">
-							<tr>
-								<td class="fieldHeader">
-									${fhi.field }
-								</td>
-								<c:forEach items="${fhi.dataList }" var="dvo">
-									<td>
-										${dvo.data }
-									</td>
-								</c:forEach>
-							</tr>
-						</c:forEach>
-						</tbody>
-					</table>
-				</div>
-				<div id="tm">
+				<c:if test="${tm ne null }">
 					<c:if test="${tm.ttype eq 'wordcloud' }">
-						<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
+							<li onclick="changeType(this,'tm')">
+								텍스트마이닝
+							</li>
 					</c:if>
 					<c:if test="${tm.ttype eq 'sna'}">
-						<img src="userRview/${tm.tseq }.png"/>
+							<li onclick="changeType(this,'tm')">
+								텍스트마이닝
+							</li>
 					</c:if>
 					<c:if test="${tm.ttype eq 'sentiment'}">
-						<canvas class="senticanvas"></canvas>
+							<li onclick="changeTypeSenti(this,'tm',${tm.tvi.positive},${tm.tvi.negative }, ${tm.tvi.neutral })">
+								텍스트마이닝
+							</li>
 					</c:if>
-				</div>				
-				<div id="visual">
-					<canvas class="visualcanvas" style="width:500px; height: 500px;"></canvas>
-				</div>
+				</c:if>
+				<c:if test="${visual ne null }">
+					<li onclick="changeType(this,'visual')">
+						시각화
+					</li>
+				</c:if>
+			</ul>
+			<div class="dataContent">
+				<c:if test="${frame ne null }">
+					<div id="frame" class="content active">
+						<table>
+							<tbody>
+							<c:forEach items="${fhiList }" var="fhi">
+								<tr>
+									<td class="fieldHeader">
+										${fhi.field }
+									</td>
+									<c:forEach items="${fhi.dataList }" var="dvo">
+										<td>
+											${dvo.data }
+										</td>
+									</c:forEach>
+								</tr>
+							</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</c:if>
+				<c:if test="${tm ne null }">
+					<div id="tm">
+						<c:if test="${tm.ttype eq 'wordcloud' }">
+							<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
+						</c:if>
+						<c:if test="${tm.ttype eq 'sna'}">
+							<img src="userRview/${tm.tseq }.png"/>
+						</c:if>
+						<c:if test="${tm.ttype eq 'sentiment'}">
+							<canvas class="senticanvas"></canvas>
+						</c:if>
+					</div>
+				</c:if>	
+				<c:if test="${visual ne null }">			
+					<div id="visual">
+						<canvas class="visualcanvas" style="width:500px; height: 500px;"></canvas>
+					</div>
+				</c:if>
 			</div>
 		</div>
 		<div class="boardDiv">

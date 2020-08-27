@@ -15,6 +15,7 @@
 			SELECT *
 			FROM INFO
 			WHERE ID=#{id}
+			AND ITYPE!='link'
 			ORDER BY ISEQ DESC
 		]]>
 	</select>
@@ -43,4 +44,11 @@
 			ORDER BY ISEQ DESC
 		]]>
 	</select>
+	<delete id="deleteInfo">
+		<![CDATA[
+			DELETE
+			FROM INFO
+			WHERE ISEQ=#{iseq}
+		]]>
+	</delete>
 </mapper>

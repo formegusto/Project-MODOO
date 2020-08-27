@@ -68,9 +68,20 @@
 		</table>
 	</form>
 	<div class="sideContent">
-		<div class="sideItem" onclick="onCheck()">수정</div>
+		<div class="sideItemInfo">
+			${info.title }
+			<div class="sideItemToolTip">
+				<div class="ToolTipItem">
+					${info.link }
+				</div>
+				<hr/>
+				<div class="ToolTipItem">
+					${info.cssQuery }
+				</div>
+			</div>
+		</div>
 		<hr/>
-		<div class="sideItem">인풋</div>
+		<div class="sideItem" onclick="onCheck()">수정</div>
 		<div class="sideItem" onclick="location.href='infoService.do'">CANCLE</div>
 	</div>
 	<form name="updateForm" method="post" action="updateData.do" style="display:none">

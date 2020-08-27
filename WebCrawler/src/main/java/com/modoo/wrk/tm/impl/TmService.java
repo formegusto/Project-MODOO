@@ -18,4 +18,5 @@ public interface TmService {
 	public List<TmVO> getTmListSearch (SearchVO search);
 	public void insertTVI(TVIVO vo);
 	public TVIVO getTVI(TVIVO vo);
+	public void deleteTm(TmVO vo);
 }

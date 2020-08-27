@@ -151,4 +151,11 @@ public class VisualController {
 		
 		return "redirect:visualService.do";
 	}
+	
+	@RequestMapping("deleteVisual.do")
+	public String deleteVisual(VisualVO vo) {
+		visualService.deleteVisual(vo);
+		
+		return "redirect:visualService.do";
+	}
 }
