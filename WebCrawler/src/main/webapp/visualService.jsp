@@ -45,6 +45,7 @@ window.addEventListener("load", function() {
 		<div class="sideItem" onClick="location.href='infoService.do'">수집</div>
 		<div class="sideItem" onClick="location.href='tmService.do'">텍스트마이닝</div>
 		<div class="sideItem active">시각화 중!</div>
+		<div class="sideItem" onClick="location.href='signout.do'">떠나기</div>
 	</div>
 	<div class="contents active" id="tmList">
 		<div class="searchBar">

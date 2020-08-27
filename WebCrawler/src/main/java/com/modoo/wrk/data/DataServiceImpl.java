@@ -56,4 +56,16 @@ public class DataServiceImpl implements DataService {
 		// TODO Auto-generated method stub
 		dataDAO.updateData(vo);
 	}
+
+	@Override
+	public void appendData(DataVO vo) {
+		// TODO Auto-generated method stub
+		dataDAO.appendData(vo);
+	}
+
+	@Override
+	public void deleteDataIseq(DataVO vo) {
+		// TODO Auto-generated method stub
+		dataDAO.deleteDataIseq(vo);
+	}
 }

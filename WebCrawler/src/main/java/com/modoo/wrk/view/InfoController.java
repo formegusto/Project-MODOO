@@ -44,6 +44,7 @@ public class InfoController {
 		vo.setId(((UsersVO) session.getAttribute("user")).getId());
 		model.addAttribute("info", vo);
 		model.addAttribute("dataList", dataList);
+		model.addAttribute("processType", "new");
 	
 		return "infoConfirm.jsp";
 	}
@@ -60,6 +61,36 @@ public class InfoController {
 		}
 		
 		return "redirect:infoService.do";
+	}
+	
+	@RequestMapping(value = "/appendInfo.do", method = RequestMethod.POST)
+	public String appendInfo(@RequestParam(value="data", required=true) List<String> dataList,
+			InfoVO vo) {
+		DataVO dvo = new DataVO();
+		for(String data : dataList) {
+			dvo.setIseq(vo.getIseq());
+			dvo.setData(data);
+			dataService.appendData(dvo);
+		}
+		
+		return "redirect:dataService.do?iseq=" + vo.getIseq() + "&mode=read";
+	}
+	
+	@RequestMapping(value = "/replaceInfo.do", method = RequestMethod.POST)
+	public String replaceInfo(@RequestParam(value="data", required=true) List<String> dataList,
+			InfoVO vo) {
+		DataVO delDvo = new DataVO();
+		delDvo.setIseq(vo.getIseq());
+		dataService.deleteDataIseq(delDvo);
+		
+		DataVO dvo = new DataVO();
+		for(String data : dataList) {
+			dvo.setIseq(vo.getIseq());
+			dvo.setData(data);
+			dataService.appendData(dvo);
+		}
+		
+		return "redirect:dataService.do?iseq=" + vo.getIseq() + "&mode=read";
 	}
 	
 	@RequestMapping(value="/infoLinkList.do")
@@ -148,5 +179,23 @@ public class InfoController {
 		infoService.deleteInfo(vo);
 		
 		return "redirect:infoService.do";
+	}
+	
+	@RequestMapping("recrawl.do")
+	public String recrawl(InfoVO vo, Model model) {
+		InfoVO info = infoService.getInfo(vo);
+		List<DataVO> dataList = null;
+		
+		if(info.getItype().equals("text")) {
+			dataList = modooCrawler.getDataTypeText(info);
+		} else if(info.getItype().equals("linklist")) {
+			dataList = modooCrawler.getDataTypeLinkList(info);
+		}
+		
+		model.addAttribute("info", info);
+		model.addAttribute("dataList", dataList);
+		model.addAttribute("processType", "re");
+		
+		return "infoConfirm.jsp";
 	}
 }

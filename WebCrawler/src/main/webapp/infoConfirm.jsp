@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/infoConfirm.css?a"></link>
-<script type="text/javascript" src="styles/js/infoConfirm.js"></script>
+<link rel="stylesheet" href="styles/css/infoConfirm.css?e"></link>
+<script type="text/javascript" src="styles/js/infoConfirm.js?zz"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -18,6 +18,9 @@
 				<tr>
 					<td>
 						${info.field }
+						<c:if test="${processType eq 're' }">
+							<input type="hidden" name="iseq" value="${info.iseq }"/>
+						</c:if>
 						<input type="hidden" name="id" value="${info.id }"/>
 						<input type="hidden" name="title" value="${info.title }"/>
 						<input type="hidden" name="content" value="${info.content }"/>
@@ -40,10 +43,19 @@
 			</tbody>
 		</table>
 	</form>
-	<div class="sideContent">
-		<div class="sideItem" onclick="onClick('save')">SAVE</div>
-		<div class="sideItem">CANCLE</div>
-	</div>
+	<c:if test="${processType eq 'new' }">
+		<div class="sideContent">
+			<div class="sideItem" onclick="onClick('save')">SAVE</div>
+			<div class="sideItem">CANCLE</div>
+		</div>
+	</c:if>
+	<c:if test="${processType eq 're' }">
+		<div class="sideContent">
+			<div class="sideItem" onclick="onClick('replace')">Replace</div>
+			<div class="sideItem" onclick="onClick('append')">Append</div>
+			<div class="sideItem">CANCLE</div>
+		</div>
+	</c:if>
 </section>
 </body>
 </html>

@@ -61,7 +61,7 @@
 			</div>
 		</div>
 		<hr/>
-		<div class="sideItem">Recrawl</div>
+		<div class="sideItem" onclick="location.href='recrawl.do?iseq=${info.iseq}'">Recrawl</div>
 		<div class="sideItem">CANCLE</div>
 	</div>
 </section>

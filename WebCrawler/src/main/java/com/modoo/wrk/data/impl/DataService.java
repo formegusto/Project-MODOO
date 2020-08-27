@@ -14,4 +14,6 @@ public interface DataService {
 	public List<String> getDataNotVO(DataVO vo);
 	public void deleteData(DataVO vo);
 	public void updateData(DataVO vo);
+	public void appendData(DataVO vo);
+	public void deleteDataIseq(DataVO vo);
 }

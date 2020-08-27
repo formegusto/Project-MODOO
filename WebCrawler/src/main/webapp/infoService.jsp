@@ -30,6 +30,7 @@
 		<div class="sideItem active" onClick="location.href='infoService.do'">수집 중!</div>
 		<div class="sideItem" onClick="location.href='tmService.do'">텍스트마이닝</div>
 		<div class="sideItem" onClick="location.href='visualService.do'">시각화</div>
+		<div class="sideItem" onClick="location.href='signout.do'">떠나기</div>
 	</div>
 	<div class="contents">
 		<ul class="contentNav">

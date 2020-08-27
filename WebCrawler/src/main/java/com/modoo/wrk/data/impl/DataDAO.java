@@ -61,4 +61,14 @@ public class DataDAO {
 		System.out.println("[DataDAO Log] updateData() Call ");
 		mybatis.update("DataDAO.updateData", vo);
 	}
+	
+	public void appendData(DataVO vo) {
+		System.out.println("[DataDAO Log] appendData() Call");
+		mybatis.insert("DataDAO.appendData", vo);
+	}
+	
+	public void deleteDataIseq(DataVO vo) {
+		System.out.println("[DataDAO Log] deleteDataIseq() Call");
+		mybatis.delete("DataDAO.deleteDataIseq", vo);
+	}
 }

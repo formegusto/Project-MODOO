@@ -17,18 +17,8 @@ form {
 	overflow: scroll;
 }
 
-form::-webkit-scrollbar{
-	width: 10px;
-}
-
-form::-webkit-scrollbar-thumb {
-    background-color: white;
-    border-radius: 1rem;
-    transition: .7s;
-}
-form::-webkit-scrollbar-track {
-	border-radius: 1rem;
-    background-color: black;
+form::-webkit-scrollbar { 
+	display: none; 
 }
 
 table {

@@ -34,4 +34,13 @@ public class UsersController {
 		usersService.signupUser(vo);
 		return "redirect:infoService.do";
 	}
+	
+	// 로그아웃 기능
+	@RequestMapping(value="/signout.do")
+	public String signin(HttpSession session) {
+		System.out.println("[UsersController] SignOut Bye");
+		session.removeAttribute("user");
+				
+		return "redirect:account.jsp";
+	}
 }

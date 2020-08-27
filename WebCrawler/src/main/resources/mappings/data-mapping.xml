@@ -61,4 +61,16 @@
 				WHERE DSEQ=#{dseq }
 		]]>
 	</update>
+	<insert id="appendData">
+		<![CDATA[
+			insert into DATA(dseq,iseq,data)
+			values((SELECT ifnull(max(dseq), 0) + 1 FROM DATA b),#{iseq},#{data });
+		]]>
+	</insert>
+	<delete id="deleteDataIseq">
+		<![CDATA[
+			DELETE FROM DATA
+			WHERE ISEQ=#{iseq}
+		]]>
+	</delete>
 </mapper>
