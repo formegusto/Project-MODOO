@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataServiceByFrame.css?e"></link>
-<script type="text/javascript" src="styles/js/dataServiceByFrame.js?2"></script>
+<link rel="stylesheet" href="styles/css/dataServiceByFrame.css?fff"></link>
+<script type="text/javascript" src="styles/js/dataServiceByFrame.js?df"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -22,31 +22,34 @@
 	<hr style="width: 100%;"/>
 	<input type="text" id="ctitle" placeholder="제목" />
 	<button type="button" onclick="submitDownload()">만들기</button>
+	<button type="button" onclick="onDownloadCancle()">취소</button>
 </div>
 <section> 
 	<div class="sideContent">
 		<div class="sideItem active">가공 중!</div>
 		<div class="sideItem active">읽는 중!</div>
+		<div class="sideItem" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=write'">쓰기</div>
 		<div class="sideItem" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=update'">수정</div>
 		<div class="sideItem" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=delete'">삭제</div>
 	</div>
 	<form name="saveFrame" method="post" action="frameMake.do">
 		<input type="text" name="title" value="" id="title"/>
 		<table>
+			<c:forEach items="${fhiList }" var="fhi">
 			<tbody>
-				<c:forEach items="${fhiList }" var="fhi">
 					<tr>
 						<td class="fieldHeader">
 							${fhi.field }
 						</td>
 						<c:forEach items="${fhi.dataList }" var="dvo">
-							<td>
+							<td class="readData">
 								${dvo.data }
 							</td>
 						</c:forEach>
 					</tr>
-				</c:forEach>
+				
 			</tbody>
+			</c:forEach>
 		</table>
 	</form>
 	<div class="sideContent">

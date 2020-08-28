@@ -65,7 +65,7 @@ public class InfoController {
 	
 	@RequestMapping(value = "/appendInfo.do", method = RequestMethod.POST)
 	public String appendInfo(@RequestParam(value="data", required=true) List<String> dataList,
-			InfoVO vo) {
+			InfoVO vo, @RequestParam(defaultValue = "read") String mode) {
 		DataVO dvo = new DataVO();
 		for(String data : dataList) {
 			dvo.setIseq(vo.getIseq());
@@ -73,7 +73,22 @@ public class InfoController {
 			dataService.appendData(dvo);
 		}
 		
-		return "redirect:dataService.do?iseq=" + vo.getIseq() + "&mode=read";
+		return "redirect:dataService.do?iseq=" + vo.getIseq() + "&mode=" + mode;
+	}
+	
+	@RequestMapping(value = "/appendInfoByFrame.do", method = RequestMethod.POST)
+	public String appendInfoByFrame(@RequestParam(value="data", required=true) List<String> dataList,
+			InfoVO vo, @RequestParam(defaultValue = "read") String mode, int fseq) {
+		DataVO dvo = new DataVO();
+		for(String data : dataList) {
+			String iseq = data.split(",")[0];
+			String realData = data.split(",")[1];
+			dvo.setIseq(Integer.parseInt(iseq));
+			dvo.setData(realData);
+			dataService.appendData(dvo);
+		}
+		
+		return "redirect:dataServiceByFrame.do?fseq=" + fseq + "&mode=" + mode;
 	}
 	
 	@RequestMapping(value = "/replaceInfo.do", method = RequestMethod.POST)

@@ -5,11 +5,17 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataServiceByFrame.css"></link>
-<script type="text/javascript" src="styles/js/dataServiceByFrame.js?2asffs"></script>
+<link rel="stylesheet" href="styles/css/dataServiceByFrame.css?s"></link>
+<script type="text/javascript" src="styles/js/dataServiceByFrame.js?ddsaf"></script>
 <title>MODOO</title>
 </head>
 <body>
+<c:if test="${ctitle ne null && ctitle ne '' }">
+<script>
+	let ctitle = '${ctitle}';
+	window.open("download/csv/" + ctitle, 'MODOO CSV DOWNLOAD');
+</script>
+</c:if>
 <jsp:include page="components/header.html"/>
 <div class="csvloading">
 	<h5 style="margin:0;">제목을 적어주세요!</h5>
@@ -18,46 +24,49 @@
 	<button type="button" onclick="submitDownload()">만들기</button>
 	<button type="button" onclick="onDownloadCancle()">취소</button>
 </div>
+<form name="appendForm" method="post" action="appendInfoByFrame.do" style="display:none">
+	<input type="hidden" name="fseq" value="${frame.fseq }"/>
+	<div class="inputDataList">
+	</div>
+</form>
 <section> 
 	<div class="sideContent">
 		<div class="sideItem active">가공 중!</div>
 		<div class="sideItem" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=read'">읽기</div>
-		<div class="sideItem" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=write'">쓰기</div>
+		<div class="sideItem active">쓰는 중!</div>
 		<div class="sideItem" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=update'">수정</div>
-		<div class="sideItem active">삭제 중!</div>
+		<div class="sideItem" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=delete'">삭제</div>
 	</div>
 	<form name="saveFrame" method="post" action="frameMake.do">
 		<input type="text" name="title" value="" id="title"/>
 		<table>
 			<c:forEach items="${fhiList }" var="fhi">
 			<tbody>
-					<tr>
+					<tr class="dataTr ${fhi.iseq }">
 						<td class="fieldHeader">
 							${fhi.field }
 						</td>
 						<c:forEach items="${fhi.dataList }" var="dvo">
 							<td>
 								${dvo.data }
-								<div class="dataTools" onclick="pushDelData(this,${dvo.dseq})">
-									지나간 데이터는 돌아오지 않습니다.
-								</div>
 							</td>
 						</c:forEach>
+					</tr>
+					<tr>
+						<td class="toolTd">
+							<button type="button" class="appendBtn" onclick="appendClick(${fhi.iseq })">데이터 추가하기</button>
+						</td>
 					</tr>
 			</tbody>
 			</c:forEach>
 		</table>
 	</form>
 	<div class="sideContent">
-		<div class="sideItem" onclick="onDelSubmit()">삭제</div>
+		<div class="sideItem" onclick="onAppend()">쓰기</div>
 		<hr/>
 		<div class="sideItem" onclick="onDownload(${frame.fseq})">CSV 다운로드</div>
 		<div class="sideItem" onclick="location.href='frameService.do'">CANCLE</div>
 	</div>
-	<form name="delForm" method="post" action="deleteDataByFrame.do" style="display:none">
-		<input type="hidden" name="fseq" value="${frame.fseq }" />
-		<input id="delDseqInput" type="hidden" name="dseqList" value=""/>
-	</form>
 </section>
 </body>
 </html>

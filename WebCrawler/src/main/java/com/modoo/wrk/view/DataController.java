@@ -43,6 +43,9 @@ public class DataController {
 			if(mode.equals("update")) {
 				page = "dataServiceUpdate.jsp";
 			}
+			if(mode.equals("write")) {
+				page = "dataServiceInsert.jsp";
+			}
 			
 			InfoVO info = infoService.getInfo(vo);
 			
@@ -67,6 +70,9 @@ public class DataController {
 			}
 			if(mode.equals("update")) {
 				page = "dataServiceByFrameUpdate.jsp";
+			}
+			if(mode.equals("write")) {
+				page = "dataServiceByFrameInsert.jsp";
 			}
 			
 			FrameVO frame = frameService.getFrame(fvo);

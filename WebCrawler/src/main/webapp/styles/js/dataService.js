@@ -92,3 +92,30 @@ function onUpSubmit() {
 	
 	document.updateForm.submit();
 }
+
+function appendClick() {
+	let dataTbody = document.getElementsByClassName('dataTbody')[0];
+	let newTr = document.createElement('tr');
+	
+	newTr.innerHTML = "<td class=\"dataItem\">" + 
+			"<textarea class=\"appendData\"></textarea>"
+			"</td>";
+			
+	dataTbody.appendChild(newTr);
+}
+
+function onAppend() {
+	let appendData = document.getElementsByClassName('appendData');
+	let inputDataList = document.getElementsByClassName('inputDataList')[0];
+	
+	for(let i=0;i<appendData.length;i++){	
+		let inputData = document.createElement('input');
+		inputData.setAttribute('type','hidden');
+		inputData.setAttribute('name','data');
+		inputData.setAttribute('value',appendData[i].value);
+		
+		inputDataList.append(inputData);
+	}
+	
+	document.appendForm.submit();
+}

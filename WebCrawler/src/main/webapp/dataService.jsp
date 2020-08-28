@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataService.css?s"></link>
-<script type="text/javascript" src="styles/js/dataService.js?ee"></script>
+<link rel="stylesheet" href="styles/css/dataService.css"></link>
+<script type="text/javascript" src="styles/js/dataService.js"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -15,6 +15,7 @@
 	<div class="sideContent">
 		<div class="sideItem active">가공 중!</div>
 		<div class="sideItem active">읽는 중!</div>
+		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=write'">쓰기</div>
 		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=update'">수정</div>
 		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=delete'">삭제</div>
 	</div>
@@ -36,7 +37,7 @@
 					</td>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="dataTbody">
 				<c:forEach items="${dataList }" var="datavo">
 					<tr>
 						<td onclick="allDataContent(this)" class="dataItem">

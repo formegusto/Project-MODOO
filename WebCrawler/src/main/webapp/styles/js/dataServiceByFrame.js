@@ -106,3 +106,36 @@ function submitDownload(){
 	let ctitle = ctitleInput.value;
 	location.href='csvDownload.do?fseq=' + fseq + '&ctitle=' + ctitle;
 }
+
+function appendClick(iseq) {
+	let dataTbody = document.getElementsByClassName('dataTr ' + iseq)[0];
+	let newTr = document.createElement('tr');
+	
+	newTr.innerHTML = "<td class=\"dataItem\">" + 
+			"<textarea class=\"appendData " + iseq + "\"></textarea>"
+			"</td>";
+			
+	dataTbody.appendChild(newTr);
+}
+
+function onAppend() {
+	let appendData = document.getElementsByClassName('appendData');
+	let inputDataList = document.getElementsByClassName('inputDataList')[0];
+	
+	for(let i=0;i<appendData.length;i++){
+		let iseq = appendData[i].className.split(" ")[1];
+		let inputData = document.createElement('input');
+		inputData.setAttribute('type','hidden');
+		inputData.setAttribute('name','data');
+		inputData.setAttribute('value',iseq + ',' + appendData[i].value);
+		
+		inputDataList.append(inputData);
+	}
+	
+	document.appendForm.submit();
+}
+
+function onDownloadCancle() {
+	let loading = document.getElementsByClassName('csvloading active')[0];
+	loading.className = "csvloading";
+}

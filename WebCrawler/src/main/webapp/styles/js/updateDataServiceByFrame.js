@@ -90,3 +90,8 @@ function submitDownload(){
 	let ctitle = ctitleInput.value;
 	location.href='csvDownload.do?fseq=' + fseq + '&ctitle=' + ctitle;
 }
+
+function onDownloadCancle() {
+	let loading = document.getElementsByClassName('csvloading active')[0];
+	loading.className = "csvloading";
+}

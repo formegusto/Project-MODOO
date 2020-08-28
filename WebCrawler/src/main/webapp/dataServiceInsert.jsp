@@ -5,21 +5,27 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataService.css?s"></link>
-<script type="text/javascript" src="styles/js/dataService.js"></script>
+<link rel="stylesheet" href="styles/css/dataService.css?z"></link>
+<script type="text/javascript" src="styles/js/dataService.js?s"></script>
 <title>MODOO</title>
 </head>
-<body>
+<body id="body">
 <jsp:include page="components/header.html"/>
+<form name="appendForm" method="post" action="appendInfo.do" style="display:none">
+	<input type="hidden" name="iseq" value="${info.iseq }"/>
+	<input type="hidden" name="mode" value="write"/>
+	<div class="inputDataList">
+	</div>
+</form>
 <section> 
 	<div class="sideContent">
 		<div class="sideItem active">가공 중!</div>
 		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=read'">읽기</div>
-		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=write'">쓰기</div>
+		<div class="sideItem active">쓰는 중!</div>
 		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=update'">수정</div>
-		<div class="sideItem active">삭제 중!</div>
+		<div class="sideItem" onclick="location.href='dataService.do?iseq=${info.iseq}&mode=delete'">삭제</div>
 	</div>
-	<form>
+	<form onsubmit="return false">
 		<table id="dataTable">
 			<thead>
 				<tr>
@@ -28,7 +34,7 @@
 							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
 							<span class="textBottomEffect"></span>
 						</div>
-						<button type="button" onclick="onKeyword('${info.iseq}','delete')">검색</button>
+						<button type="button" onclick="onKeyword('${info.iseq}','read')">검색</button>
 					</td>
 				</tr>
 				<tr>
@@ -40,14 +46,19 @@
 			<tbody class="dataTbody">
 				<c:forEach items="${dataList }" var="datavo">
 					<tr>
-						<td class="dataItem">
+						<td onclick="allDataContent(this)" class="dataItem">
 							${datavo.data }
-							<div class="dataTools" onclick="pushDelData(this,${datavo.dseq})">
-								지나간 데이터는 돌아오지 않습니다.
-							</div>
 						</td>
 					</tr>
 				</c:forEach>
+				
+			</tbody>
+			<tbody class="toolTbody">
+				<tr>
+					<td class="dataItem">
+						<button class="appendBtn" onclick="appendClick()">데이터 추가</button>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</form>
@@ -65,13 +76,9 @@
 			</div>
 		</div>
 		<hr/>
-		<div class="sideItem" onclick="onDelSubmit()">삭제</div>
-		<div class="sideItem" onclick="location.href='infoService.do'">CANCLE</div>
+		<div class="sideItem" onclick="onAppend()">쓰기</div>
+		<div class="sideItem">CANCLE</div>
 	</div>
-	<form name="delForm" method="post" action="deleteData.do" style="display:none">
-		<input type="hidden" name="iseq" value="${info.iseq }" />
-		<input id="delDseqInput" type="hidden" name="dseqList" value=""/>
-	</form>
 </section>
 </body>
 </html>

@@ -190,14 +190,14 @@ tbody td .updateConfirm {
 	transition: .5s;
 }
 
-tbody td:hover {
-	background: black;
+.dataTbody td:hover {
 	transform: translateY(-5px) translateX(5px);
 	transition: .3s;
 }
 
 tbody td:hover .dataTools {
 	display: flex;
+	background: black;
 }
 
 tbody .dataItem {
@@ -391,6 +391,29 @@ tbody .dataItem textarea:focus {
 .loading tbody td {
 	font-size: 3rem;
 	flex: 1;
+}
+
+.toolTbody .dataItem {
+	padding: 0;
+}
+
+.appendBtn {
+	width: 100%;
+	height: 100%;
+	font-size: 1.5rem;
+	font-family: 'Do Hyeon', sans-serif;
+	background: white;
+	color: black;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	border-radius: 1rem;
+	transition: .7s;
+}
+
+.appendBtn:hover {
+	background:black;
+	color: white;
 }
 
 /* animation keyframe */
