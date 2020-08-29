@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.modoo.wrk.data.SearchVO;
+import com.modoo.wrk.visual.VCVO;
 import com.modoo.wrk.visual.VHIVO;
 import com.modoo.wrk.visual.VisualVO;
 
@@ -42,5 +43,9 @@ public class VisualDAO {
 	public void deleteVisual(VisualVO vo) {
 		System.out.println("[VisualDAO] deleteVisual() Call");
 		mybatis.delete("VisualDAO.deleteVisual", vo);
+	}
+	public VCVO getComment(VCVO vo) {
+		System.out.println("[VisualDAO] getComment() Call");
+		return mybatis.selectOne("VisualDAO.getComment", vo);
 	}
 }

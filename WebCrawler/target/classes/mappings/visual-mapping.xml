@@ -54,4 +54,12 @@
 			WHERE VSEQ=#{vseq}
 		]]>
 	</delete>
+	<select id="getComment" resultType="vc">
+		<![CDATA[
+			SELECT *
+			FROM VISUAL_COMMENT
+			WHERE VTYPE=#{vtype}
+			ORDER BY RAND() LIMIT 1
+		]]>
+	</select>
 </mapper>

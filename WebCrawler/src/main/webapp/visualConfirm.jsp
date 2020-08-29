@@ -31,7 +31,7 @@ window.addEventListener("load", function() {
 <section> 
 	<div class="contents">
 		<div class="contentsNav">
-			쭈욱 펴진 ${vtype} 결과물!
+			${comment }
 		</div>
 		<div class="contentsItem">
 			<canvas class="visual"></canvas>

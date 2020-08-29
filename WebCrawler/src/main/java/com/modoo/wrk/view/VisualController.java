@@ -14,6 +14,7 @@ import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
 import com.modoo.wrk.users.UsersVO;
+import com.modoo.wrk.visual.VCVO;
 import com.modoo.wrk.visual.VHIVO;
 import com.modoo.wrk.visual.VisualVO;
 import com.modoo.wrk.visual.impl.VisualService;
@@ -120,6 +121,10 @@ public class VisualController {
 			color = "\'rgb(226, 175, 244)\'";
 		}
 		
+		VCVO vc = new VCVO();
+		vc.setVtype(vtype);
+		
+		model.addAttribute("comment", ((VCVO)visualService.getComment(vc)).getComment());
 		model.addAttribute("vtype", "\'" + vtype + "\'");
 		model.addAttribute("color", color);
 		model.addAttribute("numList", numList);

@@ -32,6 +32,10 @@ public class UsersController {
 	public String signup(UsersVO vo, HttpSession session) {
 		System.out.println("[UsersController] Signup THX :)");
 		usersService.signupUser(vo);
+		
+		UsersVO user = usersService.signinUser(vo);
+		session.setAttribute("user", user);
+		
 		return "redirect:infoService.do";
 	}
 	

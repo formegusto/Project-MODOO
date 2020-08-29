@@ -75,25 +75,4 @@
 			WHERE TSEQ=#{tseq}
 		]]>
 	</delete>
-	<!-- 
-	<select id="getTHIList" resultType="thi">
-		SELECT *
-		FROM TM_HAVE_INFO
-		WHERE TNUM=#{tseq}
-		ORDER BY THISEQ ASC
-	</select> 
-	<select id="getTm" resultType="tm">
-		SELECT *
-		FROM TM
-		WHERE TSEQ=#{tseq}
-	</select>
-	<select id="getTmTop" resultType="tm">
-	<![CDATA[
-		SELECT *
-		FROM TM
-		WHERE ID=#{id}
-		ORDER BY TSEQ DESC LIMIT 1
-	]]>
-	</select>
-	-->
 </mapper>
