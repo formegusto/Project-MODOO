@@ -62,8 +62,10 @@
 			</div>
 		</div>
 		<hr/>
-		<div class="sideItem" onclick="location.href='recrawl.do?iseq=${info.iseq}'">Recrawl</div>
-		<div class="sideItem">CANCLE</div>
+		<c:if test="${info.itype ne 'empty' }">
+			<div class="sideItem" onclick="location.href='recrawl.do?iseq=${info.iseq}'">Recrawl</div>
+		</c:if>
+		<div class="sideItem" onclick="location.href='infoService.do'">CANCLE</div>
 	</div>
 </section>
 </body>

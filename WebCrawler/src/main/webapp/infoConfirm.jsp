@@ -53,7 +53,7 @@
 		<div class="sideContent">
 			<div class="sideItem" onclick="onClick('replace')">Replace</div>
 			<div class="sideItem" onclick="onClick('append')">Append</div>
-			<div class="sideItem">CANCLE</div>
+			<div class="sideItem" onclick="location.href='infoService.do'">CANCLE</div>
 		</div>
 	</c:if>
 </section>

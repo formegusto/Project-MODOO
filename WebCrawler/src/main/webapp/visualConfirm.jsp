@@ -46,7 +46,7 @@ window.addEventListener("load", function() {
 	</div>
 	<div class="sideContent">
 		<div class="sideItem" onclick="document.visualForm.submit()">SAVE</div>
-		<div class="sideItem" onclick="location.href='tmService.do'">CANCLE</div>
+		<div class="sideItem" onclick="location.href='visualService.do'">CANCLE</div>
 	</div>
 </section>
 

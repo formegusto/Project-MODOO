@@ -85,8 +85,20 @@ public class TMController {
 		for(DataVO data : dataList_){
 			if(!data.getData().equals("")) {
 				String inData = data.getData().replaceAll(match, "");
-				if(!inData.equals("")) {
-					dataList.add(inData);
+				boolean chk = true;
+				// 빈칸 검사
+				if(!inData.equals("") ) {
+					String[] inDataArr = inData.split(" ");
+					// 길이 검사
+					for(String inDataMem : inDataArr) {
+						if(inDataMem.length() > 10) {
+							chk = false;
+							break;
+						}
+					}
+					if(chk) {
+						dataList.add(inData);
+					}
 				}
 			}
 		}
