@@ -11,8 +11,8 @@ function onInsertPage(serviceName){
 		togetherDiv.className = "infoType active";
 		// location.href = 'infoInsert.jsp';
 	}
-	else if(serviceName === 'csv'){
-		location.href = 'csvInsert.jsp';
+	else if(serviceName === 'empty'){
+		location.href = "infoInsert.do?type=empty";
 	}
 }
 

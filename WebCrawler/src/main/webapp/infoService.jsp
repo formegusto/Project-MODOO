@@ -65,7 +65,7 @@
 	</div>
 	<div class="sideContent">
 		<div class="sideItem" onclick="onInsertPage('crawling')">CRAWLING</div>
-		<div class="sideItem" onclick="onInsertPage('csv')">CSV</div>
+		<div class="sideItem" onclick="onInsertPage('empty')">EMPTY</div>
 	</div>
 </section>
 </body>

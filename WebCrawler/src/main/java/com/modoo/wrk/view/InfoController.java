@@ -39,6 +39,12 @@ public class InfoController {
 			dataList = modooCrawler.getDataTypeLink(vo);
 		} else if(vo.getItype().equals("linklist")) {
 			dataList = modooCrawler.getDataTypeLinkList(vo);
+		} else if(vo.getItype().equals("empty")) {
+			UsersVO user = (UsersVO) session.getAttribute("user");
+			vo.setId(user.getId());
+			
+			infoService.insertInfo(vo);
+			return "redirect:infoService.do";
 		}
 		
 		vo.setId(((UsersVO) session.getAttribute("user")).getId());
@@ -132,6 +138,9 @@ public class InfoController {
 		if(type.equals("linklist")) {
 			String link = req.getParameter("iseq");
 			model.addAttribute("link", link);
+		}
+		if(type.equals("empty")) {
+			model.addAttribute("link", "empty");
 		}
 		
 		model.addAttribute("itype", type);

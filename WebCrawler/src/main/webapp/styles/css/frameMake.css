@@ -11,20 +11,28 @@ section {
 
 .contents {
 	display: flex;
-	justify-content: flex-end;
+	flex-direction: column;
+	justify-content: center;
 	flex-flow: wrap;
 	width: 45%;
 	margin-top: 6.5rem;
 	padding: .5rem;
 }
 
+.cardGroup {
+	display:flex;
+	flex-flow: wrap;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+}
+
 .contentCard {
-	flex: 1;
 	border: 1px solid white;
 	background: black;
 	color: white;
 	border-radius: 1rem;
-	width: 40%;
+	width: 42%;
 	height: 30%;
 	margin: .6rem;
 	cursor: pointer;

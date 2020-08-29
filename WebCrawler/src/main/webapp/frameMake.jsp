@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/frameMake.css?e"></link>
+<link rel="stylesheet" href="styles/css/frameMake.css?s"></link>
 <script type="text/javascript" src="styles/js/frameMake.js?dd"></script>
 <title>MODOO</title>
 </head>
@@ -18,6 +18,7 @@
 <jsp:include page="components/header.html"/>
 <section> 
 	<div class="contents">
+		<div class="cardGroup">
 		<c:forEach items="${infoList }" var="info">
 				<div class="contentCard ${info.iseq }">
 					<h1>${info.title }</h1>
@@ -38,6 +39,7 @@
 					</div>
 				</div>
 		</c:forEach>
+		</div>
 	</div>
 	<div class="sideContent">
 		<div class="sideItem" onclick="onSubmit()">MAKE</div>

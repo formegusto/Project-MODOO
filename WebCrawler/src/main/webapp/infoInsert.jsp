@@ -30,7 +30,7 @@
 				<textarea name="content" placeholder="content!"></textarea>
 			</div>
 			<div class="inputGroup">
-				<c:if test="${link ne null and link ne '' }">
+				<c:if test="${(link ne null and link ne '' )}">
 					<input type="text" name="link" placeholder="link!" value="${link }" readonly="readonly"/>
 				</c:if>
 				<c:if test="${link eq null or link eq '' }">
@@ -39,7 +39,12 @@
 			</div>
 			<div class="inputGroup">
 				<input type="text" name="field" placeholder="field!"/>
-				<input type="text" name="cssQuery" placeholder="cssQuery!"/>
+				<c:if test="${itype eq 'empty' }">
+					<input type="text" name="cssQuery" placeholder="cssQuery!" value="empty" readonly="readonly"/>
+				</c:if>
+				<c:if test="${itype ne 'empty' }">
+					<input type="text" name="cssQuery" placeholder="cssQuery!"/>
+				</c:if>
 			</div>
 			<input type="hidden" name="itype" value=${itype } id="itype"/>
 		</form>
