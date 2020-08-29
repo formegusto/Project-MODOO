@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.modoo.wrk.board.impl.BoardDAO;
 import com.modoo.wrk.board.impl.BoardService;
+import com.modoo.wrk.data.SearchVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -47,6 +48,12 @@ public class BoardServiceImpl implements BoardService {
 	public Integer getBoardTop(BoardVO vo) {
 		// TODO Auto-generated method stub
 		return boardDAO.getBoardTop(vo);
+	}
+
+	@Override
+	public List<BoardVO> getBoardSearch(SearchVO vo) {
+		// TODO Auto-generated method stub
+		return boardDAO.getBoardSearch(vo);
 	}
 
 }

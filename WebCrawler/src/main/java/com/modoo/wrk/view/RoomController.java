@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.frame.FrameVO;
 import com.modoo.wrk.frame.impl.FrameService;
 import com.modoo.wrk.room.RHDVO;
@@ -65,8 +66,15 @@ public class RoomController {
 	}
 	
 	@RequestMapping(value = "roomService.do")
-	public String roomService(Model model) {
-		model.addAttribute("roomList", roomService.getRoomList());
+	public String roomService(Model model, String keyword) {
+		if(keyword == null) {
+			model.addAttribute("roomList", roomService.getRoomList());
+		} else {
+			SearchVO svo = new SearchVO();
+			svo.setKeyword(keyword);
+			
+			model.addAttribute("rootList", roomService.getRoomSearch(svo));
+		}
 		
 		return "roomService.jsp";
 	}

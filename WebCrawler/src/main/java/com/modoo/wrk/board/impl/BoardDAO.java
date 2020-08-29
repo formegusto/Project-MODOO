@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.modoo.wrk.board.BHDVO;
 import com.modoo.wrk.board.BoardVO;
+import com.modoo.wrk.data.SearchVO;
 
 @Repository
 public class BoardDAO {
@@ -36,5 +37,9 @@ public class BoardDAO {
 	
 	public Integer getBoardTop(BoardVO vo) {
 		return mybatis.selectOne("BoardDAO.getBoardTop", vo);
+	}
+	
+	public List<BoardVO> getBoardSearch(SearchVO vo){
+		return mybatis.selectList("BoardDAO.getBoardSearch", vo);
 	}
 }

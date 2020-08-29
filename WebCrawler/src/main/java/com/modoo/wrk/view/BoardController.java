@@ -16,6 +16,7 @@ import com.modoo.wrk.board.impl.BoardService;
 import com.modoo.wrk.comment.CommentVO;
 import com.modoo.wrk.comment.impl.CommentService;
 import com.modoo.wrk.data.DataVO;
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
 import com.modoo.wrk.frame.FHIVO;
 import com.modoo.wrk.frame.FrameVO;
@@ -102,9 +103,15 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "boardService.do")
-	public String boardService(Model model) {
-		model.addAttribute("boardList", boardService.getBoardList());
-		
+	public String boardService(Model model, String keyword) {
+		if(keyword == null) {
+			model.addAttribute("boardList", boardService.getBoardList());
+		} else {
+			SearchVO svo = new SearchVO();
+			svo.setKeyword(keyword);
+			
+			model.addAttribute("boardList", boardService.getBoardSearch(svo));
+		}
 		return "boardService.jsp";
 	}
 	

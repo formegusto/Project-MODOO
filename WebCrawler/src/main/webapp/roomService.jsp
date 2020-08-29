@@ -26,7 +26,7 @@
 							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
 							<span class="textBottomEffect"></span>
 					</div>
-						<button type="button" onclick="onKeyword('board')">검색</button>
+						<button type="button" onclick="onKeyword('room')">검색</button>
 		</div>
 		<table>
 			<thead>

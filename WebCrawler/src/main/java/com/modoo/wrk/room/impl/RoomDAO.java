@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.room.RHDVO;
 import com.modoo.wrk.room.RoomVO;
 
@@ -36,5 +37,9 @@ public class RoomDAO {
 	
 	public Integer getRoomTop(RoomVO vo) {
 		return mybatis.selectOne("RoomDAO.getRoomTop", vo);
+	}
+	
+	public List<RoomVO> getRoomSearch(SearchVO vo){
+		return mybatis.selectList("RoomDAO.getRoomSearch", vo);
 	}
 }
