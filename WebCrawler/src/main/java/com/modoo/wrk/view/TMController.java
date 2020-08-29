@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.rosuda.REngine.REXP;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngineException;
+import org.rosuda.REngine.RList;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
+import com.modoo.wrk.frame.FHIVO;
+import com.modoo.wrk.frame.FrameVO;
+import com.modoo.wrk.frame.impl.FrameService;
 import com.modoo.wrk.info.InfoVO;
+import com.modoo.wrk.info.impl.InfoService;
 import com.modoo.wrk.tm.THIVO;
 import com.modoo.wrk.tm.TVIVO;
 import com.modoo.wrk.tm.TmVO;
@@ -36,6 +41,10 @@ public class TMController {
 	private DataService dataService;
 	@Autowired
 	private TmService tmService;
+	@Autowired
+	private InfoService infoService;
+	@Autowired
+	private FrameService frameService;
 	
 	@RequestMapping("/tmService.do")
 	public String tmService(HttpSession session, Model model,
@@ -104,10 +113,6 @@ public class TMController {
 		}
 		String[] dataStrList = dataList.toArray(new String[dataList.size()]);
 		
-		for(String data : dataStrList ) {
-			System.out.println(data);
-		}
-		
 		// R 작업 수행
 		RConnection r = null;
 		REXP html_path = null;
@@ -137,40 +142,22 @@ public class TMController {
 				r.eval("text_wordcnt <- text_noun %>% filter(str_length(noun)>=2) %>% count(noun,sort=TRUE)");
 				
 				REXP text_wordcnt_ = r.eval("text_wordcnt");
-				//RList text_wordcnt = text_wordcnt_.asList();
+				RList text_wordcnt = text_wordcnt_.asList();
 				
 				
 				text_wordcnt_.asList();
-				// 2. dataMap 구축
-				/*
-				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
-				dataMap.put("word", new ArrayList<DataVO>());
-				dataMap.put("cnt", new ArrayList<DataVO>());
+				
+				List<String> wordList = new ArrayList<String>();
+				List<String> cntList = new ArrayList<String>();
 				int rows = text_wordcnt.at(0).length();
 				System.out.println("rows ==> " + rows);
 				for(int i=0;i<rows;i++) {
-					DataVO worddata = new DataVO();
-					worddata.setData(text_wordcnt.at(0).asStrings()[i]);
-					dataMap.get("word").add(worddata);
-					
-					DataVO cntdata = new DataVO();
-					cntdata.setData(text_wordcnt.at(1).asStrings()[i]);
-					dataMap.get("cnt").add(cntdata);
+					wordList.add(text_wordcnt.at(0).asStrings()[i]);
+					cntList.add(text_wordcnt.at(1).asStrings()[i]);
 				}
 				
-				model.addAttribute("dataMap",dataMap);
-				
-				List<InfoVO> infoList = new ArrayList<InfoVO>();
-				InfoVO info_word = new InfoVO();
-				info_word.setField("word");
-				InfoVO info_cnt = new InfoVO();
-				info_cnt.setField("cnt");
-				infoList.add(info_word);
-				infoList.add(info_cnt);
-				
-				model.addAttribute("infoList", infoList);
-				model.addAttribute("rtnseq",vo.getSeq());
-				*/
+				model.addAttribute("wordList", wordList);
+				model.addAttribute("cntList", cntList);
 				
 				// wordcloud
 				r.eval("library(wordcloud2)");
@@ -249,8 +236,6 @@ public class TMController {
 				model.addAttribute("viewSeq",ivo.getIseq());
 				model.addAttribute("ttypeString", "SNA");
 			} else if(tvo.getTtype().equals("sentiment")) {
-				String sentimentRealPath = session.getServletContext().getRealPath("/sentiment");
-				System.out.println(sentimentRealPath);
 				r.eval("setwd(\"c:\\\\rContent\")");
 				
 				r.eval("library(plyr)");
@@ -288,11 +273,6 @@ public class TMController {
 				r.eval("result$remark[result$score < 0] = \"부정\"");
 				r.eval("result_table <- table(result$remark)");
 				
-				// r.eval("png(\'" + ivo.getIseq() + ".png\')");
-				// r.eval("pie(result_table, main=\"감성분석 결과\", col=c(\"blue\",\"red\",\"green\"), radius=0.8)");
-				// r.eval("dev.off()");
-				
-				
 				REXP pos_res_ = r.eval("result_table[\"긍정\"]");
 				REXP neg_res_ = r.eval("result_table[\"부정\"]");
 				REXP neu_res_ = r.eval("result_table[\"중립\"]");
@@ -306,63 +286,8 @@ public class TMController {
 				if(neu_res_.asInteger() > -1) {
 					neu_res = neu_res_.asInteger();
 				}
-				
-				/*
-				// 2. dataMap 구축
-				Map<String, List<DataVO>> dataMap = new HashMap<String, List<DataVO>>();
-				dataMap.put("positive", new ArrayList<DataVO>());
-				dataMap.put("negative", new ArrayList<DataVO>());
-				dataMap.put("neutrality", new ArrayList<DataVO>());
-					
-				DataVO posdata = new DataVO();
-				posdata.setData(pos_res + "");
-				dataMap.get("positive").add(posdata);
-				DataVO negdata = new DataVO();
-				negdata.setData(neg_res + "");
-				dataMap.get("negative").add(negdata);
-				DataVO neudata = new DataVO();
-				neudata.setData(neu_res + "");
-				dataMap.get("neutrality").add(neudata);
-				model.addAttribute("dataMap",dataMap);
-							
-				List<InfoVO> infoList = new ArrayList<InfoVO>();
-				InfoVO info_pos = new InfoVO();
-				info_pos.setField("positive");
-				InfoVO info_neg = new InfoVO();
-				info_neg.setField("negative");
-				InfoVO info_neu = new InfoVO();
-				info_neu.setField("neutrality");
-				infoList.add(info_pos);
-				infoList.add(info_neg);
-				infoList.add(info_neu);
-							
-				model.addAttribute("infoList", infoList);
-				model.addAttribute("rtnseq",vo.getSeq());
-				*/
-				
 				r.eval("detach(\"package:plyr\")");
 				
-				/*
-				String realPath = session.getServletContext().getRealPath("/confirmRview");
-				System.out.println(realPath);
-				FileInputStream fis = null;
-				FileOutputStream fos = null;
-				*/
-				/* 리눅스용
-				fis = new FileInputStream("/rDownload/snaTest.png"); 
-				  */
-				// 윈도우용 
-				/*
-				fis = new FileInputStream("c:\\rContent\\" + ivo.getIseq() + ".png"); 
-				 
-				fos = new FileOutputStream(realPath+"/" + ivo.getIseq() + ".png");  
-				   
-				byte[] buffer = new byte[1024];
-				int readcount = 0;
-				  
-				while((readcount=fis.read(buffer)) != -1) 
-					fos.write(buffer, 0, readcount);    // 파일 복사 
-				*/
 				model.addAttribute("positive", pos_res);
 				model.addAttribute("negative", neg_res);
 				model.addAttribute("neutral", neu_res);
@@ -392,7 +317,8 @@ public class TMController {
 	}
 	
 	@RequestMapping("tmAdd.do")
-	public String tmAdd(TmVO tvo, THIVO thivo, TVIVO tvivo,HttpSession session) {
+	public String tmAdd(TmVO tvo, THIVO thivo, TVIVO tvivo,HttpSession session,
+			HttpServletRequest req) {
 		System.out.println(tvo);
 		System.out.println(thivo);
 		
@@ -415,6 +341,62 @@ public class TMController {
 		} else {
 			if(tvo.getTtype().equals("wordcloud")) {
 				type = ".html";
+				
+				String saveFrame = req.getParameter("saveFrame");
+				
+				if(saveFrame.equals("yes")) {
+					String wordList_ = req.getParameter("wordList");
+					String cntList_ = req.getParameter("cntList");
+					
+					String[] wordList = wordList_.substring(1, wordList_.length()-1).split(",");
+					String[] cntList = cntList_.substring(1, cntList_.length()-1).split(",");
+					
+					InfoVO wordInfo = new InfoVO();
+					wordInfo.setTitle(tvo.getTitle() + " (단어)");
+					wordInfo.setId(((UsersVO)session.getAttribute("user")).getId());
+					wordInfo.setContent(tvo.getTitle() + " wordcloud 결과물");
+					wordInfo.setCssQuery("empty");
+					wordInfo.setField("단어");
+					wordInfo.setLink("empty");
+					wordInfo.setItype("tm");
+					infoService.insertInfo(wordInfo);
+					
+					for(String word: wordList) {
+						DataVO dvo = new DataVO();
+						dvo.setData(word);
+						dataService.insertData(dvo);
+					}
+					
+					FHIVO wordFHI = new FHIVO();
+					wordFHI.setIseq(infoService.getInfoTop());
+					
+					InfoVO cntInfo = new InfoVO();
+					cntInfo.setTitle(tvo.getTitle() + " (빈도수)");
+					cntInfo.setId(((UsersVO)session.getAttribute("user")).getId());
+					cntInfo.setContent(tvo.getTitle() + " wordcloud 결과물");
+					cntInfo.setCssQuery("empty");
+					cntInfo.setField("빈도수");
+					cntInfo.setLink("empty");
+					cntInfo.setItype("tm");
+					
+					infoService.insertInfo(cntInfo);
+					for(String cnt: cntList) {
+						DataVO dvo = new DataVO();
+						dvo.setData(cnt);
+						dataService.insertData(dvo);
+					}
+					
+					FHIVO cntFHI = new FHIVO();
+					cntFHI.setIseq(infoService.getInfoTop());
+					
+					FrameVO fvo = new FrameVO();
+					fvo.setId(((UsersVO)session.getAttribute("user")).getId());
+					fvo.setTitle(tvo.getTitle() + " wordcloud 결과물");
+					
+					frameService.insertFrame(fvo);
+					frameService.insertFHI(wordFHI);
+					frameService.insertFHI(cntFHI);
+				}
 			} else if(tvo.getTtype().equals("sna")){
 				type = ".png";
 			} 

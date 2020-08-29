@@ -120,10 +120,6 @@ img {
 
 .loading {
 	display: none;
-}
-
-.loading.active {
-	display: flex;
 	animation: fadeIn 1s forwards;
 	position: fixed;
 	background: black;
@@ -133,8 +129,40 @@ img {
 	width: 100%;
 	height: 100%;
 	z-index: 250;
+	flex-flow: column;
 	align-items: center;
 	justify-content: center;
+}
+
+.loading.active {
+	display: flex;
+}
+
+.loadingHeader {
+	width: 100%;
+	text-align: center;
+}
+
+.loading.active hr {
+	width: 100%;
+	margin: .5rem;
+}
+
+.loadingContent {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.loadingItem {
+	margin-left: 2rem;
+	cursor: pointer;
+	border-radius: 1rem;
+	transition: .7s;
+}
+
+.loadingItem:hover {
+	border: 1rem solid black;
 }
 
 

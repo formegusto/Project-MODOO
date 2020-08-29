@@ -12,4 +12,5 @@ public interface InfoService {
 	public List<InfoVO> getInfoListSearch(SearchVO search);
 	public List<InfoVO> getInfoTypeLink(InfoVO vo);
 	public void deleteInfo(InfoVO vo);
+	public int getInfoTop();
 }

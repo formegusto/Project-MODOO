@@ -48,4 +48,8 @@ public class InfoDAO {
 		System.out.println("[InfoDAO Log] deleteInfo() Call");
 		mybatis.delete("InfoDAO.deleteInfo", vo);
 	}
+	
+	public int getInfoTop() {
+		return mybatis.selectOne("InfoDAO.getInfoTop");
+	}
 }

@@ -51,4 +51,11 @@
 			WHERE ISEQ=#{iseq}
 		]]>
 	</delete>
+	<select id="getInfoTop" resultType="Integer">
+		<![CDATA[
+			SELECT iseq
+			FROM INFO
+			ORDER BY ISEQ DESC LIMIT 1;
+		]]>
+	</select>
 </mapper>

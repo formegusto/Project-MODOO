@@ -25,3 +25,24 @@ function sentiDraw(ctx, pos, neg, neu) {
 	console.log(ctx.style.width);
 	console.log(ctx.style.height);
 }
+
+function save(ttype){
+	if(ttype == 'wordcloud'){
+		var loading = document.getElementsByClassName('loading')[0];
+		loading.className = "loading active";
+	} else {
+		document.tmform.submit();
+	}
+}
+
+function wordcloudSave(ans){
+	var saveFrame = document.getElementsByClassName('saveFrame')[0];
+	
+	if(ans == 'yes'){
+		saveFrame.value = "yes";
+	} else {
+		saveFrame.value = "no";
+	}
+	
+	document.tmform.submit();
+}
