@@ -135,8 +135,87 @@ form::-webkit-scrollbar-track {
     background-color: black;
 }
 
+.searchBar {
+	margin-top: 5.5rem;
+	position: relative;
+	width: 90%;
+	background: white;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 1.5rem;
+	color: white;
+	border-radius: 1rem;
+	padding: 1.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: nowrap;
+}
+
+.searchBar div {
+	position: relative;
+	flex: 4;
+}
+
+.searchBar input {
+	position: relative;
+	z-index: 1;
+	height: 40px;
+	width: 100%;
+	flex: 4;
+	background: white;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 1.5rem;
+	color: black;
+	outline: none;
+	border: none;
+	padding: 0;
+	padding-right: 1rem;
+	padding-left: 1rem;
+	margin-right: 0;
+}
+
+.searchBar .textBottomEffect {
+	z-index: 10;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 2px;
+	width: 0;
+	background: black;
+	transition: 1s;
+}
+
+.searchBar input:focus ~ .textBottomEffect {
+	width: 100%;
+}
+
+.searchBar input::placeholder {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 1.5rem;
+}
+
+.searchBar button {
+	cursor: pointer;
+	background: black;
+	color: white;
+	border: 1px solid black;
+	z-index: 2;
+	margin-left: 0;
+	flex: 1;
+	height: 40px;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 1.5rem;
+	border-top-right-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+	transition: 1s;
+}
+
+.searchBar button:hover {
+	color: black;
+	background: white;
+}
+
 table {
-	margin-top: 6.5rem;
 	width: 100%;
 	border-radius: 1rem;
 	display: flex;

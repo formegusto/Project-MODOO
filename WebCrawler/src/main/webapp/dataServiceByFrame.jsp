@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataServiceByFrame.css?fff"></link>
-<script type="text/javascript" src="styles/js/dataServiceByFrame.js?df"></script>
+<link rel="stylesheet" href="styles/css/dataServiceByFrame.css"></link>
+<script type="text/javascript" src="styles/js/dataServiceByFrame.js"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -32,8 +32,16 @@
 		<div class="sideItem" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=update'">수정</div>
 		<div class="sideItem" onclick="location.href='dataServiceByFrame.do?fseq=${frame.fseq}&mode=delete'">삭제</div>
 	</div>
+	
 	<form name="saveFrame" method="post" action="frameMake.do">
 		<input type="text" name="title" value="" id="title"/>
+		<div class="searchBar">
+			<div>
+				<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
+				<span class="textBottomEffect"></span>
+			</div>
+			<button type="button" onclick="onKeyword('${frame.fseq}','read')">검색</button>
+		</div>
 		<table>
 			<c:forEach items="${fhiList }" var="fhi">
 			<tbody>

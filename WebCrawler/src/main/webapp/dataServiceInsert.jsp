@@ -34,7 +34,7 @@
 							<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
 							<span class="textBottomEffect"></span>
 						</div>
-						<button type="button" onclick="onKeyword('${info.iseq}','read')">검색</button>
+						<button type="button" onclick="onKeyword('${info.iseq}','write')">검색</button>
 					</td>
 				</tr>
 				<tr>

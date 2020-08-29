@@ -67,6 +67,12 @@ function onCheck() {
 	document.getElementsByClassName("loading")[0].className = "loading active";
 }
 
+function onKeyword(iseq,mode){
+	let keywordInput = document.getElementById('keyword');
+	
+	location.href="dataService.do?iseq=" + iseq + "&mode=" + mode + "&keyword=" + keywordInput.value;
+}
+
 function submitCancle() {
 	let loading = document.getElementsByClassName("loading active")[0];
 	loading.style.animation = "fadeOut 1s forwards";

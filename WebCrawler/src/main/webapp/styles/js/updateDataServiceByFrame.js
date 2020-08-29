@@ -1,3 +1,9 @@
+function onKeyword(fseq,mode){
+	let keywordInput = document.getElementById('keyword');
+	
+	location.href="dataServiceByFrame.do?fseq=" + fseq + "&mode=" + mode + "&keyword=" + keywordInput.value;
+}
+
 // update ¿ë
 let nowData;
 let updateDseq = [];

@@ -78,24 +78,51 @@ public class DataController {
 			FrameVO frame = frameService.getFrame(fvo);
 			List<FHIVO> fhiList = frameService.getFHIList(fvo);
 			
-			for(int i=0;i<fhiList.size();i++) {
-				FHIVO fhi = fhiList.get(i);
-				
-				InfoVO ivo = new InfoVO();
-				ivo.setIseq(fhi.getIseq());
-				
-				InfoVO info = infoService.getInfo(ivo);
-				
-				DataVO dvo = new DataVO();
-				dvo.setIseq(fhi.getIseq());
-				
-				List<DataVO> dataList = dataService.getData(dvo);
-				
-				fhi.setField(info.getField());
-				fhi.setDataList(dataList);
-				
-				fhiList.set(i, fhi);
+			if(keyword == null) {
+				for(int i=0;i<fhiList.size();i++) {
+					FHIVO fhi = fhiList.get(i);
+					
+					InfoVO ivo = new InfoVO();
+					ivo.setIseq(fhi.getIseq());
+					
+					InfoVO info = infoService.getInfo(ivo);
+					
+					DataVO dvo = new DataVO();
+					dvo.setIseq(fhi.getIseq());
+					
+					List<DataVO> dataList = dataService.getData(dvo);
+					
+					fhi.setField(info.getField());
+					fhi.setDataList(dataList);
+					
+					fhiList.set(i, fhi);
+				}
+			} else {
+				for(int i=0;i<fhiList.size();i++) {
+					FHIVO fhi = fhiList.get(i);
+					
+					InfoVO ivo = new InfoVO();
+					ivo.setIseq(fhi.getIseq());
+					
+					InfoVO info = infoService.getInfo(ivo);
+					
+					DataVO dvo = new DataVO();
+					dvo.setIseq(fhi.getIseq());
+					
+					SearchVO svo = new SearchVO();
+					svo.setIseq(info.getIseq());
+					svo.setKeyword(keyword);
+					
+					List<DataVO> dataList = dataService.getDataSearch(svo);
+					
+					fhi.setField(info.getField());
+					fhi.setDataList(dataList);
+					
+					fhiList.set(i, fhi);
+				}
 			}
+			
+			
 			
 			model.addAttribute("frame", frame);
 			model.addAttribute("fhiList", fhiList);

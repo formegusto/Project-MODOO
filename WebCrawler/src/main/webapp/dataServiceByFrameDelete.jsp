@@ -6,7 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/dataServiceByFrame.css"></link>
-<script type="text/javascript" src="styles/js/dataServiceByFrame.js?2asffs"></script>
+<script type="text/javascript" src="styles/js/dataServiceByFrame.js"></script>
 <title>MODOO</title>
 </head>
 <body>
@@ -28,6 +28,13 @@
 	</div>
 	<form name="saveFrame" method="post" action="frameMake.do">
 		<input type="text" name="title" value="" id="title"/>
+		<div class="searchBar">
+			<div>
+				<input id="keyword" type="text" placeholder="당신이 원하는 검색어면 따라가겠어." />
+				<span class="textBottomEffect"></span>
+			</div>
+			<button type="button" onclick="onKeyword('${frame.fseq}','delete')">검색</button>
+		</div>
 		<table>
 			<c:forEach items="${fhiList }" var="fhi">
 			<tbody>

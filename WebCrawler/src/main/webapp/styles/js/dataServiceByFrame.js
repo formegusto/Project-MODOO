@@ -1,8 +1,8 @@
 // 통합
-function onKeyword(iseq,mode){
+function onKeyword(fseq,mode){
 	let keywordInput = document.getElementById('keyword');
 	
-	location.href="dataService.do?iseq=" + iseq + "&mode=" + mode + "&keyword=" + keywordInput.value;
+	location.href="dataServiceByFrame.do?fseq=" + fseq + "&mode=" + mode + "&keyword=" + keywordInput.value;
 }
 
 // read 용
