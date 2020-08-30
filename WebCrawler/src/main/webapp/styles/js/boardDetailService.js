@@ -93,3 +93,14 @@ function changeTypeSenti (type, name,positive, negative, neutral) {
     	},
 	});
 }
+
+function mfdDataTrans() {
+	var mfdContent = document.getElementsByClassName('mfdContent')[0];
+	mfdContent.className = "mfdContent active";
+}
+
+function mfdDataTransCancle() {
+	var mfdContent = document.getElementsByClassName('mfdContent active')[0];
+	mfdContent.className = "mfdContent";
+}
+

@@ -1,6 +1,8 @@
 package com.modoo.wrk.view;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +25,7 @@ import com.modoo.wrk.frame.FrameVO;
 import com.modoo.wrk.frame.impl.FrameService;
 import com.modoo.wrk.info.InfoVO;
 import com.modoo.wrk.info.impl.InfoService;
+import com.modoo.wrk.mdf.impl.MFDService;
 import com.modoo.wrk.tm.TVIVO;
 import com.modoo.wrk.tm.TmVO;
 import com.modoo.wrk.tm.impl.TmService;
@@ -47,6 +50,8 @@ public class BoardController {
 	private VisualService visualService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private MFDService mfdService;
 	
 	@RequestMapping(value = "boardMake.do", method = RequestMethod.GET)
 	public String boardMake(HttpSession session,
@@ -116,7 +121,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "boardDetailService.do", method = RequestMethod.GET)
-	public String boardDetailService(BoardVO vo, Model model) {
+	public String boardDetailService(BoardVO vo, Model model,
+			HttpSession session) {
 		BoardVO board = boardService.getBoard(vo);
 		List<BHDVO> bhdList = boardService.getBHDList(vo);
 		
@@ -197,6 +203,26 @@ public class BoardController {
 		CommentVO cvo = new CommentVO();
 		cvo.setBseq(vo.getBseq());
 		
+		// MDF Check
+		UsersVO user = (UsersVO) session.getAttribute("user");
+		Boolean isDevelopers = false;
+		if(user != null) {
+			Map<String, String> reqPayload = new HashMap<String, String>();
+			Map<String, String> resPayload = new HashMap<String, String>();
+			{
+				reqPayload.put("modoo_id", user.getId());
+			}
+			{
+				resPayload.put("modoo_id", board.getId());
+			}
+			if(mfdService.isDeveloper(reqPayload) && mfdService.isDeveloper(resPayload)) {
+				model.addAttribute("requser", user.getId());
+				model.addAttribute("resuser", board.getId());
+				isDevelopers = true;
+			}
+		}
+		
+		model.addAttribute("isDevelopers", isDevelopers);
 		model.addAttribute("commentList", commentService.getCommentList(cvo));
 		model.addAttribute("board", board);
 

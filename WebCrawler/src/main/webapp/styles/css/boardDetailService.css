@@ -288,6 +288,103 @@ td.fieldHeader {
 	padding: 1rem;
 }
 
+.mfdBtn {
+	width: 100%;
+	height: 100%;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 2rem;
+	background: black;
+	color: white;
+	border-radius: 1rem;
+	transition: .7s;
+	cursor: pointer;
+	border: none;
+	outline: none;
+}
+
+.mfdBtn:hover {
+	background: white;
+	color: black;
+}
+
+.mfdContent {
+	display: none;
+}
+
+
+.mfdForm {
+	width: 100%;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
+.mfdContent.active {
+	display: flex;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	background: black;
+	z-index: 250;
+	transition: .7s;
+	animation: fadeIn 1s forwards;
+}
+
+.mfdItem {
+	width: 90%;
+	display: flex;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 10rem;
+	color: white;
+	flex-flow: column;
+	align-items: center;
+}
+
+.mfdContent hr {
+	width: 90%;
+}
+
+.mfdItem textarea {
+	width: 80%;
+	height: 15rem;
+	border-radius: 1rem;
+	border: 1px black solid;
+	font-size: 2.5rem;
+	outline: none;
+	font-family: 'Do Hyeon', sans-serif;
+	resize: vertical;
+	padding: .5rem;
+}
+
+.mfdItem button {
+	flex: 1;
+	border-radius: 1rem;
+	font-size: 2.5rem;
+	border: .5rem black solid;
+	outline: none;
+	font-family: 'Do Hyeon', sans-serif;
+	padding: .5rem;
+	background: black;
+	color: white;
+	cursor: pointer;
+	transition: .7s;
+}
+
+.mfdItem button:hover {
+	background: white;
+	color: black;
+}
+
+.inputGrp {
+	display: flex;
+	width: 80%;
+}
+
 /* animation keyframe */
 @keyframes fadeIn {
 	from {

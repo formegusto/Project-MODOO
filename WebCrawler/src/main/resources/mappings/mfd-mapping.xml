@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MFDDAO">
+	<select id="isDeveloper" resultType="boolean">
+		SELECT EXISTS(
+				SELECT modoo_id
+				FROM MFD_USER
+				WHERE MODOO_ID = #{modoo_id}
+			) as modoo_id
+	</select>
+	<insert id="reqTransfer">
+		INSERT INTO MFD_TRANSFER(bseq, reqmsg, requser, resuser,status)
+		VALUES (#{bseq}, #{reqmsg}, #{requser}, #{resuser}, '진행중')
+	</insert>
+</mapper>

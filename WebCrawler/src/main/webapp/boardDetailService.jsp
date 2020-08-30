@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/boardDetailService.css?a"></link>
+<link rel="stylesheet" href="styles/css/boardDetailService.css?s"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script type="text/javascript" src="styles/js/boardDetailService.js?e"></script>
+<script type="text/javascript" src="styles/js/boardDetailService.js?c"></script>
 <c:if test="${visual ne null }">
 <script>
 window.addEventListener("load", function() {
@@ -32,6 +32,27 @@ window.addEventListener("load", function() {
 <title>MODOO</title>
 </head>
 <body>
+<c:if test="${isDevelopers }">
+<div class="mfdContent">
+	<div class="mfdItem">
+		글쓴이에게<br/>
+		메세지를 남겨주세요!
+	</div>
+	<hr/>
+	<div class="mfdItem">
+		<form class="mfdForm" name="mfdForm" method="post" action="mfdRequest.do">
+		<input type="hidden" name="bseq" value="${board.bseq }" />
+		<input type="hidden" name="requser"	 value="${requser} " />
+		<input type="hidden" name="resuser" value="${resuser }" />
+		<textarea name="reqmsg" placeholder="메세지" name="content"></textarea>
+		<div class="inputGrp">
+				<button type="submit">전송</button>
+				<button type="button" onclick="mfdDataTransCancle()">취소</button>
+		</div>
+		</form>
+	</div>
+</div>
+</c:if>
 <jsp:include page="components/header.html"/>
 <section> 
 	<div class="contents">
@@ -113,6 +134,11 @@ window.addEventListener("load", function() {
 				<div class="boardContent">
 					${board.content }
 				</div>
+				<c:if test="${isDevelopers }">
+				<div class="boardContent">
+						<button type="button" class="mfdBtn" onclick="mfdDataTrans()">데이터 요청하기</button>
+				</div>
+				</c:if>
 				<hr/>
 			</div>
 			<hr/>
@@ -128,6 +154,7 @@ window.addEventListener("load", function() {
 						<button type="submit" class="commentButton">댓글 달기</button>
 						<input type="hidden" name="bseq" value="${board.bseq }" />
 					</form>
+					
 				</div>
 				<c:forEach items="${commentList }" var="comment">
 				<div class="commentBox">
