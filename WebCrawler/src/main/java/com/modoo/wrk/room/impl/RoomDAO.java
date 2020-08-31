@@ -1,6 +1,7 @@
 package com.modoo.wrk.room.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,9 @@ public class RoomDAO {
 	
 	public List<RoomVO> getRoomSearch(SearchVO vo){
 		return mybatis.selectList("RoomDAO.getRoomSearch", vo);
+	}
+	
+	public void clearRHD(Map<String, Object> payload) {
+		mybatis.delete("RoomDAO.clearRHD", payload);
 	}
 }

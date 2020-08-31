@@ -1,6 +1,7 @@
 package com.modoo.wrk.room.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.room.RHDVO;
@@ -14,4 +15,5 @@ public interface RoomService {
 	public List<RoomVO> getRoomList();
 	public Integer getRoomTop(RoomVO vo);
 	public List<RoomVO> getRoomSearch(SearchVO vo);
+	public void clearRHD(Map<String, Object> payload);
 }

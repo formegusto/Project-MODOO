@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.modoo.wrk.board.impl.BoardService;
 import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
@@ -24,6 +25,7 @@ import com.modoo.wrk.frame.FrameVO;
 import com.modoo.wrk.frame.impl.FrameService;
 import com.modoo.wrk.info.InfoVO;
 import com.modoo.wrk.info.impl.InfoService;
+import com.modoo.wrk.room.impl.RoomService;
 import com.modoo.wrk.users.UsersVO;
 
 import au.com.bytecode.opencsv.CSVWriter;
@@ -36,6 +38,10 @@ public class FrameController {
 	private InfoService infoService;
 	@Autowired
 	private DataService dataService;
+	@Autowired
+	private BoardService boardService;
+	@Autowired
+	private RoomService roomService;
 	
 	@RequestMapping("frameService.do")
 	public String frameService(HttpSession session,
@@ -233,6 +239,14 @@ public class FrameController {
 	@RequestMapping("deleteFrame.do")
 	public String deleteFrame(FrameVO vo) {
 		frameService.deleteFrame(vo);
+		
+		Map<String, Object> payload = new HashMap<String, Object>();
+		{
+			payload.put("type", "frame");
+			payload.put("seq", vo.getFseq());
+		}
+		boardService.clearBHD(payload);
+		roomService.clearRHD(payload);
 		
 		return "redirect:frameService.do";
 	}

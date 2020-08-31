@@ -1,6 +1,7 @@
 package com.modoo.wrk.board.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.modoo.wrk.board.BHDVO;
 import com.modoo.wrk.board.BoardVO;
@@ -14,4 +15,5 @@ public interface BoardService {
 	public List<BoardVO> getBoardList();
 	public Integer getBoardTop(BoardVO vo);
 	public List<BoardVO> getBoardSearch(SearchVO vo);
+	public void clearBHD(Map<String, Object> payload);
 }

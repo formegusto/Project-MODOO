@@ -1,6 +1,8 @@
 package com.modoo.wrk.view;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.modoo.wrk.board.impl.BoardService;
 import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
+import com.modoo.wrk.room.impl.RoomService;
 import com.modoo.wrk.users.UsersVO;
 import com.modoo.wrk.visual.VCVO;
 import com.modoo.wrk.visual.VHIVO;
@@ -25,6 +29,10 @@ public class VisualController {
 	private DataService dataService;
 	@Autowired
 	private VisualService visualService;
+	@Autowired
+	private BoardService boardService;
+	@Autowired
+	private RoomService roomService;
 	
 	@RequestMapping("visualService.do")
 	public String visualService(Model model, HttpSession session,
@@ -160,6 +168,14 @@ public class VisualController {
 	@RequestMapping("deleteVisual.do")
 	public String deleteVisual(VisualVO vo) {
 		visualService.deleteVisual(vo);
+		
+		Map<String, Object> payload = new HashMap<String, Object>();
+		{
+			payload.put("type", "visual");
+			payload.put("seq", vo.getVseq());
+		}
+		boardService.clearBHD(payload);
+		roomService.clearRHD(payload);
 		
 		return "redirect:visualService.do";
 	}

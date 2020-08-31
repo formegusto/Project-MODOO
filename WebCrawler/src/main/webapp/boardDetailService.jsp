@@ -7,7 +7,7 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="styles/css/boardDetailService.css?s"></link>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script type="text/javascript" src="styles/js/boardDetailService.js?c"></script>
+<script type="text/javascript" src="styles/js/boardDetailService.js?s"></script>
 <c:if test="${visual ne null }">
 <script>
 window.addEventListener("load", function() {
@@ -26,6 +26,15 @@ window.addEventListener("load", function() {
 	console.log(datas);
 	
 	setVisualState(visualCanvas,title,vtype,labels,datas,color);
+	
+	var initContentType = document.getElementsByClassName("content")[0];
+	
+	if(initContentType.id === 'visual') {
+		initContentType.style.display = "inline";
+		initContentType.className = "content active";
+		
+		visualDraw();
+	}
 })
 </script>
 </c:if>
@@ -44,7 +53,7 @@ window.addEventListener("load", function() {
 		<input type="hidden" name="bseq" value="${board.bseq }" />
 		<input type="hidden" name="requser"	 value="${requser} " />
 		<input type="hidden" name="resuser" value="${resuser }" />
-		<textarea name="reqmsg" placeholder="메세지" name="content"></textarea>
+		<textarea name="reqmsg" placeholder="메세지"></textarea>
 		<div class="inputGrp">
 				<button type="submit">전송</button>
 				<button type="button" onclick="mfdDataTransCancle()">취소</button>
@@ -59,36 +68,37 @@ window.addEventListener("load", function() {
 		<div class="data">
 			<ul class="dataHeader">
 				<c:if test="${frame ne null }">
-					<li class="dataHeaderitem active" onclick="changeType(this,'frame')">
+					<li class="dataHeaderitem" onclick="changeType(this,'frame')">
 						프레임
 					</li>
 				</c:if>
 				<c:if test="${tm ne null }">
 					<c:if test="${tm.ttype eq 'wordcloud' }">
-							<li onclick="changeType(this,'tm')">
+							<li onclick="changeType(this,'tm')" class="dataHeaderitem">
 								텍스트마이닝
 							</li>
 					</c:if>
 					<c:if test="${tm.ttype eq 'sna'}">
-							<li onclick="changeType(this,'tm')">
+							<li onclick="changeType(this,'tm')" class="dataHeaderitem">
 								텍스트마이닝
 							</li>
 					</c:if>
 					<c:if test="${tm.ttype eq 'sentiment'}">
-							<li onclick="changeTypeSenti(this,'tm',${tm.tvi.positive},${tm.tvi.negative }, ${tm.tvi.neutral })">
+							<li onclick="changeTypeSenti(this,'tm',${tm.tvi.positive},${tm.tvi.negative }, ${tm.tvi.neutral })"
+								class="dataHeaderitem">
 								텍스트마이닝
 							</li>
 					</c:if>
 				</c:if>
 				<c:if test="${visual ne null }">
-					<li onclick="changeType(this,'visual')">
+					<li onclick="changeType(this,'visual')" class="dataHeaderitem">
 						시각화
 					</li>
 				</c:if>
 			</ul>
 			<div class="dataContent">
 				<c:if test="${frame ne null }">
-					<div id="frame" class="content active">
+					<div id="frame" class="content">
 						<table>
 							<tbody>
 							<c:forEach items="${fhiList }" var="fhi">
@@ -108,7 +118,7 @@ window.addEventListener("load", function() {
 					</div>
 				</c:if>
 				<c:if test="${tm ne null }">
-					<div id="tm">
+					<div id="tm" class="content">
 						<c:if test="${tm.ttype eq 'wordcloud' }">
 							<c:import url="/userRview/${tm.tseq }.html" charEncoding="EUC-KR" />
 						</c:if>
@@ -121,7 +131,7 @@ window.addEventListener("load", function() {
 					</div>
 				</c:if>	
 				<c:if test="${visual ne null }">			
-					<div id="visual">
+					<div id="visual" class="content">
 						<canvas class="visualcanvas" style="width:500px; height: 500px;"></canvas>
 					</div>
 				</c:if>

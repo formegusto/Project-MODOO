@@ -5,7 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.modoo.wrk.board.impl.BoardService;
 import com.modoo.wrk.data.DataVO;
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.data.impl.DataService;
@@ -29,6 +32,7 @@ import com.modoo.wrk.frame.FrameVO;
 import com.modoo.wrk.frame.impl.FrameService;
 import com.modoo.wrk.info.InfoVO;
 import com.modoo.wrk.info.impl.InfoService;
+import com.modoo.wrk.room.impl.RoomService;
 import com.modoo.wrk.tm.THIVO;
 import com.modoo.wrk.tm.TVIVO;
 import com.modoo.wrk.tm.TmVO;
@@ -45,6 +49,10 @@ public class TMController {
 	private InfoService infoService;
 	@Autowired
 	private FrameService frameService;
+	@Autowired
+	private BoardService boardService;
+	@Autowired
+	private RoomService roomService;
 	
 	@RequestMapping("/tmService.do")
 	public String tmService(HttpSession session, Model model,
@@ -434,6 +442,14 @@ public class TMController {
 	@RequestMapping("deleteTm.do")
 	public String deleteTm(TmVO vo) {
 		tmService.deleteTm(vo);
+		
+		Map<String, Object> payload = new HashMap<String, Object>();
+		{
+			payload.put("type", "tm");
+			payload.put("seq", vo.getTseq());
+		}
+		boardService.clearBHD(payload);
+		roomService.clearRHD(payload);
 		
 		return "redirect:tmService.do";
 	}

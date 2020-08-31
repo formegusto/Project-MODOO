@@ -1,6 +1,7 @@
 package com.modoo.wrk.room;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,12 @@ public class RoomServiceImpl implements RoomService {
 	public List<RoomVO> getRoomSearch(SearchVO vo) {
 		// TODO Auto-generated method stub
 		return roomDAO.getRoomSearch(vo);
+	}
+
+	@Override
+	public void clearRHD(Map<String, Object> payload) {
+		// TODO Auto-generated method stub
+		roomDAO.clearRHD(payload);
 	}
 	
 }

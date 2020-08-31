@@ -1,6 +1,7 @@
 package com.modoo.wrk.board;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,12 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> getBoardSearch(SearchVO vo) {
 		// TODO Auto-generated method stub
 		return boardDAO.getBoardSearch(vo);
+	}
+
+	@Override
+	public void clearBHD(Map<String, Object> payload) {
+		// TODO Auto-generated method stub
+		boardDAO.clearBHD(payload);
 	}
 
 }

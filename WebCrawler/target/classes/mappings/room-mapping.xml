@@ -51,4 +51,12 @@
 			ORDER BY RSEQ DESC LIMIT 1
 	]]>
 	</select>
+	<delete id="clearRHD">
+	<![CDATA[
+		DELETE
+		FROM ROOM_HAVE_DATA
+		WHERE TYPE=#{type}
+		AND SEQ=#{seq}
+	]]>
+	</delete>
 </mapper>
