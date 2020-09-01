@@ -78,6 +78,21 @@ function typeClick(btn, type) {
 }
 
 function onMake() {
+	var fseqInput = document.getElementById('fseq');
+	var tseqInput = document.getElementById('tseq');
+	var vseqInput = document.getElementById('vseq');
+	
+	
+	if(fseqInput.value === "") {
+		fseqInput.value = "0";
+	}
+	if(vseqInput.value === "") {
+		vseqInput.value = "0";
+	}
+	if(tseqInput.value === "") {
+		tseqInput.value = "0";
+	}
+	
 	var typeInput = document.getElementById('type');
 	if(typeInput.value === 'board'){
 		document.board.action = 'boardMake.do';

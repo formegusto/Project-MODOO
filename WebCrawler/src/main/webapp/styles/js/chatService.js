@@ -11,10 +11,27 @@ window.onload = () => {
 	chat.scrollTop = chat.scrollHeight;
 	
 	tm = document.getElementById("tm");
-	tm.style.display = "none";
+	if(tm){
+		tm.style.display = "none";
+	}
 	
 	visual = document.getElementById("visual");
-	visual.style.display = "none";
+	if(visual) {
+		visual.style.display = "none";
+	}
+	
+	var initHeaderType = document.getElementsByClassName("dataHeaderitem")[0];
+	initHeaderType.className = "dataHeaderitem active";
+	
+	var initContentType = document.getElementsByClassName("content")[0];
+	var contentId = initContentType.id;
+	
+	if(contentId === 'visual') {
+		return;
+	}
+	
+	initContentType.style.display = "inline";
+	initContentType.className = "content active";
 }
 
 function onMessage(event) {

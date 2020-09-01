@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.modoo.wrk.data.SearchVO;
 import com.modoo.wrk.frame.FrameVO;
@@ -32,35 +33,55 @@ public class RoomController {
 	private VisualService visualService;
 	
 	@RequestMapping(value = "roomMake.do", method = RequestMethod.POST)
-	public String roomMake_proc(RoomVO rvo, FrameVO fvo,
-			TmVO tvo, VisualVO vvo, HttpSession session) {
+	public String roomMake_proc(RoomVO rvo, @RequestParam(defaultValue = "0" ) int fseq,
+			@RequestParam(defaultValue = "0" ) int tseq, @RequestParam(defaultValue = "0" ) int vseq, HttpSession session) {
 		UsersVO user = (UsersVO) session.getAttribute("user");
 		
-		FrameVO frame = frameService.getFrame(fvo);
-		TmVO tm = tmService.getTm(tvo);
-		VisualVO visual = visualService.getVisual(vvo);
 		rvo.setId(user.getId());
 		roomService.insertRoom(rvo);
-		
-		RHDVO frameRHD = new RHDVO();
-		RHDVO tmRHD = new RHDVO();
-		RHDVO visualRHD = new RHDVO();
-		
 		int rseq = roomService.getRoomTop(rvo);
 		
-		frameRHD.setRseq(rseq);
-		frameRHD.setSeq(frame.getFseq());
-		frameRHD.setType("frame");
-		tmRHD.setRseq(rseq);
-		tmRHD.setSeq(tm.getTseq());
-		tmRHD.setType("tm");
-		visualRHD.setRseq(rseq);
-		visualRHD.setSeq(visual.getVseq());
-		visualRHD.setType("visual");
+		if(fseq != 0) {
+			FrameVO fvo = new FrameVO();
+			fvo.setFseq(fseq);
+			
+			FrameVO frame = frameService.getFrame(fvo);
+			RHDVO frameRHD = new RHDVO();
+			
+			frameRHD.setRseq(rseq);
+			frameRHD.setSeq(frame.getFseq());
+			frameRHD.setType("frame");
+			
+			roomService.insertRHD(frameRHD);
+		}
 		
-		roomService.insertRHD(frameRHD);
-		roomService.insertRHD(tmRHD);
-		roomService.insertRHD(visualRHD);
+		if(tseq != 0) {
+			TmVO tvo = new TmVO();
+			tvo.setTseq(tseq);
+			
+			TmVO tm = tmService.getTm(tvo);
+			RHDVO tmRHD = new RHDVO();
+			
+			tmRHD.setRseq(rseq);
+			tmRHD.setSeq(tm.getTseq());
+			tmRHD.setType("tm");
+			
+			roomService.insertRHD(tmRHD);
+		}
+		
+		if(vseq != 0) {
+			VisualVO vvo = new VisualVO();
+			vvo.setVseq(vseq);
+			
+			VisualVO visual = visualService.getVisual(vvo);
+			RHDVO visualRHD = new RHDVO();
+			
+			visualRHD.setRseq(rseq);
+			visualRHD.setSeq(visual.getVseq());
+			visualRHD.setType("visual");
+			
+			roomService.insertRHD(visualRHD);
+		}
 		
 		return "redirect:roomService.do";
 	}

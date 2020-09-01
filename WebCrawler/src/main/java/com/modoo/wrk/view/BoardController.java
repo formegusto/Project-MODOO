@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.modoo.wrk.board.BHDVO;
 import com.modoo.wrk.board.BoardVO;
@@ -74,35 +75,55 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "boardMake.do", method = RequestMethod.POST)
-	public String boardMake_proc(BoardVO bvo, FrameVO fvo,
-			TmVO tvo, VisualVO vvo, HttpSession session) {
+	public String boardMake_proc(BoardVO bvo, @RequestParam(defaultValue = "0" ) int fseq,
+			@RequestParam(defaultValue = "0" ) int tseq, @RequestParam(defaultValue = "0" ) int vseq, HttpSession session) {
 		UsersVO user = (UsersVO) session.getAttribute("user");
 		
-		FrameVO frame = frameService.getFrame(fvo);
-		TmVO tm = tmService.getTm(tvo);
-		VisualVO visual = visualService.getVisual(vvo);
 		bvo.setId(user.getId());
 		boardService.insertBoard(bvo);
-		
-		BHDVO frameBHD = new BHDVO();
-		BHDVO tmBHD = new BHDVO();
-		BHDVO visualBHD = new BHDVO();
-		
 		int bseq = boardService.getBoardTop(bvo);
 		
-		frameBHD.setBseq(bseq);
-		frameBHD.setSeq(frame.getFseq());
-		frameBHD.setType("frame");
-		tmBHD.setBseq(bseq);
-		tmBHD.setSeq(tm.getTseq());
-		tmBHD.setType("tm");
-		visualBHD.setBseq(bseq);
-		visualBHD.setSeq(visual.getVseq());
-		visualBHD.setType("visual");
+		if(fseq != 0) {
+			FrameVO fvo = new FrameVO();
+			fvo.setFseq(fseq);
+			
+			FrameVO frame = frameService.getFrame(fvo);
+			BHDVO frameBHD = new BHDVO();
+			
+			frameBHD.setBseq(bseq);
+			frameBHD.setSeq(frame.getFseq());
+			frameBHD.setType("frame");
+			
+			boardService.insertBHD(frameBHD);
+		}
 		
-		boardService.insertBHD(frameBHD);
-		boardService.insertBHD(tmBHD);
-		boardService.insertBHD(visualBHD);
+		if(tseq != 0) {
+			TmVO tvo = new TmVO();
+			tvo.setTseq(tseq);
+			
+			TmVO tm = tmService.getTm(tvo);
+			BHDVO tmBHD = new BHDVO();
+			
+			tmBHD.setBseq(bseq);
+			tmBHD.setSeq(tm.getTseq());
+			tmBHD.setType("tm");
+			
+			boardService.insertBHD(tmBHD);
+		}
+		
+		if(vseq != 0) {
+			VisualVO vvo = new VisualVO();
+			vvo.setVseq(vseq);
+			
+			VisualVO visual = visualService.getVisual(vvo);
+			BHDVO visualBHD = new BHDVO();
+			
+			visualBHD.setBseq(bseq);
+			visualBHD.setSeq(visual.getVseq());
+			visualBHD.setType("visual");
+			
+			boardService.insertBHD(visualBHD);
+		}
 		
 		return "redirect:boardService.do";
 	}
