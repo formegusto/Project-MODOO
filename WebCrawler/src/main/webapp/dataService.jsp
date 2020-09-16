@@ -5,11 +5,15 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet" href="styles/css/dataService.css"></link>
-<script type="text/javascript" src="styles/js/dataService.js"></script>
+<link rel="stylesheet" href="styles/css/dataService.css?g"></link>
+<script type="text/javascript" src="styles/js/dataService.js?c"></script>
 <title>MODOO</title>
 </head>
 <body>
+<div class="recrawlLoading">
+	결과가 안나와도 울지마세요.<br/>
+	인생은 그런겁니다 :)
+</div>
 <jsp:include page="components/header.html"/>
 <section> 
 	<div class="sideContent">
@@ -63,7 +67,7 @@
 		</div>
 		<hr/>
 		<c:if test="${info.itype ne 'empty' }">
-			<div class="sideItem" onclick="location.href='recrawl.do?iseq=${info.iseq}'">Recrawl</div>
+			<div class="sideItem" onclick="onRecrawl(${info.iseq})">Recrawl</div>
 		</c:if>
 		<div class="sideItem" onclick="location.href='infoService.do'">CANCLE</div>
 	</div>

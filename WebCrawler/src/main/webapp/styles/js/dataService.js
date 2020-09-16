@@ -12,6 +12,13 @@ function onClick(type){
 	}
 }
 
+function onRecrawl(iseq){
+	let loading = document.getElementsByClassName('recrawlLoading')[0];
+	loading.className = "recrawlLoading active";
+		
+	location.href='recrawl.do?iseq=' + iseq;
+}
+
 function allDataContent(e){
 	let whitespace = e.style.whiteSpace;
 	console.log(whitespace);

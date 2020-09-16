@@ -43,7 +43,7 @@
 					<input type="text" name="cssQuery" placeholder="cssQuery!" value="empty" readonly="readonly"/>
 				</c:if>
 				<c:if test="${itype ne 'empty' }">
-					<input type="text" name="cssQuery" placeholder="cssQuery!"/>
+					<input type="text" name="cssQuery" placeholder="cssQuery!" title="크롬의 개발자 모드를 사용하시면 쉽게 찾으실 수 있습니다!"/>
 				</c:if>
 			</div>
 			<input type="hidden" name="itype" value=${itype } id="itype"/>
